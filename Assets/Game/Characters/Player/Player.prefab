@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 5907778288306257590}
   - component: {fileID: 5907778288306257587}
   - component: {fileID: 5907778288306257588}
+  - component: {fileID: 5747581757429898216}
   - component: {fileID: 5907778288306257589}
+  - component: {fileID: 6140971742893800511}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -68,6 +70,25 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.75, z: 0}
+--- !u!95 &5747581757429898216
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907778288306257591}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: f3384939af6db8a42be0671605618827, type: 3}
+  m_Controller: {fileID: 9100000, guid: cc6012b3339d3874c8c64564d2a3e985, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &5907778288306257589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,6 +112,27 @@ MonoBehaviour:
     m_Bits: 256
   gravity: -9.81
   jumpHeight: 1.5
+--- !u!114 &6140971742893800511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907778288306257591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 1
+    Name: Speed
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1001 &5907778287079638815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,6 +199,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: eve_j_gonzales
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: f3384939af6db8a42be0671605618827,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f3384939af6db8a42be0671605618827,
         type: 3}

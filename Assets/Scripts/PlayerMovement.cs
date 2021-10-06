@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPunObservable
 {
+    public static PlayerMovement localPlayer;
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
@@ -13,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 velocity;
     private Vector3 moveDir;
+    private GameObject myFollowCamera;
+    private Camera myCamera;
+    float angle;
 
     [SerializeField] private bool isGrounded;
     [SerializeField] private float groundCheckDistance;
@@ -23,13 +29,34 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Animator anim;
 
+    //Networking
+
+    PhotonView myPV;
+
     private void Start()
     {
+        myPV = GetComponent<PhotonView>();
+        if (myPV.IsMine)
+        {
+            localPlayer = this;
+        }
         controller = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
+        myFollowCamera = transform.parent.GetChild(1).gameObject;
+        myCamera = transform.parent.GetChild(2).GetComponent<Camera>();
+
+        if (!myPV.IsMine)
+        {
+            myFollowCamera.gameObject.SetActive(false);
+            myCamera.gameObject.SetActive(false);
+            return;
+        }
     }
     private void Update()
     {
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        if (!myPV.IsMine) { return; }
+
         Move();
     }
     private void Move()
@@ -73,11 +100,11 @@ public class PlayerMovement : MonoBehaviour
         if (moveDirection.magnitude >= 0.1f)
         {
             float targetAngel = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngel, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, targetAngel, 0f);
+            angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngel, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             moveDir = Quaternion.Euler(0f, targetAngel, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * moveSpeed *Time.deltaTime);
+            controller.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
 
         }
 
@@ -103,5 +130,17 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(angle);
+        }
+        else
+        {
+            angle = (float)stream.ReceiveNext();
+        }
     }
 }
