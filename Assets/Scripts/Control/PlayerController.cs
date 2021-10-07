@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
+using RPG.Core;
 
-public class PlayerMovement : MonoBehaviour, IPunObservable
+public class PlayerController : MonoBehaviour, IPunObservable
 {
-    public static PlayerMovement localPlayer;
+    public static PlayerController localPlayer;
 
-    [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
-    [SerializeField] private float turnSmoothTime = 0.1f;
+    [SerializeField] private float turnSmoothTime = 0.2f;
 
     private float turnSmoothVelocity;
+    private float moveSpeed;
     private Vector3 moveDirection;
     private Vector3 velocity;
     private Vector3 moveDir;
@@ -57,8 +59,10 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
         if (!myPV.IsMine) { return; }
 
+        
         Move();
     }
+
     private void Move()
     {
         isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
@@ -72,7 +76,6 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         float moveX = Input.GetAxis("Horizontal");
 
         moveDirection = new Vector3(moveX, 0, moveZ).normalized;
-
 
 
         if (isGrounded)
@@ -100,12 +103,11 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
         if (moveDirection.magnitude >= 0.1f)
         {
             float targetAngel = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
-            angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngel, ref turnSmoothVelocity, turnSmoothTime);
+            angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngel, ref turnSmoothVelocity, isGrounded ? turnSmoothTime : turnSmoothTime * 2);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             moveDir = Quaternion.Euler(0f, targetAngel, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
-
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -120,16 +122,17 @@ public class PlayerMovement : MonoBehaviour, IPunObservable
     private void Walk()
     {
         moveSpeed = walkSpeed;
-        anim.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
+        anim.SetFloat("Speed", moveSpeed, 0.1f, Time.deltaTime);
     }
     private void Run()
     {
         moveSpeed = runSpeed;
-        anim.SetFloat("Speed", 1, 0.1f, Time.deltaTime);
+        anim.SetFloat("Speed", moveSpeed, 0.1f, Time.deltaTime);
     }
     private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        isGrounded = false;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

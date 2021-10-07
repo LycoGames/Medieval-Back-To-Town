@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class isfall : MonoBehaviour
+public class FallOutOfMapFixer : MonoBehaviour
 {
    
     [SerializeField]Transform spawnpoint; 

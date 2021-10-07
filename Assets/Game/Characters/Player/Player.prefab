@@ -11,8 +11,12 @@ GameObject:
   - component: {fileID: 5907778288306257590}
   - component: {fileID: 5907778288306257587}
   - component: {fileID: 5907778288306257588}
-  - component: {fileID: 5747581757429898216}
+  - component: {fileID: 4102948989978241071}
+  - component: {fileID: 780759533571739495}
   - component: {fileID: 5907778288306257589}
+  - component: {fileID: 6232947627707968915}
+  - component: {fileID: 6009602669544546469}
+  - component: {fileID: 7732380312302494177}
   - component: {fileID: 6140971742893800511}
   m_Layer: 0
   m_Name: Player
@@ -28,7 +32,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5907778288306257591}
-  m_LocalRotation: {x: -0, y: -0.9998404, z: -0, w: -0.017869847}
+  m_LocalRotation: {x: -0, y: -0.9998403, z: 0, w: -0.017871087}
   m_LocalPosition: {x: -5.939553, y: 1.28, z: -5.4799914}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -70,7 +74,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.75, z: 0}
---- !u!95 &5747581757429898216
+--- !u!95 &4102948989978241071
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -89,6 +93,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &780759533571739495
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907778288306257591}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.6344719
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.6855602, z: 0}
 --- !u!114 &5907778288306257589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,9 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe7255e07f710b43a3c01edcf8903f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  walkSpeed: 4
-  runSpeed: 7
+  walkSpeed: 2
+  runSpeed: 5
   turnSmoothTime: 0.1
   isGrounded: 0
   groundCheckDistance: 0.2
@@ -112,6 +129,60 @@ MonoBehaviour:
     m_Bits: 256
   gravity: -9.81
   jumpHeight: 1.5
+--- !u!114 &6232947627707968915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907778288306257591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b1a24cad9db2f4abbd2d7bad9cdc91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6009602669544546469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907778288306257591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 5907778288306257589}
+  - {fileID: 6232947627707968915}
+  - {fileID: 7732380312302494177}
+  - {fileID: 6140971742893800511}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &7732380312302494177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907778288306257591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &6140971742893800511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,12 +195,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
+  ShowLayerWeightsInspector: 0
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 1
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Speed
+  - Type: 9
+    SynchronizeType: 1
+    Name: attack
+  - Type: 9
+    SynchronizeType: 0
+    Name: stopAttack
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
