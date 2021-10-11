@@ -6,7 +6,6 @@ public class Fighter : MonoBehaviour, IPunObservable
 {
     public static Fighter localPlayer;
     private Animator anim;
-    private bool syncAttackTrigger = false;
 
     //Network
     PhotonView myPV;
@@ -29,21 +28,13 @@ public class Fighter : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (syncAttackTrigger)
-        {
-            anim = GetComponent<Animator>();
-            anim.SetTrigger("attack");
-            syncAttackTrigger = false;
-        }
-
         if (!myPV.IsMine) { return; }
-
-        AttackBehaviour();
     }
 
-    private void AttackBehaviour()
+    public bool AttackBehaviour()
     {
         TriggerAttack();
+        return anim.GetBool("isAttacking");
     }
 
     void Hit()
@@ -51,11 +42,17 @@ public class Fighter : MonoBehaviour, IPunObservable
         //Debug.Log("Yumruk Atıldı.");
     }
 
+    private void AttackAnimEnded()
+    {
+        anim.SetBool("isAttacking", false);
+    }
+
     private void TriggerAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (!anim.GetBool("isAttacking") && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            syncAttackTrigger = true;
+            anim.SetTrigger("attack");
+            anim.SetBool("isAttacking", true);
         }
     }
 
@@ -63,11 +60,11 @@ public class Fighter : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(syncAttackTrigger);
+            stream.SendNext(anim.GetBool("isAttacking"));
         }
         else
         {
-            syncAttackTrigger = (bool)stream.ReceiveNext();
+            anim.SetBool("isAttacking", (bool)stream.ReceiveNext());
         }
     }
 }

@@ -59,8 +59,14 @@ public class PlayerController : MonoBehaviour, IPunObservable
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
         if (!myPV.IsMine) { return; }
 
+        if (HandleAttack()) return;
 
         Move();
+    }
+
+    private bool HandleAttack()
+    {
+        return isGrounded && GetComponent<Fighter>().AttackBehaviour();
     }
 
     private void Move()
@@ -103,6 +109,7 @@ public class PlayerController : MonoBehaviour, IPunObservable
         if (moveDirection.magnitude >= 0.1f)
         {
             float targetAngel = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+
             angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngel, ref turnSmoothVelocity, isGrounded ? turnSmoothTime : turnSmoothTime * 2);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 

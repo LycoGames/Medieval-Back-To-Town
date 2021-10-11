@@ -203,6 +203,7 @@ public class Marker_Manager : MonoBehaviour
             if (hitWall)
             {
                 PlayWallHitSound();
+                hitWall = false;
             }
             for (int i3 = 0; i3 < wallHitPositions.Count; i3++)
             {
