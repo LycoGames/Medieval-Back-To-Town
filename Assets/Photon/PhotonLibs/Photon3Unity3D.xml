@@ -290,12 +290,6 @@
             gathers commands from all (out)queues until udp-packet is full and sends it!
             </summary>
         </member>
-        <member name="M:ExitGames.Client.Photon.EnetPeer.AreReliableCommandsInTransit">
-            <summary>
-            Checks if any channel has a outgoing reliable command.
-            </summary>
-            <returns>True if any channel has a outgoing reliable command. False otherwise.</returns>
-        </member>
         <member name="M:ExitGames.Client.Photon.EnetPeer.EnqueuePhotonMessage(ExitGames.Client.Photon.StreamBuffer,ExitGames.Client.Photon.SendOptions)">
             <summary>
             Checks connected state and channel before operation is serialized and enqueued for sending.

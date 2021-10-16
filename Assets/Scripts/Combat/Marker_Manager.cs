@@ -13,7 +13,6 @@ public class Marker_Manager : MonoBehaviour
     public GameObject blood;
 
     bool hitFlesh;
-    bool hitWall;
 
     Marker[] markers;
 
@@ -22,7 +21,6 @@ public class Marker_Manager : MonoBehaviour
 
     List<Vector3> bladeDirection = new List<Vector3>();
     List<Vector3> bladeStartpoint = new List<Vector3>();
-    List<Vector3> wallHitPositions = new List<Vector3>();
 
     bool markersAreEnabled;
     GameObject missSparks;
@@ -34,22 +32,12 @@ public class Marker_Manager : MonoBehaviour
     public AudioSource soundSource;
 
     [Range(0, 5)]
-    public int numberOfWallHitSounds;
-    public AudioClip wallHitSound1;
-    public AudioClip wallHitSound2;
-    public AudioClip wallHitSound3;
-    public AudioClip wallHitSound4;
-    public AudioClip wallHitSound5;
-
-    [Range(0, 5)]
     public int numberOfTargetHitSounds;
     public AudioClip targetHitSound1;
     public AudioClip targetHitSound2;
     public AudioClip targetHitSound3;
     public AudioClip targetHitSound4;
     public AudioClip targetHitSound5;
-
-    public GameObject wallHitSparks;
 
     public bool DisableMarkersOnObjectDisable = true;
 
@@ -116,7 +104,6 @@ public class Marker_Manager : MonoBehaviour
         bladeStartpoint.Clear();
         bladeDirection.Clear();
         usedTargets.Clear();
-        wallHitPositions.Clear();
     }
 
     private void OnDisable()
@@ -170,18 +157,6 @@ public class Marker_Manager : MonoBehaviour
                         {
                             targetsRawHit.Add(rawTargetInstance.transform);
                         }
-                        //CheckAboutShield
-                    }
-
-                    if (markers[i].target.tag != targetTag && /*markers[i].target.tag != shieldTag && */usedTargets.Contains(markers[i].target) == false)
-                    {
-
-                        usedTargets.Add(markers[i].target.transform);
-
-                        hitWall = true;
-
-                        wallHitPositions.Add(markers[i].hit.point);
-
                     }
                 }
             }
@@ -196,25 +171,6 @@ public class Marker_Manager : MonoBehaviour
 
         //Shield Part
 
-        //Wall Part
-
-        if (hitWall /*|| hitShield*/)
-        {
-            if (hitWall)
-            {
-                PlayWallHitSound();
-                hitWall = false;
-            }
-            for (int i3 = 0; i3 < wallHitPositions.Count; i3++)
-            {
-                if (wallHitSparks != null)
-                {
-                    missSparks = Instantiate(wallHitSparks, wallHitPositions[i3], Quaternion.identity) as GameObject;
-                    missSparks.transform.LookAt(markersParent);
-                }
-            }
-        }
-
         if (hitFlesh)
         {
             for (int i2 = 0; i2 < targetsRawHit.Count; i2++)
@@ -222,8 +178,14 @@ public class Marker_Manager : MonoBehaviour
                 if (targetsRawHit[i2] != null && targetsRawHit[i2].GetComponent<Health>() != null && usedTargets.Contains(targetsRawHit[i2]) == false)
                 {
                     targetsRawHit[i2].GetComponent<Health>().Bloodflood(bladeDirection[i2], bladeStartpoint[i2]);
-                    targetsRawHit[i2].GetComponent<Health>().ApplyDamage(damage);
+
                     PlayTargetHitSound();
+
+                    if (targetsRawHit[i2].GetComponent<Health>() != null)
+                    {
+                        targetsRawHit[i2].GetComponent<Health>().ApplyDamage(damage);
+                    }
+
                     if (blood != null)
                     {
                         GameObject b = Instantiate(blood, bladeStartpoint[i2], Quaternion.identity) as GameObject;
@@ -234,8 +196,11 @@ public class Marker_Manager : MonoBehaviour
                 if (targetsRawHit[i2] != null && targetsRawHit[i2].GetComponent<Limb_Hitbox>() != null && usedTargets.Contains(targetsRawHit[i2]) == false)
                 {
                     targetsRawHit[i2].GetComponent<Limb_Hitbox>().health.Bloodflood(bladeDirection[i2], bladeStartpoint[i2]);
-                    targetsRawHit[i2].GetComponent<Limb_Hitbox>().health.ApplyDamage(damage);
+
                     PlayTargetHitSound();
+
+                    targetsRawHit[i2].GetComponent<Limb_Hitbox>().health.ApplyDamage(damage);
+
                     if (blood != null)
                     {
                         GameObject b = Instantiate(blood, bladeStartpoint[i2], Quaternion.identity) as GameObject;
@@ -286,47 +251,5 @@ public class Marker_Manager : MonoBehaviour
     }
 
     /* SHIELD HIT SOUND  */
-
-    private void PlayWallHitSound()
-    {
-        if (soundSource != null)
-        {
-            if (numberOfWallHitSounds > 0)
-            {
-                sRoll = UnityEngine.Random.Range(1, numberOfWallHitSounds + 1);
-
-                if (sRoll == 1)
-                {
-                    soundSource.PlayOneShot(wallHitSound1);
-
-                }
-                if (sRoll == 2)
-                {
-                    soundSource.PlayOneShot(wallHitSound2);
-
-                }
-                if (sRoll == 3)
-                {
-                    soundSource.PlayOneShot(wallHitSound3);
-
-                }
-                if (sRoll == 4)
-                {
-                    soundSource.PlayOneShot(wallHitSound4);
-
-                }
-                if (sRoll == 5)
-                {
-                    soundSource.PlayOneShot(wallHitSound5);
-
-                }
-
-            }
-        }
-    }
-
-
-
-
 
 }

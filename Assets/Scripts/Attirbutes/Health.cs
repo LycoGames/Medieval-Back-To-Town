@@ -99,7 +99,6 @@ public class Health : MonoBehaviour
     {
         healthPoints.value -= dmg;
         Debug.Log(healthPoints.value);
-        Debug.Log(healthPoints.value);
 
         if (healthPoints.value < 0)
         {

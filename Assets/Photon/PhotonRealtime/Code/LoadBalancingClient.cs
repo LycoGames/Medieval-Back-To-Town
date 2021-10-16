@@ -1764,6 +1764,11 @@ namespace Photon.Realtime
         /// <returns>If the operation could be sent currently (requires connection to Master Server).</returns>
         public bool OpJoinOrCreateRoom(EnterRoomParams enterRoomParams)
         {
+            if (!this.CheckIfOpCanBeSent(OperationCode.JoinGame, this.Server, "JoinOrCreateRoom"))
+            {
+                return false;
+            }
+
             bool onGameServer = this.Server == ServerConnection.GameServer;
             enterRoomParams.JoinMode = JoinMode.CreateIfNotExists;
             enterRoomParams.OnGameServer = onGameServer;
@@ -1828,6 +1833,7 @@ namespace Photon.Realtime
             {
                 return false;
             }
+
             bool onGameServer = this.Server == ServerConnection.GameServer;
             enterRoomParams.OnGameServer = onGameServer;
             if (!onGameServer)
@@ -1864,6 +1870,11 @@ namespace Photon.Realtime
         /// </remarks>
         public bool OpRejoinRoom(string roomName)
         {
+            if (!this.CheckIfOpCanBeSent(OperationCode.JoinGame, this.Server, "RejoinRoom"))
+            {
+                return false;
+            }
+
             bool onGameServer = this.Server == ServerConnection.GameServer;
 
             EnterRoomParams opParams = new EnterRoomParams();
@@ -1927,6 +1938,7 @@ namespace Photon.Realtime
             {
                 return false;
             }
+
             if (string.IsNullOrEmpty(sqlLobbyFilter))
             {
                 this.DebugReturn(DebugLevel.ERROR, "Operation GetGameList requires a filter.");
@@ -1997,6 +2009,7 @@ namespace Photon.Realtime
                 this.DebugReturn(DebugLevel.ERROR, "OpSetCustomPropertiesOfActor() failed. propertiesToSet must not be null nor empty.");
                 return false;
             }
+
             if (this.CurrentRoom == null)
             {
                 // if you attempt to set this player's values without conditions, then fine:
@@ -2031,6 +2044,7 @@ namespace Photon.Realtime
             {
                 return false;
             }
+
             if (actorProperties == null || actorProperties.Count == 0)
             {
                 this.DebugReturn(DebugLevel.ERROR, "OpSetPropertiesOfActor() failed. actorProperties must not be null nor empty.");
@@ -2128,6 +2142,7 @@ namespace Photon.Realtime
             {
                 return false;
             }
+
             if (gameProperties == null || gameProperties.Count == 0)
             {
                 this.DebugReturn(DebugLevel.ERROR, "OpSetPropertiesOfRoom() failed. gameProperties must not be null nor empty.");
@@ -2153,14 +2168,11 @@ namespace Photon.Realtime
         /// <returns>If operation could be enqueued for sending. Sent when calling: Service or SendOutgoingCommands.</returns>
         public virtual bool OpRaiseEvent(byte eventCode, object customEventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
         {
-            if (this.LoadBalancingPeer == null)
-            {
-                return false;
-            }
             if (!this.CheckIfOpCanBeSent(OperationCode.RaiseEvent, this.Server, "RaiseEvent"))
             {
                 return false;
             }
+
             return this.LoadBalancingPeer.OpRaiseEvent(eventCode, customEventContent, raiseEventOptions, sendOptions);
         }
 
@@ -2182,14 +2194,11 @@ namespace Photon.Realtime
         /// <returns>If operation could be enqueued for sending. Sent when calling: Service or SendOutgoingCommands.</returns>
         public virtual bool OpChangeGroups(byte[] groupsToRemove, byte[] groupsToAdd)
         {
-            if (this.LoadBalancingPeer == null)
-            {
-                return false;
-            }
             if (!this.CheckIfOpCanBeSent(OperationCode.ChangeGroups, this.Server, "ChangeGroups"))
             {
                 return false;
             }
+
             return this.LoadBalancingPeer.OpChangeGroups(groupsToRemove, groupsToAdd);
         }
 
@@ -2239,6 +2248,11 @@ namespace Photon.Realtime
                     foreach (object key in actorProperties.Keys)
                     {
                         actorNr = (int)key;
+                        if (actorNr == 0)
+                        {
+                            continue;
+                        }
+
                         props = (Hashtable)actorProperties[key];
                         newName = (string)props[ActorProperties.PlayerName];
 
@@ -2359,6 +2373,11 @@ namespace Photon.Realtime
             {
                 foreach (int actorNumber in actorsInGame)
                 {
+                    if (actorNumber == 0)
+                    {
+                        continue;
+                    }
+
                     Player target = this.CurrentRoom.GetPlayer(actorNumber);
                     if (target == null)
                     {
@@ -3177,8 +3196,11 @@ namespace Photon.Realtime
 
                     if (originatingPlayer == null)
                     {
-                        originatingPlayer = this.CreatePlayer(string.Empty, actorNr, false, actorProperties);
-                        this.CurrentRoom.StorePlayer(originatingPlayer);
+                        if (actorNr > 0)
+                        {
+                            originatingPlayer = this.CreatePlayer(string.Empty, actorNr, false, actorProperties);
+                            this.CurrentRoom.StorePlayer(originatingPlayer);
+                        }
                     }
                     else
                     {

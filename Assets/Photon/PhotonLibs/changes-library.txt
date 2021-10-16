@@ -3,6 +3,13 @@ Photon C# Client Library - Changelog
 Exit Games GmbH - www.photonengine.com - forum.photonengine.com
 
 
+Version 4.1.6.9 (12. October 2021 - rev6231)
+	Fixed: Reliable UDP protocol to send pings, if no reliable command was acknowledged or sent recently. This bug was preventing a client timeout in some cases.
+
+Version 4.1.6.8 (30. September 2021 - rev6222)
+    Fixed: ReadCustomType to not use custom deserialization methods, should the reported size be less than available bytes.
+    Fixed: ReadCustomType and ReadCustomTypeArray to also skip custom types when size is 0.
+
 Version 4.1.6.7 (27. September 2021 - rev6214)
     Fixed: A bug in Protocol18 reader for very long arrays.
 
