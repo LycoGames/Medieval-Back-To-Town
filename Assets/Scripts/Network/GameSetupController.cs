@@ -5,6 +5,8 @@ using System;
 
 public class GameSetupController : MonoBehaviour
 {
+
+    public Transform spawnPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +16,7 @@ public class GameSetupController : MonoBehaviour
     private void CreatePlayer()
     {
         Debug.Log("Creating Player");
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), new Vector3(-5, 0, -5), Quaternion.identity);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPoint.position, Quaternion.identity);
     }
 
 }
