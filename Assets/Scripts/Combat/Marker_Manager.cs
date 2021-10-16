@@ -6,11 +6,12 @@ using UnityEngine;
 public class Marker_Manager : MonoBehaviour
 {
     public Transform markersParent;
-    public string targetTag = "Enemy";
+    /*public string targetTag = "Enemy";*/
 
     public int damage = 5;
 
     public GameObject blood;
+    private Transform parent;
 
     bool hitFlesh;
 
@@ -45,6 +46,7 @@ public class Marker_Manager : MonoBehaviour
 
     private void Start()
     {
+        parent = transform.root.GetChild(0);
         if (markersParent == null)
         {
             markersParent = transform;
@@ -139,7 +141,7 @@ public class Marker_Manager : MonoBehaviour
             {
                 if (markers[i].HitCheck() != null)
                 {
-                    if (markers[i].target.tag == targetTag && targetsRawHit.Contains(markers[i].target) == false && usedTargets.Contains(markers[i].target) == false)
+                    if (/*markers[i].target.tag == targetTag && */ markers[i].target != parent && targetsRawHit.Contains(markers[i].target) == false && usedTargets.Contains(markers[i].target) == false)
                     {
                         bladeDirection.Add(markers[i].tempPos);
                         bladeStartpoint.Add(markers[i].hit.point);

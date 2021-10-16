@@ -51,7 +51,8 @@ public class PlayerController : MonoBehaviour, IPunObservable
         {
             myFollowCamera.gameObject.SetActive(false);
             myCamera.gameObject.SetActive(false);
-            transform.parent.tag="Enemy";
+            gameObject.tag = "Enemy";
+            gameObject.layer = 0;
             return;
         }
     }
