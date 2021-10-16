@@ -49,6 +49,8 @@ public class Health : MonoBehaviour
     int deathAnimRandomisation;
     int hurtSoundRandomisation;
 
+    private bool isDead = false;
+
     private void Awake()
     {
         healthPoints = new LazyValue<float>(GetInitialHealth);
@@ -97,12 +99,11 @@ public class Health : MonoBehaviour
 
     public void ApplyDamage(int dmg)   //Let's apply some damage on hit, shall we?
     {
-        healthPoints.value -= dmg;
+        healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
         Debug.Log(healthPoints.value);
 
-        if (healthPoints.value < 0)
-        {
-            healthPoints.value = 0;
+        if(healthPoints.value == 0){
+            Die();
         }
 
         if (healthPoints.value > 0)
@@ -310,4 +311,16 @@ public class Health : MonoBehaviour
             }
         }
     }
+
+    private void Die()
+    {
+        if(isDead) return;
+
+        isDead = true;
+    }
+
+    public bool IsDead()
+        {
+            return isDead;
+        }
 }

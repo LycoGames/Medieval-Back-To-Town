@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour, IPunObservable
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
         if (!myPV.IsMine) { return; }
 
+        if (GetComponent<Health>().IsDead()) return;
+
         if (HandleAttack()) return;
 
         Move();
