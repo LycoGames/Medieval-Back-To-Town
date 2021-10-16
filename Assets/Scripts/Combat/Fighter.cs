@@ -29,11 +29,9 @@ public class Fighter : MonoBehaviour, IPunObservable
     void Start()
     {
         myPV = GetComponent<PhotonView>();
+        currentWeapon.ForceInit();
         if (myPV.IsMine)
             localPlayer = this;
-
-        WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
-        EquipWeapon(weapon);
 
         if (!myPV.IsMine)
             return;

@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour, IPunObservable
 
     private void Update()
     {
-        Debug.Log(isGrounded);
         UpdateRotation();
 
         if (!myPhotonView.IsMine) { return; }
@@ -154,7 +153,7 @@ public class PlayerController : MonoBehaviour, IPunObservable
         if (moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
         {
             moveSpeed = walkSpeed;
-            anim.SetFloat("Speed", moveSpeed, 0.1f, Time.deltaTime); 
+            anim.SetFloat("Speed", moveSpeed, 0.1f, Time.deltaTime);
             return true;
         }
         return false;
