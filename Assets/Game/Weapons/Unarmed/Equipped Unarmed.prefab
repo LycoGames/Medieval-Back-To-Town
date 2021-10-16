@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7778376066898590167}
   - component: {fileID: 6399597366804702978}
+  - component: {fileID: 8980902159095349575}
   m_Layer: 7
   m_Name: Equipped Unarmed
   m_TagString: Untagged
@@ -47,6 +48,28 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8980902159095349575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906032062433223202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3969124621032663409
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,21 +221,14 @@ MonoBehaviour:
   targetTag: Enemy
   damage: 1
   blood: {fileID: 1834194341294532, guid: d5f26854a8904624c8073139cd2eb346, type: 3}
-  startActivated: 1
+  startActivated: 0
   soundSource: {fileID: 2198560210849164014}
-  numberOfWallHitSounds: 1
-  wallHitSound1: {fileID: 8300000, guid: 4e104b2dd09307b4b9df4cc3ae8bdc0f, type: 3}
-  wallHitSound2: {fileID: 0}
-  wallHitSound3: {fileID: 0}
-  wallHitSound4: {fileID: 0}
-  wallHitSound5: {fileID: 0}
   numberOfTargetHitSounds: 1
   targetHitSound1: {fileID: 8300000, guid: 192ed51afde65364ab7c1dbaa40c72e6, type: 3}
   targetHitSound2: {fileID: 0}
   targetHitSound3: {fileID: 0}
   targetHitSound4: {fileID: 0}
   targetHitSound5: {fileID: 0}
-  wallHitSparks: {fileID: 0}
   DisableMarkersOnObjectDisable: 1
 --- !u!82 &2198560210849164014
 AudioSource:

@@ -7,7 +7,7 @@ public class Fighter : MonoBehaviour, IPunObservable
     [SerializeField] Transform rightHandTransform = null;
     [SerializeField] Transform leftHandTransform = null;
 
-    const string weaponName = "Unarmed";
+    const string weaponName = "Sword";
 
     public static Fighter localPlayer;
     private Animator anim;
@@ -40,7 +40,6 @@ public class Fighter : MonoBehaviour, IPunObservable
         WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
         EquipWeapon(weapon);
 
-
         if (!myPV.IsMine)
             return;
 
@@ -67,8 +66,8 @@ public class Fighter : MonoBehaviour, IPunObservable
 
     private void AttackAnimEnded()
     {
+        if(!myPV.IsMine) return;
         anim.SetBool("isAttacking", false);
-        Debug.Log(anim.GetBool("isAttacking"));
     }
 
     private void TriggerAttack()
@@ -94,13 +93,13 @@ public class Fighter : MonoBehaviour, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
+        /*if (stream.IsWriting)
         {
             stream.SendNext(anim.GetBool("isAttacking"));
         }
         else
         {
             anim.SetBool("isAttacking", (bool)stream.ReceiveNext());
-        }
+        }*/
     }
 }
