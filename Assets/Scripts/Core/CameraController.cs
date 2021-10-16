@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity;
+    [SerializeField] GameObject mainCam;
 
     private Transform parent;
     private void Start()
@@ -19,6 +20,11 @@ public class CameraController : MonoBehaviour
     private void Rotate()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+    }
+    
+    public void DisablePlayerCameras(){
+        mainCam.SetActive(false);
+        gameObject.SetActive(false);
     }
 
 }

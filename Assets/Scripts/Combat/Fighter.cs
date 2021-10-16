@@ -7,7 +7,7 @@ public class Fighter : MonoBehaviour, IPunObservable
     [SerializeField] Transform rightHandTransform = null;
     [SerializeField] Transform leftHandTransform = null;
 
-    const string weaponName = "Sword";
+    const string weaponName = "Unarmed";
 
     public static Fighter localPlayer;
     private Animator anim;
@@ -23,11 +23,6 @@ public class Fighter : MonoBehaviour, IPunObservable
     {
         currentWeaponConfig = defaultWeapon;
         currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
-    }
-
-    private Weapon SetupDefaultWeapon()
-    {
-        return AttachWeapon(defaultWeapon);
     }
 
     // Start is called before the first frame update
@@ -53,6 +48,11 @@ public class Fighter : MonoBehaviour, IPunObservable
         if (!myPV.IsMine) { return; }
     }
 
+    private Weapon SetupDefaultWeapon()
+    {
+        return AttachWeapon(defaultWeapon);
+    }
+
     public bool AttackBehaviour()
     {
         TriggerAttack();
@@ -66,7 +66,7 @@ public class Fighter : MonoBehaviour, IPunObservable
 
     private void AttackAnimEnded()
     {
-        if(!myPV.IsMine) return;
+        if (!myPV.IsMine) return;
         anim.SetBool("isAttacking", false);
     }
 
