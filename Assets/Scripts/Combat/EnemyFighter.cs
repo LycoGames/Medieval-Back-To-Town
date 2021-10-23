@@ -7,11 +7,12 @@ public class EnemyFighter : MonoBehaviour
 {
 
     [SerializeField] float enemyAttackCooldown = 1f;
-    [SerializeField] float mobDamage = 1f;
 
     EnemyAIController enemyAIController;
     Animator animator;
     GameObject targetPlayer;
+    Health health;
+    BaseStats baseStats;
 
 
     float TimeSinceLastAttack = Mathf.Infinity;
@@ -21,6 +22,8 @@ public class EnemyFighter : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyAIController = GetComponent<EnemyAIController>();
         targetPlayer = GameObject.FindWithTag("Player");
+        health = GetComponent<Health>();
+        baseStats = GetComponent<BaseStats>();
     }
 
     void Start()
@@ -30,6 +33,8 @@ public class EnemyFighter : MonoBehaviour
 
     void Update()
     {
+        print("health : " + health.GetInitialHealth());
+        print("base health : "+baseStats.GetBaseStat(Stat.Health));
         UpdateTimers();
     }
 
@@ -49,10 +54,15 @@ public class EnemyFighter : MonoBehaviour
     }
 
     private void Hit()
-    { 
+    {
         float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();
-        print("im hittin "+targetPlayerHealth);
-        targetPlayer.GetComponent<Health>().ApplyDamage(mobDamage);
+        print("players health: " + targetPlayerHealth);
+        targetPlayer.GetComponent<Health>().ApplyDamage(GetDamage());
+        print("im hittin this float " +GetDamage());
     }
 
+    private float GetDamage()
+    {
+        return GetComponent<BaseStats>().GetBaseStat(Stat.Damage);
+    }
 }

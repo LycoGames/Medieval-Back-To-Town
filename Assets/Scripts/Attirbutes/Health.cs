@@ -56,7 +56,7 @@ public class Health : MonoBehaviour
         healthPoints = new LazyValue<float>(GetInitialHealth);
     }
 
-    private float GetInitialHealth()
+    public float GetInitialHealth()
     {
         return GetComponent<BaseStats>().GetStat(Stat.Health);
     }

@@ -8,5 +8,7 @@ public enum CharacterClass
     Mage,
     Archer,
     Priest,
-    SkeletonWarrior
+    SkeletonWarrior,
+    Spider,
+    BigSpider
 }

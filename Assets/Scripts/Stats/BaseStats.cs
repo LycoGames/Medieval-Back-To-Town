@@ -55,77 +55,78 @@ public class BaseStats : MonoBehaviour
         }
     }
 
-    private void LevelUpEffect(){
+    private void LevelUpEffect()
+    {
         Instantiate(levelUpParticleEffect, transform);
     }
 
-     public float GetStat(Stat stat)
-        {
-            return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1 + GetPercentageModifier(stat) / 100);
-        }
+    public float GetStat(Stat stat)
+    {
+        return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1 + GetPercentageModifier(stat) / 100);
+    }
 
-       
-        private float GetBaseStat(Stat stat)
-        {
-            return progression.GetStat(stat, characterClass, GetLevel());
-        }
 
-        public int GetLevel()
+    public float GetBaseStat(Stat stat)
+    {
+        return progression.GetStat(stat, characterClass, GetLevel());
+    }
+
+    public int GetLevel()
+    {
+        if (currentLevel.value < 1)
         {
-            if (currentLevel.value < 1)
+            currentLevel.value = CalculateLevel();
+        }
+        return currentLevel.value;
+    }
+    private float GetAdditiveModifier(Stat stat)
+    {
+        if (!shouldUseModifier) return 0;
+
+        float total = 0;
+        foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
+        {
+            foreach (float modifier in provider.GetAdditiveModifier(stat))
             {
-                currentLevel.value = CalculateLevel();
+                total += modifier;
             }
-            return currentLevel.value;
         }
-        private float GetAdditiveModifier(Stat stat)
+        return total;
+    }
+
+    private float GetPercentageModifier(Stat stat)
+    {
+        if (!shouldUseModifier) return 0;
+
+        float total = 0;
+        foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
         {
-            if(!shouldUseModifier) return 0;
-
-            float total = 0;
-            foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
+            foreach (float modifier in provider.GetPercentageModifiers(stat))
             {
-                foreach (float modifier in provider.GetAdditiveModifier(stat))
-                {
-                    total += modifier;
-                }
+                total += modifier;
             }
-            return total;
         }
+        return total;
+    }
 
-         private float GetPercentageModifier(Stat stat)
+    public int CalculateLevel()
+    {
+        Experience experience = GetComponent<Experience>();
+        if (experience == null) return startingLevel;
+
+        float currentXP = experience.GetPoints();
+        int penultimateLevel = progression.GetLevels(Stat.ExperienceToLevelUp, characterClass);
+        for (int level = 1; level <= penultimateLevel; level++)
         {
-            if(!shouldUseModifier) return 0;
-            
-            float total = 0;
-            foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
+            float XPToLevelUp = progression.GetStat(Stat.ExperienceToLevelUp, characterClass, level);
+            if (XPToLevelUp > currentXP)
             {
-                foreach (float modifier in provider.GetPercentageModifiers(stat))
-                {
-                    total += modifier;
-                }
+                return level;
             }
-            return total;
         }
 
-        public int CalculateLevel()
-        {
-            Experience experience = GetComponent<Experience>();
-            if (experience == null) return startingLevel;
+        return penultimateLevel + 1;
 
-            float currentXP = experience.GetPoints();
-            int penultimateLevel = progression.GetLevels(Stat.ExperienceToLevelUp, characterClass);
-            for (int level = 1; level <= penultimateLevel; level++)
-            {
-                float XPToLevelUp = progression.GetStat(Stat.ExperienceToLevelUp, characterClass, level);
-                if (XPToLevelUp > currentXP)
-                {
-                    return level;
-                }
-            }
-
-            return penultimateLevel + 1;
-
-        }
+    }
 
 }
