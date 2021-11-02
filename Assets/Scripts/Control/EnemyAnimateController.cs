@@ -14,7 +14,6 @@ public class EnemyAnimateController : MonoBehaviour
         
     }
 
-    
     void Update()
     {
         UpdateAnimator();
@@ -26,6 +25,5 @@ public class EnemyAnimateController : MonoBehaviour
         Vector3 localVelocity = transform.InverseTransformDirection(velocity);
         float speed = localVelocity.z;
         GetComponent<Animator>().SetFloat("forwardSpeed", speed);
-
     }
 }

@@ -30,27 +30,28 @@ public class EnemyAIController : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyFighter = GetComponent<EnemyFighter>();
-        targetPlayer = GameObject.FindWithTag("Player");
-        playerHealth = targetPlayer.GetComponent<Health>();
+        //GetPlayerComponents();
         health = GetComponent<Health>();
     }
 
-    void Start()
+    IEnumerator Start()
     {
         guardPosition = transform.position;
+        yield return new WaitForFixedUpdate();
+        GetPlayerComponents();
     }
 
 
     void Update()
     {
         if (health.IsDead()) return; // enemy ai öldüyse playeri takibi kes.
+
         if (playerHealth.IsDead()) return;
 
         if (IsAggrevated())
         {
             AttackBehaviour();
             MoveTo(targetPlayer.transform.position, 1f);
-
         }
 
         else if (timeSinceLastSawThePLayer < suspicionTime)
@@ -68,10 +69,18 @@ public class EnemyAIController : MonoBehaviour
         // GetComponent<NavMeshAgent>().destination = target.position;
     }
 
+    public void GetPlayerComponents()
+    {
+        targetPlayer = GameObject.FindWithTag("Player");
+        playerHealth = targetPlayer.GetComponent<Health>();
+        Debug.Log("componentler alındı");
+    }
+
+
     private void AttackBehaviour()
     {
         timeSinceLastSawThePLayer = 0f;
-        enemyFighter.AttackBehaviour();
+        enemyFighter.AttackBehaviour(targetPlayer);
     }
 
     private void UpdateTimers()
