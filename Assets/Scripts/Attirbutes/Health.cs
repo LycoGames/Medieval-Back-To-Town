@@ -56,7 +56,7 @@ public class Health : MonoBehaviour
         healthPoints = new LazyValue<float>(GetInitialHealth);
     }
 
-    private float GetInitialHealth()
+    public float GetInitialHealth()
     {
         return GetComponent<BaseStats>().GetStat(Stat.Health);
     }
@@ -97,7 +97,7 @@ public class Health : MonoBehaviour
 
     }
 
-    public void ApplyDamage(int dmg)   //Let's apply some damage on hit, shall we?
+    public void ApplyDamage(float dmg)   //Let's apply some damage on hit, shall we?
     {
         healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
         Debug.Log(healthPoints.value);
