@@ -73,7 +73,6 @@ public class EnemyAIController : MonoBehaviour
     {
         targetPlayer = GameObject.FindWithTag("Player");
         playerHealth = targetPlayer.GetComponent<Health>();
-        Debug.Log("componentler alındı");
     }
 
 
