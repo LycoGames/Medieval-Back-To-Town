@@ -52,8 +52,6 @@ public class PlayerController : MonoBehaviour, IPunObservable
         if (!myPhotonView.IsMine)
         {
             myFollowCamera.DisablePlayerCameras();
-            gameObject.tag = "Enemy";
-            gameObject.layer = 0;
             return;
         }
 

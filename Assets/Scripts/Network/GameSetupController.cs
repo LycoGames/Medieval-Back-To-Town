@@ -7,6 +7,8 @@ public class GameSetupController : MonoBehaviour
 {
 
     public Transform spawnPoint;
+    [SerializeField] EnemyAIController enemyAi;
+
     // Start is called before the first frame update
     void Start()
     {
