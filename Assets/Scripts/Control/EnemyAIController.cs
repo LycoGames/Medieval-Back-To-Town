@@ -30,7 +30,6 @@ public class EnemyAIController : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyFighter = GetComponent<EnemyFighter>();
-        //GetPlayerComponents();
         health = GetComponent<Health>();
     }
 

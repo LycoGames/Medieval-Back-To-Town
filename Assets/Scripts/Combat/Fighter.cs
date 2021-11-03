@@ -83,6 +83,10 @@ public class Fighter : MonoBehaviour, IPunObservable
         currentWeapon.value = AttachWeapon(weapon);
     }
 
+    public Weapon GetCurrentWeapon(){
+        return currentWeapon.value;
+    }
+
     private Weapon AttachWeapon(WeaponConfig weapon)
     {
         Animator animator = GetComponent<Animator>();

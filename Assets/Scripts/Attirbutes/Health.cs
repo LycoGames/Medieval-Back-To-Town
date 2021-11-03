@@ -102,7 +102,8 @@ public class Health : MonoBehaviour
         healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
         Debug.Log(healthPoints.value);
 
-        if(healthPoints.value == 0){
+        if (healthPoints.value == 0)
+        {
             Die();
         }
 
@@ -203,6 +204,7 @@ public class Health : MonoBehaviour
 
         if (healthPoints.value <= 0)//Death,
         {
+            destroyOnDeath=true;
             //Spawn Of Death
 
             //components
@@ -307,6 +309,7 @@ public class Health : MonoBehaviour
 
             if (destroyOnDeath)
             {
+                Destroy(gameObject.GetComponent<Fighter>().GetCurrentWeapon(), destroyDelay);
                 Destroy(gameObject, destroyDelay);
             }
         }
@@ -314,13 +317,13 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        if(isDead) return;
+        if (isDead) return;
 
         isDead = true;
     }
 
     public bool IsDead()
-        {
-            return isDead;
-        }
+    {
+        return isDead;
+    }
 }
