@@ -1332,10 +1332,9 @@ GameObject:
   - component: {fileID: 1933757793621664310}
   - component: {fileID: 6601928034497260553}
   - component: {fileID: 6009602669544546469}
-  - component: {fileID: 7732380312302494177}
   - component: {fileID: 6140971742893800511}
   - component: {fileID: 6094235962402589889}
-  - component: {fileID: 2248695388971846281}
+  - component: {fileID: 7400383693367579920}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1517,7 +1516,7 @@ MonoBehaviour:
   deathAnimator: {fileID: 4102948989978241071}
   deathLegacyAnimation: {fileID: 0}
   destroyOnDeath: 0
-  destroyDelay: 0
+  destroyDelay: 4
 --- !u!114 &6601928034497260553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1552,28 +1551,11 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5907778288306257589}
   - {fileID: 6232947627707968915}
-  - {fileID: 7732380312302494177}
   - {fileID: 6140971742893800511}
-  - {fileID: 2248695388971846281}
+  - {fileID: 7400383693367579920}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7732380312302494177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5907778288306257591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 1
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &6140971742893800511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,7 +1604,7 @@ MonoBehaviour:
   leftHand: {fileID: 2367030591195589352}
   rightHand: {fileID: 3985772362764003698}
   MarkerManager: {fileID: 0}
---- !u!114 &2248695388971846281
+--- !u!114 &7400383693367579920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1631,10 +1613,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5907778288306257591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35144820bcc25444bb8f0fd767d9423e, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmoothingDelay: 5
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &5941905895169010805
 GameObject:
   m_ObjectHideFlags: 0

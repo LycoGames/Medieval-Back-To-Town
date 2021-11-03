@@ -8,7 +8,7 @@ public class Marker_Manager : MonoBehaviour
     public Transform markersParent;
     /*public string targetTag = "Enemy";*/
 
-    public int damage = 5;
+    public int damage = 50;
 
     public GameObject blood;
     private Transform parent;
