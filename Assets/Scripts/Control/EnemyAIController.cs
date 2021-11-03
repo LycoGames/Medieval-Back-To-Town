@@ -15,12 +15,15 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] float suspicionTime = 4f;
     [SerializeField] float WaitOnPointTime = 2f;
 
+    public GameManager gameManager;
+
     Vector3 guardPosition;
     GameObject targetPlayer;
     NavMeshAgent navMeshAgent;
     EnemyFighter enemyFighter;
     Health playerHealth;
     Health health;
+    GameObject[] playersInScene;
 
     int currentWaypointIndex = 0;
     float timeSinceLastSawThePLayer = Mathf.Infinity;
@@ -36,8 +39,8 @@ public class EnemyAIController : MonoBehaviour
     IEnumerator Start()
     {
         guardPosition = transform.position;
-        yield return new WaitForFixedUpdate();
-        GetPlayerComponents();
+        yield return new WaitForEndOfFrame();
+        playersInScene = GameObject.FindGameObjectsWithTag("Player");
     }
 
 
@@ -45,6 +48,8 @@ public class EnemyAIController : MonoBehaviour
     {
         if (health.IsDead()) return; // enemy ai öldüyse playeri takibi kes.
 
+        GetClosestPlayer();
+        
         if (playerHealth.IsDead()) return;
 
         if (IsAggrevated())
@@ -68,12 +73,25 @@ public class EnemyAIController : MonoBehaviour
         // GetComponent<NavMeshAgent>().destination = target.position;
     }
 
-    public void GetPlayerComponents()
+    private void GetClosestPlayer()
     {
-        targetPlayer = GameObject.FindWithTag("Player");
-        playerHealth = targetPlayer.GetComponent<Health>();
-    }
+        float minDistance = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
 
+        foreach (GameObject thisPlayer in playersInScene)
+        {
+            if (thisPlayer != null)
+            {
+                float distance = Vector3.Distance(thisPlayer.transform.position, currentPosition);
+                if (distance < minDistance)
+                {
+                    targetPlayer = thisPlayer;
+                    playerHealth = targetPlayer.GetComponent<Health>();
+                }
+            }
+        }
+
+    }
 
     private void AttackBehaviour()
     {
