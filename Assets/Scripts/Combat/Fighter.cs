@@ -73,6 +73,8 @@ public class Fighter : MonoBehaviour, IPunObservable
         if (!anim.GetBool("isAttacking") && Input.GetKeyDown(KeyCode.Mouse0))
         {
             anim.SetTrigger("attack");
+            currentWeaponConfig.LaunchProjectile(rightHandTransform,leftHandTransform,GetComponent<Health>(),gameObject,20,transform);
+            print("arrow launched! ");
             anim.SetBool("isAttacking", true);
         }
     }
