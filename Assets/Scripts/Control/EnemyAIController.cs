@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
 using System;
+using Photon.Pun;
 
 public class EnemyAIController : MonoBehaviour
 {
@@ -46,10 +47,15 @@ public class EnemyAIController : MonoBehaviour
 
     void Update()
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         if (health.IsDead()) return; // enemy ai öldüyse playeri takibi kes.
 
         GetClosestPlayer();
-        
+
         if (playerHealth.IsDead()) return;
 
         if (IsAggrevated())
@@ -90,7 +96,6 @@ public class EnemyAIController : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void AttackBehaviour()
@@ -171,13 +176,7 @@ public class EnemyAIController : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
         return distanceToPlayer < chaseDistance;
-
     }
-
-
-
-
-
 
     void OnDrawGizmosSelected()
     {

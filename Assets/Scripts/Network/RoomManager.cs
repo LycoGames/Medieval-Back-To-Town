@@ -20,27 +20,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(Instance);
     }
 
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+    private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+    private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+    private void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Vector3 spawnPosition = new Vector3(Random.Range(0, 6), 8, Random.Range(0, 6));
-        if (PhotonNetwork.InRoom)
-        {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonPlayer"), spawnPosition, Quaternion.identity);
-            
-        }
+        Vector3 spawnPosition = new Vector3(Random.Range(0, 6), 0, Random.Range(0, 6));
+
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerPrefab"), spawnPosition, Quaternion.identity);
+        Debug.Log(spawnPosition);
     }
 }
