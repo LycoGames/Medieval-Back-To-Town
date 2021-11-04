@@ -424,7 +424,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3923871068788252535}
-  m_LocalRotation: {x: -0.025619, y: 0.93980837, z: -0.33297983, w: -0.07230754}
+  m_LocalRotation: {x: -0.025619013, y: 0.93980837, z: -0.3329798, w: -0.07230757}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -913,8 +913,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesAlive: 0
   spawnPoints: []
-  enemyPrefab: {fileID: 3784256213080582428, guid: 3b6631aae5e568e4cb99a70467daa840,
+  enemyPrefab: {fileID: 351083592223540291, guid: 9dc8acb95d657fb48a97f4fa45823194,
     type: 3}
+  photonView: {fileID: 7127705630239469971}
 --- !u!1 &8953531488259286527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1024,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 876004d4be7ede149a07fc9e25e3dd2c, type: 3}
+--- !u!114 &7127705630239469971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6009602669544546469, guid: 876004d4be7ede149a07fc9e25e3dd2c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3570465309079408950}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6949179867334897536 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5907778288306257590, guid: 876004d4be7ede149a07fc9e25e3dd2c,

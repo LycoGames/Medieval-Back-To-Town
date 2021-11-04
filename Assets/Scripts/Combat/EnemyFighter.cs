@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class EnemyFighter : MonoBehaviour
@@ -14,8 +15,9 @@ public class EnemyFighter : MonoBehaviour
     Health health;
     BaseStats baseStats;
 
-
     float TimeSinceLastAttack = Mathf.Infinity;
+    
+    /*Network Variables*/
 
     void Awake()
     {
@@ -53,7 +55,7 @@ public class EnemyFighter : MonoBehaviour
 
     public void Hit()
     {
-        float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();
+        /*float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();*/
         targetPlayer.GetComponent<Health>().ApplyDamage(GetDamage());
     }
 
