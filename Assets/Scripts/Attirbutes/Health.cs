@@ -52,9 +52,6 @@ public class Health : MonoBehaviour
 
     private bool isDead = false;
 
-    /*Network Variables*/
-    public PhotonView photonView;
-
     private void Awake()
     {
         healthPoints = new LazyValue<float>(GetInitialHealth);
@@ -103,229 +100,221 @@ public class Health : MonoBehaviour
 
     public void ApplyDamage(float dmg)   //Let's apply some damage on hit, shall we?
     {
-        photonView.RPC("TakeDamage", RpcTarget.All, dmg, photonView.ViewID);
-    }
+        healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
+        Debug.Log(healthPoints.value);
 
-    [PunRPC]
-    public void TakeDamage(float dmg, int viewID)
-    {
-        if (photonView.ViewID == viewID)
+        if (healthPoints.value == 0)
         {
-            healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
-            Debug.Log(healthPoints.value);
+            Die();
+        }
 
-            if (healthPoints.value == 0)
+        if (healthPoints.value > 0)
+        {
+            if (numberOfHurtAnimations != 0)
             {
-                Die();
+                hurtAnimRandomisation = Random.Range(1, numberOfHurtAnimations + 1);   //Hurt animations
+            }
+            if (numberOfHurtAnimations == 0)
+            {
+                hurtAnimRandomisation = 0;
             }
 
-            if (healthPoints.value > 0)
+            if (hurtAnimator != null)
             {
-                if (numberOfHurtAnimations != 0)
+                if (hurtAnimRandomisation == 1)
                 {
-                    hurtAnimRandomisation = Random.Range(1, numberOfHurtAnimations + 1);   //Hurt animations
+                    hurtAnimator.Play("Hurt1");
                 }
-                if (numberOfHurtAnimations == 0)
+                if (hurtAnimRandomisation == 2)
                 {
-                    hurtAnimRandomisation = 0;
+                    hurtAnimator.Play("Hurt2");
                 }
-
-                if (hurtAnimator != null)
+                if (hurtAnimRandomisation == 3)
                 {
-                    if (hurtAnimRandomisation == 1)
-                    {
-                        hurtAnimator.Play("Hurt1");
-                    }
-                    if (hurtAnimRandomisation == 2)
-                    {
-                        hurtAnimator.Play("Hurt2");
-                    }
-                    if (hurtAnimRandomisation == 3)
-                    {
-                        hurtAnimator.Play("Hurt3");
-                    }
-                    if (hurtAnimRandomisation == 4)
-                    {
-                        hurtAnimator.Play("Hurt4");
-                    }
-                    if (hurtAnimRandomisation == 5)
-                    {
-                        hurtAnimator.Play("Hurt5");
-                    }
+                    hurtAnimator.Play("Hurt3");
                 }
-                if (hurtLegacyAnimation != null)
+                if (hurtAnimRandomisation == 4)
                 {
-                    if (hurtAnimRandomisation == 1)
-                    {
-                        hurtLegacyAnimation.Play("Hurt1");
-                    }
-                    if (hurtAnimRandomisation == 2)
-                    {
-                        hurtLegacyAnimation.Play("Hurt2");
-                    }
-                    if (hurtAnimRandomisation == 3)
-                    {
-                        hurtLegacyAnimation.Play("Hurt3");
-                    }
-                    if (hurtAnimRandomisation == 4)
-                    {
-                        hurtLegacyAnimation.Play("Hurt4");
-                    }
-                    if (hurtAnimRandomisation == 5)
-                    {
-                        hurtLegacyAnimation.Play("Hurt5");
-                    }
+                    hurtAnimator.Play("Hurt4");
                 }
-
-                if (soundSource != null)
+                if (hurtAnimRandomisation == 5)
                 {
-                    if (numberOfHurtSounds > 0)
-                    {
-                        hurtSoundRandomisation = Random.Range(1, numberOfHurtSounds + 1);
-
-                        if (hurtSoundRandomisation == 1)
-                        {
-                            soundSource.clip = hurtSound1;
-                            soundSource.Play();
-                        }
-                        if (hurtSoundRandomisation == 2)
-                        {
-                            soundSource.clip = hurtSound2;
-                            soundSource.Play();
-                        }
-                        if (hurtSoundRandomisation == 3)
-                        {
-                            soundSource.clip = hurtSound3;
-                            soundSource.Play();
-                        }
-                        if (hurtSoundRandomisation == 4)
-                        {
-                            soundSource.clip = hurtSound4;
-                            soundSource.Play();
-                        }
-                        if (hurtSoundRandomisation == 5)
-                        {
-                            soundSource.clip = hurtSound5;
-                            soundSource.Play();
-                        }
-
-                    }
+                    hurtAnimator.Play("Hurt5");
                 }
-
+            }
+            if (hurtLegacyAnimation != null)
+            {
+                if (hurtAnimRandomisation == 1)
+                {
+                    hurtLegacyAnimation.Play("Hurt1");
+                }
+                if (hurtAnimRandomisation == 2)
+                {
+                    hurtLegacyAnimation.Play("Hurt2");
+                }
+                if (hurtAnimRandomisation == 3)
+                {
+                    hurtLegacyAnimation.Play("Hurt3");
+                }
+                if (hurtAnimRandomisation == 4)
+                {
+                    hurtLegacyAnimation.Play("Hurt4");
+                }
+                if (hurtAnimRandomisation == 5)
+                {
+                    hurtLegacyAnimation.Play("Hurt5");
+                }
             }
 
-            if (healthPoints.value <= 0)//Death,
+            if (soundSource != null)
             {
-                destroyOnDeath = true;
-                //Spawn Of Death
-
-                //components
-
-                //Objects
-
-                //This one is about sending a message...
-
-                if (numberOfDeathAnimations != 0)
+                if (numberOfHurtSounds > 0)
                 {
-                    deathAnimRandomisation = Random.Range(1, numberOfDeathAnimations + 1);   //Hurt animations
+                    hurtSoundRandomisation = Random.Range(1, numberOfHurtSounds + 1);
+
+                    if (hurtSoundRandomisation == 1)
+                    {
+                        soundSource.clip = hurtSound1;
+                        soundSource.Play();
+                    }
+                    if (hurtSoundRandomisation == 2)
+                    {
+                        soundSource.clip = hurtSound2;
+                        soundSource.Play();
+                    }
+                    if (hurtSoundRandomisation == 3)
+                    {
+                        soundSource.clip = hurtSound3;
+                        soundSource.Play();
+                    }
+                    if (hurtSoundRandomisation == 4)
+                    {
+                        soundSource.clip = hurtSound4;
+                        soundSource.Play();
+                    }
+                    if (hurtSoundRandomisation == 5)
+                    {
+                        soundSource.clip = hurtSound5;
+                        soundSource.Play();
+                    }
+
                 }
-                if (numberOfDeathAnimations == 0)
+            }
+
+        }
+
+        if (healthPoints.value <= 0)//Death,
+        {
+            destroyOnDeath = true;
+            //Spawn Of Death
+
+            //components
+
+            //Objects
+
+            //This one is about sending a message...
+
+            if (numberOfDeathAnimations != 0)
+            {
+                deathAnimRandomisation = Random.Range(1, numberOfDeathAnimations + 1);   //Hurt animations
+            }
+            if (numberOfDeathAnimations == 0)
+            {
+                deathAnimRandomisation = 0;
+            }
+
+            if (deathAnimator != null)
+            {
+                if (deathAnimRandomisation == 1)
                 {
-                    deathAnimRandomisation = 0;
+                    deathAnimator.Play("Death1");
                 }
-
-                if (deathAnimator != null)
+                if (deathAnimRandomisation == 2)
                 {
-                    if (deathAnimRandomisation == 1)
-                    {
-                        deathAnimator.Play("Death1");
-                    }
-                    if (deathAnimRandomisation == 2)
-                    {
-                        deathAnimator.Play("Death2");
-                    }
-                    if (deathAnimRandomisation == 3)
-                    {
-                        deathAnimator.Play("Death3");
-                    }
-                    if (deathAnimRandomisation == 4)
-                    {
-                        deathAnimator.Play("Death4");
-                    }
-                    if (deathAnimRandomisation == 5)
-                    {
-                        deathAnimator.Play("Death5");
-                    }
+                    deathAnimator.Play("Death2");
                 }
-
-
-
-                if (deathLegacyAnimation != null)
+                if (deathAnimRandomisation == 3)
                 {
-                    if (deathAnimRandomisation == 1)
-                    {
-                        deathLegacyAnimation.Play("Death1");
-                    }
-                    if (deathAnimRandomisation == 2)
-                    {
-                        deathLegacyAnimation.Play("Death2");
-                    }
-                    if (deathAnimRandomisation == 3)
-                    {
-                        deathLegacyAnimation.Play("Death3");
-                    }
-                    if (deathAnimRandomisation == 4)
-                    {
-                        deathLegacyAnimation.Play("Death4");
-                    }
-                    if (deathAnimRandomisation == 5)
-                    {
-                        deathLegacyAnimation.Play("Death5");
-                    }
+                    deathAnimator.Play("Death3");
                 }
-
-                if (soundSource != null)
+                if (deathAnimRandomisation == 4)
                 {
-                    if (numberOfDeathSounds > 0)
-                    {
-                        hurtSoundRandomisation = Random.Range(1, numberOfDeathSounds + 1);
-
-                        if (hurtSoundRandomisation == 1)
-                        {
-                            soundSource.clip = deathSound1;
-                            soundSource.Play();
-                        }
-                        if (hurtSoundRandomisation == 2)
-                        {
-                            soundSource.clip = deathSound2;
-                            soundSource.Play();
-                        }
-                        if (hurtSoundRandomisation == 3)
-                        {
-                            soundSource.clip = deathSound3;
-                            soundSource.Play();
-                        }
-                        if (hurtSoundRandomisation == 4)
-                        {
-                            soundSource.clip = deathSound4;
-                            soundSource.Play();
-                        }
-                        if (hurtSoundRandomisation == 5)
-                        {
-                            soundSource.clip = deathSound5;
-                            soundSource.Play();
-                        }
-
-                    }
+                    deathAnimator.Play("Death4");
                 }
-
-                if (destroyOnDeath)
+                if (deathAnimRandomisation == 5)
                 {
-                    Destroy(gameObject.GetComponent<Fighter>().GetCurrentWeapon(), destroyDelay);
-                    Destroy(gameObject, destroyDelay);
+                    deathAnimator.Play("Death5");
                 }
+            }
+
+
+
+            if (deathLegacyAnimation != null)
+            {
+                if (deathAnimRandomisation == 1)
+                {
+                    deathLegacyAnimation.Play("Death1");
+                }
+                if (deathAnimRandomisation == 2)
+                {
+                    deathLegacyAnimation.Play("Death2");
+                }
+                if (deathAnimRandomisation == 3)
+                {
+                    deathLegacyAnimation.Play("Death3");
+                }
+                if (deathAnimRandomisation == 4)
+                {
+                    deathLegacyAnimation.Play("Death4");
+                }
+                if (deathAnimRandomisation == 5)
+                {
+                    deathLegacyAnimation.Play("Death5");
+                }
+            }
+
+            if (soundSource != null)
+            {
+                if (numberOfDeathSounds > 0)
+                {
+                    hurtSoundRandomisation = Random.Range(1, numberOfDeathSounds + 1);
+
+                    if (hurtSoundRandomisation == 1)
+                    {
+                        soundSource.clip = deathSound1;
+                        soundSource.Play();
+                    }
+                    if (hurtSoundRandomisation == 2)
+                    {
+                        soundSource.clip = deathSound2;
+                        soundSource.Play();
+                    }
+                    if (hurtSoundRandomisation == 3)
+                    {
+                        soundSource.clip = deathSound3;
+                        soundSource.Play();
+                    }
+                    if (hurtSoundRandomisation == 4)
+                    {
+                        soundSource.clip = deathSound4;
+                        soundSource.Play();
+                    }
+                    if (hurtSoundRandomisation == 5)
+                    {
+                        soundSource.clip = deathSound5;
+                        soundSource.Play();
+                    }
+
+                }
+            }
+
+            if (destroyOnDeath)
+            {
+                Destroy(gameObject.GetComponent<Fighter>().GetCurrentWeapon(), destroyDelay);
+                Destroy(gameObject, destroyDelay);
             }
         }
+
     }
 
     private void Die()

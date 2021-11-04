@@ -21,10 +21,4 @@ public class CameraController : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
     }
-    
-    public void DisablePlayerCameras(){
-        mainCam.SetActive(false);
-        gameObject.SetActive(false);
-    }
-
 }
