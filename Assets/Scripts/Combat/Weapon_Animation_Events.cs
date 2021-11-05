@@ -17,10 +17,7 @@ public class Weapon_Animation_Events : MonoBehaviour
             weapon = leftHand.Find(weaponName);
         if (weapon == null) return;
 
-        Debug.Log("return sonrası");
-
         MarkerManager = weapon.GetChild(0).GetComponent<Marker_Manager>();
-        Debug.Log(MarkerManager);
     }
 
 

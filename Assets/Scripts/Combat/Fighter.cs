@@ -54,7 +54,9 @@ public class Fighter : MonoBehaviour
         if (!anim.GetBool("isAttacking") && Input.GetKeyDown(KeyCode.Mouse0))
         {
             anim.SetTrigger("attack");
-            currentWeaponConfig.LaunchProjectile(rightHandTransform,leftHandTransform,GetComponent<Health>(),gameObject,20,transform);
+
+            currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, GetComponent<Health>(), gameObject, 20, transform);
+            
             anim.SetBool("isAttacking", true);
         }
     }
