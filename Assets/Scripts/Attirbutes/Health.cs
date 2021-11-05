@@ -114,6 +114,10 @@ public class Health : MonoBehaviour
             takeDamage.Invoke(); //event
         }
 
+
+
+
+
         if (healthPoints.value > 0)
         {
             if (numberOfHurtAnimations != 0)

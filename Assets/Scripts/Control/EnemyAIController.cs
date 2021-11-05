@@ -66,7 +66,7 @@ public class EnemyAIController : MonoBehaviour
         {
             PatrolBehaviour();
         }
-
+       
         UpdateTimers();
 
         // GetComponent<NavMeshAgent>().destination = target.position;
@@ -104,7 +104,7 @@ public class EnemyAIController : MonoBehaviour
         foreach (RaycastHit hit in hits)
         {
             EnemyAIController ai = hit.collider.GetComponent<EnemyAIController>(); //vuran her raycast hiti için(her bir mob için) bu scriptteki Aggrevated'i tetikle. 
-            if(ai == null) continue;
+            if (ai == null) continue;
             ai.Aggrevated();
         }
     }
@@ -114,11 +114,12 @@ public class EnemyAIController : MonoBehaviour
         timeSinceLastSawThePLayer += Time.deltaTime;
         timeSinceArrivedAtLastPoint += Time.deltaTime;
         timeSinceAggrevated += Time.deltaTime;
-    }
+        print("agre time: "+timeSinceAggrevated);    }
+
 
     public void Aggrevated() //event! damage aldıgında event tetikliycek.
     {
-        timeSinceAggrevated = 0f;
+        timeSinceAggrevated = 0;
     }
 
     public void MoveTo(Vector3 destination, float speedFraction)
@@ -168,7 +169,7 @@ public class EnemyAIController : MonoBehaviour
         currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
     }
 
-    private Vector3 GetCurrentWaypoint() //waypointi alıyorumilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
+    private Vector3 GetCurrentWaypoint() //waypointi alıyorum ilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
     {
         return patrolPath.GetWaypoint(currentWaypointIndex);
     }
@@ -186,7 +187,8 @@ public class EnemyAIController : MonoBehaviour
     public bool IsAggrevated()
     {
         float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
-        return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
+        return (distanceToPlayer < chaseDistance||timeSinceAggrevated < agroCooldownTime);
+       
     }
 
     void OnDrawGizmosSelected()
