@@ -14,7 +14,8 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] float maxSpeed = 1f;
     [SerializeField] float chaseDistance = 5f;
     [SerializeField] float suspicionTime = 4f;
-    [SerializeField] float WaitOnPointTime = 2f;
+    [SerializeField] float waitOnPointTime = 2f;
+    [SerializeField] float agroCooldownTime = 4f;
 
     public GameManager gameManager;
 
@@ -28,6 +29,7 @@ public class EnemyAIController : MonoBehaviour
     int currentWaypointIndex = 0;
     float timeSinceLastSawThePLayer = Mathf.Infinity;
     float timeSinceArrivedAtLastPoint = Mathf.Infinity;
+    float timeSinceAggrevated = Mathf.Infinity;
 
     void Awake()
     {
@@ -98,6 +100,12 @@ public class EnemyAIController : MonoBehaviour
     {
         timeSinceLastSawThePLayer += Time.deltaTime;
         timeSinceArrivedAtLastPoint += Time.deltaTime;
+        timeSinceAggrevated += Time.deltaTime;
+    }
+
+    public void Aggrevated() //event! damage aldıgında event tetikliycek.
+    {
+        timeSinceAggrevated = 0f;
     }
 
     public void MoveTo(Vector3 destination, float speedFraction)
@@ -120,7 +128,7 @@ public class EnemyAIController : MonoBehaviour
             }
             nextPosition = GetCurrentWaypoint();
 
-            if (timeSinceArrivedAtLastPoint > WaitOnPointTime)
+            if (timeSinceArrivedAtLastPoint > waitOnPointTime)
             {
                 MoveTo(nextPosition, 1f);
             }
@@ -165,7 +173,7 @@ public class EnemyAIController : MonoBehaviour
     public bool IsAggrevated()
     {
         float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
-        return distanceToPlayer < chaseDistance;
+        return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
     }
 
     void OnDrawGizmosSelected()

@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] float regenerationPercentage = 50;
     [SerializeField] UnityEvent onDie;
+    [SerializeField] UnityEvent takeDamage;
 
     LazyValue<float> healthPoints;
 
@@ -106,6 +107,11 @@ public class Health : MonoBehaviour
         if (healthPoints.value == 0)
         {
             Die();
+        }
+
+        else
+        {
+            takeDamage.Invoke(); //event
         }
 
         if (healthPoints.value > 0)
