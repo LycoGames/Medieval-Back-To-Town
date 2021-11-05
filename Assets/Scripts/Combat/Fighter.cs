@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Fighter : MonoBehaviour
@@ -56,7 +57,7 @@ public class Fighter : MonoBehaviour
             anim.SetTrigger("attack");
 
             LookMousePosition();
-
+            
             currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, GetComponent<Health>(), gameObject, 20, transform);
 
             anim.SetBool("isAttacking", true);
