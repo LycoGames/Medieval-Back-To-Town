@@ -68,9 +68,10 @@ public class WeaponConfig : ScriptableObject
         return projectile != null;
     }
 
-    public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage)
+    public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage,Transform transform)
     {
-        Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
+
+        Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position,transform.rotation);
         //projectileInstance.SetTarget(target, instigator, calculatedDamage);
     }
 

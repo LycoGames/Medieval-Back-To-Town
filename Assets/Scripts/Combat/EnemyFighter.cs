@@ -8,15 +8,16 @@ public class EnemyFighter : MonoBehaviour
 {
 
     [SerializeField] float enemyAttackCooldown = 1f;
+    [SerializeField] float mobRange = 1f;
 
     EnemyAIController enemyAIController;
     Animator animator;
-    GameObject targetPlayer;
+    Health targetPlayer;
     Health health;
     BaseStats baseStats;
 
     float TimeSinceLastAttack = Mathf.Infinity;
-    
+
     /*Network Variables*/
 
     void Awake()
@@ -32,9 +33,27 @@ public class EnemyFighter : MonoBehaviour
 
     }
 
+
     void Update()
     {
+        if(targetPlayer == null) return;
+        if (!GetIsInRange(targetPlayer.transform))
+        {
+            enemyAIController.MoveTo(targetPlayer.transform.position, 1f);
+        }
+
+        else
+        {
+            AttackBehaviour();
+            enemyAIController.Cancel();
+        }
+
         UpdateTimers();
+    }
+
+    private bool GetIsInRange(Transform targetTransform)
+    {
+        return Vector3.Distance(transform.position, targetTransform.transform.position) < mobRange;
     }
 
     private void UpdateTimers()
@@ -42,9 +61,8 @@ public class EnemyFighter : MonoBehaviour
         TimeSinceLastAttack += Time.deltaTime;
     }
 
-    public void AttackBehaviour(GameObject targetPlayer)
+    public void AttackBehaviour()
     {   //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
-        this.targetPlayer = targetPlayer;
         transform.LookAt(targetPlayer.transform.position);
         if (TimeSinceLastAttack > enemyAttackCooldown)
         {
@@ -53,9 +71,15 @@ public class EnemyFighter : MonoBehaviour
         }
     }
 
+    public void Attack(GameObject combatTarget)
+    {
+        targetPlayer = combatTarget.GetComponent<Health>(); //targetplayeri setledim.
+    }
+
     public void Hit()
     {
-        /*float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();*/
+        float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();
+        print("canım: "+targetPlayerHealth);
         targetPlayer.GetComponent<Health>().ApplyDamage(GetDamage());
     }
 

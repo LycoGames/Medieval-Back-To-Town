@@ -51,7 +51,7 @@ public class EnemyAIController : MonoBehaviour
         if (IsAggrevated())
         {
             AttackBehaviour();
-            MoveTo(targetPlayer.transform.position, 1f);
+            //MoveTo(targetPlayer.transform.position, 1f);
         }
 
         else if (timeSinceLastSawThePLayer < suspicionTime)
@@ -91,7 +91,7 @@ public class EnemyAIController : MonoBehaviour
     private void AttackBehaviour()
     {
         timeSinceLastSawThePLayer = 0f;
-        enemyFighter.AttackBehaviour(targetPlayer);
+        enemyFighter.Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
     }
 
     private void UpdateTimers()
