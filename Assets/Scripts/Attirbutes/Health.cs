@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using RPG.Core;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] float regenerationPercentage = 50;
     [SerializeField] UnityEvent onDie;
+    [SerializeField] UnityEvent takeDamage;
 
     LazyValue<float> healthPoints;
 
@@ -100,13 +102,11 @@ public class Health : MonoBehaviour
 
     public void ApplyDamage(float dmg)   //Let's apply some damage on hit, shall we?
     {
+        if (isDead) return;
         healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
         Debug.Log(healthPoints.value);
 
-        if (healthPoints.value == 0)
-        {
-            Die();
-        }
+        takeDamage.Invoke(); //event
 
         if (healthPoints.value > 0)
         {
@@ -205,7 +205,7 @@ public class Health : MonoBehaviour
 
         if (healthPoints.value <= 0)//Death,
         {
-            destroyOnDeath = true;
+            onDie.Invoke();
             //Spawn Of Death
 
             //components
@@ -307,21 +307,18 @@ public class Health : MonoBehaviour
 
                 }
             }
-
-            if (destroyOnDeath)
-            {
-                Destroy(gameObject.GetComponent<Fighter>().GetCurrentWeapon(), destroyDelay);
-                Destroy(gameObject, destroyDelay);
-            }
         }
-
     }
 
-    private void Die()
+    public void Die()
     {
-        if (isDead) return;
+        /*if (GetComponent<Fighter>().GetCurrentWeapon() != null)
+            Destroy(GetComponent<Fighter>().GetCurrentWeapon(), destroyDelay);*/
 
         isDead = true;
+        GetComponent<ActionScheduler>().CancelCurrentAction();
+        Destroy(gameObject, destroyDelay);
+
     }
 
     public bool IsDead()

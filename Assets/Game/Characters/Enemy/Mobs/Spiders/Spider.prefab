@@ -1576,7 +1576,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1035394dba39c5b41a002d49c4b0cb88, type: 2}
+  - {fileID: 2100000, guid: 946743619be2e56459389a85fdaba5de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAttackCooldown: 2
-  mobRange: 1
+  mobRange: 2
 --- !u!114 &2315229587453089263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1850,7 +1850,9 @@ MonoBehaviour:
   maxSpeed: 2
   chaseDistance: 3
   suspicionTime: 3
-  WaitOnPointTime: 1
+  waitOnPointTime: 2
+  agroCooldownTime: 2
+  callArea: 10
   gameManager: {fileID: 0}
 --- !u!114 &8291269039793835369
 MonoBehaviour:
@@ -1867,7 +1869,46 @@ MonoBehaviour:
   regenerationPercentage: 50
   onDie:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8291269039793835369}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: Die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  takeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2315229587453089263}
+        m_TargetAssemblyTypeName: EnemyAIController, Assembly-CSharp
+        m_MethodName: Aggrevated
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2315229587453089263}
+        m_TargetAssemblyTypeName: EnemyAIController, Assembly-CSharp
+        m_MethodName: CallNearbyEnemies
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   hurtAnimator: {fileID: 0}
   hurtLegacyAnimation: {fileID: 0}
   numberOfHurtAnimations: 0
@@ -1889,7 +1930,7 @@ MonoBehaviour:
   deathAnimator: {fileID: 0}
   deathLegacyAnimation: {fileID: 0}
   destroyOnDeath: 0
-  destroyDelay: 0
+  destroyDelay: 6
 --- !u!114 &4856656955639027472
 MonoBehaviour:
   m_ObjectHideFlags: 0

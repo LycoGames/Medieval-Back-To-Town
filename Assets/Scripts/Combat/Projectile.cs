@@ -16,7 +16,6 @@ public class Projectile : MonoBehaviour
     [SerializeField] UnityEvent onHit;
 
     GameObject instigator = null;
-
     private void Start()
     {
         Destroy(gameObject, maxLifeTime);
@@ -39,5 +38,6 @@ public class Projectile : MonoBehaviour
         Debug.Log(target + " " + damage + "damage atıldı");
 
         Destroy(gameObject);
+
     }
 }

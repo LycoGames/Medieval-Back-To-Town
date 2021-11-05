@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        for (var x = 0; x < 3; x++)
+        for (var x = 0; x < spawnPoints.Length; x++)
         {
             GameObject spawnPoint = spawnPoints[x];
             GameObject enemySpawned = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity) as GameObject;

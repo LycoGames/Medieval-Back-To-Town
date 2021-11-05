@@ -6,7 +6,7 @@ using RPG.Core;
 using System;
 using Photon.Pun;
 
-public class EnemyAIController : MonoBehaviour
+public class EnemyAIController : MonoBehaviour, IAction
 {
     [SerializeField] PatrolPath patrolPath;
     [SerializeField] Transform target;
@@ -14,7 +14,9 @@ public class EnemyAIController : MonoBehaviour
     [SerializeField] float maxSpeed = 1f;
     [SerializeField] float chaseDistance = 5f;
     [SerializeField] float suspicionTime = 4f;
-    [SerializeField] float WaitOnPointTime = 2f;
+    [SerializeField] float waitOnPointTime = 2f;
+    [SerializeField] float agroCooldownTime = 4f;
+    [SerializeField] float callArea = 3f;
 
     public GameManager gameManager;
 
@@ -28,6 +30,7 @@ public class EnemyAIController : MonoBehaviour
     int currentWaypointIndex = 0;
     float timeSinceLastSawThePLayer = Mathf.Infinity;
     float timeSinceArrivedAtLastPoint = Mathf.Infinity;
+    float timeSinceAggrevated = Mathf.Infinity;
 
     void Awake()
     {
@@ -92,12 +95,32 @@ public class EnemyAIController : MonoBehaviour
     {
         timeSinceLastSawThePLayer = 0f;
         enemyFighter.Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
+        //CallNearbyEnemies();
+    }
+
+    public void CallNearbyEnemies()
+    { //https://docs.unity3d.com/ScriptReference/Physics.SphereCastAll.html
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, callArea, Vector3.up, 0);
+        foreach (RaycastHit hit in hits)
+        {
+            EnemyAIController ai = hit.collider.GetComponent<EnemyAIController>(); //vuran her raycast hiti için(her bir mob için) bu scriptteki Aggrevated'i tetikle. 
+            if (ai == null) continue;
+            if (ai == this) continue;
+            ai.Aggrevated();
+        }
     }
 
     private void UpdateTimers()
     {
         timeSinceLastSawThePLayer += Time.deltaTime;
         timeSinceArrivedAtLastPoint += Time.deltaTime;
+        timeSinceAggrevated += Time.deltaTime;
+    }
+
+
+    public void Aggrevated() //event! damage aldıgında event tetikliycek.
+    {
+        timeSinceAggrevated = 0;
     }
 
     public void MoveTo(Vector3 destination, float speedFraction)
@@ -109,6 +132,7 @@ public class EnemyAIController : MonoBehaviour
 
     private void PatrolBehaviour()
     {
+
         Vector3 nextPosition = guardPosition; //mobun eski pozisyonunu tuttum.
 
         if (patrolPath != null) // patrol pathi yoksa eski yerine geri dönsün.
@@ -120,9 +144,10 @@ public class EnemyAIController : MonoBehaviour
             }
             nextPosition = GetCurrentWaypoint();
 
-            if (timeSinceArrivedAtLastPoint > WaitOnPointTime)
+            if (timeSinceArrivedAtLastPoint > waitOnPointTime)
             {
-                MoveTo(nextPosition, 1f);
+                //MoveTo(nextPosition, 1f);
+                StartMoveAction(nextPosition, 1f);
             }
 
         }
@@ -134,7 +159,11 @@ public class EnemyAIController : MonoBehaviour
 
     }
 
-
+    private void StartMoveAction(Vector3 destination, float speedFraction)
+    {
+        GetComponent<ActionScheduler>().StartAction(this);
+        MoveTo(destination, speedFraction);
+    }
 
     private bool AtWaypoint() //patroldeki waypointlere yakın olup olmadıgımın sorgusu.
     {
@@ -147,7 +176,7 @@ public class EnemyAIController : MonoBehaviour
         currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
     }
 
-    private Vector3 GetCurrentWaypoint() //waypointi alıyorumilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
+    private Vector3 GetCurrentWaypoint() //waypointi alıyorum ilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
     {
         return patrolPath.GetWaypoint(currentWaypointIndex);
     }
@@ -160,12 +189,14 @@ public class EnemyAIController : MonoBehaviour
     public void Cancel()
     {
         navMeshAgent.isStopped = true;
+        Debug.Log("durdu");
     }
 
     public bool IsAggrevated()
     {
         float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
-        return distanceToPlayer < chaseDistance;
+        return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
+
     }
 
     void OnDrawGizmosSelected()
