@@ -55,7 +55,6 @@ public class Fighter : MonoBehaviour
         {
             anim.SetTrigger("attack");
             currentWeaponConfig.LaunchProjectile(rightHandTransform,leftHandTransform,GetComponent<Health>(),gameObject,20,transform);
-            print("arrow launched! ");
             anim.SetBool("isAttacking", true);
         }
     }
