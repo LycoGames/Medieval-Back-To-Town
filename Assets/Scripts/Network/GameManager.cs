@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        spawnPoints = GameObject.FindGameObjectsWithTag("Spawners");
         SpawnEnemies();
     }
 

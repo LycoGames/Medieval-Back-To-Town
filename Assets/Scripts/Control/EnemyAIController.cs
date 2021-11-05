@@ -31,17 +31,14 @@ public class EnemyAIController : MonoBehaviour
 
     void Awake()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        enemyFighter = GetComponent<EnemyFighter>();
-        health = GetComponent<Health>();
+        GetRequiredComponents();
     }
 
     void Start()
     {
         guardPosition = transform.position;
-
-        targetPlayer = GameObject.FindGameObjectWithTag("Player");
-        playerHealth = targetPlayer.GetComponent<Health>();
+        GetPlayer();
+        GetPatrolInfos();
     }
 
 
@@ -70,6 +67,25 @@ public class EnemyAIController : MonoBehaviour
         UpdateTimers();
 
         // GetComponent<NavMeshAgent>().destination = target.position;
+    }
+
+    private void GetRequiredComponents()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        enemyFighter = GetComponent<EnemyFighter>();
+        health = GetComponent<Health>();
+    }
+
+    private void GetPlayer()
+    {
+        targetPlayer = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = targetPlayer.GetComponent<Health>();
+    }
+
+    private void GetPatrolInfos()
+    {
+        patrolPath = GameObject.FindObjectOfType<PatrolPath>();
+        currentWaypointIndex = patrolPath.GetWaypointIndex(transform);
     }
 
     private void AttackBehaviour()
