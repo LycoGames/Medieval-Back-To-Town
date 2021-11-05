@@ -40,7 +40,6 @@ public class EnemyFighter : MonoBehaviour,IAction
         if(targetPlayer == null) return;
         if (!GetIsInRange(targetPlayer.transform))
         {
-            Debug.Log("target player");
             enemyAIController.MoveTo(targetPlayer.transform.position, 1f);
         }
 
@@ -81,12 +80,12 @@ public class EnemyFighter : MonoBehaviour,IAction
 
     public void Cancel(){
         targetPlayer = null;
+        GetComponent<EnemyAIController>().Cancel();
     }
 
     public void Hit()
     {
         float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();
-        print("canım: "+targetPlayerHealth);
         targetPlayer.GetComponent<Health>().ApplyDamage(GetDamage());
     }
 

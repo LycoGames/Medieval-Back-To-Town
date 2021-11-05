@@ -1,7 +1,5 @@
+using RPG.Core;
 using UnityEngine;
-
-namespace RPG.Core
-{
 
     public class ActionScheduler : MonoBehaviour
     {
@@ -22,4 +20,3 @@ namespace RPG.Core
             StartAction(null);
         }
     }
-}

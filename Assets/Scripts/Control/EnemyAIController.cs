@@ -93,15 +93,13 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     private void AttackBehaviour()
     {
-        Debug.Log("düşman görüldü");
-        //timeSinceLastSawThePLayer = 0f;
+        timeSinceLastSawThePLayer = 0f;
         enemyFighter.Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
         //CallNearbyEnemies();
     }
 
     public void CallNearbyEnemies()
     { //https://docs.unity3d.com/ScriptReference/Physics.SphereCastAll.html
-        Debug.Log("arkadaşlarını çağırdı.");
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, callArea, Vector3.up, 0);
         foreach (RaycastHit hit in hits)
         {
@@ -191,6 +189,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     public void Cancel()
     {
         navMeshAgent.isStopped = true;
+        Debug.Log("durdu");
     }
 
     public bool IsAggrevated()
