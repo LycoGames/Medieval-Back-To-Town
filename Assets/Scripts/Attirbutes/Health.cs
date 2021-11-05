@@ -112,6 +112,7 @@ public class Health : MonoBehaviour
         else
         {
             takeDamage.Invoke(); //event
+            Debug.Log("hasar verildi.");
         }
 
 

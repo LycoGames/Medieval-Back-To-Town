@@ -32,6 +32,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 5.0669146
       objectReference: {fileID: 0}
+    - target: {fileID: 2315229587453089263, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: callArea
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3784256213075305872, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -102,5 +107,52 @@ PrefabInstance:
       propertyPath: startingLevel
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8538923003749303765}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CallNearbyEnemies
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: EnemyAIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b6631aae5e568e4cb99a70467daa840, type: 3}
+--- !u!114 &8538923003749303765 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2315229587453089263, guid: 3b6631aae5e568e4cb99a70467daa840,
+    type: 3}
+  m_PrefabInstance: {fileID: 6242270765199003706}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e5fb7607dec4b0459ee5357eaa0bd7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

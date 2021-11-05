@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using RPG.Core;
 using UnityEngine;
 
-public class EnemyFighter : MonoBehaviour
+public class EnemyFighter : MonoBehaviour,IAction
 {
 
     [SerializeField] float enemyAttackCooldown = 1f;
@@ -39,6 +40,7 @@ public class EnemyFighter : MonoBehaviour
         if(targetPlayer == null) return;
         if (!GetIsInRange(targetPlayer.transform))
         {
+            Debug.Log("target player");
             enemyAIController.MoveTo(targetPlayer.transform.position, 1f);
         }
 
@@ -51,7 +53,7 @@ public class EnemyFighter : MonoBehaviour
         UpdateTimers();
     }
 
-    private bool GetIsInRange(Transform targetTransform)
+    public bool GetIsInRange(Transform targetTransform)
     {
         return Vector3.Distance(transform.position, targetTransform.transform.position) < mobRange;
     }
@@ -73,7 +75,12 @@ public class EnemyFighter : MonoBehaviour
 
     public void Attack(GameObject combatTarget)
     {
+        GetComponent<ActionScheduler>().StartAction(this);
         targetPlayer = combatTarget.GetComponent<Health>(); //targetplayeri setledim.
+    }
+
+    public void Cancel(){
+        targetPlayer = null;
     }
 
     public void Hit()

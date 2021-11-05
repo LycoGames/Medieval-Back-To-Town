@@ -6,7 +6,7 @@ using RPG.Core;
 using System;
 using Photon.Pun;
 
-public class EnemyAIController : MonoBehaviour
+public class EnemyAIController : MonoBehaviour, IAction
 {
     [SerializeField] PatrolPath patrolPath;
     [SerializeField] Transform target;
@@ -66,7 +66,7 @@ public class EnemyAIController : MonoBehaviour
         {
             PatrolBehaviour();
         }
-       
+
         UpdateTimers();
 
         // GetComponent<NavMeshAgent>().destination = target.position;
@@ -93,18 +93,21 @@ public class EnemyAIController : MonoBehaviour
 
     private void AttackBehaviour()
     {
-        timeSinceLastSawThePLayer = 0f;
+        Debug.Log("düşman görüldü");
+        //timeSinceLastSawThePLayer = 0f;
         enemyFighter.Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
-        CallNearbyEnemies();
+        //CallNearbyEnemies();
     }
 
-    private void CallNearbyEnemies()
+    public void CallNearbyEnemies()
     { //https://docs.unity3d.com/ScriptReference/Physics.SphereCastAll.html
+        Debug.Log("arkadaşlarını çağırdı.");
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, callArea, Vector3.up, 0);
         foreach (RaycastHit hit in hits)
         {
             EnemyAIController ai = hit.collider.GetComponent<EnemyAIController>(); //vuran her raycast hiti için(her bir mob için) bu scriptteki Aggrevated'i tetikle. 
             if (ai == null) continue;
+            if (ai == this) continue;
             ai.Aggrevated();
         }
     }
@@ -114,7 +117,7 @@ public class EnemyAIController : MonoBehaviour
         timeSinceLastSawThePLayer += Time.deltaTime;
         timeSinceArrivedAtLastPoint += Time.deltaTime;
         timeSinceAggrevated += Time.deltaTime;
-        print("agre time: "+timeSinceAggrevated);    }
+    }
 
 
     public void Aggrevated() //event! damage aldıgında event tetikliycek.
@@ -131,6 +134,7 @@ public class EnemyAIController : MonoBehaviour
 
     private void PatrolBehaviour()
     {
+
         Vector3 nextPosition = guardPosition; //mobun eski pozisyonunu tuttum.
 
         if (patrolPath != null) // patrol pathi yoksa eski yerine geri dönsün.
@@ -144,7 +148,8 @@ public class EnemyAIController : MonoBehaviour
 
             if (timeSinceArrivedAtLastPoint > waitOnPointTime)
             {
-                MoveTo(nextPosition, 1f);
+                //MoveTo(nextPosition, 1f);
+                StartMoveAction(nextPosition, 1f);
             }
 
         }
@@ -156,7 +161,11 @@ public class EnemyAIController : MonoBehaviour
 
     }
 
-
+    private void StartMoveAction(Vector3 destination, float speedFraction)
+    {
+        GetComponent<ActionScheduler>().StartAction(this);
+        MoveTo(destination, speedFraction);
+    }
 
     private bool AtWaypoint() //patroldeki waypointlere yakın olup olmadıgımın sorgusu.
     {
@@ -187,8 +196,8 @@ public class EnemyAIController : MonoBehaviour
     public bool IsAggrevated()
     {
         float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
-        return (distanceToPlayer < chaseDistance||timeSinceAggrevated < agroCooldownTime);
-       
+        return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
+
     }
 
     void OnDrawGizmosSelected()
