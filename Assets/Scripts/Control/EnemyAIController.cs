@@ -26,6 +26,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     EnemyFighter enemyFighter;
     Health playerHealth;
     Health health;
+    EnemyFOV enemyFOV;
 
     int currentWaypointIndex = 0;
     float timeSinceLastSawThePLayer = Mathf.Infinity;
@@ -40,6 +41,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     void Start()
     {
         guardPosition = transform.position;
+        enemyFOV = GetComponent<EnemyFOV>();
         GetPlayer();
         GetPatrolInfos();
     }
@@ -51,7 +53,7 @@ public class EnemyAIController : MonoBehaviour, IAction
 
         if (playerHealth.IsDead()) return;
 
-        if (IsAggrevated())
+        if (IsAggrevated() || enemyFOV.GetCanSeePlayer())
         {
             AttackBehaviour();
             //MoveTo(targetPlayer.transform.position, 1f);
