@@ -24,6 +24,15 @@ public class PatrolPath : MonoBehaviour
         return transform.GetChild(i).position;
     }
 
+    public int GetWaypointIndex(Transform transform){
+        for(int i=0;i<transform.childCount;i++){
+            if(GetWaypoint(i) == transform.position){
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public int GetNextIndex(int i)
     {
         // başlangıc point'inden sonuncuya cizgi cekmiyordu. 

@@ -10,14 +10,17 @@ public class Weapon_Animation_Events : MonoBehaviour
 
     const string weaponName = "Weapon";
 
-    private void Start()
+    void Start()
     {
         Transform weapon = rightHand.Find(weaponName);
         if (weapon == null)
             weapon = leftHand.Find(weaponName);
         if (weapon == null) return;
 
-        MarkerManager = weapon.GetChild(weapon.childCount - 1).GetComponent<Marker_Manager>();
+        Debug.Log("return sonrası");
+
+        MarkerManager = weapon.GetChild(0).GetComponent<Marker_Manager>();
+        Debug.Log(MarkerManager);
     }
 
 

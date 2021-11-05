@@ -5,7 +5,7 @@ using Photon.Pun;
 using System;
 using RPG.Core;
 
-public class PlayerController : MonoBehaviour, IPunObservable
+public class PlayerController : MonoBehaviour
 {
     public static PlayerController localPlayer;
 
@@ -35,29 +35,9 @@ public class PlayerController : MonoBehaviour, IPunObservable
     private bool isAnimate = false;
     float angle;
 
-    //Networking
 
-    PhotonView myPhotonView;
 
     private void Start()
-    {
-        myPhotonView = GetComponent<PhotonView>();
-        if (myPhotonView.IsMine)
-        {
-            localPlayer = this;
-        }
-
-        SetComponents();
-
-        if (!myPhotonView.IsMine)
-        {
-            myFollowCamera.DisablePlayerCameras();
-            return;
-        }
-
-    }
-
-    private void SetComponents()
     {
         controller = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
@@ -66,21 +46,12 @@ public class PlayerController : MonoBehaviour, IPunObservable
 
     private void Update()
     {
-        UpdateRotation();
-
-        if (!myPhotonView.IsMine) { return; }
-
         if (health.IsDead()) return;
 
         if (HandleAttack()) return;
         Move();
 
         Jump();
-    }
-
-    private void UpdateRotation()
-    {
-        transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
     private bool HandleAttack()
@@ -116,7 +87,7 @@ public class PlayerController : MonoBehaviour, IPunObservable
         {
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
             angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, isGrounded ? turnSmoothTime : turnSmoothTime * 3);
-
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
             moveDir = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
         }
@@ -165,17 +136,5 @@ public class PlayerController : MonoBehaviour, IPunObservable
             return true;
         }
         return false;
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(angle);
-        }
-        else
-        {
-            angle = (float)stream.ReceiveNext();
-        }
     }
 }

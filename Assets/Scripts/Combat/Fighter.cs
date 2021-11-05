@@ -1,7 +1,6 @@
-using Photon.Pun;
 using UnityEngine;
 
-public class Fighter : MonoBehaviour, IPunObservable
+public class Fighter : MonoBehaviour
 {
     [SerializeField] WeaponConfig defaultWeapon = null;
     [SerializeField] Transform rightHandTransform = null;
@@ -16,34 +15,17 @@ public class Fighter : MonoBehaviour, IPunObservable
     WeaponConfig currentWeaponConfig;
     LazyValue<Weapon> currentWeapon;
 
-    //Network
-    PhotonView myPV;
-
     private void Awake()
     {
         currentWeaponConfig = defaultWeapon;
         currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
+        currentWeapon.ForceInit();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        myPV = GetComponent<PhotonView>();
-        currentWeapon.ForceInit();
-        if (myPV.IsMine)
-            localPlayer = this;
-
-        if (!myPV.IsMine)
-            return;
-
-
         anim = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!myPV.IsMine) { return; }
     }
 
     private Weapon SetupDefaultWeapon()
@@ -64,7 +46,6 @@ public class Fighter : MonoBehaviour, IPunObservable
 
     private void AttackAnimEnded()
     {
-        if (!myPV.IsMine) return;
         anim.SetBool("isAttacking", false);
     }
 
@@ -85,7 +66,8 @@ public class Fighter : MonoBehaviour, IPunObservable
         currentWeapon.value = AttachWeapon(weapon);
     }
 
-    public Weapon GetCurrentWeapon(){
+    public Weapon GetCurrentWeapon()
+    {
         return currentWeapon.value;
     }
 
@@ -93,17 +75,5 @@ public class Fighter : MonoBehaviour, IPunObservable
     {
         Animator animator = GetComponent<Animator>();
         return weapon.Spawn(rightHandTransform, leftHandTransform, animator);
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        /*if (stream.IsWriting)
-        {
-            stream.SendNext(anim.GetBool("isAttacking"));
-        }
-        else
-        {
-            anim.SetBool("isAttacking", (bool)stream.ReceiveNext());
-        }*/
     }
 }
