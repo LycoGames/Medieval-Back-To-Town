@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject spawnPoint = spawnPoints[x];
             GameObject enemySpawned = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity) as GameObject;
-            Debug.Log(enemySpawned);
             enemySpawned.GetComponent<EnemyAIController>().gameManager = GetComponent<GameManager>();
             enemiesAlive++;
         }

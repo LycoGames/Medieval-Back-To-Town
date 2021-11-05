@@ -9,13 +9,13 @@ public class Projectile : MonoBehaviour
     [SerializeField] float speed = 1;
     [SerializeField] float maxLifeTime = 10f;
     [SerializeField] float lifeAfterImpact = 2f;
+    [SerializeField] string targetTag = "Enemy";
+    [SerializeField] float damage = 20;
     [SerializeField] GameObject hitEffect = null;
     [SerializeField] GameObject[] destroyOnHit = null;
     [SerializeField] UnityEvent onHit;
-    [SerializeField] string targetTag = "Enemy";
 
     GameObject instigator = null;
-    float damage = 0;
 
     private void Start()
     {
@@ -24,7 +24,6 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
@@ -32,6 +31,13 @@ public class Projectile : MonoBehaviour
     {
         //speed = 0;
         onHit.Invoke();
-        
+        Health target = other.GetComponent<Health>();
+        if (target == null || target.tag != targetTag) return;
+        if (target.IsDead()) return;
+
+        target.ApplyDamage(damage);
+        Debug.Log(target + " " + damage + "damage atıldı");
+
+        Destroy(gameObject);
     }
 }
