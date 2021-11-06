@@ -191,7 +191,6 @@ public class EnemyAIController : MonoBehaviour, IAction
     public void Cancel()
     {
         navMeshAgent.isStopped = true;
-        Debug.Log("durdu");
     }
 
     public bool IsAggrevated()
