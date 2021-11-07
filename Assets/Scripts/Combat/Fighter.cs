@@ -6,11 +6,12 @@ public class Fighter : MonoBehaviour
     [SerializeField] WeaponConfig defaultWeapon = null;
     [SerializeField] Transform rightHandTransform = null;
     [SerializeField] Transform leftHandTransform = null;
+    [SerializeField] Animator anim;
 
     const string weaponName = "Unarmed";
 
     public static Fighter localPlayer;
-    private Animator anim;
+
 
     //Weapon
     WeaponConfig currentWeaponConfig;
@@ -36,32 +37,18 @@ public class Fighter : MonoBehaviour
 
     public bool AttackBehaviour()
     {
-        TriggerAttack();
-        return anim.GetBool("isAttacking");
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            anim.SetTrigger("attack");
+            LookMousePosition();
+            return true;
+        }
+        return false;
     }
 
     void Hit()
     {
         //Debug.Log("Yumruk Atıldı.");
-    }
-
-    private void AttackAnimEnded()
-    {
-        anim.SetBool("isAttacking", false);
-    }
-
-    private void TriggerAttack()
-    {
-        if (!anim.GetBool("isAttacking") && Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            anim.SetTrigger("attack");
-
-            LookMousePosition();
-            
-            currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, GetComponent<Health>(), gameObject, 20, transform);
-            
-            anim.SetBool("isAttacking", true);
-        }
     }
 
     private bool LookMousePosition()

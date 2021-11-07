@@ -1664,6 +1664,7 @@ GameObject:
   - component: {fileID: 2315229587453089263}
   - component: {fileID: 8291269039793835369}
   - component: {fileID: 4856656955639027472}
+  - component: {fileID: 1925353261296819865}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Enemy
@@ -1948,6 +1949,28 @@ MonoBehaviour:
   progression: {fileID: 11400000, guid: 46a85f32f1cbfcf45955c0a9f87a6f58, type: 2}
   levelUpParticleEffect: {fileID: 0}
   shouldUseModifier: 0
+--- !u!114 &1925353261296819865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741126025642493396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e830cdfea516db4dae36478a334b0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 6
+  angle: 90
+  targetPlayer: {fileID: 0}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  canSeePlayer: 0
 --- !u!1 &1741126025642493400
 GameObject:
   m_ObjectHideFlags: 0
