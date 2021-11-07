@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float gravity;
     [SerializeField] private float jumpHeight;
+    [SerializeField] Animator anim;
 
     private float turnSmoothVelocity;
     private float moveSpeed;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
 
     private CharacterController controller;
-    private Animator anim;
+    
 
     private bool isAnimate = false;
     float angle;
@@ -40,7 +41,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        anim = GetComponentInChildren<Animator>();
         health = GetComponent<Health>();
     }
 

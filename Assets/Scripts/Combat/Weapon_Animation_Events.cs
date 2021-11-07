@@ -17,7 +17,7 @@ public class Weapon_Animation_Events : MonoBehaviour
             weapon = leftHand.Find(weaponName);
         if (weapon == null) return;
 
-        MarkerManager = weapon.GetChild(0).GetComponent<Marker_Manager>();
+        MarkerManager = weapon.GetChild(weapon.childCount-1).GetComponent<Marker_Manager>();
     }
 
 

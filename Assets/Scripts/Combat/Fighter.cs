@@ -6,11 +6,12 @@ public class Fighter : MonoBehaviour
     [SerializeField] WeaponConfig defaultWeapon = null;
     [SerializeField] Transform rightHandTransform = null;
     [SerializeField] Transform leftHandTransform = null;
+    [SerializeField] Animator anim;
 
     const string weaponName = "Unarmed";
 
     public static Fighter localPlayer;
-    private Animator anim;
+    
 
     //Weapon
     WeaponConfig currentWeaponConfig;
@@ -58,7 +59,7 @@ public class Fighter : MonoBehaviour
 
             LookMousePosition();
             
-            currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, GetComponent<Health>(), gameObject, 20, transform);
+            //currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, GetComponent<Health>(), gameObject, 20, transform);
 
             anim.SetBool("isAttacking", true);
         }

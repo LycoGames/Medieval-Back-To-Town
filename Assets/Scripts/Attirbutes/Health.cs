@@ -118,8 +118,8 @@ public class Health : MonoBehaviour
             {
                 hurtAnimRandomisation = 0;
             }
-
-            if (hurtAnimator != null)
+            
+            if (hurtAnimator != null && AnimatorIsPlaying("Locomotion"))
             {
                 if (hurtAnimRandomisation == 1)
                 {
@@ -324,5 +324,10 @@ public class Health : MonoBehaviour
     public bool IsDead()
     {
         return isDead;
+
     }
+
+    bool AnimatorIsPlaying(string stateName){
+     return hurtAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+  }
 }
