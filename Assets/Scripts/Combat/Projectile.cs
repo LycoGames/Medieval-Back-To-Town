@@ -34,10 +34,20 @@ public class Projectile : MonoBehaviour
         if (target == null || target.tag != targetTag) return;
         if (target.IsDead()) return;
 
+        if (hitEffect != null)
+        {
+            Instantiate(hitEffect, target.transform.position, transform.rotation);
+        }
+
+        foreach (GameObject toDestroy in destroyOnHit)
+        {
+            Destroy(toDestroy);
+        }
+
         target.ApplyDamage(damage);
         Debug.Log(target + " " + damage + "damage atıldı");
 
-        Destroy(gameObject);
+        Destroy(gameObject, lifeAfterImpact);
 
     }
 }
