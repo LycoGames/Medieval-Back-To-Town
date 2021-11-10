@@ -40,7 +40,7 @@ public class Fighter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             anim.SetTrigger("attack");
-            LookMousePosition();
+            //LookMousePosition();
             return true;
         }
         return false;
