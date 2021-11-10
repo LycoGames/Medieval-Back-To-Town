@@ -6,12 +6,11 @@ public class Fighter : MonoBehaviour
     [SerializeField] WeaponConfig defaultWeapon = null;
     [SerializeField] Transform rightHandTransform = null;
     [SerializeField] Transform leftHandTransform = null;
-    [SerializeField] Animator anim;
+
 
     const string weaponName = "Unarmed";
 
-    public static Fighter localPlayer;
-
+    Animator anim;
     Health target;
     //Weapon
     WeaponConfig currentWeaponConfig;
@@ -51,7 +50,7 @@ public class Fighter : MonoBehaviour
     {
         if (currentWeaponConfig.HasProjectile())
         {
-            currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(),transform);
+            currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), transform);
         }
         //Debug.Log("Yumruk Atıldı.");
 
