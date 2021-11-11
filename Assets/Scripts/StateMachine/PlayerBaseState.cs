@@ -1,7 +1,14 @@
 public abstract class PlayerBaseState
 {
-    protected PlayerStateMachine ctx;
-    protected PlayerStateFactory factory;
+    private bool isRootState = false;
+    private PlayerStateMachine ctx;
+    private PlayerStateFactory factory;
+    private PlayerBaseState currentSubState;
+    private PlayerBaseState currentSuperState;
+
+    protected bool IsRootState { set { isRootState = value; } }
+    protected PlayerStateMachine Ctx { get { return ctx; } }
+    protected PlayerStateFactory Factory { get { return factory; } }
 
     public PlayerBaseState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     {
@@ -15,25 +22,54 @@ public abstract class PlayerBaseState
 
     public abstract void ExitState();
 
-    public abstract void ChechSwitchStates();
+    public abstract void CheckSwitchStates();
 
     public abstract void InitializeSubState();
 
-    void UpdateStates() { }
+    public void UpdateStates()
+    {
+        UpdateState();
+        if (currentSubState != null)
+        {
+            currentSubState.UpdateStates();
+        }
+    }
+    public void ExitStates()
+    {
+        ExitState();
+        if (currentSubState != null)
+        {
+            currentSubState.ExitStates();
+        }
+    }
 
     protected void SwitchState(PlayerBaseState newState)
     {
         // current state exits state
         ExitState();
-        
+
         // new state enters state
         newState.EnterState();
 
-        // switch current state of context
-        ctx.CurrentState= newState;
+        if (isRootState)
+        {
+            // switch current state of context
+            Ctx.CurrentState = newState;
+        }
+        else if (currentSuperState != null)
+        {
+            currentSuperState.SetSubState(newState);
+        }
     }
 
-    protected void SetSuperState() { }
+    protected void SetSuperState(PlayerBaseState newSuperState)
+    {
+        currentSuperState = newSuperState;
+    }
 
-    protected void SetSubState() { }
+    protected void SetSubState(PlayerBaseState newSubState)
+    {
+        currentSubState = newSubState;
+        newSubState.SetSuperState(this);
+    }
 }

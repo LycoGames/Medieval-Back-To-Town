@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerGroundedState : PlayerBaseState
 {
-    public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory) { }
+    public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    {
+        IsRootState = true;
+        InitializeSubState();
+    }
 
     public override void EnterState()
     {
@@ -12,20 +16,34 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void UpdateState()
     {
-        ChechSwitchStates();
+        CheckSwitchStates();
     }
 
     public override void ExitState()
     {
     }
 
-    public override void InitializeSubState() { }
-
-    public override void ChechSwitchStates()
+    public override void InitializeSubState()
     {
-        if (ctx.IsJumpPressed)
+        if (!Ctx.IsMovementPressed)
         {
-            SwitchState(factory.Jump());
+            SetSubState(Factory.Idle());
+        }
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        {
+            SetSubState(Factory.Walk());
+        }
+        else
+        {
+            SetSubState(Factory.Run());
+        }
+    }
+
+    public override void CheckSwitchStates()
+    {
+        if (Ctx.IsJumpPressed)
+        {
+            SwitchState(Factory.Jump());
         }
     }
 }

@@ -191,7 +191,10 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    ModeOverride: 0
     LensShift: {x: 0, y: 0}
+    GateFit: 2
+    m_SensorSize: {x: 1.7767441, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -365,7 +368,10 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    ModeOverride: 0
     LensShift: {x: 0, y: 0}
+    GateFit: 2
+    m_SensorSize: {x: 1.7767441, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -872,6 +878,8 @@ MonoBehaviour:
     m_Bits: 0
   IgnoreTag: 
   CameraRadius: 0.2
+  DampingIntoCollision: 0
+  DampingFromCollision: 0
 --- !u!1 &2052828698
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +945,10 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    ModeOverride: 0
     LensShift: {x: 0, y: 0}
+    GateFit: 2
+    m_SensorSize: {x: 1.7767441, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1010,7 +1021,10 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    ModeOverride: 0
     LensShift: {x: 0, y: 0}
+    GateFit: 2
+    m_SensorSize: {x: 1.7767441, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 1
@@ -1226,7 +1240,10 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    ModeOverride: 0
     LensShift: {x: 0, y: 0}
+    GateFit: 2
+    m_SensorSize: {x: 1.7767441, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1354,8 +1371,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847271607587269598}
-  m_LocalRotation: {x: 0.18941754, y: 0.29411155, z: -0.05958809, w: 0.93491644}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.122126564, y: 0.29761773, z: -0.0384193, w: 0.94606173}
+  m_LocalPosition: {x: 0.80102587, y: -1.8326921, z: 1.1471481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9124195110265733191}
@@ -1395,7 +1412,10 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    ModeOverride: 0
     LensShift: {x: 0, y: 0}
+    GateFit: 2
+    m_SensorSize: {x: 1.7767441, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1550,6 +1570,7 @@ GameObject:
   - component: {fileID: 4637975185920583405}
   - component: {fileID: 182358645}
   - component: {fileID: 904298230}
+  - component: {fileID: 263984422}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -1650,7 +1671,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5349997386430936147}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebe7255e07f710b43a3c01edcf8903f5, type: 3}
   m_Name: 
@@ -1818,6 +1839,30 @@ MonoBehaviour:
       m_RecenteringTime: 0
       m_LegacyHeadingDefinition: 0
       m_LegacyVelocityFilterStrength: 0
+--- !u!114 &263984422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5349997386430936147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f55ce59d38e2c448eaffc7f14535bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 2
+  runSpeed: 4.4
+  turnSmoothTime: 0.1
+  isGrounded: 0
+  groundCheckDistance: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
+  gravity: -9.81
+  jumpHeight: 1.5
+  jumpKey: 32
+  runKey: 304
 --- !u!1 &6004141023988025217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,7 +1889,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6004141023988025217}
-  m_LocalRotation: {x: 0.20653912, y: 0.29296875, z: -0.0649743, w: 0.93128365}
+  m_LocalRotation: {x: 0.20653914, y: 0.29296872, z: -0.0649743, w: 0.93128365}
   m_LocalPosition: {x: -5.243354, y: 5.839939, z: -7.5089965}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1878,7 +1923,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2212,7 +2257,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7399902617304839298}
-  m_LocalRotation: {x: 0.2216179, y: 0.2918763, z: -0.06971787, w: 0.927811}
+  m_LocalRotation: {x: 0.22161789, y: 0.2918763, z: -0.06971787, w: 0.927811}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2253,7 +2298,10 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    ModeOverride: 0
     LensShift: {x: 0, y: 0}
+    GateFit: 2
+    m_SensorSize: {x: 1.7767441, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2286,7 +2334,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7780873902378557057}
-  m_LocalRotation: {x: 0.20475999, y: 0.2930923, z: -0.06441461, w: 0.93167645}
+  m_LocalRotation: {x: 0.20476, y: 0.29309228, z: -0.06441462, w: 0.93167645}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2327,7 +2375,10 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    ModeOverride: 0
     LensShift: {x: 0, y: 0}
+    GateFit: 2
+    m_SensorSize: {x: 1.7767441, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2420,6 +2471,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14f1e5450612f1e49acd8acd0f9be4df, type: 3}
+--- !u!4 &8202626787817234678 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 14f1e5450612f1e49acd8acd0f9be4df,
+    type: 3}
+  m_PrefabInstance: {fileID: 8529585593507530525}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7426789334160608924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1247054453727807873, guid: 14f1e5450612f1e49acd8acd0f9be4df,
@@ -2429,12 +2486,6 @@ Transform:
 --- !u!4 &4935661155613337020 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5610973534528953695, guid: 14f1e5450612f1e49acd8acd0f9be4df,
-    type: 3}
-  m_PrefabInstance: {fileID: 8529585593507530525}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8202626787817234678 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 14f1e5450612f1e49acd8acd0f9be4df,
     type: 3}
   m_PrefabInstance: {fileID: 8529585593507530525}
   m_PrefabAsset: {fileID: 0}

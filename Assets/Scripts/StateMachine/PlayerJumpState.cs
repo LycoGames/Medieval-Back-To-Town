@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerBaseState
 {
-    public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory) { }
+    public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    {
+        IsRootState = true;
+        InitializeSubState();
+    }
 
     public override void EnterState()
     {
@@ -14,33 +18,32 @@ public class PlayerJumpState : PlayerBaseState
     public override void UpdateState()
     {
         ApplyGravity();
-        ChechSwitchStates();
+        CheckSwitchStates();
     }
 
     public override void ExitState()
     {
-        ctx.VelocityY = 0;
     }
 
     public override void InitializeSubState() { }
 
-    public override void ChechSwitchStates()
+    public override void CheckSwitchStates()
     {
-        if (ctx.IsFalling && ctx.IsGrounded)
+        if (Ctx.IsFalling && Ctx.IsGrounded)
         {
-            SwitchState(factory.Grounded());
+            SwitchState(Factory.Grounded());
         }
     }
 
     void handleJump()
     {
-        ctx.VelocityY = Mathf.Sqrt(ctx.JumpHeight * -2 * ctx.Gravity);
+        Ctx.VelocityY = Mathf.Sqrt(Ctx.JumpHeight * -2 * Ctx.Gravity);
     }
 
     private void ApplyGravity()
     {
-        ctx.IsFalling = ctx.VelocityY < 0 ? true : false;
-        ctx.VelocityY += ctx.Gravity * Time.deltaTime;
-        ctx.characterController.Move(ctx.Velocity * Time.deltaTime);
+        Ctx.IsFalling = Ctx.VelocityY < 0 ? true : false;
+        Ctx.VelocityY += Ctx.Gravity * Time.deltaTime;
+        Ctx.characterController.Move(Ctx.Velocity * Time.deltaTime);
     }
 }
