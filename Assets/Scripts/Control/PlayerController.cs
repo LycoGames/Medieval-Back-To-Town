@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
+        
 
         float moveZ = Input.GetAxis("Vertical");
         float moveX = Input.GetAxis("Horizontal");
