@@ -10,10 +10,13 @@ public class CharacterAiming : MonoBehaviour
     [SerializeField] Cinemachine.AxisState xAxis;
     [SerializeField] Cinemachine.AxisState yAxis;
     // Start is called before the first frame update
+
     Camera mainCamera;
+    Animator animator;
     void Start()
     {
-        mainCamera = Camera.main;   
+        animator = GetComponent<Animator>();
+        mainCamera = Camera.main;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -21,6 +24,9 @@ public class CharacterAiming : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!animator.GetBool("isAiming"))
+            return;
+            
         xAxis.Update(Time.fixedDeltaTime);
         yAxis.Update(Time.fixedDeltaTime);
 
