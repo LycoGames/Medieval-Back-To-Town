@@ -25,6 +25,30 @@ public class TwoDimensionalAnimationStateController : MonoBehaviour
         VelocityXHash = Animator.StringToHash("Velocity X");
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (animator.GetBool("isAiming"))
+        {
+            bool forwardPressed = Input.GetKey(KeyCode.W);
+            bool leftPressed = Input.GetKey(KeyCode.A);
+            bool rightPressed = Input.GetKey(KeyCode.D);
+            bool backPressed = Input.GetKey(KeyCode.S);
+            bool runPressed = Input.GetKey(KeyCode.LeftShift);
+
+            float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
+
+            ChangeVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
+            lockOrResetVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
+
+            // set the parameters to our local variable values
+            animator.SetFloat(VelocityZHash, velocityZ);
+            animator.SetFloat(VelocityXHash, velocityX);
+        }
+
+    }
+
+
     //handles acceleration and deceleration
     void ChangeVelocity(bool forwardPressed, bool backPressed, bool leftPressed, bool rightPressed, bool runPressed, float currentMaxVelocity)
     {
@@ -183,27 +207,4 @@ public class TwoDimensionalAnimationStateController : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (animator.GetBool("isAiming"))
-        {
-            bool forwardPressed = Input.GetKey(KeyCode.W);
-            bool leftPressed = Input.GetKey(KeyCode.A);
-            bool rightPressed = Input.GetKey(KeyCode.D);
-            bool backPressed = Input.GetKey(KeyCode.S);
-            bool runPressed = Input.GetKey(KeyCode.LeftShift);
-
-            float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
-
-            ChangeVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
-            lockOrResetVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
-
-            // set the parameters to our local variable values
-            animator.SetFloat(VelocityZHash, velocityZ);
-            animator.SetFloat(VelocityXHash, velocityX);
-        }
-
-    }
 }
