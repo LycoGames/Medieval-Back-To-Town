@@ -7,9 +7,6 @@ using RPG.Core;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController localPlayer;
-
-    [SerializeField] CameraController myFollowCamera;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
     [SerializeField] private float turnSmoothTime = 0.2f;
@@ -18,8 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float gravity;
     [SerializeField] private float jumpHeight;
-    [SerializeField] Animator anim;
 
+    private Animator anim;
     private float turnSmoothVelocity;
     private float moveSpeed;
     private Vector3 moveDirection;
@@ -31,17 +28,14 @@ public class PlayerController : MonoBehaviour
 
 
     private CharacterController controller;
-    
 
-    private bool isAnimate = false;
     float angle;
-
-
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -49,8 +43,11 @@ public class PlayerController : MonoBehaviour
         if (health.IsDead()) return;
 
         if (HandleAttack()) return;
+        if (anim.GetBool("isAiming"))
+        {
+            return;
+        }
         Move();
-
         Jump();
     }
 
@@ -85,12 +82,17 @@ public class PlayerController : MonoBehaviour
     {
         if (moveDirection.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
-            angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, isGrounded ? turnSmoothTime : turnSmoothTime * 3);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            UpdateRotation();
             moveDir = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
         }
+    }
+
+    private void UpdateRotation()
+    {
+        float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+        angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, isGrounded ? turnSmoothTime : turnSmoothTime * 3);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
     private void ApplyGravity()

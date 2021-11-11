@@ -41,7 +41,7 @@ public class EnemyFOV : MonoBehaviour
             {
                 Transform target = hit.transform; //vuran hitlerin transformu Transform olan target adlı degiskene attım.
                                                   // https://docs.unity3d.com/ScriptReference/Vector3-normalized.html
-                Vector3 directionToTarget = (target.position - transform.position).normalized; //targetin transform posi. ile enemyinin mesafesini cıkarıp 0-1 arası normalize ettim.
+                Vector3 directionToTarget = (target.position - transform.position).normalized; //targetin transform posi. ile enemyinin pozisyonu çıkarıp çıkan noktayı (yönü) attım normalize ettim (yt).
                                                                                                //https://docs.unity3d.com/ScriptReference/Vector3.Angle.html
                 if (Vector3.Angle(transform.forward, directionToTarget) < angle) //ileriye dogru olan açı ile direction target arasındaki açıyı derece cinsinden alıp verdigimiz angle degerinden kücüklük sorgusu.
                 {
