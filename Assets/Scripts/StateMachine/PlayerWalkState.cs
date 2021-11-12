@@ -8,7 +8,6 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void EnterState()
     {
-        Ctx.MoveSpeed = Ctx.WalkSpeed;
         Debug.Log("Walk");
     }
 
@@ -16,6 +15,10 @@ public class PlayerWalkState : PlayerBaseState
     {
         if (Ctx.Animator.GetFloat("Speed") != Ctx.WalkSpeed)
             Ctx.Animator.SetFloat("Speed", Ctx.WalkSpeed, 0.1f, Time.deltaTime);
+
+        Vector3 moveDir = Quaternion.Euler(0f, Ctx.RotationAngle, 0f) * Vector3.forward;
+        Ctx.CharacterController.Move(moveDir.normalized * Ctx.WalkSpeed * Time.deltaTime);
+        Ctx.PlayerTransform.rotation = Quaternion.Euler(0f, Ctx.RotationAngle, 0f);
         CheckSwitchStates();
     }
 
@@ -25,7 +28,11 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.IsMovementPressed)
+        if (Ctx.IsAimPressed)
+        {
+            SwitchState(Factory.Aim());
+        }
+        else if (!Ctx.IsMovementPressed)
         {
             SwitchState(Factory.Idle());
         }

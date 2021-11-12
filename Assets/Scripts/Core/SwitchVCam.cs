@@ -7,7 +7,7 @@ public class SwitchVCam : MonoBehaviour
 {
     [SerializeField] private Canvas thirdPersonCanvas;
     [SerializeField] private Canvas aimCanvas;
-    CinemachineVirtualCamera aimCamera;
+    [SerializeField] CinemachineVirtualCamera aimCamera;
     Animator animator;
 
     private void Start()

@@ -15,7 +15,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (Ctx.Animator.GetFloat("Speed") != 0)
             Ctx.Animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
-            
+
         CheckSwitchStates();
     }
 
@@ -25,7 +25,11 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
+        if (Ctx.IsAimPressed)
+        {
+            SwitchState(Factory.Aim());
+        }
+        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
         {
             SwitchState(Factory.Run());
         }

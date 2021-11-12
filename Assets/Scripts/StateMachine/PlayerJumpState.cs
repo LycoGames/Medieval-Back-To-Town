@@ -44,6 +44,6 @@ public class PlayerJumpState : PlayerBaseState
     {
         Ctx.IsFalling = Ctx.VelocityY < 0 ? true : false;
         Ctx.VelocityY += Ctx.Gravity * Time.deltaTime;
-        Ctx.characterController.Move(Ctx.Velocity * Time.deltaTime);
+        Ctx.CharacterController.Move(Ctx.Velocity * Time.deltaTime);
     }
 }

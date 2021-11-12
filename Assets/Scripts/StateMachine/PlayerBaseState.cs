@@ -9,6 +9,8 @@ public abstract class PlayerBaseState
     protected bool IsRootState { set { isRootState = value; } }
     protected PlayerStateMachine Ctx { get { return ctx; } }
     protected PlayerStateFactory Factory { get { return factory; } }
+    protected PlayerBaseState CurrentSubState { get { return currentSubState; } }
+
 
     public PlayerBaseState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     {
@@ -25,6 +27,10 @@ public abstract class PlayerBaseState
     public abstract void CheckSwitchStates();
 
     public abstract void InitializeSubState();
+
+    public PlayerBaseState GetCurrentSubState(){
+        return currentSubState;
+    }
 
     public void UpdateStates()
     {

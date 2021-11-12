@@ -15,6 +15,9 @@ public class PlayerStateFactory
     public PlayerBaseState Run(){
         return new PlayerRunState(context, this);
     }
+    public PlayerBaseState Aim(){
+        return new PlayerAimState(context, this);
+    }
     public PlayerBaseState Jump(){
         return new PlayerJumpState(context, this);
     }
