@@ -26,7 +26,9 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] float maximumWalkVelocity = 0.5f;
     [SerializeField] float maximumRunVelocity = 2f;
 
+    private Fighter fighter;
     private bool isJumpPressed;
+    private bool isBasicAttackPressed;
     private bool isFalling;
     private bool isRunPressed;
     private Animator anim;
@@ -58,8 +60,10 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerStateFactory States { get { return states; } }
     public CharacterController CharacterController { get { return controller; } set { controller = value; } }
     public Animator Animator { get { return anim; } }
+    public Fighter Fighter { get { return fighter; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsRunPressed { get { return isRunPressed; } }
+    public bool IsBasicAttackPressed { get { return isBasicAttackPressed; } }
     public bool IsGrounded { get { return isGrounded; } set { isGrounded = value; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
     public bool IsAimPressed { get { return IsAiming(); } }
@@ -100,6 +104,7 @@ public class PlayerStateMachine : MonoBehaviour
         health = GetComponent<Health>();
         anim = GetComponent<Animator>();
         playerTransform = transform;
+        fighter = GetComponent<Fighter>();
         mainCamera = Camera.main;
         states = new PlayerStateFactory(this);
         aimCanvas.enabled = false;
@@ -123,6 +128,9 @@ public class PlayerStateMachine : MonoBehaviour
 
         //Run key listener
         isRunPressed = Input.GetKey(runKey);
+
+        //Basic attack key listener
+        isBasicAttackPressed = Input.GetKeyDown(KeyCode.Mouse0);
 
         //check is grounded
         isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);

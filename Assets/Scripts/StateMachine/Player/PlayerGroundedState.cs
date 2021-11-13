@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class PlayerGroundedState : PlayerBaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
+        HandleAttack();
     }
 
     public override void ExitState()
@@ -44,6 +46,14 @@ public class PlayerGroundedState : PlayerBaseState
         if (Ctx.CurrentState.GetCurrentSubState().ToString().Trim() != Ctx.States.Aim().ToString().Trim() && Ctx.IsJumpPressed)
         {
             SwitchState(Factory.Jump());
+        }
+    }
+
+    private void HandleAttack()
+    {
+        if (Ctx.IsBasicAttackPressed)
+        {
+            Ctx.Fighter.AttackBehaviour();
         }
     }
 }

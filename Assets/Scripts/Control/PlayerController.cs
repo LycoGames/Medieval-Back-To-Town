@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         if (health.IsDead()) return;
 
-        if (HandleAttack()) return;
+        //if (HandleAttack()) return;
         if (anim.GetBool("isAiming"))
         {
             return;
@@ -51,10 +51,10 @@ public class PlayerController : MonoBehaviour
         Jump();
     }
 
-    private bool HandleAttack()
+    /*private bool HandleAttack()
     {
         return isGrounded && GetComponent<Fighter>().AttackBehaviour();
-    }
+    }*/
 
     private void Move()
     {

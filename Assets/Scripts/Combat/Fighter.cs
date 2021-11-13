@@ -35,15 +35,10 @@ public class Fighter : MonoBehaviour
         return AttachWeapon(defaultWeapon);
     }
 
-    public bool AttackBehaviour()
+    public void AttackBehaviour()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
             anim.SetTrigger("attack");
             //LookMousePosition();
-            return true;
-        }
-        return false;
     }
 
     void Hit()
