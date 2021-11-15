@@ -1658,6 +1658,7 @@ GameObject:
   - component: {fileID: 6928720819911646780}
   - component: {fileID: 4793528704041756339}
   - component: {fileID: 3131996275177866803}
+  - component: {fileID: 6184864701228074638}
   - component: {fileID: 1628325891048977303}
   - component: {fileID: 3426150269182740303}
   - component: {fileID: 5057699197931253620}
@@ -1795,6 +1796,31 @@ CapsuleCollider:
   m_Height: 2.4240568
   m_Direction: 1
   m_Center: {x: 0, y: 0.63202846, z: -0.17220682}
+--- !u!114 &6184864701228074638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741126025642493396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93307aa3444e96941ac2be2843b2e06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPath: {fileID: 0}
+  target: {fileID: 0}
+  waypointTolerance: 1
+  maxSpeed: 1
+  chaseDistance: 5
+  suspicionTime: 4
+  waitOnPointTime: 2
+  agroCooldownTime: 4
+  callArea: 3
+  speedFraction: 1
+  mobRange: 1
+  enemyAttackCooldown: 1
+  gameManager: {fileID: 0}
 --- !u!114 &1628325891048977303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1826,7 +1852,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741126025642493396}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87d6356d89a254d4391ac66b8611c93e, type: 3}
   m_Name: 
@@ -1840,7 +1866,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741126025642493396}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e5fb7607dec4b0459ee5357eaa0bd7e, type: 3}
   m_Name: 
@@ -1963,6 +1989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 6
   angle: 90
+  delayUpdateForOptimize: 0.2
   targetPlayer: {fileID: 0}
   targetMask:
     serializedVersion: 2

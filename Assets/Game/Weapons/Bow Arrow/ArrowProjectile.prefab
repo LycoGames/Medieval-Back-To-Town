@@ -55,7 +55,19 @@ MonoBehaviour:
   destroyOnHit: []
   onHit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5949857427629981788}
+        m_TargetAssemblyTypeName: Projectile, Assembly-CSharp
+        m_MethodName: Destroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &5949857427629981789
 Rigidbody:
   m_ObjectHideFlags: 0
