@@ -17,6 +17,7 @@ public class PlayerWalkState : PlayerBaseState
             Ctx.Animator.SetFloat("Speed", Ctx.WalkSpeed, 0.1f, Time.deltaTime);
 
         Vector3 moveDir = Quaternion.Euler(0f, Ctx.RotationAngle, 0f) * Vector3.forward;
+        Ctx.MoveSpeed = Ctx.WalkSpeed;
         Ctx.CharacterController.Move(moveDir.normalized * Ctx.WalkSpeed * Time.deltaTime);
         Ctx.PlayerTransform.rotation = Quaternion.Euler(0f, Ctx.RotationAngle, 0f);
         CheckSwitchStates();

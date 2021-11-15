@@ -44,6 +44,8 @@ public class PlayerJumpState : PlayerBaseState
     {
         Ctx.IsFalling = Ctx.VelocityY < 0 ? true : false;
         Ctx.VelocityY += Ctx.Gravity * Time.deltaTime;
-        Ctx.CharacterController.Move(Ctx.Velocity * Time.deltaTime);
+        //Ctx.CharacterController.Move(Ctx.Velocity * Time.deltaTime);
+        Vector3 moveDir = Quaternion.Euler(0f, Ctx.RotationAngle, 0f) * Vector3.forward;
+        Ctx.CharacterController.Move(moveDir.normalized*Ctx.MoveSpeed * Time.deltaTime);
     }
 }

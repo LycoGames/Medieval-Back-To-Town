@@ -18,15 +18,18 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera aimCamera;
     [SerializeField] Cinemachine.AxisState xAxis;
     [SerializeField] Cinemachine.AxisState yAxis;
+    [Header("Aiming Sens")]
     [SerializeField] float turnSpeed = 15;
     [SerializeField] float aimDuration = 0.3f;
     [SerializeField] Transform cameraLookAt;
+    [Header("Aiming Movement")]
     [SerializeField] float acceleration = 2f;
     [SerializeField] float deceleration = 2f;
     [SerializeField] float maximumWalkVelocity = 0.5f;
     [SerializeField] float maximumRunVelocity = 2f;
 
     private Fighter fighter;
+    private float moveSpeed;
     private bool isJumpPressed;
     private bool isBasicAttackPressed;
     private bool isFalling;
@@ -69,13 +72,15 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsAimPressed { get { return IsAiming(); } }
     public bool IsAimReleased { get { return IsAimingStopped(); } }
     public float VelocityY { get { return velocity.y; } set { velocity.y = value; } }
-    public Vector3 Velocity { get { return velocity; } }
+    public Vector3 Velocity { get { return velocity; } set { velocity = value; } }
+    public Vector3 MoveDirection { get { return moveDirection; } }
     public bool IsMovementPressed { get { return moveDirection != Vector3.zero; } }
     public float JumpHeight { get { return jumpHeight; } }
     public float Gravity { get { return gravity; } }
     //public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public float WalkSpeed { get { return walkSpeed; } }
     public float RunSpeed { get { return runSpeed; } }
+    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public int VelocityZHash { get { return velocityZHash; } set { velocityZHash = value; } }
     public int VelocityXHash { get { return velocityXHash; } set { velocityXHash = value; } }
     public float VelocityZ { get { return velocityZ; } set { velocityZ = value; } }

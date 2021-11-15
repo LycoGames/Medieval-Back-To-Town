@@ -16,6 +16,16 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] float mobRange = 1f;
     [SerializeField] float enemyAttackCooldown = 1f;
 
+    [Header("Enemy Fov")]
+    [SerializeField] float radius;
+    [Range(0, 360)]
+    [SerializeField] float angle;
+    [SerializeField] float delayUpdateForOptimize = 0.2f;
+    [SerializeField] LayerMask targetMask;
+    [SerializeField] LayerMask obstructionMask;
+
+
+
     public GameManager gameManager;
 
     Vector3 guardPosition;
@@ -27,6 +37,7 @@ public class EnemyStateMachine : MonoBehaviour
     EnemyFOV enemyFOV;
     Transform enemyTransform;
     Animator animator;
+    private bool canSeePlayer;
 
 
     int currentWaypointIndex = 0;
@@ -80,7 +91,13 @@ public class EnemyStateMachine : MonoBehaviour
     void Update()
     {
         currentState.UpdateState();
+        UpdateAnimator();
         UpdateTimers();
+    }
+
+    private void LateUpdate()
+    {
+        FOVChecker();
     }
 
     private void GetPlayer()
@@ -109,6 +126,23 @@ public class EnemyStateMachine : MonoBehaviour
         return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
     }
 
+    public void Aggrevated() //event! damage aldıgında event tetikliycek.
+    {
+        timeSinceAggrevated = 0;
+    }
+
+    public void CallNearbyEnemies()
+    { //https://docs.unity3d.com/ScriptReference/Physics.SphereCastAll.html
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, callArea, Vector3.up, 0);
+        foreach (RaycastHit hit in hits)
+        {
+            EnemyAIController ai = hit.collider.GetComponent<EnemyAIController>(); //vuran her raycast hiti için(her bir mob için) bu scriptteki Aggrevated'i tetikle. 
+            if (ai == null) continue;
+            if (ai == this) continue;
+            ai.Aggrevated();
+        }
+    }
+
     public void MoveTo(Vector3 destination, float speedFraction)
     {
         navMeshAgent.isStopped = false;
@@ -135,5 +169,69 @@ public class EnemyStateMachine : MonoBehaviour
     private float GetDamage()
     {
         return GetComponent<BaseStats>().GetBaseStat(Stat.Damage);
+    }
+
+    private void UpdateAnimator()
+    {
+        Vector3 velocity = navMeshAgent.velocity;
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+        float speed = localVelocity.z;
+        animator.SetFloat("forwardSpeed", speed);
+    }
+
+    private void FOVChecker()
+    { //https://docs.unity3d.com/ScriptReference/Physics.OverlapSphere.html
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, targetMask); // targetMask'e verdigimiz layer ile carpısanları alıyorum.
+        if (hitColliders.Length != 0)
+        {
+            foreach (Collider hit in hitColliders)
+            {
+                Transform target = hit.transform; //vuran hitlerin transformu Transform olan target adlı degiskene attım.
+                                                  // https://docs.unity3d.com/ScriptReference/Vector3-normalized.html
+                Vector3 directionToTarget = (target.position - transform.position).normalized; //targetin transform posi. ile enemyinin pozisyonu çıkarıp çıkan noktayı (yönü) attım normalize ettim (yt).
+                                                                                               //https://docs.unity3d.com/ScriptReference/Vector3.Angle.html
+                if (Vector3.Angle(transform.forward, directionToTarget) < angle) //ileriye dogru olan açı ile direction target arasındaki açıyı derece cinsinden alıp verdigimiz angle degerinden kücüklük sorgusu.
+                {
+                    float distanceToTarget = Vector3.Distance(transform.position, target.position); // enemy ile player arasındaki mesafe
+                    //https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
+                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))//engel var mı sorgusu raycast obstructionMask'taki layer ile carpısmıyorsa.
+                    {
+                        canSeePlayer = true;
+                    }
+
+                    else canSeePlayer = false;
+
+                }
+                else canSeePlayer = false;
+
+            }
+
+        }
+        else if (canSeePlayer) canSeePlayer = false; // artık fovda degilsem cıkmıssım fovdan false yap.
+
+    }
+
+    public bool GetCanSeePlayer()
+    {
+        return canSeePlayer;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+        Vector3 viewAngle01 = DirectionFromAngle(transform.eulerAngles.y, -angle / 2);
+        Vector3 viewAngle02 = DirectionFromAngle(transform.eulerAngles.y, angle / 2);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + viewAngle01 * radius);
+        Gizmos.DrawLine(transform.position, transform.position + viewAngle02 * radius);
+    }
+    private Vector3 DirectionFromAngle(float eulerY, float angleInDegrees)
+    {
+        angleInDegrees += eulerY;
+
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 }
