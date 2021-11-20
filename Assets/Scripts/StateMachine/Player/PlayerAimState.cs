@@ -20,10 +20,29 @@ public class PlayerAimState : PlayerBaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
+
+        Vector3 mouseWorldPosition = Vector3.zero;
+
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, Ctx.AimColliderLayerMask))
+        {
+            Ctx.DebugTransform.position = raycastHit.point;
+            mouseWorldPosition = raycastHit.point;
+        }
+
         Ctx.CameraLookAt.eulerAngles = new Vector3(Ctx.YAxis.Value, Ctx.XAxis.Value, 0);
 
-        float yawCamera = Ctx.MainCamera.transform.rotation.eulerAngles.y;
-        Ctx.PlayerTransform.rotation = Quaternion.Slerp(Ctx.PlayerTransform.rotation, Quaternion.Euler(0, yawCamera, 0), Ctx.TurnSpeed * Time.deltaTime);
+        /*float yawCamera = Ctx.MainCamera.transform.rotation.eulerAngles.y;
+        Ctx.PlayerTransform.rotation = Quaternion.Slerp(Ctx.PlayerTransform.rotation, Quaternion.Euler(0, yawCamera, 0), Ctx.TurnSpeed * Time.deltaTime);*/
+
+        // aim alırken mouse pozisyonuna karakteri çevirme
+
+        Vector3 worldAimTarget = mouseWorldPosition;
+        worldAimTarget.y = Ctx.transform.position.y;
+        Vector3 aimDirection = (worldAimTarget - Ctx.transform.position).normalized;
+
+        Ctx.transform.forward = Vector3.Lerp(Ctx.transform.forward, aimDirection, Time.deltaTime * 20f);
 
         //MOVEMENT AND ANIMATIONS
         bool forwardPressed = Input.GetKey(KeyCode.W);

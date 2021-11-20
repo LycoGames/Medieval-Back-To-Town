@@ -15,6 +15,8 @@ public class PlayerStateMachine : MonoBehaviour
     //Aim Variables
     [SerializeField] private Canvas thirdPersonCanvas;
     [SerializeField] private Canvas aimCanvas;
+    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+    [SerializeField] private Transform debugTransform;
     [SerializeField] CinemachineVirtualCamera aimCamera;
     [SerializeField] Cinemachine.AxisState xAxis;
     [SerializeField] Cinemachine.AxisState yAxis;
@@ -87,6 +89,8 @@ public class PlayerStateMachine : MonoBehaviour
     public float VelocityX { get { return velocityX; } set { velocityX = value; } }
 
     public Cinemachine.CinemachineVirtualCamera AimCamera { get { return aimCamera; } }
+    public LayerMask AimColliderLayerMask { get { return aimColliderLayerMask; } }
+    public Transform DebugTransform { get { return debugTransform; } set { debugTransform = value; } }
     public Canvas AimCanvas { get { return aimCanvas; } }
     public Canvas ThirdPersonCanvas { get { return thirdPersonCanvas; } }
     public Cinemachine.AxisState XAxis { get { return xAxis; } }
