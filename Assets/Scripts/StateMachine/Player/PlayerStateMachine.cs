@@ -99,7 +99,6 @@ public class PlayerStateMachine : MonoBehaviour
     public float AimDuration { get { return aimDuration; } set { aimDuration = value; } }
     public Transform CameraLookAt { get { return cameraLookAt; } }
     public Camera MainCamera { get { return mainCamera; } }
-    public Transform PlayerTransform { get { return playerTransform; } }
     public float Acceleration { get { return acceleration; } }
     public float Deceleration { get { return deceleration; } }
     public float MaximumRunVelocity { get { return maximumRunVelocity; } }
@@ -117,6 +116,7 @@ public class PlayerStateMachine : MonoBehaviour
         mainCamera = Camera.main;
         states = new PlayerStateFactory(this);
         aimCanvas.enabled = false;
+
         currentState = states.Grounded();
         currentState.EnterState();
     }

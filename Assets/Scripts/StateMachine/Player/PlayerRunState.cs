@@ -19,7 +19,7 @@ public class PlayerRunState : PlayerBaseState
         Vector3 moveDir = Quaternion.Euler(0f, Ctx.RotationAngle, 0f) * Vector3.forward;
         Ctx.MoveSpeed = Ctx.RunSpeed;
         Ctx.CharacterController.Move(moveDir.normalized * Ctx.RunSpeed * Time.deltaTime);
-        Ctx.PlayerTransform.rotation = Quaternion.Euler(0f, Ctx.RotationAngle, 0f);
+        Ctx.transform.rotation = Quaternion.Euler(0f, Ctx.RotationAngle, 0f);
         CheckSwitchStates();
     }
 

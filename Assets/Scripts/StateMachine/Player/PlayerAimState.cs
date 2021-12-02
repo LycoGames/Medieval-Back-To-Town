@@ -6,6 +6,7 @@ public class PlayerAimState : PlayerBaseState
 
     public override void EnterState()
     {
+        //Change current camera to aim camera
         Debug.Log("Aim state entered");
         Ctx.AimCamera.Priority += 2;
         Ctx.AimCanvas.enabled = true;
@@ -63,6 +64,7 @@ public class PlayerAimState : PlayerBaseState
 
     public override void ExitState()
     {
+        //Aim durumu sonlandığında aim kamerasından çıkma
         Ctx.AimCamera.Priority -= 2;
         Ctx.ThirdPersonCanvas.enabled = true;
         Ctx.AimCanvas.enabled = false;
@@ -76,20 +78,25 @@ public class PlayerAimState : PlayerBaseState
     {
         if (Ctx.IsAimReleased)
         {
+            //Idle condition
             if (!Ctx.IsMovementPressed)
             {
                 SwitchState(Factory.Idle());
             }
+            //Run Condition
             else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
             {
                 SwitchState(Factory.Run());
             }
+            //Walk condition
             else if (Ctx.IsMovementPressed)
             {
                 SwitchState(Factory.Walk());
             }
         }
     }
+
+    /* AIM ALIRKEN DINLENEN VE KARAKTERE UYGULANAN VELOCITY DEGERLERI (AIM ALIRKEN HARAKET ETME) */
 
     void ChangeVelocity(bool forwardPressed, bool backPressed, bool leftPressed, bool rightPressed, bool runPressed, float currentMaxVelocity)
     {
