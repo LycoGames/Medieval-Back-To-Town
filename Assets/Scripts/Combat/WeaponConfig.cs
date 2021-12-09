@@ -68,15 +68,17 @@ public class WeaponConfig : ScriptableObject
         return projectile != null;
     }
 
-    public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, Transform transform)
+    public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
     {
-        Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, transform.rotation);
+        Vector3 aimDirection = (mouseWorldPosition - leftHand.transform.position).normalized;
+        Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.LookRotation(aimDirection, Vector3.up));
         //projectileInstance.SetTarget(target, instigator, calculatedDamage);
     }
 
-    public void LaunchArrow(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, Transform transform)
+    public void LaunchArrow(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
     {
-        Projectile projectileInstance = Instantiate(projectile, rightHand.position, transform.rotation);
+        Vector3 aimDirection = (mouseWorldPosition - leftHand.transform.position).normalized;
+        Projectile projectileInstance = Instantiate(projectile, leftHand.position, Quaternion.LookRotation(aimDirection, Vector3.up));
     }
 
     public float GetDamage()

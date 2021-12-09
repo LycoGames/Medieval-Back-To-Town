@@ -6,6 +6,7 @@ public class Fighter : MonoBehaviour
     [SerializeField] WeaponConfig defaultWeapon = null;
     [SerializeField] Transform rightHandTransform = null;
     [SerializeField] Transform leftHandTransform = null;
+    [SerializeField] LayerMask aimColliderLayerMask = new LayerMask();
 
 
     const string weaponName = "Unarmed";
@@ -35,25 +36,34 @@ public class Fighter : MonoBehaviour
         return AttachWeapon(defaultWeapon);
     }
 
-    public bool AttackBehaviour()
+    public void AttackBehaviour()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
             anim.SetTrigger("attack");
             //LookMousePosition();
-            return true;
-        }
-        return false;
     }
 
     void Hit()
     {
         if (currentWeaponConfig.HasProjectile())
         {
-            currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), transform);
+            currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), GetMouseWorldPosition());
         }
         //Debug.Log("Yumruk Atıldı.");
 
+    }
+
+    private Vector3 GetMouseWorldPosition()
+    {
+        Vector3 mouseWorldPosition = Vector3.zero;
+
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+        {
+            mouseWorldPosition = raycastHit.point;
+            return mouseWorldPosition;
+        }
+        return new Vector3();
     }
 
     public void Shoot()

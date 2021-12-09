@@ -67,5 +67,72 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1925353261296819865, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426150269182740303, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: angle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: radius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: mobRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: targetMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: enemyAttackCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 248838848781702836}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 248838848781702836}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyStateMachine, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: EnemyStateMachine, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b6631aae5e568e4cb99a70467daa840, type: 3}
+--- !u!114 &248838848781702836 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840,
+    type: 3}
+  m_PrefabInstance: {fileID: 6242270765199003706}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93307aa3444e96941ac2be2843b2e06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

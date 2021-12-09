@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         if (health.IsDead()) return;
 
-        if (HandleAttack()) return;
+        //if (HandleAttack()) return;
         if (anim.GetBool("isAiming"))
         {
             return;
@@ -51,14 +51,14 @@ public class PlayerController : MonoBehaviour
         Jump();
     }
 
-    private bool HandleAttack()
+    /*private bool HandleAttack()
     {
         return isGrounded && GetComponent<Fighter>().AttackBehaviour();
-    }
+    }*/
 
     private void Move()
     {
-        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
+
 
         float moveZ = Input.GetAxis("Vertical");
         float moveX = Input.GetAxis("Horizontal");
@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyGravity()
     {
+        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }

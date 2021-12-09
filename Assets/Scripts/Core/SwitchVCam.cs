@@ -7,13 +7,12 @@ public class SwitchVCam : MonoBehaviour
 {
     [SerializeField] private Canvas thirdPersonCanvas;
     [SerializeField] private Canvas aimCanvas;
-    CinemachineVirtualCamera aimCamera;
+    [SerializeField] CinemachineVirtualCamera aimCamera;
     Animator animator;
 
     private void Start()
     {
         animator = GetComponentInParent<Animator>();
-        aimCamera = GetComponent<CinemachineVirtualCamera>();
         aimCanvas.enabled = false;
     }
     private void Update()

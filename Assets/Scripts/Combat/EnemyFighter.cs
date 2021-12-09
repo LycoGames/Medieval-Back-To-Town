@@ -83,7 +83,7 @@ public class EnemyFighter : MonoBehaviour,IAction
         GetComponent<EnemyAIController>().Cancel();
     }
 
-    public void Hit()
+    /*public void Hit()
     {
         float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();
         targetPlayer.GetComponent<Health>().ApplyDamage(GetDamage());
@@ -92,5 +92,5 @@ public class EnemyFighter : MonoBehaviour,IAction
     private float GetDamage()
     {
         return GetComponent<BaseStats>().GetBaseStat(Stat.Damage);
-    }
+    }*/
 }
