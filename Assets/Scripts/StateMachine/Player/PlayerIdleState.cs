@@ -25,11 +25,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.IsAimPressed)
-        {
-            SwitchState(Factory.Aim());
-        }
-        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
+        if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
         {
             SwitchState(Factory.Run());
         }

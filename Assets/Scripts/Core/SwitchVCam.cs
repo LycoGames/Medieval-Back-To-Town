@@ -13,7 +13,6 @@ public class SwitchVCam : MonoBehaviour
     private void Start()
     {
         animator = GetComponentInParent<Animator>();
-        aimCamera = GetComponent<CinemachineVirtualCamera>();
         aimCanvas.enabled = false;
     }
     private void Update()

@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        
+
 
         float moveZ = Input.GetAxis("Vertical");
         float moveX = Input.GetAxis("Horizontal");
@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyGravity()
     {
+        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
