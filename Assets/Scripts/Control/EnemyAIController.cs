@@ -71,6 +71,7 @@ public class EnemyAIController : MonoBehaviour, IAction
         }
 
         UpdateTimers();
+        UpdateAnimator();
 
         // GetComponent<NavMeshAgent>().destination = target.position;
     }
@@ -200,6 +201,14 @@ public class EnemyAIController : MonoBehaviour, IAction
         float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
         return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
 
+    }
+
+    private void UpdateAnimator()
+    {
+        Vector3 velocity = navMeshAgent.velocity;
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+        float speed = localVelocity.z;
+        GetComponent<Animator>().SetFloat("forwardSpeed", speed);
     }
 
     void OnDrawGizmosSelected()
