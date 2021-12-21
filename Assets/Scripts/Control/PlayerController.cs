@@ -15,6 +15,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float gravity;
     [SerializeField] private float jumpHeight;
+    [SerializeField] private KeyCode attackKey = KeyCode.Mouse0;
+    [SerializeField] private KeyCode runKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+
+    private bool isAttackPressed = false;
+    private bool isRunnning = false;
+    private bool isJumpPressed = false;
 
     private Animator anim;
     private float turnSmoothVelocity;
@@ -41,30 +48,29 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (health.IsDead()) return;
+        InputListener();
 
-        //if (HandleAttack()) return;
-        if (anim.GetBool("isAiming"))
-        {
-            return;
-        }
+        if (HandleAttack()) return;
+        if (anim.GetBool("isAiming")) return;
         Move();
         Jump();
     }
 
-    /*private bool HandleAttack()
+
+
+    private bool HandleAttack()
     {
-        return isGrounded && GetComponent<Fighter>().AttackBehaviour();
-    }*/
+        if (Attack()) return true;
+
+        return false;
+    }
 
     private void Move()
     {
-
-
         float moveZ = Input.GetAxis("Vertical");
         float moveX = Input.GetAxis("Horizontal");
 
         moveDirection = new Vector3(moveX, 0, moveZ).normalized;
-
 
         if (isGrounded)
         {
@@ -139,5 +145,33 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public virtual bool Attack()
+    {
+        if (isAttackPressed)
+        {
+            GetComponent<Animator>().SetTrigger("attack");
+            return true;
+        }
+        return false;
+    }
+
+    private void InputListener()
+    {
+        if (Input.GetKeyDown(attackKey))
+            isAttackPressed = true;
+        else if (Input.GetKeyUp(attackKey))
+            isAttackPressed = false;
+
+        if (Input.GetKeyDown(jumpKey))
+            isJumpPressed = true;
+        else if (Input.GetKeyUp(jumpKey))
+            isJumpPressed = false;
+
+        if (Input.GetKeyDown(runKey))
+            isRunnning = true;
+        else if (Input.GetKeyUp(runKey))
+            isRunnning = false;
     }
 }

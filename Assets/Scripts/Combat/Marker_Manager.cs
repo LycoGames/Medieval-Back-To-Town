@@ -192,6 +192,7 @@ public class Marker_Manager : MonoBehaviour
                     {
                         GameObject b = Instantiate(blood, bladeStartpoint[i2], Quaternion.identity) as GameObject;
                         b.transform.LookAt(markersParent);
+                        Destroy(b, 2);
                     }
                     usedTargets.Add(targetsRawHit[i2]);
                 }
@@ -207,6 +208,7 @@ public class Marker_Manager : MonoBehaviour
                     {
                         GameObject b = Instantiate(blood, bladeStartpoint[i2], Quaternion.identity) as GameObject;
                         b.transform.LookAt(markersParent);
+                        Destroy(b, 2);
                     }
                     usedTargets.Add(targetsRawHit[i2].GetComponent<Limb_Hitbox>().health.transform);
                 }
@@ -225,7 +227,6 @@ public class Marker_Manager : MonoBehaviour
                 if (sRoll == 1)
                 {
                     soundSource.PlayOneShot(targetHitSound1);
-
                 }
                 if (sRoll == 2)
                 {
