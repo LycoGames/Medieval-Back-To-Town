@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4160348273833443855}
   - component: {fileID: 344748286922876476}
   - component: {fileID: 2753151529440628650}
-  - component: {fileID: 2100873994256366420}
-  - component: {fileID: 8776348633549568009}
+  - component: {fileID: 3751131475959667774}
+  - component: {fileID: 7958634321023792893}
   m_Layer: 5
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -63,12 +63,10 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: aba0f700d91d4fc4fa8c724899ab04ab, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -90,7 +88,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2100873994256366420
+--- !u!114 &3751131475959667774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,10 +97,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 812101378272355093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6bb50afbd0a3e4195a14fc1a97f34b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c02b7f87dd2b1746b0acd2cf9af593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8776348633549568009
+--- !u!114 &7958634321023792893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,6 +109,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 812101378272355093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c02b8fe48d21e74d9ef8f65895576ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 493934aefc2d7c9469174527fc9bf167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textContainer: {fileID: 0}
+  itemNumber: {fileID: 0}

@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using RPG.Saving;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour, ISaveable
+public class Inventory : MonoBehaviour
 {
     //CONFIG DATA
     [SerializeField] int inventorySize = 16;
@@ -115,33 +114,5 @@ public class Inventory : MonoBehaviour, ISaveable
             }
         }
         return -1;
-    }
-
-    public object CaptureState()
-    {
-        var slotStrings = new string[inventorySize];
-        for (int i = 0; i < inventorySize; i++)
-        {
-            if (slots[i] != null)
-            {
-                slotStrings[i] = slots[i].GetItemID();
-            }
-        }
-        return slotStrings;
-    }
-
-    public void RestoreState(object state)
-    {
-        var slotStrings = (string[])state;
-
-        for (int i = 0; i < inventorySize; i++)
-        {
-            slots[i] = InventoryItem.GetFromID(slotStrings[i]);
-        }
-
-        if (inventoryUpdated != null)
-        {
-            inventoryUpdated();
-        }
     }
 }
