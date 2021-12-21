@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 987618825540926774, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741126025635634584, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1741126025642493396, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: m_Name
@@ -70,12 +80,22 @@ PrefabInstance:
     - target: {fileID: 1925353261296819865, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315229587453089263, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3426150269182740303, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057699197931253620, guid: 3b6631aae5e568e4cb99a70467daa840,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
@@ -106,12 +126,12 @@ PrefabInstance:
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 248838848781702836}
+      objectReference: {fileID: 0}
     - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 248838848781702836}
+      objectReference: {fileID: 0}
     - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -122,17 +142,6 @@ PrefabInstance:
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: EnemyStateMachine, Assembly-CSharp
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3b6631aae5e568e4cb99a70467daa840, type: 3}
---- !u!114 &248838848781702836 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840,
-    type: 3}
-  m_PrefabInstance: {fileID: 6242270765199003706}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93307aa3444e96941ac2be2843b2e06b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

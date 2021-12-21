@@ -27,6 +27,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     Health playerHealth;
     Health health;
     EnemyFOV enemyFOV;
+    Animator animator;
 
     int currentWaypointIndex = 0;
     float timeSinceLastSawThePLayer = Mathf.Infinity;
@@ -79,6 +80,7 @@ public class EnemyAIController : MonoBehaviour, IAction
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyFighter = GetComponent<EnemyFighter>();
         health = GetComponent<Health>();
+        animator = GetComponent<Animator>();
     }
 
     private void GetPlayer()
@@ -97,7 +99,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     {
         timeSinceLastSawThePLayer = 0f;
         enemyFighter.Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
-        //CallNearbyEnemies();
+        CallNearbyEnemies();
     }
 
     public void CallNearbyEnemies()

@@ -5,7 +5,7 @@ using Photon.Pun;
 using RPG.Core;
 using UnityEngine;
 
-public class EnemyFighter : MonoBehaviour,IAction
+public class EnemyFighter : MonoBehaviour, IAction
 {
 
     [SerializeField] float enemyAttackCooldown = 1f;
@@ -19,7 +19,6 @@ public class EnemyFighter : MonoBehaviour,IAction
 
     float TimeSinceLastAttack = Mathf.Infinity;
 
-    /*Network Variables*/
 
     void Awake()
     {
@@ -37,7 +36,7 @@ public class EnemyFighter : MonoBehaviour,IAction
 
     void Update()
     {
-        if(targetPlayer == null) return;
+        if (targetPlayer == null) return;
         if (!GetIsInRange(targetPlayer.transform))
         {
             enemyAIController.MoveTo(targetPlayer.transform.position, 1f);
@@ -78,12 +77,13 @@ public class EnemyFighter : MonoBehaviour,IAction
         targetPlayer = combatTarget.GetComponent<Health>(); //targetplayeri setledim.
     }
 
-    public void Cancel(){
+    public void Cancel()
+    {
         targetPlayer = null;
         GetComponent<EnemyAIController>().Cancel();
     }
 
-    /*public void Hit()
+    public void Hit()
     {
         float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();
         targetPlayer.GetComponent<Health>().ApplyDamage(GetDamage());
@@ -92,5 +92,5 @@ public class EnemyFighter : MonoBehaviour,IAction
     private float GetDamage()
     {
         return GetComponent<BaseStats>().GetBaseStat(Stat.Damage);
-    }*/
+    }
 }
