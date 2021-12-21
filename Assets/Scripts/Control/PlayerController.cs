@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 using RPG.Core;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (InteractWithUI()) return;
         if (health.IsDead()) return;
         InputListener();
 
@@ -56,6 +58,13 @@ public class PlayerController : MonoBehaviour
         Jump();
     }
 
+    private bool InteractWithUI()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return true;
+
+        return false;
+    }
 
 
     private bool HandleAttack()
