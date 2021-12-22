@@ -1,48 +1,52 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using RPG.Saving;
 using UnityEngine;
+using RPG.Saving;
+
 
 public class SavingWrapper : MonoBehaviour
 {
-    [SerializeField] KeyCode saveKey = KeyCode.K;
-    [SerializeField] KeyCode loadKey = KeyCode.L;
-    [SerializeField] KeyCode deleteKey = KeyCode.Delete;
     const string defaultSaveFile = "save";
+    [SerializeField] float fadeInTime = 0.2f;
 
     private void Awake()
     {
-//        StartCoroutine(LoadLastScene());
+        LoadLastScene();
     }
 
-    private IEnumerator LoadLastScene()
+    private void LoadLastScene()
     {
-        yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+        GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(saveKey))
-            Save();
-        if (Input.GetKeyDown(loadKey))
+        if (Input.GetKeyDown(KeyCode.L))
+        {
             Load();
-        if (Input.GetKeyDown(deleteKey))
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Save();
+        }
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
             Delete();
+        }
     }
 
-    private void Save()
+    public void Save()
     {
         GetComponent<SavingSystem>().Save(defaultSaveFile);
     }
 
-    private void Load()
+    public void Load()
     {
-        StartCoroutine(GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile));
+        GetComponent<SavingSystem>().Load(defaultSaveFile);
     }
 
-    private void Delete()
+    public void Delete()
     {
         GetComponent<SavingSystem>().Delete(defaultSaveFile);
     }

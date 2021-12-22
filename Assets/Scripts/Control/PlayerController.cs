@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using System;
 using RPG.Core;
 using UnityEngine.EventSystems;
@@ -35,28 +34,41 @@ public class PlayerController : MonoBehaviour, ISaveable
     private Camera myCamera;
     private Health health;
 
+    float timeOfAnimation;
 
     private CharacterController controller;
 
     float angle;
+
+    bool isAttacking = false;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
         anim = GetComponent<Animator>();
+        timeOfAnimation = GetComponent<Animator>().runtimeAnimatorController.animationClips[3].length;
     }
 
     private void Update()
     {
-        if (InteractWithUI()) return;
-        if (health.IsDead()) return;
         InputListener();
+        if (health.IsDead()) return;
 
-        if (HandleAttack()) return;
+        if (!InteractWithUI())
+        {
+            if (HandleAttack()) return;
+        }
+
         if (anim.GetBool("isAiming")) return;
-        Move();
-        Jump();
+
+        if (!isAttacking)
+        {
+            Move();
+            Jump();
+        }
+
+
     }
 
     private bool InteractWithUI()
@@ -70,6 +82,7 @@ public class PlayerController : MonoBehaviour, ISaveable
 
     private bool HandleAttack()
     {
+
         if (Attack()) return true;
 
         return false;
@@ -161,16 +174,43 @@ public class PlayerController : MonoBehaviour, ISaveable
     {
         if (isAttackPressed)
         {
-            GetComponent<Animator>().SetTrigger("attack");
+            StartCoroutine(WaitTillAttackEnd());
+
             return true;
         }
         return false;
+    }
+
+    private IEnumerator WaitTillAttackEnd()
+    {
+        StartAttacking();
+        yield return new WaitForSeconds(timeOfAnimation);
+        StopAttacking();
+
+    }
+
+    private void StartAttacking()
+    {
+        anim.SetFloat("Speed", 0, 0.5f, Time.deltaTime);
+        anim.SetTrigger("attack");
+        anim.applyRootMotion = true;
+        isAttacking = true;
+
+        //TODO hareket ederken düz vuruş bug'lı 
+    }
+
+    private void StopAttacking()
+    {
+        isAttacking = false;
+        anim.applyRootMotion = false;
+        anim.ResetTrigger("attack");
     }
 
     private void InputListener()
     {
         if (Input.GetKeyDown(attackKey))
             isAttackPressed = true;
+
         else if (Input.GetKeyUp(attackKey))
             isAttackPressed = false;
 
@@ -187,12 +227,17 @@ public class PlayerController : MonoBehaviour, ISaveable
 
     public object CaptureState()
     {
-        return new SerializableVector3(transform.position);
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data["position"] = new SerializableVector3(transform.position);
+        Debug.Log(transform.position);
+        data["rotation"] = new SerializableVector3(transform.eulerAngles);
+        return data;
     }
 
     public void RestoreState(object state)
     {
-        SerializableVector3 position = (SerializableVector3)state;
-        transform.position = position.ToVector();
+        Dictionary<string, object> data = (Dictionary<string, object>)state;
+        transform.position = ((SerializableVector3)data["position"]).ToVector();
+        transform.eulerAngles = ((SerializableVector3)data["rotation"]).ToVector();
     }
 }

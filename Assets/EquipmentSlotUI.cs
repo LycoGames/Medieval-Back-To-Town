@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipmentSlotUI : MonoBehaviour, IDragContainer<InventoryItem>
+public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<InventoryItem>
 {
     // CONFIG DATA
 

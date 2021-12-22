@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
 using System;
-using Photon.Pun;
 
 public class EnemyAIController : MonoBehaviour, IAction
 {

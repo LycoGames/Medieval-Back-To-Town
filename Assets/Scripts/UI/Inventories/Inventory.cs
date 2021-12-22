@@ -96,11 +96,11 @@ public class Inventory : MonoBehaviour, ISaveable
     private void Awake()
     {
         slots = new InventoryItem[inventorySize];
-        slots[0] = InventoryItem.GetFromID("18b323ff-e566-40e5-9abd-76a3632283f7");
-        slots[1] = InventoryItem.GetFromID("05008513-e556-4b50-8b3d-26f498785624");
-        print(slots[0]);
-        print(slots[1]);
-        print(slots[2]);
+        slots[0] = InventoryItem.GetFromID("321c6c88-bee7-4c0a-bfdc-738f50fb666a");
+        slots[1] = InventoryItem.GetFromID("ca4d3f77-3639-4afb-a5e7-a1706bfa6f03");
+        slots[2] = InventoryItem.GetFromID("93a052d9-52a1-49ee-bbf4-9e9795e954da");
+        slots[3] = InventoryItem.GetFromID("1b6e58cb-2126-49e3-837a-cc9a5cf11de8");
+        slots[4] = InventoryItem.GetFromID("36dd386a-cf5b-466c-aa9c-43dac2ce375a");
     }
 
     private int FindSlot(InventoryItem item)
@@ -143,8 +143,6 @@ public class Inventory : MonoBehaviour, ISaveable
         }
 
         if (inventoryUpdated != null)
-        {
             inventoryUpdated();
-        }
     }
 }

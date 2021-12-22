@@ -748,9 +748,9 @@ GameObject:
   - component: {fileID: 6391979294474064277}
   - component: {fileID: 1872384375091879850}
   - component: {fileID: 1653342692070653794}
+  - component: {fileID: 554578064668288604}
   - component: {fileID: 2959236461504650538}
-  - component: {fileID: 2097138356}
-  - component: {fileID: 3912494266119730425}
+  - component: {fileID: 7066071587009306812}
   m_Layer: 7
   m_Name: Warrior
   m_TagString: Player
@@ -973,6 +973,18 @@ MonoBehaviour:
   leftHand: {fileID: 7248202258348207013}
   rightHand: {fileID: 8295602603101481023}
   MarkerManager: {fileID: 0}
+--- !u!114 &554578064668288604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413686320663055636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563ed8f6c2ca2174aac95abbd35db572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2959236461504650538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,7 +998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySize: 16
---- !u!114 &2097138356
+--- !u!114 &7066071587009306812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -999,18 +1011,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueIdentifier: warrior
---- !u!114 &3912494266119730425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413686320663055636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 563ed8f6c2ca2174aac95abbd35db572, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2329255032058494697
 GameObject:
   m_ObjectHideFlags: 0

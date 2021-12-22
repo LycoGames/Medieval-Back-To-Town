@@ -322,8 +322,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4653947713791502064}
   m_HandleRect: {fileID: 4760899112133599428}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99976563
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -643,7 +643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -662.3501}
+  m_AnchoredPosition: {x: -0.00012207031, y: -662.34985}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4655450183769744452
@@ -890,6 +890,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot
       objectReference: {fileID: 0}
+    - target: {fileID: 2437732070076498691, guid: c594275c434a4ca4da0314f42b0d1e3f,
+        type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 5100079962668767438, guid: 1973af7fc3e1d2b428983f58906580be,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 9198672312928698095, guid: c594275c434a4ca4da0314f42b0d1e3f, type: 3}
     - {fileID: 6742360680212600217, guid: c594275c434a4ca4da0314f42b0d1e3f, type: 3}
