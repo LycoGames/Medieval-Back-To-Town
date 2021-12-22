@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.InventorySystem/Equipable Item"))]
+[CreateAssetMenu(menuName = ("Equipable Item"))]
 public class EquipableItem : InventoryItem
 {
 

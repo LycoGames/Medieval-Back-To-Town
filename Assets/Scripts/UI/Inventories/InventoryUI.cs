@@ -38,4 +38,5 @@ public class InventoryUI : MonoBehaviour
             itemUI.Setup(playerInventory, i);
         }
     }
+    
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+using RPG.Saving;
 /// <summary>
 /// Provides a store for the items equipped to a player. Items are stored by
 /// their equip locations.
