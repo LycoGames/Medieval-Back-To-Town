@@ -13,7 +13,7 @@ public class SavingWrapper : MonoBehaviour
 
     private void Awake()
     {
-        StartCoroutine(LoadLastScene());
+//        StartCoroutine(LoadLastScene());
     }
 
     private IEnumerator LoadLastScene()
