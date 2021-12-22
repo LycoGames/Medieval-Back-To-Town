@@ -34,28 +34,41 @@ public class PlayerController : MonoBehaviour
     private Camera myCamera;
     private Health health;
 
+    float timeOfAnimation;
 
     private CharacterController controller;
 
     float angle;
+
+    bool isAttacking = false;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
         anim = GetComponent<Animator>();
+        timeOfAnimation = GetComponent<Animator>().runtimeAnimatorController.animationClips[3].length;
     }
 
     private void Update()
     {
-        if (InteractWithUI()) return;
-        if (health.IsDead()) return;
         InputListener();
+        if (health.IsDead()) return;
 
-        if (HandleAttack()) return;
+        if (!InteractWithUI())
+        {
+            if (HandleAttack()) return;
+        }
+
         if (anim.GetBool("isAiming")) return;
-        Move();
-        Jump();
+
+        if (!isAttacking)
+        {
+            Move();
+            Jump();
+        }
+
+
     }
 
     private bool InteractWithUI()
@@ -69,6 +82,7 @@ public class PlayerController : MonoBehaviour
 
     private bool HandleAttack()
     {
+
         if (Attack()) return true;
 
         return false;
@@ -160,16 +174,31 @@ public class PlayerController : MonoBehaviour
     {
         if (isAttackPressed)
         {
-            GetComponent<Animator>().SetTrigger("attack");
+            StartCoroutine(WaitTillAttackEnd());
+
             return true;
         }
         return false;
+    }
+
+    private IEnumerator WaitTillAttackEnd()
+    {
+        anim.SetFloat("Speed", 0);
+        anim.SetTrigger("attack");
+        anim.applyRootMotion = true;
+        isAttacking = true;
+        yield return new WaitForSeconds(timeOfAnimation);
+        isAttacking = false;
+        anim.applyRootMotion = false;
+        anim.ResetTrigger("attack");
+
     }
 
     private void InputListener()
     {
         if (Input.GetKeyDown(attackKey))
             isAttackPressed = true;
+
         else if (Input.GetKeyUp(attackKey))
             isAttackPressed = false;
 
