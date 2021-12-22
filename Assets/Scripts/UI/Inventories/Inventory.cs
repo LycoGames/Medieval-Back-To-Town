@@ -98,6 +98,9 @@ public class Inventory : MonoBehaviour, ISaveable
         slots = new InventoryItem[inventorySize];
         slots[0] = InventoryItem.GetFromID("18b323ff-e566-40e5-9abd-76a3632283f7");
         slots[1] = InventoryItem.GetFromID("05008513-e556-4b50-8b3d-26f498785624");
+        print(slots[0]);
+        print(slots[1]);
+        print(slots[2]);
     }
 
     private int FindSlot(InventoryItem item)
