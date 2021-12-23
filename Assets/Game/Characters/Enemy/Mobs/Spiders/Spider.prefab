@@ -1576,7 +1576,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 946743619be2e56459389a85fdaba5de, type: 2}
+  - {fileID: 2100000, guid: 1035394dba39c5b41a002d49c4b0cb88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 6928720819911646780}
   - component: {fileID: 4793528704041756339}
   - component: {fileID: 3131996275177866803}
-  - component: {fileID: 8291269039793835369}
+  - component: {fileID: 5123335167300315396}
   - component: {fileID: 4856656955639027472}
   - component: {fileID: 1628325891048977303}
   - component: {fileID: 3426150269182740303}
@@ -1795,7 +1795,7 @@ CapsuleCollider:
   m_Height: 2.4240568
   m_Direction: 1
   m_Center: {x: 0, y: 0.63202846, z: -0.17220682}
---- !u!114 &8291269039793835369
+--- !u!114 &5123335167300315396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1811,9 +1811,9 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8291269039793835369}
-        m_TargetAssemblyTypeName: Health, Assembly-CSharp
-        m_MethodName: Die
+      - m_Target: {fileID: 2315229587453089263}
+        m_TargetAssemblyTypeName: EnemyAIController, Assembly-CSharp
+        m_MethodName: Aggrevated
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1828,7 +1828,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2315229587453089263}
         m_TargetAssemblyTypeName: EnemyAIController, Assembly-CSharp
-        m_MethodName: Aggrevated
+        m_MethodName: CallNearbyEnemies
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1840,7 +1840,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2315229587453089263}
         m_TargetAssemblyTypeName: EnemyAIController, Assembly-CSharp
-        m_MethodName: CallNearbyEnemies
+        m_MethodName: Aggrevated
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   deathAnimator: {fileID: 0}
   deathLegacyAnimation: {fileID: 0}
   destroyOnDeath: 0
-  destroyDelay: 6
+  destroyDelay: 0
 --- !u!114 &4856656955639027472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1926,7 +1926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 6
-  angle: 90
+  angle: 60
   delayUpdateForOptimize: 0.2
   targetPlayer: {fileID: 0}
   targetMask:
@@ -1955,8 +1955,8 @@ MonoBehaviour:
   chaseDistance: 3
   suspicionTime: 3
   waitOnPointTime: 2
-  agroCooldownTime: 2
-  callArea: 10
+  agroCooldownTime: 15.66
+  callArea: 32.26
   gameManager: {fileID: 0}
 --- !u!114 &5057699197931253620
 MonoBehaviour:
