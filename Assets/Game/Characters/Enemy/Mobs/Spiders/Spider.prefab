@@ -1657,7 +1657,6 @@ GameObject:
   - component: {fileID: 987618825540926774}
   - component: {fileID: 6928720819911646780}
   - component: {fileID: 4793528704041756339}
-  - component: {fileID: 3131996275177866803}
   - component: {fileID: 5123335167300315396}
   - component: {fileID: 4856656955639027472}
   - component: {fileID: 1628325891048977303}
@@ -1665,6 +1664,7 @@ GameObject:
   - component: {fileID: 1925353261296819865}
   - component: {fileID: 2315229587453089263}
   - component: {fileID: 5057699197931253620}
+  - component: {fileID: 3473584401894735139}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Enemy
@@ -1781,20 +1781,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &3131996275177866803
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1741126025642493396}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.71779317
-  m_Height: 2.4240568
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.63202846, z: -0.17220682}
 --- !u!114 &5123335167300315396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1972,6 +1958,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackCooldown: 2
   mobRange: 2
+--- !u!65 &3473584401894735139
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741126025642493396}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1.24}
+  m_Center: {x: 0, y: 0.15, z: -0.15}
 --- !u!1 &1741126025642493400
 GameObject:
   m_ObjectHideFlags: 0

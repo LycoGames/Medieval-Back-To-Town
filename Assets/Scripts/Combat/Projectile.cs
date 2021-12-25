@@ -31,14 +31,32 @@ public class Projectile : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name != "Enemy")
+        if (collision.gameObject.tag != "Player")
         {
             myRigidBody.isKinematic = true;
             Destroy(gameObject, lifeAfterImpact);
         }
+        Health target = collision.gameObject.GetComponent<Health>();
+        if (target == null || target.tag != targetTag) return;
+        if (target.IsDead()) return;
+
+        if (hitEffect != null)
+        {
+            Instantiate(hitEffect, target.transform.position, transform.rotation);
+        }
+
+        foreach (GameObject toDestroy in destroyOnHit)
+        {
+            Destroy(toDestroy);
+        }
+
+        target.ApplyDamage(damage);
+        Debug.Log(target + " " + damage + "damage atıldı");
+        Debug.Log(target.GetHealthPoints() + "canı kaldı");
+        Destroy(gameObject,0.5f);
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         //speed = 0;
         onHit.Invoke();
@@ -51,15 +69,15 @@ public class Projectile : MonoBehaviour
             Instantiate(hitEffect, target.transform.position, transform.rotation);
         }
 
-         foreach (GameObject toDestroy in destroyOnHit)
-         {
-             Destroy(toDestroy);
-         }
+        foreach (GameObject toDestroy in destroyOnHit)
+        {
+            Destroy(toDestroy);
+        }
 
         target.ApplyDamage(damage);
         Debug.Log(target + " " + damage + "damage atıldı");
         Debug.Log(target.GetHealthPoints() + "canı kaldı");
-        Destroy(gameObject, lifeAfterImpact);
+        Destroy(gameObject);
 
-    }
+    }*/
 }
