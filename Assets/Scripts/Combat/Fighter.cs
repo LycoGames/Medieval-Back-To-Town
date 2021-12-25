@@ -7,8 +7,8 @@ public class Fighter : MonoBehaviour
     [SerializeField] Transform rightHandTransform = null;
     [SerializeField] Transform leftHandTransform = null;
     [SerializeField] LayerMask aimColliderLayerMask = new LayerMask();
-
-
+    [SerializeField] GameObject arissaHead = null;
+    
     const string weaponName = "Unarmed";
 
     Animator anim;
@@ -30,6 +30,26 @@ public class Fighter : MonoBehaviour
         anim = GetComponent<Animator>();
         target = GetComponent<Health>();
     }
+    void Update()
+    {
+
+        Debug.DrawRay(arissaHead.transform.position, GetAimPosition(), Color.green);
+
+    }
+
+    public Vector3 GetAimPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitData;
+        if (Physics.Raycast(ray, out hitData, 1000) && hitData.transform.tag == "Enemy")
+        {
+            Debug.Log("Mouse is on the Enemy");
+            return hitData.point;
+        }
+
+        return hitData.point;
+
+    }
 
     private Weapon SetupDefaultWeapon()
     {
@@ -38,16 +58,21 @@ public class Fighter : MonoBehaviour
 
     public void AttackBehaviour()
     {
-            anim.SetTrigger("attack");
-            //LookMousePosition();
+        anim.SetTrigger("attack");
+        //LookMousePosition();
     }
 
     void Hit()
     {
+        /*  if (currentWeaponConfig.HasProjectile())
+          {
+              currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), GetMouseWorldPosition());
+          }*/
         if (currentWeaponConfig.HasProjectile())
         {
-            currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), GetMouseWorldPosition());
+            currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), GetAimPosition());
         }
+
         //Debug.Log("Yumruk Atıldı.");
 
     }
@@ -64,6 +89,7 @@ public class Fighter : MonoBehaviour
             return mouseWorldPosition;
         }
         return new Vector3();
+
     }
 
     public void Shoot()

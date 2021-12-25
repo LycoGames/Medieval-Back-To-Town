@@ -1705,7 +1705,7 @@ Animation:
   m_GameObject: {fileID: 1741126025642493396}
   m_Enabled: 0
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: bc600cce01eb57a409f4e69025868a2c, type: 3}
+  m_Animation: {fileID: 7400010, guid: bc600cce01eb57a409f4e69025868a2c, type: 3}
   m_Animations:
   - {fileID: 7400000, guid: bc600cce01eb57a409f4e69025868a2c, type: 3}
   - {fileID: 7400002, guid: bc600cce01eb57a409f4e69025868a2c, type: 3}
@@ -1811,9 +1811,9 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2315229587453089263}
-        m_TargetAssemblyTypeName: EnemyAIController, Assembly-CSharp
-        m_MethodName: Aggrevated
+      - m_Target: {fileID: 5123335167300315396}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: Die
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1955,8 +1955,8 @@ MonoBehaviour:
   chaseDistance: 3
   suspicionTime: 3
   waitOnPointTime: 2
-  agroCooldownTime: 15.66
-  callArea: 32.26
+  agroCooldownTime: 10
+  callArea: 10
   gameManager: {fileID: 0}
 --- !u!114 &5057699197931253620
 MonoBehaviour:

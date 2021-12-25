@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject hitEffect = null;
     [SerializeField] GameObject[] destroyOnHit = null;
     [SerializeField] UnityEvent onHit;
+    [SerializeField] Rigidbody myRigidBody;
+
 
     GameObject instigator = null;
     private void Start()
@@ -23,7 +25,17 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        myRigidBody.AddForce(myRigidBody.transform.forward * (speed * UnityEngine.Random.Range(1.8f, 2.9f)));
+
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name != "Enemy")
+        {
+            myRigidBody.isKinematic = true;
+            Destroy(gameObject, lifeAfterImpact);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,14 +51,14 @@ public class Projectile : MonoBehaviour
             Instantiate(hitEffect, target.transform.position, transform.rotation);
         }
 
-        foreach (GameObject toDestroy in destroyOnHit)
-        {
-            Destroy(toDestroy);
-        }
+         foreach (GameObject toDestroy in destroyOnHit)
+         {
+             Destroy(toDestroy);
+         }
 
         target.ApplyDamage(damage);
         Debug.Log(target + " " + damage + "damage atıldı");
-
+        Debug.Log(target.GetHealthPoints() + "canı kaldı");
         Destroy(gameObject, lifeAfterImpact);
 
     }
