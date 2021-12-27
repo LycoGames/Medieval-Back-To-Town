@@ -15,8 +15,8 @@ public class CharacterAiming : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
