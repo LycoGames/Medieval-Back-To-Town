@@ -78,9 +78,7 @@ public class WeaponConfig : ScriptableObject
     public void LaunchArrow(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
     {
         Vector3 aimDirection = (mouseWorldPosition - leftHand.transform.position).normalized;
-        Projectile projectileInstance = Instantiate(projectile, GameObject.Find("SpawnPoint").transform.position, Quaternion.LookRotation(aimDirection, Vector3.up));
-
-        Debug.Log("ok atıldı.");
+        Projectile projectileInstance = Instantiate(projectile, leftHand.position, Quaternion.LookRotation(aimDirection, Vector3.up));
     }
 
     public float GetDamage()

@@ -14,5 +14,4 @@ public class EquipableItem : InventoryItem
     {
         return allowedEquipLocation;
     }
-    
 }

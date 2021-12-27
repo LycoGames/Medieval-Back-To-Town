@@ -17,11 +17,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1741126025637218648, guid: 3b6631aae5e568e4cb99a70467daa840,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 946743619be2e56459389a85fdaba5de, type: 2}
     - target: {fileID: 1741126025642493396, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: m_Name
@@ -129,78 +124,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
-      propertyPath: onDie.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
-        type: 3}
-      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
-        type: 3}
-      propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
-        type: 3}
-      propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 11500000, guid: b12d92e46a8bb1f469d9e11fefff586f,
-        type: 3}
-    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
-        type: 3}
-      propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
-        type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5658976157377615342}
+      objectReference: {fileID: 0}
     - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 8538923003749303765}
-    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
-        type: 3}
-      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
-        type: 3}
-      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: CallNearbyEnemies
       objectReference: {fileID: 0}
     - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EnemyAIController, Assembly-CSharp
+      value: EnemyStateMachine, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8291269039793835369, guid: 3b6631aae5e568e4cb99a70467daa840,
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: EnemyAIController, Assembly-CSharp
+      value: EnemyStateMachine, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6184864701228074638, guid: 3b6631aae5e568e4cb99a70467daa840, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3b6631aae5e568e4cb99a70467daa840, type: 3}
---- !u!1 &5658976157377615342 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1741126025642493396, guid: 3b6631aae5e568e4cb99a70467daa840,
-    type: 3}
-  m_PrefabInstance: {fileID: 6242270765199003706}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8538923003749303765 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2315229587453089263, guid: 3b6631aae5e568e4cb99a70467daa840,
-    type: 3}
-  m_PrefabInstance: {fileID: 6242270765199003706}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5658976157377615342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e5fb7607dec4b0459ee5357eaa0bd7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

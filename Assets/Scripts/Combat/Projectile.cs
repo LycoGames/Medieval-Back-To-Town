@@ -14,8 +14,6 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject hitEffect = null;
     [SerializeField] GameObject[] destroyOnHit = null;
     [SerializeField] UnityEvent onHit;
-    [SerializeField] Rigidbody myRigidBody;
-
 
     GameObject instigator = null;
     private void Start()
@@ -25,38 +23,10 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        myRigidBody.AddForce(myRigidBody.transform.forward * (speed * UnityEngine.Random.Range(1.8f, 2.9f)));
-
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag != "Player")
-        {
-            myRigidBody.isKinematic = true;
-            Destroy(gameObject, lifeAfterImpact);
-        }
-        Health target = collision.gameObject.GetComponent<Health>();
-        if (target == null || target.tag != targetTag) return;
-        if (target.IsDead()) return;
-
-        if (hitEffect != null)
-        {
-            Instantiate(hitEffect, target.transform.position, transform.rotation);
-        }
-
-        foreach (GameObject toDestroy in destroyOnHit)
-        {
-            Destroy(toDestroy);
-        }
-
-        target.ApplyDamage(damage);
-        Debug.Log(target + " " + damage + "damage atıldı");
-        Debug.Log(target.GetHealthPoints() + "canı kaldı");
-        Destroy(gameObject,0.5f);
-    }
-
-    /*private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         //speed = 0;
         onHit.Invoke();
@@ -76,8 +46,8 @@ public class Projectile : MonoBehaviour
 
         target.ApplyDamage(damage);
         Debug.Log(target + " " + damage + "damage atıldı");
-        Debug.Log(target.GetHealthPoints() + "canı kaldı");
-        Destroy(gameObject);
 
-    }*/
+        Destroy(gameObject, lifeAfterImpact);
+
+    }
 }

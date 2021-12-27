@@ -1576,7 +1576,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1035394dba39c5b41a002d49c4b0cb88, type: 2}
+  - {fileID: 2100000, guid: 946743619be2e56459389a85fdaba5de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1657,14 +1657,15 @@ GameObject:
   - component: {fileID: 987618825540926774}
   - component: {fileID: 6928720819911646780}
   - component: {fileID: 4793528704041756339}
-  - component: {fileID: 5123335167300315396}
+  - component: {fileID: 3131996275177866803}
+  - component: {fileID: 6184864701228074638}
+  - component: {fileID: 8291269039793835369}
   - component: {fileID: 4856656955639027472}
   - component: {fileID: 1628325891048977303}
   - component: {fileID: 3426150269182740303}
   - component: {fileID: 1925353261296819865}
   - component: {fileID: 2315229587453089263}
   - component: {fileID: 5057699197931253620}
-  - component: {fileID: 3473584401894735139}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Enemy
@@ -1705,7 +1706,7 @@ Animation:
   m_GameObject: {fileID: 1741126025642493396}
   m_Enabled: 0
   serializedVersion: 3
-  m_Animation: {fileID: 7400010, guid: bc600cce01eb57a409f4e69025868a2c, type: 3}
+  m_Animation: {fileID: 7400000, guid: bc600cce01eb57a409f4e69025868a2c, type: 3}
   m_Animations:
   - {fileID: 7400000, guid: bc600cce01eb57a409f4e69025868a2c, type: 3}
   - {fileID: 7400002, guid: bc600cce01eb57a409f4e69025868a2c, type: 3}
@@ -1781,7 +1782,55 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5123335167300315396
+--- !u!136 &3131996275177866803
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741126025642493396}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.71779317
+  m_Height: 2.4240568
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.63202846, z: -0.17220682}
+--- !u!114 &6184864701228074638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741126025642493396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93307aa3444e96941ac2be2843b2e06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPath: {fileID: 0}
+  target: {fileID: 0}
+  waypointTolerance: 1
+  maxSpeed: 1
+  chaseDistance: 5
+  suspicionTime: 4
+  waitOnPointTime: 2
+  agroCooldownTime: 4
+  callArea: 3
+  speedFraction: 1
+  mobRange: 1
+  enemyAttackCooldown: 1
+  radius: 0
+  angle: 0
+  delayUpdateForOptimize: 0.2
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  gameManager: {fileID: 0}
+--- !u!114 &8291269039793835369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1797,7 +1846,7 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5123335167300315396}
+      - m_Target: {fileID: 8291269039793835369}
         m_TargetAssemblyTypeName: Health, Assembly-CSharp
         m_MethodName: Die
         m_Mode: 1
@@ -1814,7 +1863,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2315229587453089263}
         m_TargetAssemblyTypeName: EnemyAIController, Assembly-CSharp
-        m_MethodName: CallNearbyEnemies
+        m_MethodName: Aggrevated
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1826,7 +1875,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2315229587453089263}
         m_TargetAssemblyTypeName: EnemyAIController, Assembly-CSharp
-        m_MethodName: Aggrevated
+        m_MethodName: CallNearbyEnemies
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1857,7 +1906,7 @@ MonoBehaviour:
   deathAnimator: {fileID: 0}
   deathLegacyAnimation: {fileID: 0}
   destroyOnDeath: 0
-  destroyDelay: 0
+  destroyDelay: 6
 --- !u!114 &4856656955639027472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1894,7 +1943,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741126025642493396}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac1cf80d14ea1ed4d817230707b70b76, type: 3}
   m_Name: 
@@ -1906,13 +1955,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741126025642493396}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e830cdfea516db4dae36478a334b0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 6
-  angle: 60
+  angle: 90
   delayUpdateForOptimize: 0.2
   targetPlayer: {fileID: 0}
   targetMask:
@@ -1929,7 +1978,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741126025642493396}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e5fb7607dec4b0459ee5357eaa0bd7e, type: 3}
   m_Name: 
@@ -1941,7 +1990,7 @@ MonoBehaviour:
   chaseDistance: 3
   suspicionTime: 3
   waitOnPointTime: 2
-  agroCooldownTime: 10
+  agroCooldownTime: 2
   callArea: 10
   gameManager: {fileID: 0}
 --- !u!114 &5057699197931253620
@@ -1951,26 +2000,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741126025642493396}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87d6356d89a254d4391ac66b8611c93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAttackCooldown: 2
   mobRange: 2
---- !u!65 &3473584401894735139
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1741126025642493396}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1.24}
-  m_Center: {x: 0, y: 0.15, z: -0.15}
 --- !u!1 &1741126025642493400
 GameObject:
   m_ObjectHideFlags: 0
