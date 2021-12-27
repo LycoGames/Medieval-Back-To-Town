@@ -99,7 +99,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     {
         timeSinceLastSawThePLayer = 0f;
         enemyFighter.Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
-        CallNearbyEnemies();
+        
     }
 
     public void CallNearbyEnemies()
@@ -124,6 +124,8 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     public void Aggrevated() //event! damage aldıgında event tetikliycek.
     {
+        print("agredeyim");
+        CallNearbyEnemies();
         timeSinceAggrevated = 0;
     }
 

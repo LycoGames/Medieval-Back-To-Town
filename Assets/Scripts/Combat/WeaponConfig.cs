@@ -11,7 +11,6 @@ public class WeaponConfig : ScriptableObject
     [SerializeField] float weaponDamage = 5f;
     [SerializeField] float weaponRange = 2f;
     [SerializeField] bool isRightHanded = true;
-    [SerializeField] Projectile projectile = null;
 
     const string weaponName = "Weapon";
 
@@ -63,24 +62,24 @@ public class WeaponConfig : ScriptableObject
         return handTransform;
     }
 
-    public bool HasProjectile()
-    {
-        return projectile != null;
-    }
 
-    public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
+    /*public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
     {
         Vector3 aimDirection = (mouseWorldPosition - leftHand.transform.position).normalized;
         Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.LookRotation(aimDirection, Vector3.up));
         //projectileInstance.SetTarget(target, instigator, calculatedDamage);
-    }
+    }*/
 
-    public void LaunchArrow(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
+    public void LaunchArrow(Transform rightHand, Transform leftHand,GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
     {
-        Vector3 aimDirection = (mouseWorldPosition - leftHand.transform.position).normalized;
-        Projectile projectileInstance = Instantiate(projectile, GameObject.Find("SpawnPoint").transform.position, Quaternion.LookRotation(aimDirection, Vector3.up));
 
-        Debug.Log("ok atıldı.");
+        Projectile projectile = ProjectilePool.SharedInstance.GetPooledObject().GetComponent<Projectile>();
+        projectile.gameObject.SetActive(true);
+        projectile.transform.position = GameObject.Find("SpawnPoint").transform.position;
+        Vector3 aimDirection = (mouseWorldPosition - leftHand.transform.position).normalized;
+        projectile.transform.rotation = Quaternion.LookRotation(aimDirection, Vector3.up);
+        //Projectile projectileInstance = Instantiate(projectile, GameObject.Find("SpawnPoint").transform.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+        projectile.AddForce();
     }
 
     public float GetDamage()
