@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using RPG.Core;
 using UnityEngine;
 using UnityEngine.Events;
-
 public class Health : MonoBehaviour
 {
     [SerializeField] float regenerationPercentage = 50;
-    [SerializeField] UnityEvent onDie;
-    [SerializeField] UnityEvent takeDamage;
+    public  UnityEvent onDie;
+    public  UnityEvent takeDamage;
 
     LazyValue<float> healthPoints;
 
@@ -66,6 +62,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         healthPoints.ForceInit();
+        
     }
 
     private void OnEnable()
@@ -205,6 +202,7 @@ public class Health : MonoBehaviour
         if (healthPoints.value <= 0)//Death,
         {
             onDie.Invoke();
+            
             //Spawn Of Death
 
             //components
