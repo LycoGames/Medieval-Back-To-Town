@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d6356d89a254d4391ac66b8611c93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAttackCooldown: 1
+  mobRange: 1
 --- !u!114 &419537720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +172,10 @@ MonoBehaviour:
   maxSpeed: 3
   chaseDistance: 5
   suspicionTime: 4
-  WaitOnPointTime: 2
+  waitOnPointTime: 2
+  agroCooldownTime: 4
+  callArea: 3
+  gameManager: {fileID: 0}
 --- !u!114 &419537722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +191,34 @@ MonoBehaviour:
   regenerationPercentage: 50
   onDie:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  takeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: 5e5fb7607dec4b0459ee5357eaa0bd7e, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   hurtAnimator: {fileID: 0}
   hurtLegacyAnimation: {fileID: 0}
   numberOfHurtAnimations: 0
