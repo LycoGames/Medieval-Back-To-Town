@@ -41,7 +41,7 @@ public class Fighter : MonoBehaviour
     void Update()
     {
 
-        Debug.DrawRay(arissaHead.transform.position, GetAimPosition(), Color.green);
+        //  Debug.DrawRay(arissaHead.transform.position, GetAimPosition(), Color.green);
 
     }
 
@@ -73,12 +73,12 @@ public class Fighter : MonoBehaviour
     void Hit()
     {
         HandArrow.gameObject.SetActive(false);
-
-        /*  if (currentWeaponConfig.HasProjectile())
-          {
-              currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), GetMouseWorldPosition());
-          }*/
-
+        /*
+                  if (currentWeaponConfig.HasProjectile())
+                  {
+                      currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), GetMouseWorldPosition());
+                  }
+*/
         if (currentWeaponConfig.HasProjectile())
         {
             currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), GetAimPosition());
