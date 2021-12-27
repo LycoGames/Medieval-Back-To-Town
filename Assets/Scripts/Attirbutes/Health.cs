@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using RPG.Core;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] float regenerationPercentage = 50;
-    [SerializeField] UnityEvent onDie;
-    [SerializeField] UnityEvent takeDamage;
+    public UnityEvent onDie;
+    public UnityEvent takeDamage;
 
     LazyValue<float> healthPoints;
 
