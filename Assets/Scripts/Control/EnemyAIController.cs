@@ -124,8 +124,6 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     public void Aggrevated() //event! damage aldıgında event tetikliycek.
     {
-        print("agredeyim");
-        CallNearbyEnemies();
         timeSinceAggrevated = 0;
     }
 

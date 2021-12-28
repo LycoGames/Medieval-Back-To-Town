@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493a3f321177b124f9e72ab519bc9c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 500
+  speed: 250
   maxLifeTime: 5
   lifeAfterImpact: 2
   targetTag: Enemy
@@ -66,9 +66,9 @@ Rigidbody:
   m_GameObject: {fileID: 5949857427629981784}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
