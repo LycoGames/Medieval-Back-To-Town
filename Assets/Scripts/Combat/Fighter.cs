@@ -7,9 +7,9 @@ public class Fighter : MonoBehaviour
     [SerializeField] Transform rightHandTransform = null;
     [SerializeField] Transform leftHandTransform = null;
     [SerializeField] LayerMask aimColliderLayerMask = new LayerMask();
-    [SerializeField] GameObject arissaHead = null;
+    //[SerializeField] GameObject arissaHead = null;
 
-    public GameObject HandArrow;
+    //public GameObject HandArrow;
     const string weaponName = "Unarmed";
 
     Animator anim;
@@ -30,18 +30,18 @@ public class Fighter : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         target = GetComponent<Health>();
-        GetActive();
+        //GetActive();
     }
 
-    private void GetActive()
+    /*private void GetActive()
     {
         HandArrow.gameObject.SetActive(false);
-    }
+    }*/
 
     void Update()
     {
 
-        Debug.DrawRay(arissaHead.transform.position, GetAimPosition(), Color.green);
+        // Debug.DrawRay(arissaHead.transform.position, GetAimPosition(), Color.green);
 
     }
 
@@ -72,7 +72,7 @@ public class Fighter : MonoBehaviour
 
     void Hit()
     {
-        HandArrow.gameObject.SetActive(false);
+        //HandArrow.gameObject.SetActive(false);
         /*
                   if (currentWeaponConfig.HasProjectile())
                   {
@@ -108,13 +108,13 @@ public class Fighter : MonoBehaviour
         Hit();
     }
 
-    public void DrawArrow()
+    /*public void DrawArrow()
     {
         //Instantiate(arrow, GameObject.Find("HandArrow").transform.position, Quaternion.LookRotation());
         HandArrow.gameObject.SetActive(true);
         print("ok cekildi.");
 
-    }
+    }*/
 
     private bool LookMousePosition()
     {
