@@ -70,7 +70,7 @@ public class WeaponConfig : ScriptableObject
         //projectileInstance.SetTarget(target, instigator, calculatedDamage);
     }*/
 
-    public void LaunchArrow(Transform rightHand, Transform leftHand,GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
+    public void LaunchArrow(Transform rightHand, Transform leftHand, GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
     {
 
         Projectile projectile = ProjectilePool.SharedInstance.GetPooledObject().GetComponent<Projectile>();
@@ -80,6 +80,7 @@ public class WeaponConfig : ScriptableObject
         projectile.transform.rotation = Quaternion.LookRotation(aimDirection, Vector3.up);
         //Projectile projectileInstance = Instantiate(projectile, GameObject.Find("SpawnPoint").transform.position, Quaternion.LookRotation(aimDirection, Vector3.up));
         projectile.AddForce();
+        // projectile.shootArrow();
     }
 
     public float GetDamage()

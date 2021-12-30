@@ -78,7 +78,7 @@ public class Fighter : MonoBehaviour
                   {
                       currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, target, gameObject, GetWeaponDamage(), GetMouseWorldPosition());
                   }
-*/
+        */
 
         currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, gameObject, GetWeaponDamage(), GetAimPosition());
 
