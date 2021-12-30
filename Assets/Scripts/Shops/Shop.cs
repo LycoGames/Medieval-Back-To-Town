@@ -27,3 +27,13 @@ public class Shop : MonoBehaviour
     public float TransactionTotal() { return 0; }
     public void AddToTransaction(InventoryItem item, int quantity) { }
 }
+
+public enum ItemCategory
+{
+    None,
+    Armor,
+    Weapons,
+    Potions,
+    Special,
+    Abilities
+}

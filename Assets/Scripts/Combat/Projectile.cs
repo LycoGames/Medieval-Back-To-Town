@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] float speed = 1;
+    [SerializeField] float speed = 100;
     [SerializeField] float maxLifeTime = 10f;
     [SerializeField] float lifeAfterImpact = 2f;
     [SerializeField] string targetTag = "Enemy";
@@ -16,26 +16,67 @@ public class Projectile : MonoBehaviour
     [SerializeField] UnityEvent onHit;
     [SerializeField] Rigidbody myRigidBody;
 
-
     GameObject instigator = null;
-    private void Start()
+
+    /*
+        private float torque = 5f;
+        Archer archer;
+
+      
+
+        void Start()
+        {
+            archer = GetComponent<Archer>();
+        }
+        void Update()
+        {
+            var theForce = archer.getForce();
+            print("" + theForce);
+        }
+
+        
+
+        public void ShootArrow(Vector3 force)
     {
-        Destroy(gameObject, maxLifeTime);
+        myRigidBody.isKinematic = false;
+        myRigidBody.AddForce(force, ForceMode.Impulse);
+        myRigidBody.AddTorque(transform.right * torque);
+        transform.SetParent(null);
     }
 
-    private void Update()
+    public void shootArrow()
     {
-        myRigidBody.AddForce(myRigidBody.transform.forward * (speed * UnityEngine.Random.Range(1.8f, 2.9f)));
+        var theForce = archer.getForce();
+        ShootArrow(theForce);
+    }
+    */
 
+    void OnEnable()
+    {
+        StartCoroutine(SetTheObjectFalse());
+    }
+
+    private IEnumerator SetTheObjectFalse()
+    {
+        yield return new WaitForSeconds(5f);
+        gameObject.SetActive(false);
+    }
+
+    public void AddForce()
+    {
+        myRigidBody.AddForce(myRigidBody.transform.forward * (speed * UnityEngine.Random.Range(2.5f, 2.8f)));
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Player")
-        {
-            myRigidBody.isKinematic = true;
-            Destroy(gameObject, lifeAfterImpact);
-        }
+        Debug.Log("collision:" + collision.gameObject.name);
+        /* if (collision.gameObject.tag != "Player")
+         {
+             myRigidBody.isKinematic = true;
+             gameObject.SetActive(false);
+             // Destroy(gameObject, lifeAfterImpact);
+         }
+         */
         Health target = collision.gameObject.GetComponent<Health>();
         if (target == null || target.tag != targetTag) return;
         if (target.IsDead()) return;
@@ -47,13 +88,14 @@ public class Projectile : MonoBehaviour
 
         foreach (GameObject toDestroy in destroyOnHit)
         {
-            Destroy(toDestroy);
+            //Destroy(toDestroy);
         }
 
         target.ApplyDamage(damage);
         Debug.Log(target + " " + damage + "damage atıldı");
         Debug.Log(target.GetHealthPoints() + "canı kaldı");
-        Destroy(gameObject,0.5f);
+        gameObject.SetActive(false);
+
     }
 
     /*private void OnTriggerEnter(Collider other)

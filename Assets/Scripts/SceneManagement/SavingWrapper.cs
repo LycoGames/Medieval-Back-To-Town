@@ -17,7 +17,7 @@ public class SavingWrapper : MonoBehaviour
 
     private void LoadLastScene()
     {
-        GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+      //  GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
     }
 
     void Update()
