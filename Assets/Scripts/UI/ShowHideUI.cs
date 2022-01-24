@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class ShowHideUI : MonoBehaviour
 {
-    [SerializeField] KeyCode toggleKey = KeyCode.I;
     [SerializeField] GameObject uiContainer = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,12 +15,8 @@ public class ShowHideUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(toggleKey))
-        {
-            uiContainer.SetActive(!uiContainer.activeSelf);
-        }
-
+    public void HandleShowHide()
+    { 
+        uiContainer.SetActive(!uiContainer.activeSelf);
     }
 }
