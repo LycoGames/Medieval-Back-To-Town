@@ -43,8 +43,8 @@ GameObject:
   - component: {fileID: 1413686320663055639}
   - component: {fileID: 8832213511133354892}
   - component: {fileID: 5239684806949354692}
-  - component: {fileID: 1304035432}
-  - component: {fileID: 1449360708366278192}
+  - component: {fileID: 3497739073760841387}
+  - component: {fileID: 5897904882932714456}
   - component: {fileID: 5861503054451638431}
   - component: {fileID: 6391979294474064277}
   - component: {fileID: 1872384375091879850}
@@ -52,7 +52,6 @@ GameObject:
   - component: {fileID: 554578064668288604}
   - component: {fileID: 2959236461504650538}
   - component: {fileID: 7066071587009306812}
-  - component: {fileID: 895971060}
   - component: {fileID: 4011544547875747944}
   - component: {fileID: 1330088605}
   m_Layer: 7
@@ -145,50 +144,52 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.63, z: 0}
---- !u!114 &1304035432
+--- !u!114 &3497739073760841387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413686320663055636}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58d7e5e46e63672498a1145a7629f5f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
-  runSpeed: 5
-  turnSmoothTime: 0.1
-  isGrounded: 0
-  groundCheckDistance: 0.2
-  groundMask:
+  moveSpeed: 2
+  sprintSpeed: 5.335
+  rotationSmoothTime: 0.12
+  speedChangeRate: 10
+  jumpHeight: 1.2
+  gravity: -9.81
+  jumpTimeout: 0.5
+  fallTimeout: 0.15
+  grounded: 1
+  groundedOffset: -0.14
+  groundedRadius: 0.28
+  groundLayers:
     serializedVersion: 2
     m_Bits: 256
-  gravity: -9.81
-  jumpHeight: 1.5
-  attackKey: 323
-  runKey: 304
-  jumpKey: 32
-  cameraRotater: {fileID: 0}
---- !u!114 &1449360708366278192
+  cinemachineCameraTarget: {fileID: 0}
+  topClamp: 70
+  bottomClamp: -30
+  cameraAngleOverride: 0
+  lockCameraPosition: 0
+--- !u!114 &5897904882932714456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413686320663055636}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4b1a24cad9db2f4abbd2d7bad9cdc91, type: 3}
+  m_Script: {fileID: 11500000, guid: c489b6f95d48cdb4d9d481e0dc1405b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: f00f50a92b8f39d4bb6e01a337c1b961, type: 2}
   rightHandTransform: {fileID: 8295602603101481023}
   leftHandTransform: {fileID: 7248202258348207013}
-  aimColliderLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &5861503054451638431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,37 +314,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueIdentifier: warrior
---- !u!114 &895971060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413686320663055636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5835ca800e69d6b4f8439834731642bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 2
-  sprintSpeed: 5.335
-  rotationSmoothTime: 0.12
-  speedChangeRate: 10
-  jumpHeight: 1.2
-  gravity: -15
-  jumpTimeout: 0.5
-  fallTimeout: 0.15
-  grounded: 1
-  groundedOffset: -0.14
-  groundedRadius: 0.28
-  groundLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  cinemachineCameraTarget: {fileID: 822361618}
-  topClamp: 70
-  bottomClamp: -30
-  cameraAngleOverride: 0
-  lockCameraPosition: 0
 --- !u!114 &4011544547875747944
 MonoBehaviour:
   m_ObjectHideFlags: 0

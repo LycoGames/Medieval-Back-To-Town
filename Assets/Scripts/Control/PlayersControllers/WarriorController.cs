@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WarriorController : PlayerController2
+public class WarriorController : PlayerController
 {
     
 }

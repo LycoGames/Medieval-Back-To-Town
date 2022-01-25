@@ -22,7 +22,6 @@ public class WeaponConfig : ScriptableObject
 
         if (equippedPrefab != null)
         {
-
             Transform handTransform = GetTransform(rightHand, leftHand);
             weapon = Instantiate(equippedPrefab, handTransform);
             weapon.gameObject.name = weaponName;
@@ -34,7 +33,6 @@ public class WeaponConfig : ScriptableObject
         {
             animator.runtimeAnimatorController = animatorOverride;
         }
-
         else if (overrideController != null)
         {
             animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;

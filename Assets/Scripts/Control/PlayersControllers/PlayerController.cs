@@ -7,7 +7,7 @@ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 [RequireComponent(typeof(PlayerInput))]
 #endif
-public class PlayerController : MonoBehaviour
+public abstract class PlayerController : MonoBehaviour
 {
     [Header("Player")] [Tooltip("Move speed of the character in m/s")] [SerializeField]
     private float moveSpeed = 2.0f;
