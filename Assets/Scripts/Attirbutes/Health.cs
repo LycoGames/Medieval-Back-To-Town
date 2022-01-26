@@ -43,7 +43,7 @@ public class Health : MonoBehaviour
 
     public bool destroyOnDeath = false;
     public float destroyDelay;
-    public HealthBar healthBar;
+    private HealthBar healthBar;
 
     //bool isDead = false;
 
@@ -67,6 +67,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         healthPoints.ForceInit();
+        healthBar = GetComponent<HealthBar>();
         healthBar.SetMaxHealth(GetInitialHealth());
     }
 
