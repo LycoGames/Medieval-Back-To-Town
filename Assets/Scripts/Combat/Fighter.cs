@@ -41,7 +41,7 @@ public class Fighter : MonoBehaviour
     void Update()
     {
 
-        Debug.DrawRay(arissaHead.transform.position, GetAimPosition(), Color.green);
+     //   Debug.DrawRay(arissaHead.transform.position, GetAimPosition(), Color.green);
 
     }
 

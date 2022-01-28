@@ -10,6 +10,12 @@ public class Health : MonoBehaviour
     public UnityEvent onDie;
     public UnityEvent takeDamage;
 
+    public TakeDamageHUDEvent takeDamageHUD;
+    [System.Serializable]
+    public class TakeDamageHUDEvent : UnityEvent<float>
+    {
+    }
+
     LazyValue<float> healthPoints;
 
     public Animator hurtAnimator;
@@ -109,6 +115,8 @@ public class Health : MonoBehaviour
         Debug.Log(healthPoints.value);
 
         takeDamage.Invoke(); //event
+        takeDamageHUD.Invoke(dmg);
+
         healthBar.SetHealth(GetHealthPoints());
 
         if (healthPoints.value > 0)
@@ -209,7 +217,7 @@ public class Health : MonoBehaviour
         if (healthPoints.value <= 0)//Death,
         {
             onDie.Invoke();
-           
+
             //Spawn Of Death
 
             //components
