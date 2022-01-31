@@ -15,6 +15,7 @@ public class EnemyFighter : MonoBehaviour, IAction
     Health targetPlayer;
     Health health;
     BaseStats baseStats;
+    [Range(0, 1000)] [SerializeField] float speed = 10f;
 
     float TimeSinceLastAttack = Mathf.Infinity;
 
@@ -62,7 +63,19 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     public void AttackBehaviour()
     {   //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
-        transform.LookAt(targetPlayer.transform.position);
+
+        /* var targetRotation = Quaternion.LookRotation(targetPlayer.transform.position - transform.position);
+        targetRotation.y = 0.0f;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed);
+        */
+
+        Vector3 TargetDir = targetPlayer.transform.position - transform.position;
+        TargetDir.y = 0.0f;
+        var step = Time.deltaTime * speed;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(TargetDir), step);
+
+
+        // transform.LookAt(targetPlayer.transform.position);
         if (TimeSinceLastAttack > enemyAttackCooldown)
         {
             animator.SetTrigger("attack");
