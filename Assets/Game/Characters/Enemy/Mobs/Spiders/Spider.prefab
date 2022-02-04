@@ -1666,6 +1666,7 @@ GameObject:
   - component: {fileID: 3718555659752136246}
   - component: {fileID: 594933125501867458}
   - component: {fileID: 3990674988867094830}
+  - component: {fileID: 2637526391870630859}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Enemy
@@ -1924,6 +1925,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2637526391870630859}
+        m_TargetAssemblyTypeName: CanvasDisabler, Assembly-CSharp
+        m_MethodName: SetActiveCanvas
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   takeDamageHUD:
     m_PersistentCalls:
       m_Calls:
@@ -2033,6 +2046,19 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 4328233824278541556}
+--- !u!114 &2637526391870630859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741126025642493396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b11897e5fd07cf43829a7efab375bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1830118998507481701}
 --- !u!1 &1741126025642493400
 GameObject:
   m_ObjectHideFlags: 0
@@ -2643,19 +2669,6 @@ Transform:
   m_Father: {fileID: 1741126025642530874}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3592989039283338859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5472999197764131531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1053b91a05239714ebba4899ca90c78f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!1001 &1626510675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2756,15 +2769,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1626510675}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5472999197764131531 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5472999196146012056, guid: 7947276cd04a7b946af9f60be9892cc3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1626510675}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7940082580893289221 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7940082579285990998, guid: 7947276cd04a7b946af9f60be9892cc3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1626510675}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1830118998507481701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1830118996889435958, guid: 7947276cd04a7b946af9f60be9892cc3,
     type: 3}
   m_PrefabInstance: {fileID: 1626510675}
   m_PrefabAsset: {fileID: 0}
@@ -2774,7 +2787,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1626510675}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1830118998507481701}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}

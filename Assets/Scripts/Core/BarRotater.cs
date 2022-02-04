@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BarRotater : MonoBehaviour
 {
-    public Transform cam;
+    Transform cam;
 
 
     void Start()

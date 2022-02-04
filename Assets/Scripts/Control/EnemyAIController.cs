@@ -27,6 +27,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     Health health;
     EnemyFOV enemyFOV;
     Animator animator;
+    CanvasDisabler canvasDisabler;
 
     int currentWaypointIndex = 0;
     float timeSinceLastSawThePLayer = Mathf.Infinity;
@@ -42,6 +43,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     {
         guardPosition = transform.position;
         enemyFOV = GetComponent<EnemyFOV>();
+        canvasDisabler = GetComponent<CanvasDisabler>();
         GetPlayer();
         GetPatrolInfos();
     }
@@ -99,7 +101,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     {
         timeSinceLastSawThePLayer = 0f;
         enemyFighter.Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
-        
+        canvasDisabler.SetActiveCanvas();
     }
 
     public void CallNearbyEnemies()
@@ -136,7 +138,7 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     private void PatrolBehaviour()
     {
-
+        canvasDisabler.SetDisableCanvas();
         Vector3 nextPosition = guardPosition; //mobun eski pozisyonunu tuttum.
 
         if (patrolPath != null) // patrol pathi yoksa eski yerine geri dönsün.
@@ -188,6 +190,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     private void SuspicionBehaviour()
     {
         GetComponent<ActionScheduler>().CancelCurrentAction();
+        canvasDisabler.SetDisableCanvas();
     }
 
     public void Cancel()
@@ -198,6 +201,7 @@ public class EnemyAIController : MonoBehaviour, IAction
     public bool IsAggrevated()
     {
         float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
+        
         return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
 
     }
