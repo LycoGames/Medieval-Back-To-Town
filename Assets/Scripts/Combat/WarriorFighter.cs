@@ -8,57 +8,90 @@ public class WarriorFighter : Fighter
 {
     //Animation IDs
     private int animIDBasicAttack;
+    private float timeOfBasicAttackAnim;
+    private int animIDMeleeAttack360High;
+    private float timeOfMeleeAttack360HighAnim;
 
-    private float timeOfAnimation;
-    private bool isAttacking;
-    private bool isContiniousAttacking;
 
-    private void Update()
-    {
-        if (isContiniousAttacking && !isAttacking)
-        {
-            StartCoroutine(PerformBasicAttack());
-        }
-    }
+    private bool canClick = true;
+    private int noOfClicks = 0;
+
+    private static readonly int ComboOne = Animator.StringToHash("ComboOne");
 
     protected override void AssignAnimationIDs()
     {
         animIDBasicAttack = Animator.StringToHash("FullBodyBasicAttack");
-        timeOfAnimation = animator.runtimeAnimatorController.animationClips[9].length;
-    }
+        animIDMeleeAttack360High = Animator.StringToHash("MeleeAttack360High");
 
+        foreach (var animClip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (animClip.name == "BasicAttack")
+                timeOfBasicAttackAnim = animClip.length;
+            if (animClip.name == "ComboOne")
+                timeOfMeleeAttack360HighAnim = animClip.length;
+        }
+    }
 
     public override void BasicAttack(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.started && canClick)
         {
-            isContiniousAttacking = true;
+            noOfClicks++;
         }
 
-        else if (ctx.canceled)
+        if (ctx.started && noOfClicks == 1)
         {
-            isContiniousAttacking = false;
+            StartCoroutine(PerformAttack(animIDBasicAttack));
         }
+
+        /*  if (ctx.started && !isAttacking)
+          {
+              StartCoroutine(PerformAttack(animIDBasicAttack));
+          }*/
     }
 
-    private IEnumerator PerformBasicAttack()
+    public void ComboCheck()
     {
-        StartAttack();
-        yield return new WaitForSeconds(timeOfAnimation);
-        StopAttack();
+        canClick = false;
+        if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash == animIDBasicAttack && noOfClicks == 1)
+        {
+            canClick = true;
+            noOfClicks = 0;
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash == animIDBasicAttack && noOfClicks >= 2)
+        {
+            StartCoroutine(PerformAttack(animIDMeleeAttack360High));
+            canClick = true;
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash == animIDMeleeAttack360High)
+        {
+            canClick = true;
+            noOfClicks = 0;
+        }
     }
 
-    private void StartAttack()
+    private IEnumerator PerformAttack(int animID)
+    {
+        StartAttack(animID);
+        yield return new WaitForSeconds(animID == animIDBasicAttack
+            ? timeOfBasicAttackAnim
+            : timeOfMeleeAttack360HighAnim);
+        StopAttack(animID);
+    }
+
+    private void StartAttack(int animID)
     {
         animator.applyRootMotion = true;
-        animator.SetTrigger(animIDBasicAttack);
-        isAttacking = true;
+        animator.SetTrigger(animID);
     }
 
-    private void StopAttack()
+    private void StopAttack(int animID)
     {
-        animator.ResetTrigger(animIDBasicAttack);
-        isAttacking = false;
-        animator.applyRootMotion = false;
+        if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash == animID)
+        {
+            animator.applyRootMotion = false;
+        }
+
+        animator.ResetTrigger(animID);
     }
 }

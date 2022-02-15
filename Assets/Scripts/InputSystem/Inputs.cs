@@ -9,6 +9,7 @@ public class Inputs : MonoBehaviour
     [Header("Character Input Values")] public Vector2 move;
     public Vector2 look;
     public bool jump;
+    public bool roll;
     public bool sprint;
     public bool inventoryShowHide;
     [Header("Movement Settings")] public bool analogMovement;
@@ -35,6 +36,11 @@ public class Inputs : MonoBehaviour
     public void OnJump(InputAction.CallbackContext ctx)
     {
         JumpInput(ctx.ReadValueAsButton());
+    }
+
+    public void OnRoll(InputAction.CallbackContext ctx)
+    {
+        RollInput(ctx.ReadValueAsButton());
     }
 
     public void OnSprint(InputAction.CallbackContext ctx)
@@ -64,6 +70,11 @@ public class Inputs : MonoBehaviour
     public void JumpInput(bool newJumpState)
     {
         jump = newJumpState;
+    }
+
+    public void RollInput(bool newRollState)
+    {
+        roll = newRollState;
     }
 
     public void SprintInput(bool newSprintState)

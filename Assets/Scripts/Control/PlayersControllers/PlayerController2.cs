@@ -215,8 +215,6 @@ public abstract class PlayerController2 : MonoBehaviour, ISaveable
         anim.SetTrigger("attack");
         anim.applyRootMotion = true;
         isAttacking = true;
-
-        //TODO hareket ederken düz vuruş bug'lı 
     }
 
     private void StopAttacking()

@@ -279,6 +279,7 @@ public abstract class PlayerController : MonoBehaviour
             {
                 fallTimeoutDelta -= Time.deltaTime;
             }
+
             else
             {
                 // update animator if using character
