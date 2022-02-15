@@ -128,7 +128,6 @@ Pass {
 	Stencil {
 		ref [_StencilNonBackground]
 		readmask [_StencilNonBackground]
-		// Normally just comp would be sufficient, but there's a bug and only front face stencil state is set (case 583207)
 		compback equal
 		compfront equal
 	}

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Saving;
+using UnityEngine.InputSystem;
 
 
 public class SavingWrapper : MonoBehaviour
@@ -22,15 +23,16 @@ public class SavingWrapper : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+
+        if (Keyboard.current.lKey.isPressed)
         {
             Load();
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Keyboard.current.kKey.isPressed)
         {
             Save();
         }
-        if (Input.GetKeyDown(KeyCode.Delete))
+        if (Keyboard.current.deleteKey.isPressed)
         {
             Delete();
         }
