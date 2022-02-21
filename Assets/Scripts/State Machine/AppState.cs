@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AppState : BaseState
@@ -24,7 +22,7 @@ public class AppState : BaseState
     public override void UpdateState()
     {
         Debug.Log("App State Update");
-        ctx.ApplyGravity();
+        ApplyGravity();
         GroundedCheck();
         CameraRotation();
     }
@@ -70,7 +68,20 @@ public class AppState : BaseState
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
-    
+    public void ApplyGravity()
+    {
+        // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+
+        if (currentSubState.GetType() == factory.GroundedState().GetType() && ctx.VerticalVelocity < 0)
+        {
+            ctx.VerticalVelocity = -2f;
+        }
+
+        else if (ctx.VerticalVelocity < ctx.TerminalVelocity)
+        {
+            ctx.VerticalVelocity += ctx.Gravity * Time.deltaTime;
+        }
+    }
 
     public void GroundedCheck()
     {

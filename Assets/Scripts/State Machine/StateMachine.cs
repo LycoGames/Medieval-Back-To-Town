@@ -80,6 +80,7 @@ public class StateMachine : MonoBehaviour
     private int animIDJump;
     private int animIDFreeFall;
     private int animIDMotionSpeed;
+    private int animIDInCombat;
 
     //Jump
     private float jumpTimeoutDelta;
@@ -91,8 +92,6 @@ public class StateMachine : MonoBehaviour
     private Inputs input;
 
     private bool hasAnimator;
-
-    private Vector3 inputDirection;
 
 
     //getters and setters
@@ -201,6 +200,9 @@ public class StateMachine : MonoBehaviour
     public int AnimIDMotionSpeed
     {
         get { return animIDMotionSpeed; }
+    }public int AnimIDInCombat
+    {
+        get { return animIDInCombat; }
     }
 
     public float FallTimeout
@@ -296,13 +298,6 @@ public class StateMachine : MonoBehaviour
         get { return controller; }
     }
 
-    public Vector3 InputDirection
-    {
-        get { return inputDirection; }
-        set { inputDirection = value; }
-    }
-
-
     private void Awake()
     {
         if (mainCamera == null)
@@ -338,7 +333,9 @@ public class StateMachine : MonoBehaviour
         animIDGrounded = Animator.StringToHash("Grounded");
         animIDJump = Animator.StringToHash("Jump");
         animIDFreeFall = Animator.StringToHash("FreeFall");
-        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");        
+        animIDInCombat = Animator.StringToHash("InCombat");
+        
     }
 
     public void SetSpeedToIdle()
@@ -356,24 +353,6 @@ public class StateMachine : MonoBehaviour
         targetSpeed = sprintSpeed;
     }
 
-    public void RotatePlayerToMoveDirection()
-    {
-        // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-        // if there is a move input rotate player when the player is moving
-
-        // normalise input direction
-        inputDirection = new Vector3(input.move.x, 0.0f, input.move.y).normalized;
-
-        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                         mainCamera.transform.eulerAngles.y;
-        float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation,
-            ref rotationVelocity,
-            rotationSmoothTime);
-
-        // rotate to face input direction relative to camera position
-        transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-    }
-
     public void Move()
     {
         Vector3 targetDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
@@ -383,13 +362,21 @@ public class StateMachine : MonoBehaviour
                         new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
     }
 
-    public void ApplyGravity()
+    public void RotatePlayerToMoveDirection()
     {
-        // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-        Debug.Log(verticalVelocity);
-        if (verticalVelocity < terminalVelocity)
-        {
-            verticalVelocity += gravity * Time.deltaTime;
-        }
+        // normalise input direction
+        Vector3 inputDirection = new Vector3(input.move.x, 0.0f, input.move.y).normalized;
+
+        // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
+        // if there is a move input rotate player when the player is moving
+
+        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+                         mainCamera.transform.eulerAngles.y;
+        float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation,
+            ref rotationVelocity,
+            rotationSmoothTime);
+
+        // rotate to face input direction relative to camera position
+        transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
     }
 }
