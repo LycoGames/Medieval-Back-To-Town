@@ -25,7 +25,6 @@ public class GroundedState : BaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
-        LockGravity();
         Timers();
         UpdateSpeed();
         UpdateAnimations();
@@ -39,7 +38,7 @@ public class GroundedState : BaseState
 
     public override void CheckSwitchStates()
     {
-        if (ctx.Input.jump && ctx.JumpTimeoutDelta <= 0.0f)
+        if (ctx.JumpTimeoutDelta <= 0.0f && ctx.Input.jump)
         {
             Jump();
             SwitchState(factory.InAirState());
@@ -86,8 +85,9 @@ public class GroundedState : BaseState
         float speedOffset = 0.1f;
 
         //If player not reached target speed
-        if (currentHorizontalSpeed < ctx.TargetSpeed - speedOffset ||
-            currentHorizontalSpeed > ctx.TargetSpeed + speedOffset)
+        bool isReachedTargetSpeed = !(currentHorizontalSpeed < ctx.TargetSpeed - speedOffset ||
+                                      currentHorizontalSpeed > ctx.TargetSpeed + speedOffset);
+        if (!isReachedTargetSpeed)
         {
             // creates curved result rather than a linear one giving a more organic speed change
             // note T in Lerp is clamped, so we don't need to clamp our speed
@@ -110,14 +110,6 @@ public class GroundedState : BaseState
         {
             ctx.Animator.SetFloat(ctx.AnimIDSpeed, ctx.AnimationBlend);
             ctx.Animator.SetFloat(ctx.AnimIDMotionSpeed, 1f);
-        }
-    }
-
-    public void LockGravity()
-    {
-        if (ctx.VerticalVelocity < 0)
-        {
-            ctx.VerticalVelocity = -2f;
         }
     }
 }

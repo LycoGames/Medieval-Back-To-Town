@@ -15,16 +15,14 @@ public class CombatState : BaseState
 
     public override void UpdateState()
     {
+        Debug.Log("Combat State Update");
         CheckSwitchStates();
         if (currentSubState.GetType()
             != factory.CombatIdleState().GetType())
         {
             ctx.RotatePlayerToMoveDirection();
+            ctx.Move();
         }
-
-        ctx.Move();
-
-        Debug.Log("Combat State Update");
     }
 
     public override void ExitState()
@@ -36,6 +34,7 @@ public class CombatState : BaseState
     {
         if (Keyboard.current.gKey.isPressed)
         {
+            ctx.Animator.SetBool(ctx.AnimIDInCombat, false);
             SwitchState(factory.FreeState());
         }
     }

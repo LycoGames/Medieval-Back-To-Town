@@ -26,10 +26,6 @@ public class RunState : BaseState
 
     public override void CheckSwitchStates()
     {
-        if (ctx.Input.move == Vector2.zero)
-        {
-            SwitchState(factory.IdleState());
-        }
         if (!ctx.Input.sprint)
         {
             SwitchState(factory.WalkState());

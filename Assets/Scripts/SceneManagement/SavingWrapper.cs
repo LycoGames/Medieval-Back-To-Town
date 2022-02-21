@@ -24,7 +24,7 @@ public class SavingWrapper : MonoBehaviour
     void Update()
     {
 
-        if (Keyboard.current.lKey.isPressed)
+        /*if (Keyboard.current.lKey.isPressed)
         {
             Load();
         }
@@ -35,7 +35,7 @@ public class SavingWrapper : MonoBehaviour
         if (Keyboard.current.deleteKey.isPressed)
         {
             Delete();
-        }
+        }*/
     }
 
     public void Save()

@@ -16,14 +16,12 @@ public class FreeState : BaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
-
         if (currentSubState.GetType()
             != factory.IdleState().GetType())
         {
             ctx.RotatePlayerToMoveDirection();
             ctx.Move();
         }
-
 
         Debug.Log("Free State Update");
     }
@@ -35,10 +33,11 @@ public class FreeState : BaseState
 
     public override void CheckSwitchStates()
     {
-        if (Keyboard.current.cKey.isPressed)
+        /*if (Keyboard.current.cKey.isPressed)
         {
+            ctx.Animator.SetBool(ctx.AnimIDInCombat, true);
             SwitchState(factory.CombatState());
-        }
+        }*/
     }
 
     public override void InitializeSubState()

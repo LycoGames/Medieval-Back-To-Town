@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InAirState : BaseState
 {
@@ -20,9 +22,8 @@ public class InAirState : BaseState
     public override void UpdateState()
     {
         Debug.Log("In Air State Update");
-
-        ctx.RotatePlayerToMoveDirection();
         ctx.Move();
+        ctx.RotatePlayerToMoveDirection();
 
         // fall timeout
         if (fallTimeoutDelta >= 0.0f)
@@ -37,7 +38,7 @@ public class InAirState : BaseState
                 ctx.Animator.SetBool(ctx.AnimIDFreeFall, true);
             }
         }
-        
+
         CheckSwitchStates();
     }
 
