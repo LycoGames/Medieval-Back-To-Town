@@ -28,7 +28,6 @@ public class EnemyAIController : MonoBehaviour, IAction
     EnemyFOV enemyFOV;
     Animator animator;
     CanvasDisabler canvasDisabler;
-
     int currentWaypointIndex = 0;
     float timeSinceLastSawThePLayer = Mathf.Infinity;
     float timeSinceArrivedAtLastPoint = Mathf.Infinity;
@@ -41,9 +40,9 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     void Start()
     {
+        canvasDisabler = GetComponent<CanvasDisabler>();
         guardPosition = transform.position;
         enemyFOV = GetComponent<EnemyFOV>();
-        canvasDisabler = GetComponent<CanvasDisabler>();
         GetPlayer();
         GetPatrolInfos();
     }
@@ -138,7 +137,7 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     private void PatrolBehaviour()
     {
-        canvasDisabler.SetDisableCanvas();
+
         Vector3 nextPosition = guardPosition; //mobun eski pozisyonunu tuttum.
 
         if (patrolPath != null) // patrol pathi yoksa eski yerine geri dönsün.
@@ -201,7 +200,6 @@ public class EnemyAIController : MonoBehaviour, IAction
     public bool IsAggrevated()
     {
         float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
-        
         return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
 
     }

@@ -9,13 +9,13 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     [SerializeField] float enemyAttackCooldown = 1f;
     [SerializeField] float mobRange = 1f;
+    [Range(1, 300)] [SerializeField] float speed = 200f;
 
     EnemyAIController enemyAIController;
     Animator animator;
     Health targetPlayer;
     Health health;
     BaseStats baseStats;
-    [Range(0, 1000)] [SerializeField] float speed = 10f;
 
     float TimeSinceLastAttack = Mathf.Infinity;
 
@@ -63,24 +63,22 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     public void AttackBehaviour()
     {   //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
+        RotateTowardsPlayer();
 
-        /* var targetRotation = Quaternion.LookRotation(targetPlayer.transform.position - transform.position);
-        targetRotation.y = 0.0f;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed);
-        */
-
-        Vector3 TargetDir = targetPlayer.transform.position - transform.position;
-        TargetDir.y = 0.0f;
-        var step = Time.deltaTime * speed;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(TargetDir), step);
-
-
-        // transform.LookAt(targetPlayer.transform.position);
+        //   transform.LookAt(targetPlayer.transform.position);
         if (TimeSinceLastAttack > enemyAttackCooldown)
         {
             animator.SetTrigger("attack");
             TimeSinceLastAttack = 0;
         }
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector3 targetDir = transform.position - targetPlayer.transform.position;
+        targetDir.y = 0.0f;
+        var step = speed * Time.deltaTime;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetPlayer.transform.rotation, step);
     }
 
     public void Attack(GameObject combatTarget)

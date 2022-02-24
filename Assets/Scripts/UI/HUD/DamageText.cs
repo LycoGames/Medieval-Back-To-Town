@@ -9,7 +9,7 @@ public class DamageText : MonoBehaviour
 
     public void DestroyText()
     {
-       // Destroy(gameObject);
+      Destroy(gameObject,0.2f);
     }
 
     public void SetDamageTextValue(float dmg)
