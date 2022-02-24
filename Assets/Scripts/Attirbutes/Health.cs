@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] float regenerationPercentage = 50;
     public UnityEvent onDie;
     public UnityEvent takeDamage;
+
+    public TakeDamageHUDEvent takeDamageHUD;
+    [System.Serializable]
+    public class TakeDamageHUDEvent : UnityEvent<float>
+    {
+    }
 
     LazyValue<float> healthPoints;
 
@@ -42,6 +49,7 @@ public class Health : MonoBehaviour
 
     public bool destroyOnDeath = false;
     public float destroyDelay;
+    private HealthBar healthBar;
 
     //bool isDead = false;
 
@@ -65,6 +73,8 @@ public class Health : MonoBehaviour
     private void Start()
     {
         healthPoints.ForceInit();
+        healthBar = GetComponent<HealthBar>();
+        healthBar.SetMaxHealth(GetInitialHealth());
     }
 
     private void OnEnable()
@@ -105,6 +115,9 @@ public class Health : MonoBehaviour
         Debug.Log(healthPoints.value);
 
         takeDamage.Invoke(); //event
+        takeDamageHUD.Invoke(dmg);
+
+        healthBar.SetHealth(GetHealthPoints());
 
         if (healthPoints.value > 0)
         {
@@ -116,7 +129,7 @@ public class Health : MonoBehaviour
             {
                 hurtAnimRandomisation = 0;
             }
-            
+
             if (hurtAnimator != null && AnimatorIsPlaying("Locomotion"))
             {
                 if (hurtAnimRandomisation == 1)
@@ -204,6 +217,7 @@ public class Health : MonoBehaviour
         if (healthPoints.value <= 0)//Death,
         {
             onDie.Invoke();
+
             //Spawn Of Death
 
             //components
@@ -325,7 +339,8 @@ public class Health : MonoBehaviour
 
     }
 
-    bool AnimatorIsPlaying(string stateName){
-     return hurtAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-  }
+    bool AnimatorIsPlaying(string stateName)
+    {
+        return hurtAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+    }
 }

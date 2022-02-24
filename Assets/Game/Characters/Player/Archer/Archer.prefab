@@ -1386,7 +1386,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847271607587269598}
-  m_LocalRotation: {x: 0.12318614, y: -0.10877336, z: 0.013585341, w: 0.98631084}
+  m_LocalRotation: {x: 0.12318617, y: -0.10877336, z: 0.013585346, w: 0.98631084}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1588,7 +1588,6 @@ GameObject:
   - component: {fileID: 786256647}
   - component: {fileID: 834084392}
   - component: {fileID: 834084405}
-  - component: {fileID: -6723993964254000421}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -1751,7 +1750,8 @@ MonoBehaviour:
   deathAnimator: {fileID: 2536438172826133195}
   deathLegacyAnimation: {fileID: 0}
   destroyOnDeath: 0
-  destroyDelay: 4
+  destroyDelay: 1
+  healthBar: {fileID: 0}
 --- !u!114 &5601430730746636151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1917,18 +1917,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySize: 16
---- !u!114 &-6723993964254000421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5349997386430936147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b02c334737279e74eb26764d0c42972b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6004141023988025217
 GameObject:
   m_ObjectHideFlags: 0

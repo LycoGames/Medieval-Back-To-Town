@@ -27,6 +27,7 @@ public abstract class Fighter : MonoBehaviour
         currentWeapon.ForceInit();
     }
 
+
     protected void Start()
     {
         animator = GetComponent<Animator>();
