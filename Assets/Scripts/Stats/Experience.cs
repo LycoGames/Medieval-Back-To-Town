@@ -5,18 +5,16 @@ public class Experience : MonoBehaviour
 {
     [SerializeField] float experiencePoints = 0;
 
-    public event Action onExperienceGained;
+    public event Action OnExperienceGained;
 
     public void GainExperience(float experience)
     {
         experiencePoints += experience;
-        onExperienceGained();
+        OnExperienceGained();
     }
 
     public float GetPoints()
     {
         return experiencePoints;
     }
-
-    
 }

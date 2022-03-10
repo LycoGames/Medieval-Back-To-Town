@@ -10,7 +10,6 @@ public class RunState : BaseState
     public override void EnterState()
     {
         Debug.Log("Run State Enter");
-        ctx.SetSpeedToRun();
     }
 
     public override void UpdateState()

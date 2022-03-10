@@ -1,47 +1,44 @@
 using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using InputSystem;
+using UnityEditor.UIElements;
+using UnityEngine.UI;
 
 public class StateMachine : MonoBehaviour
 {
-    //TODO console çıktılarını in game hale getirilecek ekrananın sağ tarafından akacak
-    [Header("Player")] [Tooltip("Move speed of the character in m/s")] [SerializeField]
-    private float moveSpeed = 2.0f;
+    [SerializeField] float velocity = 9;
+    [SerializeField] float rotationSmoothTime = 0.12f;
+    [SerializeField] float targetingSense = 2;
+    [SerializeField] bool canMove;
+    [SerializeField] float aimTimer = 0;
+    [SerializeField] Transform FirePoint;
 
-    [Tooltip("Sprint speed of the character in m/s")] [SerializeField]
-    private float sprintSpeed = 5.335f;
 
-    [Tooltip("How fast the character turns to face movement direction")] [Range(0.0f, 0.3f)] [SerializeField]
-    private float rotationSmoothTime = 0.12f;
+    [Header("Weapon")] [SerializeField] private WeaponConfig defaultWeapon = null;
+    [SerializeField] private Transform rightHandTransform = null;
+    [SerializeField] private Transform leftHandTransform = null;
 
-    [Tooltip("Acceleration and deceleration")] [SerializeField]
-    private float speedChangeRate = 10.0f;
 
-    [Space(10)] [Tooltip("The height the player can jump")] [SerializeField]
-    private float jumpHeight = 1.2f;
+    [SerializeField] LayerMask collidingLayer = ~0; //Target marker can only collide with scene layer
 
-    [Tooltip("The character uses its own gravity value. The engine default is -9.81f")] [SerializeField]
-    private float gravity = -15.0f;
+    //[SerializeField] GameObject TargetMarker2;
+    [SerializeField] GameObject[] Prefabs;
 
-    [Space(10)]
-    [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
-    [SerializeField]
-    private float jumpTimeout = 0.50f;
+    [SerializeField] GameObject[] PrefabsCast;
 
-    [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")] [SerializeField]
-    private float fallTimeout = 0.15f;
 
-    [Header("Player Grounded")]
-    [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
-    [SerializeField]
-    private bool grounded = true;
+    //[SerializeField] float[] castingTime; //If 0 - can loop, if > 0 - one shot time
 
-    [Tooltip("Useful for rough ground")] [SerializeField]
-    float groundedOffset = -0.14f;
 
-    [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")] [SerializeField]
-    float groundedRadius = 0.28f;
+    [Space] [Header("Canvas")] [SerializeField]
+    Image aim;
 
-    [Tooltip("What layers the character uses as ground")] [SerializeField]
-    LayerMask groundLayers;
+    [SerializeField] Vector2 uiOffset;
+    [SerializeField] List<Transform> screenTargets = new List<Transform>();
+
+    [SerializeField] float fireRate = 0.1f;
 
     [Header("Cinemachine")]
     [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
@@ -61,41 +58,87 @@ public class StateMachine : MonoBehaviour
     [Tooltip("For locking the camera position on all axis")] [SerializeField]
     bool lockCameraPosition = false;
 
+
+    [Header("Animation Smoothing")] [Range(0, 1f)] [SerializeField]
+    float HorizontalAnimSmoothTime = 0.2f;
+
+
+    [Range(0, 1f)] [SerializeField] float VerticalAnimTime = 0.2f;
+    /*[Range(0, 1f)] [SerializeField] float StartAnimTime = 0.3f;
+    [Range(0, 1f)] [SerializeField] float StopAnimTime = 0.15f;*/
+
+    [SerializeField] Transform target;
+
     //state variables
-    private BaseState currentState;
-    private BaseState currentSubState;
-    private StateFactory states;
+    BaseState currentState;
 
-    //player
-    private float speed;
-    private float animationBlend;
+    BaseState currentSubState;
+    StateFactory states;
+    Vector3 desiredMoveDirection;
+    bool blockRotationPlayer;
+    float desiredRotationSpeed = 0.1f;
+    Animator anim;
+    float Speed;
+    Camera cam;
+    CharacterController controller;
+    bool isGrounded;
+    float secondLayerWeight = 0;
+
+    bool casting = false;
+    GameObject TargetMarker;
+    Transform parentObject;
+
+
+    private AudioSource soundComponent; //Play audio from Prefabs
+    private AudioClip clip;
+    private AudioSource soundComponentCast; //Play audio from PrefabsCast
+
     private float targetRotation = 0.0f;
-    private float rotationVelocity;
-    private float verticalVelocity;
-    private float terminalVelocity = 53.0f;
-    private float targetSpeed;
+    float verticalVel;
 
-    //animation IDs
-    private int animIDSpeed;
-    private int animIDGrounded;
-    private int animIDJump;
-    private int animIDFreeFall;
-    private int animIDMotionSpeed;
-    private int animIDInCombat;
+    Vector3 moveVector;
 
-    //Jump
-    private float jumpTimeoutDelta;
-    private float fallTimeoutDelta;
+    bool activeTarget = false;
 
-    private Animator animator;
-    private CharacterController controller;
-    private Camera mainCamera;
+
     private Inputs input;
+    public float InputX;
+    public float InputY;
 
-    private bool hasAnimator;
+//Player move temp variables
+    private Vector3 forward;
+    private Vector3 right;
+
+    //Weapon variables
+    private const string weaponName = "Unarmed";
+    private WeaponConfig currentWeaponConfig;
+    private LazyValue<Weapon> currentWeapon;
+
+    private bool rotateState = false;
 
 
-    //getters and setters
+//Animaiton IDs
+    [HideInInspector] public int animIDInputX;
+
+    [HideInInspector] public int animIDInputY;
+    [HideInInspector] public int animIDAimMoving;
+
+    [HideInInspector] public int animIDMaskAttack1;
+    [HideInInspector] public int animIDAttack1;
+
+    /*[HideInInspector] public int animIDInputMagnitude;
+
+    
+
+    [HideInInspector] public int animIDAoE;
+
+    [HideInInspector] public int animIDAttack2;
+
+    [HideInInspector] public int animIDUpAttack;
+
+    [HideInInspector] public int animIDMaskAttack2;
+
+    [HideInInspector] public int animIDUpAttack2;*/
 
     public BaseState CurrentState
     {
@@ -111,12 +154,6 @@ public class StateMachine : MonoBehaviour
     public Inputs Input
     {
         get { return input; }
-    }
-
-    //Camera
-    public Camera MainCamera
-    {
-        get { return mainCamera; }
     }
 
     public bool LockCameraPosition
@@ -144,84 +181,41 @@ public class StateMachine : MonoBehaviour
         get { return cameraAngleOverride; }
     }
 
-    public float GroundedOffset
+
+    public Animator Anim
     {
-        get { return groundedOffset; }
+        get { return anim; }
     }
 
-    public float GroundedRadius
+    public CharacterController Controller
     {
-        get { return groundedRadius; }
-    }
-
-    public bool Grounded
-    {
-        get { return grounded; }
-        set { grounded = value; }
+        get { return controller; }
     }
 
 
-    public LayerMask GroundLayers
+    public Vector3 Forward
     {
-        get { return groundLayers; }
+        get { return forward; }
     }
 
-    public bool HasAnimator
+    public Vector3 Right
     {
-        get { return hasAnimator; }
+        get { return right; }
     }
 
-    public Animator Animator
+    public float DesiredRotationSpeed
     {
-        get { return animator; }
+        get { return desiredRotationSpeed; }
     }
 
-    //animation
-
-    public int AnimIDSpeed
+    public float Velocity
     {
-        get { return animIDSpeed; }
+        get { return velocity; }
     }
 
-    public int AnimIDGrounded
+    public float RotationSmoothTime
     {
-        get { return animIDGrounded; }
-    }
-
-    public int AnimIDJump
-    {
-        get { return animIDJump; }
-    }
-
-    public int AnimIDFreeFall
-    {
-        get { return animIDFreeFall; }
-    }
-
-    public int AnimIDMotionSpeed
-    {
-        get { return animIDMotionSpeed; }
-    }public int AnimIDInCombat
-    {
-        get { return animIDInCombat; }
-    }
-
-    public float FallTimeout
-    {
-        get { return fallTimeout; }
-    }
-
-    //player
-    public float Speed
-    {
-        get { return speed; }
-        set { speed = value; }
-    }
-
-    public float AnimationBlend
-    {
-        get { return animationBlend; }
-        set { animationBlend = value; }
+        get { return rotationSmoothTime; }
     }
 
     public float TargetRotation
@@ -230,82 +224,91 @@ public class StateMachine : MonoBehaviour
         set { targetRotation = value; }
     }
 
-    public float RotationVelocity
+    public float AimTimer
     {
-        get { return rotationVelocity; }
-        set { rotationVelocity = value; }
+        get { return aimTimer; }
+        set { aimTimer = value; }
     }
 
-    public float RotationSmoothTime
+    public float SecondLayerWeight
     {
-        get { return rotationSmoothTime; }
+        get { return secondLayerWeight; }
+        set { secondLayerWeight = value; }
     }
 
-    public float VerticalVelocity
+    public Vector3 DesiredMoveDirection
     {
-        get { return verticalVelocity; }
-        set { verticalVelocity = value; }
+        get { return desiredMoveDirection; }
     }
 
-    public float TerminalVelocity
+    public Camera Cam
     {
-        get { return terminalVelocity; }
-        set { terminalVelocity = value; }
+        get { return cam; }
     }
 
-    public float JumpTimeoutDelta
+    public Vector2 UiOffset
     {
-        get { return jumpTimeoutDelta; }
-        set { jumpTimeoutDelta = value; }
+        get { return uiOffset; }
     }
 
-    public float FallTimeoutDelta
+    public LayerMask CollidingLayer
     {
-        get { return fallTimeoutDelta; }
-        set { fallTimeoutDelta = value; }
+        get { return collidingLayer; }
     }
 
-    public float TargetSpeed
+    public Image Aim
     {
-        get { return targetSpeed; }
-        set { targetSpeed = value; }
+        get { return aim; }
     }
 
-    public float SpeedChangeRate
+    public bool ActiveTarget
     {
-        get { return speedChangeRate; }
-        set { speedChangeRate = value; }
+        get { return activeTarget; }
+        set { activeTarget = value; }
     }
 
-    //Jump And Gravity
-    public float JumpHeight
+    public List<Transform> ScreenTargets
     {
-        get { return jumpHeight; }
+        get { return screenTargets; }
     }
 
-    public float Gravity
+    public bool CanMove
     {
-        get { return gravity; }
+        get { return canMove; }
     }
 
-    public float JumpTimeout
+    public bool RotateState
     {
-        get { return jumpTimeout; }
+        get { return rotateState; }
     }
 
-    //Move
-    public CharacterController Controller
+    public float FireRate
     {
-        get { return controller; }
+        get { return fireRate; }
     }
 
-    private void Awake()
+    public float TargetingSense
     {
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-        }
+        get { return targetingSense; }
+    }
 
+    public Transform Target
+    {
+        get { return target; }
+        set { target = value; }
+    }
+
+    public WeaponConfig CurrentWeaponConfig
+    {
+        get => currentWeaponConfig;
+        set => currentWeaponConfig = value;
+    }
+
+    //User interface variables
+
+
+    void Awake()
+    {
         states = new StateFactory(this);
         currentState = states.AppState();
         currentState.EnterState();
@@ -313,71 +316,220 @@ public class StateMachine : MonoBehaviour
 
     void Start()
     {
-        hasAnimator = TryGetComponent(out animator);
-        controller = GetComponent<CharacterController>();
-        input = GetComponent<Inputs>();
-
+        GetRequiredComponents();
         AssignAnimationIDs();
-
-        jumpTimeoutDelta = jumpTimeout;
-        fallTimeoutDelta = fallTimeout;
     }
 
     void Update()
     {
         currentState.UpdateStates();
+        //Need second layer in the Animator
+
+        // if (screenTargets.Count == 0)
+        // {
+        //     GetEnemies();
+        // }
+
+        if (anim.layerCount > 1)
+        {
+            anim.SetLayerWeight(1, secondLayerWeight);
+        }
+    }
+
+    public void InputMagnitude()
+    {
+        InputX = input.move.x;
+        InputY = input.move.y;
+
+        //TODO anim input z ve inputx set edildi 651
+        anim.SetFloat(animIDInputY, InputY, VerticalAnimTime, Time.deltaTime * 2f);
+        anim.SetFloat(animIDInputX, InputX, HorizontalAnimSmoothTime, Time.deltaTime * 2f);
+
+        Speed = new Vector2(input.move.x, input.move.y).sqrMagnitude;
+        //TODO 658 stateler ile halledildi.
+
+        PlayerMoveAndRotationInput();
+    }
+
+    private void PlayerMoveAndRotationInput()
+    {
+        InputX = input.move.x;
+        InputY = input.move.y;
+
+        forward = cam.transform.forward;
+        right = cam.transform.right;
+
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        desiredMoveDirection = forward * InputY + right * InputX;
+
+        desiredMoveDirection.Normalize();
+    }
+
+    private void GetRequiredComponents()
+    {
+        input = GetComponent<Inputs>();
+        anim = GetComponent<Animator>();
+        cam = Camera.main;
+        if (target)
+        {
+            target = screenTargets[targetIndex()];
+        }
+
+        controller = GetComponent<CharacterController>();
     }
 
     private void AssignAnimationIDs()
     {
-        animIDSpeed = Animator.StringToHash("Speed");
-        animIDGrounded = Animator.StringToHash("Grounded");
-        animIDJump = Animator.StringToHash("Jump");
-        animIDFreeFall = Animator.StringToHash("FreeFall");
-        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");        
-        animIDInCombat = Animator.StringToHash("InCombat");
+        animIDInputX = Animator.StringToHash("InputX");
+        animIDInputY = Animator.StringToHash("InputY");
+        ;
+        animIDAimMoving = Animator.StringToHash("AimMoving");
+        ;
+        animIDMaskAttack1 = Animator.StringToHash("MaskAttack1");
+        animIDAttack1 = Animator.StringToHash("Attack1");
+        /*animIDInputMagnitude = Animator.StringToHash("InputMagnitude");
+        ;
         
+        ;
+        animIDAoE = Animator.StringToHash("DAoE");
+        ;
+        animIDAttack2 = Animator.StringToHash("Attack2");
+        ;
+        animIDUpAttack = Animator.StringToHash("UpAttack");
+        ;
+     
+        ;
+        animIDMaskAttack2 = Animator.StringToHash("MaskAttack2");
+        ;
+        animIDUpAttack2 = Animator.StringToHash("UpAttack2");
+        ;*/
     }
 
-    public void SetSpeedToIdle()
+    public void ApplyGravity()
     {
-        targetSpeed = 0f;
+        //If you don't need the character grounded then get rid of this part.
+        isGrounded = controller.isGrounded;
+        if (isGrounded)
+        {
+            verticalVel = 0;
+        }
+        else
+        {
+            verticalVel -= 1f * Time.deltaTime;
+        }
+
+        moveVector = new Vector3(0, verticalVel, 0);
+        controller.Move(moveVector);
     }
 
-    public void SetSpeedToWalk()
+    public void StartRotateCoroutine(float rotatingTime, Vector3 targetPoint)
     {
-        targetSpeed = moveSpeed;
+        StartCoroutine(RotateToTarget(rotatingTime, targetPoint));
     }
 
-    public void SetSpeedToRun()
+    private IEnumerator RotateToTarget(float rotatingTime, Vector3 targetPoint)
     {
-        targetSpeed = sprintSpeed;
+        rotateState = true;
+        float delay = rotatingTime;
+        var lookPos = targetPoint - transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        while (true)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 20);
+            delay -= Time.deltaTime;
+            if (delay <= 0 || transform.rotation == rotation)
+            {
+                rotateState = false;
+                yield break;
+            }
+
+            yield return null;
+        }
     }
 
-    public void Move()
+    public void PerformBasicAttack()
     {
-        Vector3 targetDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        anim.SetTrigger(animIDMaskAttack1);
+        secondLayerWeight = Mathf.Lerp(secondLayerWeight, 0.5f, Time.deltaTime * 60);
+        try
+        {
+            PrefabsCast[8].GetComponent<ParticleSystem>().Play();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e + " Basic attack efekti yok");
+        }
 
-        // move the player
-        controller.Move(targetDirection.normalized * (speed * Time.deltaTime) +
-                        new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+        //float damage = currentWeaponConfig.GetDamage() + GetComponent<BaseStats>().GetStat(Stat.Damage);
+        Debug.Log(uiOffset);
+        currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, 20,
+            uiOffset);
+        //StartCoroutine(cameraShaker.Shake(0.1f, 2, 0.2f, 0));
     }
 
-    public void RotatePlayerToMoveDirection()
+    public int targetIndex()
     {
-        // normalise input direction
-        Vector3 inputDirection = new Vector3(input.move.x, 0.0f, input.move.y).normalized;
+        float[] distances = new float[screenTargets.Count];
+        for (int i = 0; i < screenTargets.Count; i++)
+        {
+            distances[i] = Vector2.Distance(cam.WorldToScreenPoint(screenTargets[i].position),
+                new Vector2(Screen.width / 2, Screen.height / 2));
+        }
 
-        // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-        // if there is a move input rotate player when the player is moving
+        float minDistance = Mathf.Min(distances);
+        int index = 0;
+        for (int i = 0; i < distances.Length; i++)
+        {
+            if (minDistance == distances[i])
+                index = i;
+        }
 
-        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                         mainCamera.transform.eulerAngles.y;
-        float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation,
-            ref rotationVelocity,
-            rotationSmoothTime);
+        return index;
+    }
 
-        // rotate to face input direction relative to camera position
-        transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, currentWeaponConfig ? currentWeaponConfig.GetRange() : 0f);
+    }
+
+    public void InitializeWeapon()
+    {
+        currentWeaponConfig = defaultWeapon;
+        currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
+        currentWeapon.ForceInit();
+    }
+
+    public void EquipWeapon(WeaponConfig weapon)
+    {
+        currentWeaponConfig = weapon;
+        currentWeapon.value = AttachWeapon(weapon);
+    }
+
+    public Weapon GetCurrentWeapon()
+    {
+        return currentWeapon.value;
+    }
+
+    public float GetWeaponDamage()
+    {
+        return currentWeaponConfig.GetDamage();
+    }
+
+    private Weapon SetupDefaultWeapon()
+    {
+        return AttachWeapon(defaultWeapon);
+    }
+
+    private Weapon AttachWeapon(WeaponConfig weapon)
+    {
+        Animator weaponAnimator = GetComponent<Animator>();
+        return weapon.Spawn(rightHandTransform, leftHandTransform, weaponAnimator);
     }
 }

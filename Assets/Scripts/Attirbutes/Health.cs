@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     public UnityEvent takeDamage;
 
     public TakeDamageHUDEvent takeDamageHUD;
+
     [System.Serializable]
     public class TakeDamageHUDEvent : UnityEvent<float>
     {
@@ -20,8 +21,7 @@ public class Health : MonoBehaviour
 
     public Animator hurtAnimator;
     public Animation hurtLegacyAnimation;
-    [Range(0, 5)]
-    public int numberOfHurtAnimations;
+    [Range(0, 5)] public int numberOfHurtAnimations;
     public GameObject blood;
 
     public AudioSource soundSource;
@@ -33,8 +33,7 @@ public class Health : MonoBehaviour
     public AudioClip hurtSound4;
     public AudioClip hurtSound5;
 
-    [Range(0, 5)]
-    public int numberOfDeathSounds;
+    [Range(0, 5)] public int numberOfDeathSounds;
     public AudioClip deathSound1;
     public AudioClip deathSound2;
     public AudioClip deathSound3;
@@ -74,13 +73,17 @@ public class Health : MonoBehaviour
     {
         healthPoints.ForceInit();
         healthBar = GetComponent<HealthBar>();
-        healthBar.SetMaxHealth(GetInitialHealth());
+        if (healthBar)
+        {
+            healthBar.SetMaxHealth(GetInitialHealth());
+        }
     }
 
     private void OnEnable()
     {
         GetComponent<BaseStats>().onLevelUp += RegenerateHealth;
     }
+
     private void OnDisable()
     {
         GetComponent<BaseStats>().onLevelUp -= RegenerateHealth;
@@ -97,18 +100,18 @@ public class Health : MonoBehaviour
         return healthPoints.value;
     }
 
-    public void Bloodflood(Vector3 prevMarkerPos, Vector3 hitPos)   //Instantiate blood in the direction of the marker which hit this object.
+    public void
+        Bloodflood(Vector3 prevMarkerPos,
+            Vector3 hitPos) //Instantiate blood in the direction of the marker which hit this object.
     {
         if (blood != null && healthPoints.value > 0)
         {
             bloodInstance = Instantiate(blood, hitPos, transform.rotation) as GameObject;
             bloodInstance.transform.LookAt(2 * bloodInstance.transform.position - prevMarkerPos);
-
         }
-
     }
 
-    public void ApplyDamage(float dmg)   //Let's apply some damage on hit, shall we?
+    public void ApplyDamage(GameObject insigator, float dmg) //Let's apply some damage on hit, shall we?
     {
         if (isDead) return;
         healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
@@ -123,8 +126,9 @@ public class Health : MonoBehaviour
         {
             if (numberOfHurtAnimations != 0)
             {
-                hurtAnimRandomisation = Random.Range(1, numberOfHurtAnimations + 1);   //Hurt animations
+                hurtAnimRandomisation = Random.Range(1, numberOfHurtAnimations + 1); //Hurt animations
             }
+
             if (numberOfHurtAnimations == 0)
             {
                 hurtAnimRandomisation = 0;
@@ -136,41 +140,50 @@ public class Health : MonoBehaviour
                 {
                     hurtAnimator.Play("Hurt1");
                 }
+
                 if (hurtAnimRandomisation == 2)
                 {
                     hurtAnimator.Play("Hurt2");
                 }
+
                 if (hurtAnimRandomisation == 3)
                 {
                     hurtAnimator.Play("Hurt3");
                 }
+
                 if (hurtAnimRandomisation == 4)
                 {
                     hurtAnimator.Play("Hurt4");
                 }
+
                 if (hurtAnimRandomisation == 5)
                 {
                     hurtAnimator.Play("Hurt5");
                 }
             }
+
             if (hurtLegacyAnimation != null)
             {
                 if (hurtAnimRandomisation == 1)
                 {
                     hurtLegacyAnimation.Play("Hurt1");
                 }
+
                 if (hurtAnimRandomisation == 2)
                 {
                     hurtLegacyAnimation.Play("Hurt2");
                 }
+
                 if (hurtAnimRandomisation == 3)
                 {
                     hurtLegacyAnimation.Play("Hurt3");
                 }
+
                 if (hurtAnimRandomisation == 4)
                 {
                     hurtLegacyAnimation.Play("Hurt4");
                 }
+
                 if (hurtAnimRandomisation == 5)
                 {
                     hurtLegacyAnimation.Play("Hurt5");
@@ -188,34 +201,39 @@ public class Health : MonoBehaviour
                         soundSource.clip = hurtSound1;
                         soundSource.Play();
                     }
+
                     if (hurtSoundRandomisation == 2)
                     {
                         soundSource.clip = hurtSound2;
                         soundSource.Play();
                     }
+
                     if (hurtSoundRandomisation == 3)
                     {
                         soundSource.clip = hurtSound3;
                         soundSource.Play();
                     }
+
                     if (hurtSoundRandomisation == 4)
                     {
                         soundSource.clip = hurtSound4;
                         soundSource.Play();
                     }
+
                     if (hurtSoundRandomisation == 5)
                     {
                         soundSource.clip = hurtSound5;
                         soundSource.Play();
                     }
-
                 }
             }
-
         }
 
-        if (healthPoints.value <= 0)//Death,
+        if (healthPoints.value <= 0) //Death,
         {
+            if (insigator.CompareTag("Player"))
+                insigator.GetComponent<Experience>()
+                    .GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
             onDie.Invoke();
 
             //Spawn Of Death
@@ -228,8 +246,9 @@ public class Health : MonoBehaviour
 
             if (numberOfDeathAnimations != 0)
             {
-                deathAnimRandomisation = Random.Range(1, numberOfDeathAnimations + 1);   //Hurt animations
+                deathAnimRandomisation = Random.Range(1, numberOfDeathAnimations + 1); //Hurt animations
             }
+
             if (numberOfDeathAnimations == 0)
             {
                 deathAnimRandomisation = 0;
@@ -241,24 +260,27 @@ public class Health : MonoBehaviour
                 {
                     deathAnimator.Play("Death1");
                 }
+
                 if (deathAnimRandomisation == 2)
                 {
                     deathAnimator.Play("Death2");
                 }
+
                 if (deathAnimRandomisation == 3)
                 {
                     deathAnimator.Play("Death3");
                 }
+
                 if (deathAnimRandomisation == 4)
                 {
                     deathAnimator.Play("Death4");
                 }
+
                 if (deathAnimRandomisation == 5)
                 {
                     deathAnimator.Play("Death5");
                 }
             }
-
 
 
             if (deathLegacyAnimation != null)
@@ -267,18 +289,22 @@ public class Health : MonoBehaviour
                 {
                     deathLegacyAnimation.Play("Death1");
                 }
+
                 if (deathAnimRandomisation == 2)
                 {
                     deathLegacyAnimation.Play("Death2");
                 }
+
                 if (deathAnimRandomisation == 3)
                 {
                     deathLegacyAnimation.Play("Death3");
                 }
+
                 if (deathAnimRandomisation == 4)
                 {
                     deathLegacyAnimation.Play("Death4");
                 }
+
                 if (deathAnimRandomisation == 5)
                 {
                     deathLegacyAnimation.Play("Death5");
@@ -296,27 +322,30 @@ public class Health : MonoBehaviour
                         soundSource.clip = deathSound1;
                         soundSource.Play();
                     }
+
                     if (hurtSoundRandomisation == 2)
                     {
                         soundSource.clip = deathSound2;
                         soundSource.Play();
                     }
+
                     if (hurtSoundRandomisation == 3)
                     {
                         soundSource.clip = deathSound3;
                         soundSource.Play();
                     }
+
                     if (hurtSoundRandomisation == 4)
                     {
                         soundSource.clip = deathSound4;
                         soundSource.Play();
                     }
+
                     if (hurtSoundRandomisation == 5)
                     {
                         soundSource.clip = deathSound5;
                         soundSource.Play();
                     }
-
                 }
             }
         }
@@ -330,13 +359,11 @@ public class Health : MonoBehaviour
         isDead = true;
         GetComponent<ActionScheduler>().CancelCurrentAction();
         Destroy(gameObject, destroyDelay);
-
     }
 
     public bool IsDead()
     {
         return isDead;
-
     }
 
     bool AnimatorIsPlaying(string stateName)

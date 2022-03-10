@@ -80,7 +80,7 @@ public class Fighter1 : MonoBehaviour
                   }
         */
 
-        currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, gameObject, GetWeaponDamage(), GetAimPosition());
+        //currentWeaponConfig.LaunchArrow(rightHandTransform, leftHandTransform, gameObject, GetWeaponDamage(), GetAimPosition());
 
 
         //Debug.Log("Yumruk Atıldı.");

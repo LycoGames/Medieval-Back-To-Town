@@ -12,6 +12,7 @@ public class WeaponConfig : ScriptableObject
     [SerializeField] float weaponRange = 2f;
     [SerializeField] bool isRightHanded = true;
 
+
     const string weaponName = "Weapon";
 
     public Weapon Spawn(Transform rightHand, Transform leftHand, Animator animator)
@@ -68,16 +69,23 @@ public class WeaponConfig : ScriptableObject
         //projectileInstance.SetTarget(target, instigator, calculatedDamage);
     }*/
 
-    public void LaunchArrow(Transform rightHand, Transform leftHand, GameObject instigator, float calculatedDamage, Vector3 mouseWorldPosition)
+    public void LaunchProjectile(Transform rightHand, Transform leftHand, Transform target, GameObject instigator,
+        float calculatedDamage, Vector2 offSet)
     {
+        TargetProjectile projectile = ProjectilePool.SharedInstance.GetPooledObject().GetComponent<TargetProjectile>();
+        if (projectile != null)
+        {
+            projectile.SetPosition(GetTransform(rightHand, leftHand).position);
+            projectile.UpdateTarget(target, instigator, calculatedDamage, offSet);
+            projectile.gameObject.SetActive(true);
+        }
 
-        Projectile projectile = ProjectilePool.SharedInstance.GetPooledObject().GetComponent<Projectile>();
-        projectile.gameObject.SetActive(true);
-        projectile.transform.position = GameObject.Find("SpawnPoint").transform.position;
-        Vector3 aimDirection = (mouseWorldPosition - leftHand.transform.position).normalized;
-        projectile.transform.rotation = Quaternion.LookRotation(aimDirection, Vector3.up);
-        //Projectile projectileInstance = Instantiate(projectile, GameObject.Find("SpawnPoint").transform.position, Quaternion.LookRotation(aimDirection, Vector3.up));
-        projectile.AddForce();
+
+        // projectile.transform.position = GameObject.Find("SpawnPoint").transform.position;
+        //Vector3 aimDirection = (mouseWorldPosition - leftHand.transform.position).normalized;
+        //projectile.transform.rotation = Quaternion.LookRotation(aimDirection, Vector3.up);
+
+        //projectile.AddForce();
         // projectile.shootArrow();
     }
 

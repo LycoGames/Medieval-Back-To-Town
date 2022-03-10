@@ -9,7 +9,6 @@ public class CombatWalkState : BaseState
     public override void EnterState()
     {
         Debug.Log("Combat Walk State Enter");
-        ctx.SetSpeedToWalk();
     }
 
     public override void UpdateState()

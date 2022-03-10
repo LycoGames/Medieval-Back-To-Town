@@ -1,8 +1,22 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AppState : BaseState
 {
     private const float Threshold = 0.01f;
+    private const int CursorSwitchSpeed = 1000;
+
+
+    //User interface variables
+    private Vector3 screenCenter;
+    private Vector3 screenPos;
+    private Vector3 cornerDistance;
+    private Vector3 absCornerDistance;
+    private Vector3 worldViewField;
 
     //cinemachine
     private float cinemachineTargetYaw;
@@ -17,13 +31,16 @@ public class AppState : BaseState
     public override void EnterState()
     {
         Debug.Log("App State Enter");
+        ctx.InitializeWeapon();
     }
 
     public override void UpdateState()
     {
         Debug.Log("App State Update");
-        ApplyGravity();
-        GroundedCheck();
+        UserInterface();
+        ctx.InputMagnitude();
+        GetTarget();
+
         CameraRotation();
     }
 
@@ -41,6 +58,49 @@ public class AppState : BaseState
         SetSubState(factory.GroundedState());
     }
 
+    private void UserInterface()
+    {
+        DetectEnemies();
+        screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
+        if (!ctx.Target)
+        {
+            if (ctx.Aim.transform.position == screenCenter)
+                return;
+
+            ctx.Aim.transform.position =
+                Vector3.MoveTowards(ctx.Aim.transform.position, screenCenter, Time.deltaTime * CursorSwitchSpeed);
+            if (ctx.ActiveTarget)
+                ctx.ActiveTarget = false;
+            return;
+        }
+
+        screenPos = ctx.Cam.WorldToScreenPoint(ctx.Target.position + (Vector3) ctx.UiOffset);
+        cornerDistance = screenPos - screenCenter;
+        absCornerDistance = new Vector3(Mathf.Abs(cornerDistance.x), Mathf.Abs(cornerDistance.y),
+            Mathf.Abs(cornerDistance.z));
+
+        if (absCornerDistance.x < screenCenter.x / ctx.TargetingSense &&
+            absCornerDistance.y < screenCenter.y / ctx.TargetingSense && screenPos.x > 0 &&
+            screenPos.y > 0 && screenPos.z > 0 //If target is in the middle of the screen
+            && !Physics.Linecast(ctx.transform.position + (Vector3) ctx.UiOffset,
+                ctx.Target.position + (Vector3) ctx.UiOffset * 2,
+                ctx.CollidingLayer)) //If player can see the target
+        {
+            ctx.Aim.transform.position =
+                Vector3.MoveTowards(ctx.Aim.transform.position, screenPos, Time.deltaTime * CursorSwitchSpeed);
+            if (!ctx.ActiveTarget)
+                ctx.ActiveTarget = true;
+        }
+        else
+        {
+            ctx.Aim.transform.position =
+                Vector3.MoveTowards(ctx.Aim.transform.position, screenCenter, Time.deltaTime * CursorSwitchSpeed);
+            if (ctx.ActiveTarget)
+                ctx.ActiveTarget = false;
+        }
+
+        DetectEnemies();
+    }
 
     private void CameraRotation()
     {
@@ -56,8 +116,12 @@ public class AppState : BaseState
         cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, ctx.BottomClamp, ctx.TopClamp);
 
         // Cinemachine will follow this target
+        /* ctx.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+             cinemachineTargetPitch + ctx.CameraAngleOverride,
+             cinemachineTargetYaw, 0.0f);*/
+
         ctx.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
-            cinemachineTargetPitch + ctx.CameraAngleOverride,
+            cinemachineTargetPitch,
             cinemachineTargetYaw, 0.0f);
     }
 
@@ -68,35 +132,37 @@ public class AppState : BaseState
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
-    public void ApplyGravity()
+    private void GetTarget()
     {
-        // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-
-        if (currentSubState.GetType() == factory.GroundedState().GetType() && ctx.VerticalVelocity < 0)
+        if (ctx.ScreenTargets.Count == 0 && ctx.Target)
         {
-            ctx.VerticalVelocity = -2f;
+            ctx.Target = null;
         }
 
-        else if (ctx.VerticalVelocity < ctx.TerminalVelocity)
+        if (ctx.ScreenTargets.Count != 0)
         {
-            ctx.VerticalVelocity += ctx.Gravity * Time.deltaTime;
+            ctx.Target = ctx.ScreenTargets[ctx.targetIndex()];
         }
     }
 
-    public void GroundedCheck()
+    void DetectEnemies()
     {
-        // set sphere position, with offset
-        var position = ctx.transform.position;
-
-        Vector3 spherePosition = new Vector3(position.x, position.y - ctx.GroundedOffset,
-            position.z);
-        ctx.Grounded = Physics.CheckSphere(spherePosition, ctx.GroundedRadius, ctx.GroundLayers,
-            QueryTriggerInteraction.Ignore);
-
-        // update animator if using character
-        if (ctx.HasAnimator)
+        Collider[] hitColliders =
+            Physics.OverlapSphere(ctx.transform.position, ctx.CurrentWeaponConfig.GetRange(),
+                LayerMask.GetMask("Enemy"));
+        ctx.ScreenTargets.Clear();
+        foreach (var target in hitColliders)
         {
-            ctx.Animator.SetBool(ctx.AnimIDGrounded, ctx.Grounded);
+            if (!ctx.ScreenTargets.Contains(target.gameObject.transform))
+                ctx.ScreenTargets.Add(target.gameObject.transform);
         }
     }
+
+    /*public void RemoveTargetFromTargetList(GameObject target)
+    {
+        if (ctx.ScreenTargets.Contains(target.transform))
+        {
+            ctx.ScreenTargets.Remove(target.transform);
+        }
+    }*/
 }

@@ -185,7 +185,7 @@ public class Marker_Manager : MonoBehaviour
 
                     if (targetsRawHit[i2].GetComponent<Health>() != null)
                     {
-                        targetsRawHit[i2].GetComponent<Health>().ApplyDamage(damage);
+                        //targetsRawHit[i2].GetComponent<Health>().ApplyDamage(damage);
                     }
 
                     if (blood != null)
@@ -202,7 +202,7 @@ public class Marker_Manager : MonoBehaviour
 
                     PlayTargetHitSound();
 
-                    targetsRawHit[i2].GetComponent<Limb_Hitbox>().health.ApplyDamage(damage);
+                    //targetsRawHit[i2].GetComponent<Limb_Hitbox>().health.ApplyDamage(damage);
 
                     if (blood != null)
                     {

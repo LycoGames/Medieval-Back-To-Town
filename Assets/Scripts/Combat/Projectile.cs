@@ -91,7 +91,7 @@ public class Projectile : MonoBehaviour
             //Destroy(toDestroy);
         }
 
-        target.ApplyDamage(damage);
+        target.ApplyDamage(instigator,damage);
         Debug.Log(target + " " + damage + "damage atıldı");
         Debug.Log(target.GetHealthPoints() + "canı kaldı");
         gameObject.SetActive(false);

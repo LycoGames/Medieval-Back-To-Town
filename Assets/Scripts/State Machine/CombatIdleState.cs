@@ -9,7 +9,6 @@ public class CombatIdleState : BaseState
     public override void EnterState()
     {
         Debug.Log("Combat Idle State Enter");
-        ctx.SetSpeedToIdle();
     }
 
     public override void UpdateState()

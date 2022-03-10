@@ -6,7 +6,6 @@ public class StateFactory
     {
         context = currentContext;
     }
-    
     public BaseState AppState()
     {
         return new AppState(context, this);

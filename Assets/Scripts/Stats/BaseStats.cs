@@ -32,7 +32,7 @@ public class BaseStats : MonoBehaviour
     {
         if (experience != null)
         {
-            experience.onExperienceGained += UpdateLevel;
+            experience.OnExperienceGained += UpdateLevel;
         }
     }
 
@@ -40,7 +40,7 @@ public class BaseStats : MonoBehaviour
     {
         if (experience != null)
         {
-            experience.onExperienceGained -= UpdateLevel;
+            experience.OnExperienceGained -= UpdateLevel;
         }
     }
 
