@@ -8,7 +8,7 @@ public class EnemyFOV : MonoBehaviour
     [SerializeField] float radius;
     [Range(0, 360)]
     [SerializeField] float angle;
-    [SerializeField] float delayUpdateForOptimize = 0.2f;
+    [SerializeField] float delayUpdateForOptimization = 0.2f;
 
     public GameObject targetPlayer;
 
@@ -27,7 +27,7 @@ public class EnemyFOV : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(delayUpdateForOptimize);
+            yield return new WaitForSeconds(delayUpdateForOptimization);
             FOVChecker();
         }
     }

@@ -370,4 +370,9 @@ public class Health : MonoBehaviour
     {
         return hurtAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
+
+    public void Heal(float restoreHealth)
+    {
+        healthPoints.value = healthPoints.value + restoreHealth;
+    }
 }

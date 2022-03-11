@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using InputSystem;
 using UnityEditor.UIElements;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class StateMachine : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class StateMachine : MonoBehaviour
     [SerializeField] Transform FirePoint;
 
 
-    [Header("Weapon")] [SerializeField] private WeaponConfig defaultWeapon = null;
+    [Header("Weapon")][SerializeField] private WeaponConfig defaultWeapon = null;
     [SerializeField] private Transform rightHandTransform = null;
     [SerializeField] private Transform leftHandTransform = null;
 
@@ -32,7 +33,9 @@ public class StateMachine : MonoBehaviour
     //[SerializeField] float[] castingTime; //If 0 - can loop, if > 0 - one shot time
 
 
-    [Space] [Header("Canvas")] [SerializeField]
+    [Space]
+    [Header("Canvas")]
+    [SerializeField]
     Image aim;
 
     [SerializeField] Vector2 uiOffset;
@@ -45,25 +48,30 @@ public class StateMachine : MonoBehaviour
     [SerializeField]
     GameObject cinemachineCameraTarget;
 
-    [Tooltip("How far in degrees can you move the camera up")] [SerializeField]
+    [Tooltip("How far in degrees can you move the camera up")]
+    [SerializeField]
     float topClamp = 70.0f;
 
-    [Tooltip("How far in degrees can you move the camera down")] [SerializeField]
+    [Tooltip("How far in degrees can you move the camera down")]
+    [SerializeField]
     float bottomClamp = -30.0f;
 
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField]
     float cameraAngleOverride = 0.0f;
 
-    [Tooltip("For locking the camera position on all axis")] [SerializeField]
+    [Tooltip("For locking the camera position on all axis")]
+    [SerializeField]
     bool lockCameraPosition = false;
 
 
-    [Header("Animation Smoothing")] [Range(0, 1f)] [SerializeField]
+    [Header("Animation Smoothing")]
+    [Range(0, 1f)]
+    [SerializeField]
     float HorizontalAnimSmoothTime = 0.2f;
 
 
-    [Range(0, 1f)] [SerializeField] float VerticalAnimTime = 0.2f;
+    [Range(0, 1f)][SerializeField] float VerticalAnimTime = 0.2f;
     /*[Range(0, 1f)] [SerializeField] float StartAnimTime = 0.3f;
     [Range(0, 1f)] [SerializeField] float StopAnimTime = 0.15f;*/
 
@@ -105,7 +113,7 @@ public class StateMachine : MonoBehaviour
     public float InputX;
     public float InputY;
 
-//Player move temp variables
+    //Player move temp variables
     private Vector3 forward;
     private Vector3 right;
 
@@ -117,7 +125,7 @@ public class StateMachine : MonoBehaviour
     private bool rotateState = false;
 
 
-//Animaiton IDs
+    //Animaiton IDs
     [HideInInspector] public int animIDInputX;
 
     [HideInInspector] public int animIDInputY;
@@ -275,6 +283,7 @@ public class StateMachine : MonoBehaviour
     public bool CanMove
     {
         get { return canMove; }
+        set { canMove = value; }
     }
 
     public bool RotateState
@@ -532,4 +541,5 @@ public class StateMachine : MonoBehaviour
         Animator weaponAnimator = GetComponent<Animator>();
         return weapon.Spawn(rightHandTransform, leftHandTransform, weaponAnimator);
     }
+
 }

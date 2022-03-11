@@ -2949,6 +2949,8 @@ GameObject:
   - component: {fileID: 8362726038402017692}
   - component: {fileID: 8445181934306521822}
   - component: {fileID: 6514593807484350384}
+  - component: {fileID: 1128534506}
+  - component: {fileID: 1128534507}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -3114,24 +3116,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b648d6ff430c9314585318fc3e4be646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerClass: 1
   velocity: 7
   rotationSmoothTime: 0.12
-  defaultWeapon: {fileID: 0}
-  rightHandTransform: {fileID: 0}
-  leftHandTransform: {fileID: 0}
+  targetingSense: 2
+  canMove: 1
+  aimTimer: 3
+  FirePoint: {fileID: 8362726037644797101}
+  defaultWeapon: {fileID: 11400000, guid: 1d26e52e1c2e3ec469d4c1d51a9a52c0, type: 2}
+  rightHandTransform: {fileID: 2834242506025130331}
+  leftHandTransform: {fileID: 304833747960443515}
   collidingLayer:
     serializedVersion: 2
     m_Bits: 0
   Prefabs:
   - {fileID: 1931392525181976, guid: 89348af94fc3153448a3915127246169, type: 3}
   PrefabsCast: []
-  canMove: 1
-  aimTimer: 0
   aim: {fileID: 581099040}
   uiOffset: {x: 0, y: 0.5}
   screenTargets: []
-  FirePoint: {fileID: 8362726037644797101}
   fireRate: 0.25
   cinemachineCameraTarget: {fileID: 5597473062854070968}
   topClamp: 70
@@ -3193,6 +3195,7 @@ MonoBehaviour:
   basicAttack: 0
   inventoryShowHide: 0
   analogMovement: 0
+  ability: {fileID: 11400000, guid: 9591c8e554c82714aa2dff553bded0c5, type: 2}
   cursorLocked: 1
   cursorInputForLook: 1
 --- !u!114 &8362726038402017692
@@ -3302,7 +3305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49adc88c01eff9944bf923dffa2681f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
+  slider: {fileID: 1267604209583506959}
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -3346,6 +3349,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   experiencePoints: 0
+--- !u!114 &1128534506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d7a50b95e2f4b4ab20a3d7e3667983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMana: 200
+  _mana: 0
+--- !u!114 &1128534507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3727e56edc1fb4e49934b96723c92ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8652713835456310759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3650,3 +3679,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2897516516657750648}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1267604209583506959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4152711088254067831, guid: f6421f525cb12ff4383fd5d438c8fae1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2897516516657750648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
