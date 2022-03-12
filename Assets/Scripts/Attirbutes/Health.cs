@@ -235,7 +235,7 @@ public class Health : MonoBehaviour
                 insigator.GetComponent<Experience>()
                     .GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
             onDie.Invoke();
-
+            Die();
             //Spawn Of Death
 
             //components
@@ -358,7 +358,7 @@ public class Health : MonoBehaviour
 
         isDead = true;
         GetComponent<ActionScheduler>().CancelCurrentAction();
-        Destroy(gameObject, destroyDelay);
+       // Destroy(gameObject, destroyDelay);
     }
 
     public bool IsDead()

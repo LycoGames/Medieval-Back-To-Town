@@ -39,7 +39,7 @@ public class DelayedClickTargeting : TargetingStrategy
 
         targetingPrefabInstance.localScale = new Vector3(areaAffectRadius * 2, 1, areaAffectRadius * 2);
 
-        while (true)
+        while (!data.IsCancelled())
         {
             //run every frame
             Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
@@ -51,16 +51,16 @@ public class DelayedClickTargeting : TargetingStrategy
                 {
                     // Absorb the whole mouse click
                     yield return new WaitWhile(() => Input.GetMouseButton(0));
-                    stateMachine.enabled = true;
-                    targetingPrefabInstance.gameObject.SetActive(false);
                     data.SetTargetedPoint(raycastHit.point);
                     data.SetTargets(GetGameObjectsInRadius(raycastHit.point));
-                    finished();
-                    yield break;
+                    break;
                 }
             }
             yield return null;
         }
+        stateMachine.enabled = true;
+        targetingPrefabInstance.gameObject.SetActive(false);
+        finished();
     }
 
     private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 point)
