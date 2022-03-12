@@ -4,45 +4,53 @@ using UnityEngine;
 
 public class Mana : MonoBehaviour
 {
-    [SerializeField] float maxMana;
-    [SerializeField] float _mana;
-    float _manaRegenarete = 2;
+
+    LazyValue<float> mana;
 
     // Start is called before the first frame update
     void Awake()
     {
-        _mana = maxMana;
+        mana = new LazyValue<float>(GetMaxMana);
     }
 
     void Update()
     {
-        if (_mana < maxMana)
+        if (mana.value < GetMaxMana())
         {
-            _mana += _manaRegenarete * Time.deltaTime;
-            if (_mana >= maxMana)
+            mana.value += GetRegenRate() * Time.deltaTime;
+            if (mana.value >= GetMaxMana())
             {
-                _mana = maxMana;
+                mana.value = GetMaxMana();
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            print("mana: " + mana.value);
         }
     }
 
     public float GetMaxMana()
     {
-        return maxMana;
+        return GetComponent<BaseStats>().GetStat(Stat.Mana);
     }
 
     public float GetMana()
     {
-        return _mana;
+        return mana.value;
+    }
+
+    public float GetRegenRate()
+    {
+        return GetComponent<BaseStats>().GetStat(Stat.ManaRegenRate);
     }
 
     public bool UseMana(float manaToUse)
     {
-        if (manaToUse > _mana)
+        if (manaToUse > mana.value)
         {
             return false;
         }
-        _mana -= manaToUse;
+        mana.value -= manaToUse;
         return true;
     }
 }

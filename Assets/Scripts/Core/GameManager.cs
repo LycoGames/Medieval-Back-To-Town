@@ -17,7 +17,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SpawnEnemies();
+        }
     }
 
     private void SpawnEnemies()
