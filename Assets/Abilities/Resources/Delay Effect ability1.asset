@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5bc61e03fc8dc645b5f5c9570d982f6, type: 3}
-  m_Name: Health Effect
+  m_Script: {fileID: 11500000, guid: 9cf075eea78162347a1eb51f507cd4da, type: 3}
+  m_Name: Delay Effect ability1
   m_EditorClassIdentifier: 
-  healthChange: -10
+  delay: 1
+  delayedEffects:
+  - {fileID: 11400000, guid: 66a1f7aa8e4f9364b962ca6f54456c7e, type: 2}
+  - {fileID: 11400000, guid: ed5a8a4c9d20ddf41b44cbaec596762a, type: 2}
