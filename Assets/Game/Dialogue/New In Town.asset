@@ -1,0 +1,271 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8635677784314536014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 245ed7e2-58ba-4f8b-a2b1-1052fe12df1e
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I came here from Karabuk.
+  children:
+  - b823c7dc-5332-4a41-a34f-82c0e87fc8a1
+  rect:
+    serializedVersion: 2
+    x: 222
+    y: 288
+    width: 200
+    height: 100
+--- !u!114 &-6347922474393150804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 84b139b0-7048-42b0-a804-d39731867706
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I've live here all my life!
+  children:
+  - 134d2d99-f1ef-4ba8-aeab-35d34216800e
+  rect:
+    serializedVersion: 2
+    x: 217
+    y: 94
+    width: 200
+    height: 100
+--- !u!114 &-5552923824408826439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 4b901465-b3ef-4b19-819c-61a16aa52d58
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Dont't you worry about it. Say, do you have something to eat? I'm starving.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 890
+    y: 183
+    width: 200
+    height: 100
+--- !u!114 &-4649168270564166556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 2b2a4020-b4ee-44ef-af85-ae0d482ca4f8
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Yes i know Kerem. He's really shit person!
+  children:
+  - 897b7247-9224-4c1e-a45b-112da5ba2864
+  rect:
+    serializedVersion: 2
+    x: 658
+    y: 25
+    width: 200
+    height: 100
+--- !u!114 &-3900713900186047199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 2dd864df-5857-4f8d-a63d-684c540e155b
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: You don't look like you're from around here
+  children:
+  - 26cbc6ef-cded-4136-aa72-9197d6d4fa7d
+  - 84b139b0-7048-42b0-a804-d39731867706
+  - 245ed7e2-58ba-4f8b-a2b1-1052fe12df1e
+  rect:
+    serializedVersion: 2
+    x: 5
+    y: 185
+    width: 200
+    height: 100
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036f27eaa24400444a587a3cf9fa7300, type: 3}
+  m_Name: New In Town
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -3900713900186047199}
+  - {fileID: -6347922474393150804}
+  - {fileID: -8635677784314536014}
+  - {fileID: 727413076364277481}
+  - {fileID: 3006178524111503605}
+  - {fileID: -4649168270564166556}
+  - {fileID: 4909825131945683777}
+  - {fileID: 8856890037299593881}
+  - {fileID: -5552923824408826439}
+  - {fileID: 5269371480174100430}
+  - {fileID: 4508924328243838426}
+  newNodeOffset: {x: 250, y: 0}
+--- !u!114 &727413076364277481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 134d2d99-f1ef-4ba8-aeab-35d34216800e
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Oh really? Then you must know Asshole Kerem.
+  children:
+  - 2b2a4020-b4ee-44ef-af85-ae0d482ca4f8
+  - 3918e049-5613-43bc-837c-6afed6e87dbb
+  rect:
+    serializedVersion: 2
+    x: 431
+    y: 94
+    width: 200
+    height: 100
+--- !u!114 &3006178524111503605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: b823c7dc-5332-4a41-a34f-82c0e87fc8a1
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Karabuk. eh? I heard there's trouble about air polution down there.
+  children:
+  - 612e1f88-f619-4796-a261-a47d4e5d4f5f
+  - 1b8c419b-2d81-406e-a2f5-137852497f8e
+  rect:
+    serializedVersion: 2
+    x: 437
+    y: 287
+    width: 200
+    height: 100
+--- !u!114 &4508924328243838426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 1b8c419b-2d81-406e-a2f5-137852497f8e
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Did I say Karabuk? I'm actually from Bursa.
+  children:
+  - 134d2d99-f1ef-4ba8-aeab-35d34216800e
+  rect:
+    serializedVersion: 2
+    x: 647
+    y: 368
+    width: 200
+    height: 100
+--- !u!114 &4909825131945683777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 897b7247-9224-4c1e-a45b-112da5ba2864
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: You liar! There ain't no Asshole Kerem. I made him up!
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 870
+    y: 25
+    width: 200
+    height: 100
+--- !u!114 &5269371480174100430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 612e1f88-f619-4796-a261-a47d4e5d4f5f
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I haven't heard about air polution.
+  children:
+  - 4b901465-b3ef-4b19-819c-61a16aa52d58
+  rect:
+    serializedVersion: 2
+    x: 645
+    y: 260
+    width: 200
+    height: 100
+--- !u!114 &8856890037299593881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 3918e049-5613-43bc-837c-6afed6e87dbb
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Who?
+  children:
+  - 4b901465-b3ef-4b19-819c-61a16aa52d58
+  rect:
+    serializedVersion: 2
+    x: 655
+    y: 136
+    width: 200
+    height: 100

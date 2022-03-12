@@ -73,6 +73,14 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""959e0c6c-9eb3-4ed6-8439-ed4224f2895f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -284,6 +292,17 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                     ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8cc951b-392b-4732-82de-c5697f19268e"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -347,6 +366,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         m_Player_InventoryShowHide = m_Player.FindAction("InventoryShowHide", throwIfNotFound: true);
         m_Player_BasicAttack = m_Player.FindAction("BasicAttack", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
+        m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -403,6 +423,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_InventoryShowHide;
     private readonly InputAction m_Player_BasicAttack;
     private readonly InputAction m_Player_Roll;
+    private readonly InputAction m_Player_Interaction;
     public struct PlayerActions
     {
         private @StarterAssets m_Wrapper;
@@ -414,6 +435,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         public InputAction @InventoryShowHide => m_Wrapper.m_Player_InventoryShowHide;
         public InputAction @BasicAttack => m_Wrapper.m_Player_BasicAttack;
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
+        public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -444,6 +466,9 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 @Roll.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
                 @Roll.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
                 @Roll.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
+                @Interaction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
+                @Interaction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
+                @Interaction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -469,6 +494,9 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 @Roll.started += instance.OnRoll;
                 @Roll.performed += instance.OnRoll;
                 @Roll.canceled += instance.OnRoll;
+                @Interaction.started += instance.OnInteraction;
+                @Interaction.performed += instance.OnInteraction;
+                @Interaction.canceled += instance.OnInteraction;
             }
         }
     }
@@ -518,5 +546,6 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         void OnInventoryShowHide(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }
