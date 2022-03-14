@@ -2952,6 +2952,7 @@ GameObject:
   - component: {fileID: 1128534506}
   - component: {fileID: 1128534507}
   - component: {fileID: 7067386679710077564}
+  - component: {fileID: 131821112}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -3291,6 +3292,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 59dd68cf-5ab9-4029-bd2e-99619b252989
     m_ActionName: Player/Roll[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShowHideUI, Assembly-CSharp
+        m_MethodName: HandleShowHide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7660fb86-1959-4600-9eb1-e072f0d5c385
+    m_ActionName: Player/TraitsShowHide[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3386,6 +3403,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88a24c70cd2b55742ab5f35bcf91be80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &131821112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9680b1823bf24f46b73b1913c57cc48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8652713835456310759

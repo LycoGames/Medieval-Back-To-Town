@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TraitsShowHide",
+                    "type": "Button",
+                    "id": "7660fb86-1959-4600-9eb1-e072f0d5c385",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -269,6 +277,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2359fd17-3fd9-4678-9aac-ea33a247e46a",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "TraitsShowHide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
