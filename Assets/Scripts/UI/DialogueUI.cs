@@ -13,6 +13,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject AIResponse;
     [SerializeField] private GameObject choicePrefab;
     [SerializeField] private Button quitButton;
+    [SerializeField] private TextMeshProUGUI conversantName;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +25,14 @@ public class DialogueUI : MonoBehaviour
 
         UpdateUI();
     }
-    
+
     void UpdateUI()
     {
         gameObject.SetActive(playerConversant.IsActive());
         if (!playerConversant.IsActive())
             return;
 
+        conversantName.text = playerConversant.GetCurrentConversantName();
         AIResponse.SetActive(!playerConversant.IsChoosing());
         choiceRoot.gameObject.SetActive(playerConversant.IsChoosing());
 

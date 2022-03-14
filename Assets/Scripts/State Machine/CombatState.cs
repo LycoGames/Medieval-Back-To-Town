@@ -27,6 +27,7 @@ public class CombatState : BaseState
     {
         CheckSwitchStates();
         Timers();
+
         HandleAttack();
 
         if (ctx.AimTimer < 1)

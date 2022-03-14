@@ -3193,6 +3193,7 @@ MonoBehaviour:
   sprint: 0
   basicAttack: 0
   inventoryShowHide: 0
+  interaction: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -3298,6 +3299,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 59dd68cf-5ab9-4029-bd2e-99619b252989
     m_ActionName: Player/Roll[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 959e0c6c-9eb3-4ed6-8439-ed4224f2895f
+    m_ActionName: Player/Interaction[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3318,9 +3323,9 @@ MonoBehaviour:
   slider: {fileID: 1267604209583506959}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
+    key2: {r: 1, g: 0.030940771, b: 0.030940771, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
@@ -3328,7 +3333,7 @@ MonoBehaviour:
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 65535
-    ctime2: 0
+    ctime2: 65535
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -3371,7 +3376,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a490c7fc0874c4f9a658db4298a26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testDialogue: {fileID: 11400000, guid: 8f055f01ef89d9744b09c23c19c94893, type: 2}
+  checkAIConversantRadius: 5
+  canInteractDistance: 3
+  Offset: {x: 0, y: 2}
+  targetingSense: 3
+  nearAIConversants: []
 --- !u!1 &8652713835456310759
 GameObject:
   m_ObjectHideFlags: 0

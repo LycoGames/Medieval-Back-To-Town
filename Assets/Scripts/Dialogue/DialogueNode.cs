@@ -9,6 +9,9 @@ public class DialogueNode : ScriptableObject
     [SerializeField] private List<string> children = new List<string>();
     [SerializeField] private Rect rect = new Rect(0, 0, 200, 100);
 
+    [SerializeField] private string onExitAction;
+    [SerializeField] private string onEnterAction;
+
     public Rect GetRect()
     {
         return rect;
@@ -27,6 +30,16 @@ public class DialogueNode : ScriptableObject
     public bool IsPlayerSpeaking()
     {
         return isPlayerSpeaking;
+    }
+
+    public string GetOnEnterAction()
+    {
+        return onEnterAction;
+    }
+
+    public string GetOnExitAction()
+    {
+        return onExitAction;
     }
 
 #if UNITY_EDITOR

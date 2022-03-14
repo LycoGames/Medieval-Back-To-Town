@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 public class PlayerConversant : MonoBehaviour
 {
+    [SerializeField] private string playerName;
     [SerializeField] float checkAIConversantRadius = 5f;
     [SerializeField] private float canInteractDistance = 3f;
     [SerializeField] private Vector2 Offset = new Vector2(0, 2);
@@ -22,6 +23,8 @@ public class PlayerConversant : MonoBehaviour
 
     private LayerMask NPCLayerMask;
 
+    private StateMachine stateMachine;
+
     public event Action onConversationUpdated;
 
     //AI Conversant Interface Variables
@@ -33,10 +36,15 @@ public class PlayerConversant : MonoBehaviour
 
     private Camera cam;
 
+    private AIConversant activeAIConservant = null;
+    private Transform activeAIConservantTransform = null;
+    private NPCInteractUI npcUI;
+
     private void Start()
     {
         NPCLayerMask = LayerMask.GetMask("NPC");
         cam = Camera.main;
+        stateMachine = GetComponent<StateMachine>();
     }
 
     private void Update()
@@ -50,14 +58,17 @@ public class PlayerConversant : MonoBehaviour
     {
         currentDialogue = newDialogue;
         currentNode = currentDialogue.GetRootNode();
+        TriggerEnterAction();
         onConversationUpdated();
     }
 
     public void Quit()
     {
         currentDialogue = null;
+        TriggerExitAction();
         currentNode = null;
         isChoosing = false;
+        activeAIConservant = null;
         onConversationUpdated();
     }
 
@@ -81,6 +92,11 @@ public class PlayerConversant : MonoBehaviour
         return currentNode.GetText();
     }
 
+    public AIConversant GetInteractableNPC()
+    {
+        return stateMachine.InteractableNPC;
+    }
+
     public IEnumerable<DialogueNode> GetChoices()
     {
         return currentDialogue.GetPlayerChildren(currentNode);
@@ -89,6 +105,7 @@ public class PlayerConversant : MonoBehaviour
     public void SelectChoice(DialogueNode chosenNode)
     {
         currentNode = chosenNode;
+        TriggerEnterAction();
         isChoosing = false;
         Next(); // Seçenek seçildikten sonra doğrudan ai responsa a geç yoksa seçilen şık ai response gibi gösterilir.
     }
@@ -99,13 +116,16 @@ public class PlayerConversant : MonoBehaviour
         if (numPlayerResponses > 0)
         {
             isChoosing = true;
+            TriggerExitAction();
             onConversationUpdated();
             return;
         }
 
         DialogueNode[] children = currentDialogue.GetAIChildren(currentNode).ToArray();
         int randomIndex = Random.Range(0, children.Length);
+        TriggerExitAction();
         currentNode = children[randomIndex];
+        TriggerEnterAction();
         onConversationUpdated();
     }
 
@@ -164,36 +184,81 @@ public class PlayerConversant : MonoBehaviour
     {
         screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
 
-        Transform activeAIConservant = nearAIConversants[TargetIndex()].transform;
+        ResetUIAIChanged();
 
-        screenPos = cam.WorldToScreenPoint(activeAIConservant.position + (Vector3) Offset);
+        activeAIConservant = nearAIConversants[TargetIndex()];
+        activeAIConservantTransform = activeAIConservant.transform;
+        npcUI = activeAIConservant.GetComponentInChildren<NPCInteractUI>();
+
+        screenPos = cam.WorldToScreenPoint(activeAIConservantTransform.position + (Vector3) Offset);
         cornerDistance = screenPos - screenCenter;
         absCornerDistance = new Vector3(Mathf.Abs(cornerDistance.x), Mathf.Abs(cornerDistance.y),
             Mathf.Abs(cornerDistance.z));
-
-        NPCInteractUI npcUI = activeAIConservant.GetComponentInChildren<NPCInteractUI>();
 
         if (absCornerDistance.x < screenCenter.x / targetingSense &&
             absCornerDistance.y < screenCenter.y / targetingSense && screenPos.x > 0 &&
             screenPos.y > 0 && screenPos.z > 0 //If target is in the middle of the screen
             && !Physics.Linecast(transform.position + (Vector3) Offset,
-                activeAIConservant.position + (Vector3) Offset * 2, 5))
+                activeAIConservantTransform.position + (Vector3) Offset * 2, 5))
         {
-            if (Mathf.Abs(Vector3.Distance(transform.position, activeAIConservant.transform.position)) <
+            if (Mathf.Abs(Vector3.Distance(transform.position, activeAIConservantTransform.position)) <
                 canInteractDistance)
             {
                 npcUI.SetActiveInteract(true);
+                stateMachine.InteractableNPC = activeAIConservant.GetComponent<AIConversant>();
             }
             else
             {
                 npcUI.SetActiveInteract(false);
                 npcUI.SetActiveInteractInfo(true);
+                stateMachine.InteractableNPC = null;
             }
         }
         else
         {
             npcUI.SetActiveInteract(false);
             npcUI.SetActiveInteractInfo(false);
+            stateMachine.InteractableNPC = null;
         }
+    }
+
+    private void ResetUIAIChanged()
+    {
+        if (activeAIConservant && activeAIConservant != nearAIConversants[TargetIndex()])
+        {
+            npcUI.SetActiveInteract(false);
+            npcUI.SetActiveInteractInfo(false);
+        }
+    }
+
+    private void TriggerEnterAction()
+    {
+        if (currentNode != null)
+        {
+            TriggerAction(currentNode.GetOnEnterAction());
+        }
+    }
+
+    private void TriggerExitAction()
+    {
+        if (currentNode != null)
+        {
+            TriggerAction(currentNode.GetOnExitAction());
+        }
+    }
+
+    private void TriggerAction(string action)
+    {
+        if (action == "") return;
+
+        foreach (DialogueTrigger trigger in activeAIConservant.GetComponents<DialogueTrigger>())
+        {
+            trigger.Trigger(action);
+        }
+    }
+
+    public string GetCurrentConversantName()
+    {
+        return isChoosing ? playerName : activeAIConservant.GetConversantName();
     }
 }
