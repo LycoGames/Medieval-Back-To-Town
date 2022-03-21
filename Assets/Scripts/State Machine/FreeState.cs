@@ -19,8 +19,6 @@ public class FreeState : BaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
-        if (!ctx.CanMove)
-            return;
         PlayerMoveAndRotation();
         ctx.ApplyGravity();
         Debug.Log("Free State Update");
@@ -38,6 +36,11 @@ public class FreeState : BaseState
         {
             ctx.Anim.SetBool(ctx.animIDAimMoving, true);
             SwitchState(factory.CombatState());
+        }
+
+        if (ctx.InteractableNPC != null && ctx.Input.interaction)
+        {
+            SwitchState(factory.DialogueState());
         }
     }
 

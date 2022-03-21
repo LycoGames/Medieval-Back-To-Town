@@ -27,13 +27,14 @@ public class CombatState : BaseState
     {
         CheckSwitchStates();
         Timers();
-        AimMoving();
+
         HandleAttack();
 
         if (ctx.AimTimer < 1)
-        {
             ctx.SecondLayerWeight = Mathf.Lerp(ctx.SecondLayerWeight, 0, Time.deltaTime * 2);
-        }
+
+        if (currentSubState.GetType() != ctx.States.CombatIdleState().GetType())
+            AimMoving();
 
 
         ctx.ApplyGravity();

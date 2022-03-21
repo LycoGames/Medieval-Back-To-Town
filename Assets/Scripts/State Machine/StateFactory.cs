@@ -21,6 +21,11 @@ public class StateFactory
         return new FreeState(context, this);
     }
 
+    public BaseState DialogueState()
+    {
+        return new DialogueState(context, this);
+    }
+
     public BaseState IdleState()
     {
         return new IdleState(context, this);

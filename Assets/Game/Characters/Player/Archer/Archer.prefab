@@ -2949,6 +2949,8 @@ GameObject:
   - component: {fileID: 8362726038402017692}
   - component: {fileID: 8445181934306521822}
   - component: {fileID: 6514593807484350384}
+  - component: {fileID: 5288483788167573987}
+  - component: {fileID: 6354857489150003295}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -3114,24 +3116,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b648d6ff430c9314585318fc3e4be646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerClass: 1
   velocity: 7
   rotationSmoothTime: 0.12
-  defaultWeapon: {fileID: 0}
-  rightHandTransform: {fileID: 0}
-  leftHandTransform: {fileID: 0}
+  targetingSense: 3
+  canMove: 1
+  aimTimer: 3
+  FirePoint: {fileID: 8362726037644797101}
+  defaultWeapon: {fileID: 11400000, guid: 1d26e52e1c2e3ec469d4c1d51a9a52c0, type: 2}
+  rightHandTransform: {fileID: 2834242506025130331}
+  leftHandTransform: {fileID: 304833747960443515}
   collidingLayer:
     serializedVersion: 2
     m_Bits: 0
   Prefabs:
   - {fileID: 1931392525181976, guid: 89348af94fc3153448a3915127246169, type: 3}
   PrefabsCast: []
-  canMove: 1
-  aimTimer: 0
   aim: {fileID: 581099040}
+  aimUI: {fileID: 0}
   uiOffset: {x: 0, y: 0.5}
   screenTargets: []
-  FirePoint: {fileID: 8362726037644797101}
   fireRate: 0.25
   cinemachineCameraTarget: {fileID: 5597473062854070968}
   topClamp: 70
@@ -3141,6 +3144,7 @@ MonoBehaviour:
   HorizontalAnimSmoothTime: 0.2
   VerticalAnimTime: 0.2
   target: {fileID: 0}
+  interactableNPC: {fileID: 0}
   InputX: 0
   InputY: 0
   animIDInputX: 0
@@ -3192,6 +3196,7 @@ MonoBehaviour:
   sprint: 0
   basicAttack: 0
   inventoryShowHide: 0
+  interaction: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -3262,7 +3267,19 @@ MonoBehaviour:
     m_ActionId: 980e881e-182c-404c-8cbf-3d09fdb48fef
     m_ActionName: Player/Sprint[/Keyboard/leftShift]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShowHideUI, Assembly-CSharp
+        m_MethodName: HandleShowHide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c70d543e-fc7b-445b-9a20-3e3b9f7063f3
     m_ActionName: Player/InventoryShowHide[/Keyboard/i]
   - m_PersistentCalls:
@@ -3285,6 +3302,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 59dd68cf-5ab9-4029-bd2e-99619b252989
     m_ActionName: Player/Roll[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 959e0c6c-9eb3-4ed6-8439-ed4224f2895f
+    m_ActionName: Player/Interaction[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ea02926-3e32-43d2-8943-c292a121b426
+    m_ActionName: Player/QuestShowHide[/Keyboard/l]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3302,12 +3327,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49adc88c01eff9944bf923dffa2681f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
+  slider: {fileID: 1267604209583506959}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
+    key2: {r: 1, g: 0.030940771, b: 0.030940771, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
@@ -3315,7 +3340,7 @@ MonoBehaviour:
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 65535
-    ctime2: 0
+    ctime2: 65535
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -3332,7 +3357,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  fill: {fileID: 0}
+  fill: {fileID: 1267604211558155119}
 --- !u!114 &6514593807484350384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3346,6 +3371,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   experiencePoints: 0
+--- !u!114 &5288483788167573987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a490c7fc0874c4f9a658db4298a26c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+  checkAIConversantRadius: 5
+  canInteractDistance: 3
+  Offset: {x: 0, y: 2}
+  targetingSense: 3
+  nearAIConversants: []
+--- !u!114 &6354857489150003295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e685f7c890c56468171a5914ac997d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8652713835456310759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3650,3 +3705,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2897516516657750648}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1267604209583506959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4152711088254067831, guid: f6421f525cb12ff4383fd5d438c8fae1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2897516516657750648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1267604211558155119 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4152711089685061911, guid: f6421f525cb12ff4383fd5d438c8fae1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2897516516657750648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

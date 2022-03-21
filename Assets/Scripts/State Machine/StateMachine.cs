@@ -35,6 +35,8 @@ public class StateMachine : MonoBehaviour
     [Space] [Header("Canvas")] [SerializeField]
     Image aim;
 
+    [SerializeField] private GameObject aimUI;
+
     [SerializeField] Vector2 uiOffset;
     [SerializeField] List<Transform> screenTargets = new List<Transform>();
 
@@ -69,6 +71,8 @@ public class StateMachine : MonoBehaviour
 
     [SerializeField] Transform target;
 
+    [SerializeField] private AIConversant interactableNPC = null;
+
     //state variables
     BaseState currentState;
 
@@ -93,7 +97,6 @@ public class StateMachine : MonoBehaviour
     private AudioClip clip;
     private AudioSource soundComponentCast; //Play audio from PrefabsCast
 
-    private float targetRotation = 0.0f;
     float verticalVel;
 
     Vector3 moveVector;
@@ -139,163 +142,217 @@ public class StateMachine : MonoBehaviour
     [HideInInspector] public int animIDMaskAttack2;
 
     [HideInInspector] public int animIDUpAttack2;*/
+    
+    //CAMERA ROTATION
+    
+    private const float Threshold = 0.01f;
+    private const int CursorSwitchSpeed = 1000;
+
+
+    //User interface variables
+    private Vector3 screenCenter;
+    private Vector3 screenPos;
+    private Vector3 cornerDistance;
+    private Vector3 absCornerDistance;
+    private Vector3 worldViewField;
+
+    //cinemachine
+    private float cinemachineTargetYaw;
+    private float cinemachineTargetPitch;
+
+    
+    
+    
 
     public BaseState CurrentState
     {
-        get { return currentState; }
-        set { currentState = value; }
+        get => currentState;
+        set => currentState = value;
     }
 
     public StateFactory States
     {
-        get { return states; }
+        get => states;
+        set => states = value;
     }
+
 
     public Inputs Input
     {
-        get { return input; }
+        get => input;
+        set => input = value;
     }
 
     public bool LockCameraPosition
     {
-        get { return lockCameraPosition; }
+        get => lockCameraPosition;
+        set => lockCameraPosition = value;
+    }
+
+    public GameObject AimUI
+    {
+        get => aimUI;
+        set => aimUI = value;
+    }
+
+    public AIConversant InteractableNPC
+    {
+        get => interactableNPC;
+        set => interactableNPC = value;
     }
 
     public GameObject CinemachineCameraTarget
     {
-        get { return cinemachineCameraTarget; }
+        get => cinemachineCameraTarget;
+        set => cinemachineCameraTarget = value;
     }
 
     public float TopClamp
     {
-        get { return topClamp; }
+        get => topClamp;
+        set => topClamp = value;
     }
 
     public float BottomClamp
     {
-        get { return bottomClamp; }
+        get => bottomClamp;
+        set => bottomClamp = value;
     }
 
     public float CameraAngleOverride
     {
-        get { return cameraAngleOverride; }
+        get => cameraAngleOverride;
+        set => cameraAngleOverride = value;
     }
 
 
     public Animator Anim
     {
-        get { return anim; }
+        get => anim;
+        set => anim = value;
     }
 
     public CharacterController Controller
     {
-        get { return controller; }
+        get => controller;
+        set => controller = value;
     }
 
 
     public Vector3 Forward
     {
-        get { return forward; }
+        get => forward;
+        set => forward = value;
     }
 
     public Vector3 Right
     {
-        get { return right; }
+        get => right;
+        set => right = value;
     }
 
     public float DesiredRotationSpeed
     {
-        get { return desiredRotationSpeed; }
+        get => desiredRotationSpeed;
+        set => desiredRotationSpeed = value;
     }
 
     public float Velocity
     {
-        get { return velocity; }
+        get => velocity;
+        set => velocity = value;
     }
 
     public float RotationSmoothTime
     {
-        get { return rotationSmoothTime; }
+        get => rotationSmoothTime;
+        set => rotationSmoothTime = value;
     }
 
-    public float TargetRotation
-    {
-        get { return targetRotation; }
-        set { targetRotation = value; }
-    }
+    public float TargetRotation { get; set; } = 0.0f;
 
     public float AimTimer
     {
-        get { return aimTimer; }
-        set { aimTimer = value; }
+        get => aimTimer;
+        set => aimTimer = value;
     }
 
     public float SecondLayerWeight
     {
-        get { return secondLayerWeight; }
-        set { secondLayerWeight = value; }
+        get => secondLayerWeight;
+        set => secondLayerWeight = value;
     }
 
     public Vector3 DesiredMoveDirection
     {
-        get { return desiredMoveDirection; }
+        get => desiredMoveDirection;
+        set => desiredMoveDirection = value;
     }
 
     public Camera Cam
     {
-        get { return cam; }
+        get => cam;
+        set => cam = value;
     }
 
     public Vector2 UiOffset
     {
-        get { return uiOffset; }
+        get => uiOffset;
+        set => uiOffset = value;
     }
 
     public LayerMask CollidingLayer
     {
-        get { return collidingLayer; }
+        get => collidingLayer;
+        set => collidingLayer = value;
     }
 
     public Image Aim
     {
-        get { return aim; }
+        get => aim;
+        set => aim = value;
     }
 
     public bool ActiveTarget
     {
-        get { return activeTarget; }
-        set { activeTarget = value; }
+        get => activeTarget;
+        set => activeTarget = value;
     }
 
     public List<Transform> ScreenTargets
     {
-        get { return screenTargets; }
+        get => screenTargets;
+        set => screenTargets = value;
     }
 
     public bool CanMove
     {
-        get { return canMove; }
+        get => canMove;
+        set => canMove = value;
     }
 
     public bool RotateState
     {
-        get { return rotateState; }
+        get => rotateState;
+        set => rotateState = value;
     }
 
     public float FireRate
     {
-        get { return fireRate; }
+        get => fireRate;
+        set => fireRate = value;
     }
 
     public float TargetingSense
     {
-        get { return targetingSense; }
+        get => targetingSense;
+        set => targetingSense = value;
     }
 
     public Transform Target
     {
-        get { return target; }
-        set { target = value; }
+        get => target;
+        set => target = value;
     }
 
     public WeaponConfig CurrentWeaponConfig
@@ -336,8 +393,19 @@ public class StateMachine : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        CameraRotation();
+    }
+
     public void InputMagnitude()
     {
+        if (!canMove)
+        {
+            SetAnimZero();
+            return;
+        }
+
         InputX = input.move.x;
         InputY = input.move.y;
 
@@ -532,4 +600,41 @@ public class StateMachine : MonoBehaviour
         Animator weaponAnimator = GetComponent<Animator>();
         return weapon.Spawn(rightHandTransform, leftHandTransform, weaponAnimator);
     }
+
+    public void SetAnimZero()
+    {
+        anim.SetFloat(animIDInputY, 0);
+        anim.SetFloat(animIDInputX, 0);
+    }
+    
+    private void CameraRotation()
+    {
+        // if there is an input and camera position is not fixed
+        if (input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
+        {
+            cinemachineTargetYaw += input.look.x * Time.deltaTime;
+            cinemachineTargetPitch += input.look.y * Time.deltaTime;
+        }
+
+        // clamp our rotations so our values are limited 360 degrees
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomClamp, topClamp);
+
+        // Cinemachine will follow this target
+        /* ctx.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+             cinemachineTargetPitch + ctx.CameraAngleOverride,
+             cinemachineTargetYaw, 0.0f);*/
+
+        cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+            cinemachineTargetPitch,
+            cinemachineTargetYaw, 0.0f);
+    }
+
+    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
 }
