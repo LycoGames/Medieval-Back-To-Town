@@ -47,12 +47,12 @@ public class Inventory : MonoBehaviour, ISaveable
         {
             inventoryUpdated();
         }
+
         return true;
     }
 
     public bool HasItem(InventoryItem item)
     {
-
         for (int i = 0; i < slots.Length; i++)
         {
             if (object.ReferenceEquals(slots[i], item))
@@ -60,6 +60,7 @@ public class Inventory : MonoBehaviour, ISaveable
                 return true;
             }
         }
+
         return false;
     }
 
@@ -70,7 +71,6 @@ public class Inventory : MonoBehaviour, ISaveable
 
     public void RemoveFromSlot(int slot)
     {
-
         slots[slot] = null;
         if (inventoryUpdated != null)
         {
@@ -90,6 +90,7 @@ public class Inventory : MonoBehaviour, ISaveable
         {
             inventoryUpdated();
         }
+
         return true;
     }
 
@@ -117,6 +118,7 @@ public class Inventory : MonoBehaviour, ISaveable
                 return i;
             }
         }
+
         return -1;
     }
 
@@ -130,12 +132,13 @@ public class Inventory : MonoBehaviour, ISaveable
                 slotStrings[i] = slots[i].GetItemID();
             }
         }
+
         return slotStrings;
     }
 
     public void RestoreState(object state)
     {
-        var slotStrings = (string[])state;
+        var slotStrings = (string[]) state;
 
         for (int i = 0; i < inventorySize; i++)
         {

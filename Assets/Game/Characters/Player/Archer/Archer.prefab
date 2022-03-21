@@ -2950,6 +2950,7 @@ GameObject:
   - component: {fileID: 8445181934306521822}
   - component: {fileID: 6514593807484350384}
   - component: {fileID: 5288483788167573987}
+  - component: {fileID: 6354857489150003295}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -3131,6 +3132,7 @@ MonoBehaviour:
   - {fileID: 1931392525181976, guid: 89348af94fc3153448a3915127246169, type: 3}
   PrefabsCast: []
   aim: {fileID: 581099040}
+  aimUI: {fileID: 0}
   uiOffset: {x: 0, y: 0.5}
   screenTargets: []
   fireRate: 0.25
@@ -3142,6 +3144,7 @@ MonoBehaviour:
   HorizontalAnimSmoothTime: 0.2
   VerticalAnimTime: 0.2
   target: {fileID: 0}
+  interactableNPC: {fileID: 0}
   InputX: 0
   InputY: 0
   animIDInputX: 0
@@ -3303,6 +3306,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 959e0c6c-9eb3-4ed6-8439-ed4224f2895f
     m_ActionName: Player/Interaction[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ea02926-3e32-43d2-8943-c292a121b426
+    m_ActionName: Player/QuestShowHide[/Keyboard/l]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3376,11 +3383,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a490c7fc0874c4f9a658db4298a26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
   checkAIConversantRadius: 5
   canInteractDistance: 3
   Offset: {x: 0, y: 2}
   targetingSense: 3
   nearAIConversants: []
+--- !u!114 &6354857489150003295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e685f7c890c56468171a5914ac997d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8652713835456310759
 GameObject:
   m_ObjectHideFlags: 0

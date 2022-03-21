@@ -8,6 +8,8 @@ public class AIConversant : MonoBehaviour
 {
     [SerializeField] private string conversantName;
     [SerializeField] private Dialogue dialogue = null;
+    [SerializeField] private bool repeatableDialogue = false;
+    private bool interactable = true;
 
     //private GameObject player;
     //private Inputs input;
@@ -47,5 +49,20 @@ public class AIConversant : MonoBehaviour
     public string GetConversantName()
     {
         return conversantName;
+    }
+
+    public bool CanInteractable()
+    {
+        return interactable;
+    }
+
+    public void SetInteractable(bool state)
+    {
+        interactable = state;
+    }
+
+    public bool IsRepeatableDialogue()
+    {
+        return repeatableDialogue;
     }
 }

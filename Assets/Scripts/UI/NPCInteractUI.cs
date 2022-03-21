@@ -5,6 +5,7 @@ public class NPCInteractUI : MonoBehaviour
 {
     [SerializeField] private GameObject interactInfoText;
     [SerializeField] private GameObject interactText;
+    private AIConversant AIConversant;
 
     private Transform mainCamTransform;
 
@@ -12,7 +13,8 @@ public class NPCInteractUI : MonoBehaviour
 
     private void Start()
     {
-        interactInfoText.GetComponent<TextMeshProUGUI>().text = "Talk " + gameObject.name;
+        AIConversant = GetComponentInParent<AIConversant>();
+        interactInfoText.GetComponent<TextMeshProUGUI>().text = "Talk " + AIConversant.GetConversantName();
         mainCamTransform = Camera.main.transform;
     }
 

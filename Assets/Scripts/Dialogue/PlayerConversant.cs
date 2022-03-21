@@ -184,7 +184,12 @@ public class PlayerConversant : MonoBehaviour
     {
         screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
 
-        ResetUIAIChanged();
+
+        if (activeAIConservant && activeAIConservant != nearAIConversants[TargetIndex()])
+        {
+            ResetUI();
+        }
+
 
         activeAIConservant = nearAIConversants[TargetIndex()];
         activeAIConservantTransform = activeAIConservant.transform;
@@ -202,12 +207,12 @@ public class PlayerConversant : MonoBehaviour
                 activeAIConservantTransform.position + (Vector3) Offset * 2, 5))
         {
             if (Mathf.Abs(Vector3.Distance(transform.position, activeAIConservantTransform.position)) <
-                canInteractDistance)
+                canInteractDistance && activeAIConservant.CanInteractable())
             {
                 npcUI.SetActiveInteract(true);
                 stateMachine.InteractableNPC = activeAIConservant.GetComponent<AIConversant>();
             }
-            else
+            else if (activeAIConservant.CanInteractable())
             {
                 npcUI.SetActiveInteract(false);
                 npcUI.SetActiveInteractInfo(true);
@@ -222,13 +227,10 @@ public class PlayerConversant : MonoBehaviour
         }
     }
 
-    private void ResetUIAIChanged()
+    public void ResetUI()
     {
-        if (activeAIConservant && activeAIConservant != nearAIConversants[TargetIndex()])
-        {
-            npcUI.SetActiveInteract(false);
-            npcUI.SetActiveInteractInfo(false);
-        }
+        npcUI.SetActiveInteract(false);
+        npcUI.SetActiveInteractInfo(false);
     }
 
     private void TriggerEnterAction()

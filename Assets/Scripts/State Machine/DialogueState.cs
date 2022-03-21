@@ -13,12 +13,10 @@ public class DialogueState : BaseState
     public override void EnterState()
     {
         Debug.Log("Dialogue State Enter");
-        playerConversant = ctx.GetComponent<PlayerConversant>();
-        aiConversant = ctx.InteractableNPC.GetComponent<AIConversant>();
-        playerConversant.StartDialogue(aiConversant.GetDialogue());
-        ctx.LockCameraPosition = true;
-        ctx.AimUI.SetActive(false);
+        SetRequiredComponents();
+        StartDialogue();
     }
+
 
     public override void UpdateState()
     {
@@ -30,7 +28,10 @@ public class DialogueState : BaseState
     {
         Debug.Log("Dialogue State Exit");
         ctx.LockCameraPosition = false;
+        Cursor.visible = false;
         ctx.AimUI.SetActive(true);
+        if (aiConversant.IsRepeatableDialogue())
+            aiConversant.SetInteractable(true);
     }
 
     public override void CheckSwitchStates()
@@ -41,5 +42,21 @@ public class DialogueState : BaseState
 
     public override void InitializeSubState()
     {
+    }
+
+    private void StartDialogue()
+    {
+        playerConversant.StartDialogue(aiConversant.GetDialogue());
+        aiConversant.SetInteractable(false);
+        ctx.LockCameraPosition = true;
+        Cursor.visible = true;
+        ctx.AimUI.SetActive(false);
+        playerConversant.ResetUI();
+    }
+
+    private void SetRequiredComponents()
+    {
+        playerConversant = ctx.GetComponent<PlayerConversant>();
+        aiConversant = ctx.InteractableNPC.GetComponent<AIConversant>();
     }
 }

@@ -142,6 +142,27 @@ public class StateMachine : MonoBehaviour
     [HideInInspector] public int animIDMaskAttack2;
 
     [HideInInspector] public int animIDUpAttack2;*/
+    
+    //CAMERA ROTATION
+    
+    private const float Threshold = 0.01f;
+    private const int CursorSwitchSpeed = 1000;
+
+
+    //User interface variables
+    private Vector3 screenCenter;
+    private Vector3 screenPos;
+    private Vector3 cornerDistance;
+    private Vector3 absCornerDistance;
+    private Vector3 worldViewField;
+
+    //cinemachine
+    private float cinemachineTargetYaw;
+    private float cinemachineTargetPitch;
+
+    
+    
+    
 
     public BaseState CurrentState
     {
@@ -372,6 +393,11 @@ public class StateMachine : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        CameraRotation();
+    }
+
     public void InputMagnitude()
     {
         if (!canMove)
@@ -580,4 +606,35 @@ public class StateMachine : MonoBehaviour
         anim.SetFloat(animIDInputY, 0);
         anim.SetFloat(animIDInputX, 0);
     }
+    
+    private void CameraRotation()
+    {
+        // if there is an input and camera position is not fixed
+        if (input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
+        {
+            cinemachineTargetYaw += input.look.x * Time.deltaTime;
+            cinemachineTargetPitch += input.look.y * Time.deltaTime;
+        }
+
+        // clamp our rotations so our values are limited 360 degrees
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomClamp, topClamp);
+
+        // Cinemachine will follow this target
+        /* ctx.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+             cinemachineTargetPitch + ctx.CameraAngleOverride,
+             cinemachineTargetYaw, 0.0f);*/
+
+        cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+            cinemachineTargetPitch,
+            cinemachineTargetYaw, 0.0f);
+    }
+
+    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
 }

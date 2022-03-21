@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3746101547929928093
+--- !u!114 &-8608205844506340578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,61 +10,45 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
-  m_Name: 21085752-2c49-4e34-9fb9-411397164d9e
+  m_Name: c55f79cb-0cce-4e5f-97bd-505e9d742b8f
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Sure, how?
+  children:
+  - 5419eeb6-2b8b-47e6-9d22-3183b17b6bbb
+  rect:
+    serializedVersion: 2
+    x: 320
+    y: 258
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+--- !u!114 &-6166434247677620721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 35e8bb00-f95b-4f73-9262-323369f8de85
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: asdsad
-  children: []
-  rect:
-    serializedVersion: 2
-    x: 446
-    y: 203
-    width: 200
-    height: 100
---- !u!114 &-3653513784291246975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
-  m_Name: 4b58b4a2-c102-49f9-a357-2f82f26ddb2a
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: adadadaasd
+  text: My mom has terrible bunions, can you help?
   children:
-  - 93e296f8-a8ca-4b33-a66c-5d6277047189
+  - 87cf2e41-b828-41b5-98be-bce0af34f062
+  - c55f79cb-0cce-4e5f-97bd-505e9d742b8f
   rect:
     serializedVersion: 2
-    x: 198
-    y: 436
+    x: 96
+    y: 165
     width: 200
     height: 100
---- !u!114 &-604777152530520936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
-  m_Name: 5153a662-75f7-4957-94c9-fb7ecd1637c7
-  m_EditorClassIdentifier: 
-  isPlayerSpeaking: 1
-  text: sadada
-  children:
-  - 21085752-2c49-4e34-9fb9-411397164d9e
-  rect:
-    serializedVersion: 2
-    x: 226
-    y: 201
-    width: 200
-    height: 100
+  onExitAction: 
+  onEnterAction: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,16 +59,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 036f27eaa24400444a587a3cf9fa7300, type: 3}
-  m_Name: Kerem dia
+  m_Name: Motherhubbards Son
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 7525530982823091752}
-  - {fileID: -604777152530520936}
-  - {fileID: -3653513784291246975}
-  - {fileID: -3746101547929928093}
-  - {fileID: 6339200968679908815}
+  - {fileID: -6166434247677620721}
+  - {fileID: 8339012174646886068}
+  - {fileID: -8608205844506340578}
+  - {fileID: 6407397123025466724}
   newNodeOffset: {x: 250, y: 0}
---- !u!114 &6339200968679908815
+--- !u!114 &6407397123025466724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,18 +77,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
-  m_Name: 93e296f8-a8ca-4b33-a66c-5d6277047189
+  m_Name: 5419eeb6-2b8b-47e6-9d22-3183b17b6bbb
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: asdadadada
+  text: She needs the foot cream from the pharmacy.
   children: []
   rect:
     serializedVersion: 2
-    x: 447
-    y: 436
+    x: 571
+    y: 257
     width: 200
     height: 100
---- !u!114 &7525530982823091752
+  onExitAction: GiveQuest
+  onEnterAction: 
+--- !u!114 &8339012174646886068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,16 +100,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
-  m_Name: bd9a64a5-a5c2-486d-99dc-7496db28870d
+  m_Name: 87cf2e41-b828-41b5-98be-bce0af34f062
   m_EditorClassIdentifier: 
-  isPlayerSpeaking: 0
-  text: asdada
-  children:
-  - 5153a662-75f7-4957-94c9-fb7ecd1637c7
-  - 4b58b4a2-c102-49f9-a357-2f82f26ddb2a
+  isPlayerSpeaking: 1
+  text: Do i look like a doctor?
+  children: []
   rect:
     serializedVersion: 2
-    x: 11
-    y: 307
+    x: 319
+    y: 66
     width: 200
     height: 100
+  onExitAction: 
+  onEnterAction: 

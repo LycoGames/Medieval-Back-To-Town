@@ -11,43 +11,42 @@ public class SavingWrapper : MonoBehaviour
     const string defaultSaveFile = "save";
     [SerializeField] float fadeInTime = 0.2f;
 
-    private void Awake()
+   private void Awake()
     {
-        LoadLastScene();
+        StartCoroutine(LoadLastScene());
     }
 
-    private void LoadLastScene()
+    private IEnumerator LoadLastScene()
     {
-      //  GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
+        yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
     }
 
     void Update()
     {
-
-        /*if (Keyboard.current.lKey.isPressed)
+        if (Keyboard.current.bKey.isPressed)
         {
             Load();
         }
-        if (Keyboard.current.kKey.isPressed)
+
+        if (Keyboard.current.nKey.isPressed)
         {
             Save();
         }
+
         if (Keyboard.current.deleteKey.isPressed)
         {
             Delete();
-        }*/
-    }
-
-    public void Save()
-    {
-        GetComponent<SavingSystem>().Save(defaultSaveFile);
+        }
     }
 
     public void Load()
     {
-        GetComponent<SavingSystem>().Load(defaultSaveFile);
+        StartCoroutine(GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile));
     }
-
+    public void Save()
+    {
+        GetComponent<SavingSystem>().Save(defaultSaveFile);
+    }
     public void Delete()
     {
         GetComponent<SavingSystem>().Delete(defaultSaveFile);
