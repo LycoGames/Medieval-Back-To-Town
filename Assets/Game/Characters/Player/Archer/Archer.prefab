@@ -2951,6 +2951,7 @@ GameObject:
   - component: {fileID: 6514593807484350384}
   - component: {fileID: 5288483788167573987}
   - component: {fileID: 6354857489150003295}
+  - component: {fileID: 1740259568}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -3132,13 +3133,13 @@ MonoBehaviour:
   - {fileID: 1931392525181976, guid: 89348af94fc3153448a3915127246169, type: 3}
   PrefabsCast: []
   aim: {fileID: 581099040}
-  aimUI: {fileID: 0}
+  aimUI: {fileID: 581099038}
   uiOffset: {x: 0, y: 0.5}
   screenTargets: []
   fireRate: 0.25
   cinemachineCameraTarget: {fileID: 5597473062854070968}
   topClamp: 70
-  bottomClamp: -30
+  bottomClamp: -50
   cameraAngleOverride: 0
   lockCameraPosition: 0
   HorizontalAnimSmoothTime: 0.2
@@ -3303,11 +3304,35 @@ MonoBehaviour:
     m_ActionId: 59dd68cf-5ab9-4029-bd2e-99619b252989
     m_ActionName: Player/Roll[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8362726038402017693}
+        m_TargetAssemblyTypeName: InputSystem.Inputs, Assembly-CSharp
+        m_MethodName: OnInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 959e0c6c-9eb3-4ed6-8439-ed4224f2895f
     m_ActionName: Player/Interaction[/Keyboard/f]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShowHideUI, Assembly-CSharp
+        m_MethodName: HandleShowHide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6ea02926-3e32-43d2-8943-c292a121b426
     m_ActionName: Player/QuestShowHide[/Keyboard/l]
   m_NeverAutoSwitchControlSchemes: 0
@@ -3383,9 +3408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a490c7fc0874c4f9a658db4298a26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 
-  checkAIConversantRadius: 5
-  canInteractDistance: 3
+  playerName: Arissa
+  checkAIConversantRadius: 15
+  canInteractDistance: 6
   Offset: {x: 0, y: 2}
   targetingSense: 3
   nearAIConversants: []
@@ -3399,6 +3424,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51e685f7c890c56468171a5914ac997d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1740259568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0257b0608a9cfb647827af8076f5ab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8652713835456310759
