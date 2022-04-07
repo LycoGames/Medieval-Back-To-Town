@@ -35,11 +35,6 @@ public class GameManager : MonoBehaviour
             GameObject spawnPoint = spawnPoints[x];
             GameObject enemySpawned =
                 Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity) as GameObject;
-
-            if (Random.Range(0, 100) > 50)
-            {
-                enemySpawned.AddComponent<RandomDropper>();
-            }
             enemySpawned.GetComponent<EnemyAIController>().gameManager = GetComponent<GameManager>();
             enemiesAlive++;
         }

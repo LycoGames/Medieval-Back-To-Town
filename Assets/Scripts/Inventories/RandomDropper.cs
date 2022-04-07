@@ -6,18 +6,20 @@ using UnityEngine.AI;
 public class RandomDropper : ItemDropper
 {
     [SerializeField] private float scatterDistance = 1;
-    [SerializeField] private InventoryItem[] dropLibrary;
-    [SerializeField] private int numerOfDrops = 2;
+    [SerializeField] private DropLibrary dropLibrary;
 
     private const int ATTEMPTS = 30;
 
     public void RandomDrop()
     {
-        for (int i = 0; i < numerOfDrops; i++)
+        var baseStats = GetComponent<BaseStats>();
+
+        var drops = dropLibrary.GetRandomDrops(baseStats.GetLevel());
+        foreach (var drop in drops)
         {
-            var item = dropLibrary[Random.Range(0, dropLibrary.Length)];
-            DropItem(item, 1);
+            DropItem(drop.item, drop.number);
         }
+        
     }
 
     protected override Vector3 GetDropLocation()
