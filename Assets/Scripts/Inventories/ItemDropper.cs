@@ -6,9 +6,7 @@ using UnityEngine;
 public class ItemDropper : MonoBehaviour,ISaveable
 {
     private List<Pickup> droppedItems = new List<Pickup>();
-    [SerializeField] private float playerDropOffset = 1.5f;
-
-
+    
     public void DropItem(InventoryItem item, int number)
     {
         SpawnPickup(item,number,GetDropLocation());
@@ -16,10 +14,6 @@ public class ItemDropper : MonoBehaviour,ISaveable
 
     protected virtual Vector3 GetDropLocation()
     {
-        if (transform.gameObject.CompareTag("Player"))
-        {
-            return transform.position + transform.forward * playerDropOffset;
-        }
         return transform.position;
     }
 
