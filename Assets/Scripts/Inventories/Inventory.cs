@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using RPG.Saving;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour, ISaveable
+public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
 {
     //CONFIG DATA
     [SerializeField] int inventorySize = 16;
@@ -201,5 +201,16 @@ public class Inventory : MonoBehaviour, ISaveable
 
         if (inventoryUpdated != null)
             inventoryUpdated();
+    }
+
+    public bool? Evaluate(string predicate, string[] parameters)
+    {
+        switch (predicate)
+        {
+            case "HasInventoryItem":
+                return HasItem(InventoryItem.GetFromID(parameters[0]));
+        }
+
+        return null;
     }
 }
