@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using RPG.Saving;
@@ -8,6 +9,13 @@ public class ItemDropper : MonoBehaviour, ISaveable
 {
     private List<Pickup> droppedItems = new List<Pickup>();
     private List<DropRecord> otherSceneDroppedItems = new List<DropRecord>();
+
+    private Transform pickupParent;
+    
+    private void Start()
+    {
+        pickupParent = GameObject.FindGameObjectWithTag("PickupParent").transform;
+    }
 
     public void DropItem(InventoryItem item, int number)
     {
@@ -21,7 +29,7 @@ public class ItemDropper : MonoBehaviour, ISaveable
 
     public void SpawnPickup(InventoryItem item, int number, Vector3 spawnLocation)
     {
-        var pickup = item.SpawnPickup(spawnLocation, number);
+        var pickup = item.SpawnPickup(spawnLocation, number,pickupParent);
         droppedItems.Add(pickup);
     }
 

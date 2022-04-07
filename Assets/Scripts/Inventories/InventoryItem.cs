@@ -38,9 +38,9 @@ public class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
         return itemLookupCache[itemID];
     }
 
-    public Pickup SpawnPickup(Vector3 position,int number)
+    public Pickup SpawnPickup(Vector3 position, int number, Transform parent)
     {
-        var pickup = Instantiate(this.pickup);
+        var pickup = Instantiate(this.pickup, parent);
         pickup.transform.position = position;
         pickup.Setup(this, number);
         return pickup;
