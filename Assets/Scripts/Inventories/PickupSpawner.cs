@@ -13,14 +13,11 @@ public class PickupSpawner : MonoBehaviour, ISaveable
 
     [SerializeField] private int number = 1;
     //TODO
-
-    private Transform pickupParent;
-
+    
     // LIFECYCLE METHODS
     private void Awake()
     {
         // Spawn in Awake so can be destroyed by save system after.
-        pickupParent = GameObject.FindGameObjectWithTag("PickupParent").transform;
         SpawnPickup();
     }
 
@@ -48,7 +45,7 @@ public class PickupSpawner : MonoBehaviour, ISaveable
     private void SpawnPickup()
     {
         //TODO
-        var spawnedPickup = item.SpawnPickup(transform.position, number, pickupParent);
+        var spawnedPickup = item.SpawnPickup(transform.position, number);
         spawnedPickup.transform.SetParent(transform);
     }
 

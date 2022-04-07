@@ -657,7 +657,7 @@ public class StateMachine : MonoBehaviour
 
     private void UpdateWeapon()
     {
-        var weapon= equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
+        var weapon= equipment.GetItemInSlot(EquipLocation.PrimaryWeapon) as WeaponConfig;
         EquipWeapon(weapon == null ? defaultWeapon : weapon);
     }
     

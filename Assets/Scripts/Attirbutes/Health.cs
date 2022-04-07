@@ -120,7 +120,6 @@ public class Health : MonoBehaviour
     {
         if (isDead) return;
         healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
-        Debug.Log(healthPoints.value);
 
         takeDamage.Invoke(); //event
         takeDamageHUD.Invoke(dmg);

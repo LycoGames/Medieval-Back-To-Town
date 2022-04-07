@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/ Make New Weapon")]
-public class WeaponConfig : EquipableItem,IModifierProvider
+public class WeaponConfig : EquipableItem, IModifierProvider
 {
     [SerializeField] AnimatorOverrideController animatorOverride = null;
     [SerializeField] Weapon equippedPrefab = null;
@@ -12,6 +12,7 @@ public class WeaponConfig : EquipableItem,IModifierProvider
     [SerializeField] float percentageBonus = 0.1f;
     [SerializeField] float weaponRange = 2f;
     [SerializeField] bool isRightHanded = true;
+    [SerializeField] private bool isBothHanded = false;
 
 
     const string weaponName = "Weapon";
@@ -24,9 +25,19 @@ public class WeaponConfig : EquipableItem,IModifierProvider
 
         if (equippedPrefab != null)
         {
-            Transform handTransform = GetTransform(rightHand, leftHand);
-            weapon = Instantiate(equippedPrefab, handTransform);
-            weapon.gameObject.name = weaponName;
+            if (isBothHanded)
+            {
+                weapon = Instantiate(equippedPrefab, rightHand);
+                weapon.gameObject.name = weaponName;
+                weapon = Instantiate(equippedPrefab, leftHand);
+                weapon.gameObject.name = weaponName;
+            }
+            else
+            {
+                Transform handTransform = GetTransform(rightHand, leftHand);
+                weapon = Instantiate(equippedPrefab, handTransform);
+                weapon.gameObject.name = weaponName;
+            }
         }
 
         var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
@@ -52,6 +63,10 @@ public class WeaponConfig : EquipableItem,IModifierProvider
 
         oldWeapon.name = "DESTROYING";
         Destroy(oldWeapon.gameObject);
+        if (leftHand.Find(weaponName) != null)
+        {
+            Destroy(leftHand.Find(weaponName).gameObject);
+        }
     }
 
     public Transform GetTransform(Transform rightHand, Transform leftHand)

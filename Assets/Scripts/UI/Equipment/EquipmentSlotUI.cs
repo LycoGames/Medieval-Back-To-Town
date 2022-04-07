@@ -7,7 +7,7 @@ public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<Invent
     // CONFIG DATA
 
     [SerializeField] InventoryItemIcon icon = null;
-    [SerializeField] EquipLocation equipLocation = EquipLocation.Weapon;
+    [SerializeField] EquipLocation equipLocation = EquipLocation.PrimaryWeapon;
 
     // CACHE
     Equipment playerEquipment;

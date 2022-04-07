@@ -10,8 +10,9 @@ public enum EquipLocation
     Body,
     Trousers,
     Boots,
-    Weapon,
     Shield,
     Gloves,
+    PrimaryWeapon,
+    SecondaryWeapon,
 }
 
