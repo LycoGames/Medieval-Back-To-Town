@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using InputSystem;
 using UnityEditor.UIElements;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class StateMachine : MonoBehaviour
@@ -160,9 +161,13 @@ public class StateMachine : MonoBehaviour
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
 
+    //Action store
+    private ActionStore actionStore;
     
-    
-    
+    //Equipment
+    private Equipment equipment;
+
+
 
     public BaseState CurrentState
     {
@@ -361,6 +366,11 @@ public class StateMachine : MonoBehaviour
         set => currentWeaponConfig = value;
     }
 
+    public ActionStore ActionStore
+    {
+        get => actionStore;
+    }
+
     //User interface variables
 
 
@@ -369,6 +379,12 @@ public class StateMachine : MonoBehaviour
         states = new StateFactory(this);
         currentState = states.AppState();
         currentState.EnterState();
+        
+        equipment = GetComponent<Equipment>();
+        if (equipment)
+        {
+            equipment.equipmentUpdated += UpdateWeapon;
+        }
     }
 
     void Start()
@@ -442,6 +458,7 @@ public class StateMachine : MonoBehaviour
     {
         input = GetComponent<Inputs>();
         anim = GetComponent<Animator>();
+        actionStore = GetComponent<ActionStore>();
         cam = Camera.main;
         if (target)
         {
@@ -536,7 +553,8 @@ public class StateMachine : MonoBehaviour
 
         //float damage = currentWeaponConfig.GetDamage() + GetComponent<BaseStats>().GetStat(Stat.Damage);
         Debug.Log(uiOffset);
-        currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, 20,
+        var damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+        currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage,
             uiOffset);
         //StartCoroutine(cameraShaker.Shake(0.1f, 2, 0.2f, 0));
     }
@@ -637,4 +655,48 @@ public class StateMachine : MonoBehaviour
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
+    private void UpdateWeapon()
+    {
+        var weapon= equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
+        EquipWeapon(weapon == null ? defaultWeapon : weapon);
+    }
+    
+    
+    public void OnAbility1(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(0, gameObject);
+        }
+    }public void OnAbility2(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(1, gameObject);
+        }
+    }public void OnAbility3(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(2, gameObject);
+        }
+    }public void OnAbility4(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(3, gameObject);
+        }
+    }public void OnAbility5(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(4, gameObject);
+        }
+    }public void OnAbility6(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(5, gameObject);
+        }
+    }
 }

@@ -11,6 +11,7 @@ public class DialogueNode : ScriptableObject
 
     [SerializeField] private string onExitAction;
     [SerializeField] private string onEnterAction;
+    [SerializeField] private Condition condition;
 
     public Rect GetRect()
     {
@@ -40,6 +41,11 @@ public class DialogueNode : ScriptableObject
     public string GetOnExitAction()
     {
         return onExitAction;
+    }
+
+    public bool CheckCondition(IEnumerable<IPredicateEvaluator> evaluators)
+    {
+        return condition.Check(evaluators);
     }
 
 #if UNITY_EDITOR

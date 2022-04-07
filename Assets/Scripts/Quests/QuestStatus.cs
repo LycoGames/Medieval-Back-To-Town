@@ -49,16 +49,23 @@ public class QuestStatus
         }
     }
 
+    public bool IsComplete()
+    {
+        foreach (var objective in quest.GetObjectives())
+        {
+            if (!completedObjectives.Contains(objective.reference))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public object CaptureState()
     {
-        QuestStatusRecord state = new QuestStatusRecord();
+        var state = new QuestStatusRecord();
         state.questName = quest.name;
         state.completedObjective = completedObjectives;
         return state;
-    }
-
-    public bool IsComplete()
-    {
-        return true;
     }
 }

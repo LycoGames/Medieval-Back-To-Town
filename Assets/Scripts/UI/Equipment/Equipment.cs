@@ -15,12 +15,7 @@ public class Equipment : MonoBehaviour, ISaveable
 
     public EquipableItem GetItemInSlot(EquipLocation equipLocation)
     {
-        if (!equippedItems.ContainsKey(equipLocation))
-        {
-            return null;
-        }
-
-        return equippedItems[equipLocation];
+        return !equippedItems.ContainsKey(equipLocation) ? null : equippedItems[equipLocation];
     }
 
     public void AddItem(EquipLocation slot, EquipableItem item)
@@ -44,6 +39,12 @@ public class Equipment : MonoBehaviour, ISaveable
         }
     }
 
+    public IEnumerable<EquipLocation> GetAllPopulatedSlots()
+    {
+        return equippedItems.Keys;
+    }
+
+
     // PRIVATE
 
     object ISaveable.CaptureState()
@@ -53,6 +54,7 @@ public class Equipment : MonoBehaviour, ISaveable
         {
             equippedItemsForSerialization[pair.Key] = pair.Value.GetItemID();
         }
+
         return equippedItemsForSerialization;
     }
 
@@ -60,17 +62,15 @@ public class Equipment : MonoBehaviour, ISaveable
     {
         equippedItems = new Dictionary<EquipLocation, EquipableItem>();
 
-        var equippedItemsForSerialization = (Dictionary<EquipLocation, string>)state;
+        var equippedItemsForSerialization = (Dictionary<EquipLocation, string>) state;
 
         foreach (var pair in equippedItemsForSerialization)
         {
-            var item = (EquipableItem)InventoryItem.GetFromID(pair.Value);
+            var item = (EquipableItem) InventoryItem.GetFromID(pair.Value);
             if (item != null)
             {
                 equippedItems[pair.Key] = item;
             }
         }
     }
-
 }
-

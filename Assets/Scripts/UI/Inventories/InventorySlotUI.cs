@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventorySlotUI : MonoBehaviour, IDragContainer<InventoryItem>
+public class InventorySlotUI : MonoBehaviour,IItemHolder, IDragContainer<InventoryItem>
 {
     // CONFIG DATA
     [SerializeField] InventoryItemIcon icon = null;
@@ -18,7 +18,7 @@ public class InventorySlotUI : MonoBehaviour, IDragContainer<InventoryItem>
     {
         this.inventory = inventory;
         this.index = index;
-        icon.SetItem(inventory.GetItemInSlot(index));
+        icon.SetItem(inventory.GetItemInSlot(index),inventory.GetNumberInSlot(index));
     }
 
     public int MaxAcceptable(InventoryItem item)
@@ -32,7 +32,7 @@ public class InventorySlotUI : MonoBehaviour, IDragContainer<InventoryItem>
 
     public void AddItems(InventoryItem item, int number)
     {
-        inventory.AddItemToSlot(index, item);
+        inventory.AddItemToSlot(index, item,number);
     }
 
     public InventoryItem GetItem()
@@ -42,11 +42,11 @@ public class InventorySlotUI : MonoBehaviour, IDragContainer<InventoryItem>
 
     public int GetNumber()
     {
-        return 1;
+        return inventory.GetNumberInSlot(index);
     }
 
     public void RemoveItems(int number)
     {
-        inventory.RemoveFromSlot(index);
+        inventory.RemoveFromSlot(index,number);
     }
 }

@@ -99,7 +99,7 @@ public class PlayerConversant : MonoBehaviour
 
     public IEnumerable<DialogueNode> GetChoices()
     {
-        return currentDialogue.GetPlayerChildren(currentNode);
+        return FilterOnCondition(currentDialogue.GetPlayerChildren(currentNode));
     }
 
     public void SelectChoice(DialogueNode chosenNode)
@@ -112,7 +112,7 @@ public class PlayerConversant : MonoBehaviour
 
     public void Next()
     {
-        int numPlayerResponses = currentDialogue.GetPlayerChildren(currentNode).Count();
+        int numPlayerResponses = FilterOnCondition(currentDialogue.GetPlayerChildren(currentNode)).Count();
         if (numPlayerResponses > 0)
         {
             isChoosing = true;
@@ -121,7 +121,7 @@ public class PlayerConversant : MonoBehaviour
             return;
         }
 
-        DialogueNode[] children = currentDialogue.GetAIChildren(currentNode).ToArray();
+        DialogueNode[] children = FilterOnCondition(currentDialogue.GetAIChildren(currentNode)).ToArray();
         int randomIndex = Random.Range(0, children.Length);
         TriggerExitAction();
         currentNode = children[randomIndex];
@@ -129,9 +129,63 @@ public class PlayerConversant : MonoBehaviour
         onConversationUpdated();
     }
 
+
+    public void ResetUI()
+    {
+        npcUI.SetActiveInteract(false);
+        npcUI.SetActiveInteractInfo(false);
+    }
+
+    private IEnumerable<DialogueNode> FilterOnCondition(IEnumerable<DialogueNode> inputNode)
+    {
+        foreach (var node in inputNode)
+        {
+            if (node.CheckCondition(GetEvaluators()))
+            {
+                yield return node;
+            }
+        }
+    }
+
+    private IEnumerable<IPredicateEvaluator> GetEvaluators()
+    {
+        return GetComponents<IPredicateEvaluator>();
+    }
+
     public bool HasNext()
     {
-        return currentDialogue.GetAllChildren(currentNode).Any();
+        return FilterOnCondition(currentDialogue.GetAllChildren(currentNode)).Any();
+    }
+
+    private void TriggerEnterAction()
+    {
+        if (currentNode != null)
+        {
+            TriggerAction(currentNode.GetOnEnterAction());
+        }
+    }
+
+    private void TriggerExitAction()
+    {
+        if (currentNode != null)
+        {
+            TriggerAction(currentNode.GetOnExitAction());
+        }
+    }
+
+    private void TriggerAction(string action)
+    {
+        if (action == "") return;
+
+        foreach (DialogueTrigger trigger in activeAIConservant.GetComponents<DialogueTrigger>())
+        {
+            trigger.Trigger(action);
+        }
+    }
+
+    public string GetCurrentConversantName()
+    {
+        return isChoosing ? playerName : activeAIConservant.GetConversantName();
     }
 
     private void CheckNearAIConversants()
@@ -225,42 +279,5 @@ public class PlayerConversant : MonoBehaviour
             npcUI.SetActiveInteractInfo(false);
             stateMachine.InteractableNPC = null;
         }
-    }
-
-    public void ResetUI()
-    {
-        npcUI.SetActiveInteract(false);
-        npcUI.SetActiveInteractInfo(false);
-    }
-
-    private void TriggerEnterAction()
-    {
-        if (currentNode != null)
-        {
-            TriggerAction(currentNode.GetOnEnterAction());
-        }
-    }
-
-    private void TriggerExitAction()
-    {
-        if (currentNode != null)
-        {
-            TriggerAction(currentNode.GetOnExitAction());
-        }
-    }
-
-    private void TriggerAction(string action)
-    {
-        if (action == "") return;
-
-        foreach (DialogueTrigger trigger in activeAIConservant.GetComponents<DialogueTrigger>())
-        {
-            trigger.Trigger(action);
-        }
-    }
-
-    public string GetCurrentConversantName()
-    {
-        return isChoosing ? playerName : activeAIConservant.GetConversantName();
     }
 }
