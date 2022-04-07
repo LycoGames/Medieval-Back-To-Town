@@ -100,6 +100,11 @@ public class Health : MonoBehaviour
         return healthPoints.value;
     }
 
+    public float GetMaxHealthPoints()
+    {
+        return GetComponent<BaseStats>().GetStat(Stat.Health);
+    }
+
     public void
         Bloodflood(Vector3 prevMarkerPos,
             Vector3 hitPos) //Instantiate blood in the direction of the marker which hit this object.

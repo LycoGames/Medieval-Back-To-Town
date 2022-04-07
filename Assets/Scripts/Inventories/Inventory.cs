@@ -129,7 +129,6 @@ public class Inventory : MonoBehaviour, ISaveable
     private int FindSlot(InventoryItem item)
     {
         int i = FindStack(item);
-        Debug.Log(i);
         if (i < 0)
         {
             i=FindEmptySlot();

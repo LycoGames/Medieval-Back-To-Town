@@ -15,7 +15,7 @@ public class HealthDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Text>().text = string.Format("{0:0}/{1:0}", health.GetHealthPoints(), health.GetInitialHealth());
+        GetComponent<Text>().text = string.Format("{0:0}/{1:0}", health.GetHealthPoints(), health.GetMaxHealthPoints());
     }
 
 }

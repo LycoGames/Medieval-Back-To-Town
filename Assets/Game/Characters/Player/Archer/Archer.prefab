@@ -2943,7 +2943,7 @@ GameObject:
   - component: {fileID: 1079253982820428422}
   - component: {fileID: 1189779057290699559}
   - component: {fileID: 9141414055476834375}
-  - component: {fileID: 450022665}
+  - component: {fileID: 2896460588736294920}
   - component: {fileID: 450022664}
   - component: {fileID: 8362726038402017693}
   - component: {fileID: 8362726038402017692}
@@ -2952,6 +2952,7 @@ GameObject:
   - component: {fileID: 5288483788167573987}
   - component: {fileID: 6354857489150003295}
   - component: {fileID: 1740259568}
+  - component: {fileID: 349326364}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -3153,7 +3154,7 @@ MonoBehaviour:
   animIDAimMoving: 0
   animIDMaskAttack1: 0
   animIDAttack1: 0
---- !u!114 &450022665
+--- !u!114 &2896460588736294920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3162,7 +3163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8362726038402017683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 563ed8f6c2ca2174aac95abbd35db572, type: 3}
+  m_Script: {fileID: 11500000, guid: 942ca2fb9ffbf634ea36f8165557f998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &450022664
@@ -3335,6 +3336,30 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6ea02926-3e32-43d2-8943-c292a121b426
     m_ActionName: Player/QuestShowHide[/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c9cfc826-98df-4cb2-9097-a9e9a7c25b90
+    m_ActionName: Player/Abilitiy1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6deb9895-9624-4231-9a73-f445429def91
+    m_ActionName: Player/Abilitiy2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5d89fdaa-1785-487c-8f4a-992f0b0abc08
+    m_ActionName: Player/Abilitiy3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3a62eec8-b2f1-40c3-b997-14eadb3097de
+    m_ActionName: Player/Abilitiy4[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 29bba88a-9dff-49ff-953d-786e4bc6540d
+    m_ActionName: Player/Abilitiy5[/Keyboard/5]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 821ab966-450a-49fc-8a2d-dc1b748d9a6c
+    m_ActionName: Player/Abilitiy6[/Keyboard/6]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3436,6 +3461,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0257b0608a9cfb647827af8076f5ab6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDropOffset: 1.5
+--- !u!114 &349326364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073da1c4b7ac6164d959d51606018211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8652713835456310759
