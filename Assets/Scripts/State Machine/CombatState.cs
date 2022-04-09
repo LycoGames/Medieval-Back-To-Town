@@ -27,9 +27,8 @@ public class CombatState : BaseState
     {
         CheckSwitchStates();
         Timers();
-
+        ctx.InputMagnitude();
         HandleAttack();
-
         if (ctx.AimTimer < 1)
             ctx.SecondLayerWeight = Mathf.Lerp(ctx.SecondLayerWeight, 0, Time.deltaTime * 2);
 
@@ -45,6 +44,7 @@ public class CombatState : BaseState
     public override void ExitState()
     {
         Debug.Log("Combat State Exit");
+        ctx.SetAnimZero();
         ctx.Anim.SetBool(ctx.animIDAimMoving, false);
     }
 

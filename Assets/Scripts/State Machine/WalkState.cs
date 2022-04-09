@@ -9,18 +9,15 @@ public class WalkState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Walk State Enter");
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Walk State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Walk State Exit");
     }
 
     public override void CheckSwitchStates()

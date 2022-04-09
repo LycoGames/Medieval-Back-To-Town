@@ -15,6 +15,7 @@ public class DialogueState : BaseState
         Debug.Log("Dialogue State Enter");
         SetRequiredComponents();
         StartDialogue();
+        ctx.CanMove = false;
     }
 
 
@@ -57,6 +58,6 @@ public class DialogueState : BaseState
     private void SetRequiredComponents()
     {
         playerConversant = ctx.GetComponent<PlayerConversant>();
-        aiConversant = ctx.InteractableNPC.GetComponent<AIConversant>();
+        aiConversant = ctx.InteractableNpc.GetComponent<AIConversant>();
     }
 }

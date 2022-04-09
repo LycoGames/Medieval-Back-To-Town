@@ -94,7 +94,7 @@ public class PlayerConversant : MonoBehaviour
 
     public AIConversant GetInteractableNPC()
     {
-        return stateMachine.InteractableNPC;
+        return stateMachine.InteractableNpc;
     }
 
     public IEnumerable<DialogueNode> GetChoices()
@@ -264,20 +264,20 @@ public class PlayerConversant : MonoBehaviour
                 canInteractDistance && activeAIConservant.CanInteractable())
             {
                 npcUI.SetActiveInteract(true);
-                stateMachine.InteractableNPC = activeAIConservant.GetComponent<AIConversant>();
+                stateMachine.InteractableNpc = activeAIConservant.GetComponent<AIConversant>();
             }
             else if (activeAIConservant.CanInteractable())
             {
                 npcUI.SetActiveInteract(false);
                 npcUI.SetActiveInteractInfo(true);
-                stateMachine.InteractableNPC = null;
+                stateMachine.InteractableNpc = null;
             }
         }
         else
         {
             npcUI.SetActiveInteract(false);
             npcUI.SetActiveInteractInfo(false);
-            stateMachine.InteractableNPC = null;
+            stateMachine.InteractableNpc = null;
         }
     }
 }

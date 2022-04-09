@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class AppState : BaseState
@@ -26,21 +25,17 @@ public class AppState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("App State Enter");
         ctx.InitializeWeapon();
     }
 
     public override void UpdateState()
     {
-        Debug.Log("App State Update");
         UserInterface();
-        ctx.InputMagnitude();
         GetTarget();
     }
 
     public override void ExitState()
     {
-        Debug.Log("App State Exit");
     }
 
     public override void CheckSwitchStates()
@@ -50,6 +45,7 @@ public class AppState : BaseState
     public override void InitializeSubState()
     {
         SetSubState(factory.GroundedState());
+        factory.GroundedState().EnterState();
     }
 
     private void UserInterface()
@@ -95,7 +91,7 @@ public class AppState : BaseState
 
         DetectEnemies();
     }
-    
+
     private void GetTarget()
     {
         if (ctx.ScreenTargets.Count == 0 && ctx.Target)

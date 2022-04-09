@@ -13,21 +13,21 @@ public class FreeState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Free State Enter");
+        ctx.CanMove = true;
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
+        ctx.InputMagnitude();
         PlayerMoveAndRotation();
         ctx.ApplyGravity();
-        Debug.Log("Free State Update");
     }
 
 
     public override void ExitState()
     {
-        Debug.Log("Free State Exit");
+        ctx.SetAnimZero();
     }
 
     public override void CheckSwitchStates()
@@ -38,15 +38,21 @@ public class FreeState : BaseState
             SwitchState(factory.CombatState());
         }
 
-        if (ctx.InteractableNPC != null && ctx.Input.interaction)
+        if (ctx.InteractableNpc != null && ctx.Input.interaction)
         {
             SwitchState(factory.DialogueState());
+        }
+
+        if (ctx.InventoryUi.activeInHierarchy)
+        {
+            SwitchState(factory.InventoryState());
         }
     }
 
     public override void InitializeSubState()
     {
         SetSubState(factory.IdleState());
+        factory.IdleState().EnterState();
     }
 
     private void PlayerMoveAndRotation()

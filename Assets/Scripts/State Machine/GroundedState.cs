@@ -9,19 +9,16 @@ public class GroundedState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Grounded State Enter");
         
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Grounded State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Grounded State Exit");
     }
 
     public override void CheckSwitchStates()
@@ -39,6 +36,7 @@ public class GroundedState : BaseState
     public override void InitializeSubState()
     {
         SetSubState(factory.FreeState());
+        factory.FreeState().EnterState();
     }
 
   

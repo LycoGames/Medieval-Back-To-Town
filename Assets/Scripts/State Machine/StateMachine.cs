@@ -12,7 +12,6 @@ public class StateMachine : MonoBehaviour
     [SerializeField] float velocity = 9;
     [SerializeField] float rotationSmoothTime = 0.12f;
     [SerializeField] float targetingSense = 2;
-    [SerializeField] bool canMove;
     [SerializeField] float aimTimer = 0;
     [SerializeField] Transform FirePoint;
 
@@ -78,16 +77,10 @@ public class StateMachine : MonoBehaviour
     BaseState currentState;
 
     BaseState currentSubState;
-    StateFactory states;
     Vector3 desiredMoveDirection;
     bool blockRotationPlayer;
-    float desiredRotationSpeed = 0.1f;
-    Animator anim;
     float Speed;
-    Camera cam;
-    CharacterController controller;
     bool isGrounded;
-    float secondLayerWeight = 0;
 
     bool casting = false;
     GameObject TargetMarker;
@@ -102,26 +95,16 @@ public class StateMachine : MonoBehaviour
 
     Vector3 moveVector;
 
-    bool activeTarget = false;
-
-
-    private Inputs input;
-    public float InputX;
-    public float InputY;
-
 //Player move temp variables
     private Vector3 forward;
     private Vector3 right;
 
     //Weapon variables
     private const string weaponName = "Unarmed";
-    private WeaponConfig currentWeaponConfig;
     private LazyValue<Weapon> currentWeapon;
 
-    private bool rotateState = false;
 
-
-//Animaiton IDs
+    //Animaiton IDs
     [HideInInspector] public int animIDInputX;
 
     [HideInInspector] public int animIDInputY;
@@ -143,9 +126,9 @@ public class StateMachine : MonoBehaviour
     [HideInInspector] public int animIDMaskAttack2;
 
     [HideInInspector] public int animIDUpAttack2;*/
-    
+
     //CAMERA ROTATION
-    
+
     private const float Threshold = 0.01f;
     private const int CursorSwitchSpeed = 1000;
 
@@ -163,118 +146,52 @@ public class StateMachine : MonoBehaviour
 
     //Action store
     private ActionStore actionStore;
-    
+
     //Equipment
     private Equipment equipment;
 
+    //Inventory Ui
+    private GameObject inventoryUi;
 
 
     public BaseState CurrentState
     {
-        get => currentState;
         set => currentState = value;
     }
 
-    public StateFactory States
-    {
-        get => states;
-        set => states = value;
-    }
+    public StateFactory States { get; private set; }
 
 
-    public Inputs Input
-    {
-        get => input;
-        set => input = value;
-    }
+    public Inputs Input { get; private set; }
 
     public bool LockCameraPosition
     {
-        get => lockCameraPosition;
         set => lockCameraPosition = value;
     }
 
-    public GameObject AimUI
-    {
-        get => aimUI;
-        set => aimUI = value;
-    }
+    public GameObject AimUI => aimUI;
 
-    public AIConversant InteractableNPC
+    public AIConversant InteractableNpc
     {
         get => interactableNPC;
         set => interactableNPC = value;
     }
 
-    public GameObject CinemachineCameraTarget
-    {
-        get => cinemachineCameraTarget;
-        set => cinemachineCameraTarget = value;
-    }
 
-    public float TopClamp
-    {
-        get => topClamp;
-        set => topClamp = value;
-    }
+    public Animator Anim { get; private set; }
 
-    public float BottomClamp
-    {
-        get => bottomClamp;
-        set => bottomClamp = value;
-    }
-
-    public float CameraAngleOverride
-    {
-        get => cameraAngleOverride;
-        set => cameraAngleOverride = value;
-    }
+    public CharacterController Controller { get; private set; }
 
 
-    public Animator Anim
-    {
-        get => anim;
-        set => anim = value;
-    }
+    public Vector3 Forward => forward;
 
-    public CharacterController Controller
-    {
-        get => controller;
-        set => controller = value;
-    }
+    public float DesiredRotationSpeed { get; } = 0.1f;
 
+    public float Velocity => velocity;
 
-    public Vector3 Forward
-    {
-        get => forward;
-        set => forward = value;
-    }
+    public float RotationSmoothTime => rotationSmoothTime;
 
-    public Vector3 Right
-    {
-        get => right;
-        set => right = value;
-    }
-
-    public float DesiredRotationSpeed
-    {
-        get => desiredRotationSpeed;
-        set => desiredRotationSpeed = value;
-    }
-
-    public float Velocity
-    {
-        get => velocity;
-        set => velocity = value;
-    }
-
-    public float RotationSmoothTime
-    {
-        get => rotationSmoothTime;
-        set => rotationSmoothTime = value;
-    }
-
-    public float TargetRotation { get; set; } = 0.0f;
+    public float TargetRotation { get; set; }
 
     public float AimTimer
     {
@@ -282,77 +199,33 @@ public class StateMachine : MonoBehaviour
         set => aimTimer = value;
     }
 
-    public float SecondLayerWeight
-    {
-        get => secondLayerWeight;
-        set => secondLayerWeight = value;
-    }
+    public float SecondLayerWeight { get; set; }
 
-    public Vector3 DesiredMoveDirection
-    {
-        get => desiredMoveDirection;
-        set => desiredMoveDirection = value;
-    }
+    public Vector3 DesiredMoveDirection => desiredMoveDirection;
 
-    public Camera Cam
-    {
-        get => cam;
-        set => cam = value;
-    }
+    public Camera Cam { get; private set; }
 
-    public Vector2 UiOffset
-    {
-        get => uiOffset;
-        set => uiOffset = value;
-    }
+    public Vector2 UiOffset => uiOffset;
 
-    public LayerMask CollidingLayer
-    {
-        get => collidingLayer;
-        set => collidingLayer = value;
-    }
+    public LayerMask CollidingLayer => collidingLayer;
 
-    public Image Aim
-    {
-        get => aim;
-        set => aim = value;
-    }
+    public Image Aim => aim;
 
-    public bool ActiveTarget
-    {
-        get => activeTarget;
-        set => activeTarget = value;
-    }
+    public bool ActiveTarget { get; set; }
 
-    public List<Transform> ScreenTargets
-    {
-        get => screenTargets;
-        set => screenTargets = value;
-    }
+    public List<Transform> ScreenTargets => screenTargets;
 
-    public bool CanMove
-    {
-        get => canMove;
-        set => canMove = value;
-    }
+    public bool RotateState { get; private set; } = false;
 
-    public bool RotateState
-    {
-        get => rotateState;
-        set => rotateState = value;
-    }
+    public float FireRate => fireRate;
 
-    public float FireRate
-    {
-        get => fireRate;
-        set => fireRate = value;
-    }
+    public float TargetingSense => targetingSense;
 
-    public float TargetingSense
-    {
-        get => targetingSense;
-        set => targetingSense = value;
-    }
+    public float InputX { get; set; }
+    public float InputY { get; set; }
+
+    public bool CanMove { get; set; }
+
 
     public Transform Target
     {
@@ -360,26 +233,19 @@ public class StateMachine : MonoBehaviour
         set => target = value;
     }
 
-    public WeaponConfig CurrentWeaponConfig
-    {
-        get => currentWeaponConfig;
-        set => currentWeaponConfig = value;
-    }
+    public WeaponConfig CurrentWeaponConfig { get; private set; }
 
-    public ActionStore ActionStore
-    {
-        get => actionStore;
-    }
+    public GameObject InventoryUi => inventoryUi;
 
     //User interface variables
 
 
     void Awake()
     {
-        states = new StateFactory(this);
-        currentState = states.AppState();
+        States = new StateFactory(this);
+        currentState = States.AppState();
         currentState.EnterState();
-        
+
         equipment = GetComponent<Equipment>();
         if (equipment)
         {
@@ -403,9 +269,9 @@ public class StateMachine : MonoBehaviour
         //     GetEnemies();
         // }
 
-        if (anim.layerCount > 1)
+        if (Anim.layerCount > 1)
         {
-            anim.SetLayerWeight(1, secondLayerWeight);
+            Anim.SetLayerWeight(1, SecondLayerWeight);
         }
     }
 
@@ -416,32 +282,33 @@ public class StateMachine : MonoBehaviour
 
     public void InputMagnitude()
     {
-        if (!canMove)
+        if (!CanMove)
         {
             SetAnimZero();
             return;
         }
 
-        InputX = input.move.x;
-        InputY = input.move.y;
+        InputX = Input.move.x;
+        InputY = Input.move.y;
 
         //TODO anim input z ve inputx set edildi 651
-        anim.SetFloat(animIDInputY, InputY, VerticalAnimTime, Time.deltaTime * 2f);
-        anim.SetFloat(animIDInputX, InputX, HorizontalAnimSmoothTime, Time.deltaTime * 2f);
+        Anim.SetFloat(animIDInputY, InputY, VerticalAnimTime, Time.deltaTime * 2f);
+        Anim.SetFloat(animIDInputX, InputX, HorizontalAnimSmoothTime, Time.deltaTime * 2f);
 
-        Speed = new Vector2(input.move.x, input.move.y).sqrMagnitude;
+        Speed = new Vector2(Input.move.x, Input.move.y).sqrMagnitude;
         //TODO 658 stateler ile halledildi.
 
         PlayerMoveAndRotationInput();
     }
 
+
     private void PlayerMoveAndRotationInput()
     {
-        InputX = input.move.x;
-        InputY = input.move.y;
+        InputX = Input.move.x;
+        InputY = Input.move.y;
 
-        forward = cam.transform.forward;
-        right = cam.transform.right;
+        forward = Cam.transform.forward;
+        right = Cam.transform.right;
 
         forward.y = 0f;
         right.y = 0f;
@@ -456,16 +323,17 @@ public class StateMachine : MonoBehaviour
 
     private void GetRequiredComponents()
     {
-        input = GetComponent<Inputs>();
-        anim = GetComponent<Animator>();
+        Input = GetComponent<Inputs>();
+        Anim = GetComponent<Animator>();
         actionStore = GetComponent<ActionStore>();
-        cam = Camera.main;
+        Cam = Camera.main;
         if (target)
         {
             target = screenTargets[targetIndex()];
         }
 
-        controller = GetComponent<CharacterController>();
+        inventoryUi = GameObject.FindGameObjectWithTag("Inventory");
+        Controller = GetComponent<CharacterController>();
     }
 
     private void AssignAnimationIDs()
@@ -498,7 +366,7 @@ public class StateMachine : MonoBehaviour
     public void ApplyGravity()
     {
         //If you don't need the character grounded then get rid of this part.
-        isGrounded = controller.isGrounded;
+        isGrounded = Controller.isGrounded;
         if (isGrounded)
         {
             verticalVel = 0;
@@ -509,7 +377,7 @@ public class StateMachine : MonoBehaviour
         }
 
         moveVector = new Vector3(0, verticalVel, 0);
-        controller.Move(moveVector);
+        Controller.Move(moveVector);
     }
 
     public void StartRotateCoroutine(float rotatingTime, Vector3 targetPoint)
@@ -519,7 +387,7 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator RotateToTarget(float rotatingTime, Vector3 targetPoint)
     {
-        rotateState = true;
+        RotateState = true;
         float delay = rotatingTime;
         var lookPos = targetPoint - transform.position;
         lookPos.y = 0;
@@ -530,7 +398,7 @@ public class StateMachine : MonoBehaviour
             delay -= Time.deltaTime;
             if (delay <= 0 || transform.rotation == rotation)
             {
-                rotateState = false;
+                RotateState = false;
                 yield break;
             }
 
@@ -540,8 +408,8 @@ public class StateMachine : MonoBehaviour
 
     public void PerformBasicAttack()
     {
-        anim.SetTrigger(animIDMaskAttack1);
-        secondLayerWeight = Mathf.Lerp(secondLayerWeight, 0.5f, Time.deltaTime * 60);
+        Anim.SetTrigger(animIDMaskAttack1);
+        SecondLayerWeight = Mathf.Lerp(SecondLayerWeight, 0.5f, Time.deltaTime * 60);
         try
         {
             PrefabsCast[8].GetComponent<ParticleSystem>().Play();
@@ -554,7 +422,7 @@ public class StateMachine : MonoBehaviour
         //float damage = currentWeaponConfig.GetDamage() + GetComponent<BaseStats>().GetStat(Stat.Damage);
         Debug.Log(uiOffset);
         var damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
-        currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage,
+        CurrentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage,
             uiOffset);
         //StartCoroutine(cameraShaker.Shake(0.1f, 2, 0.2f, 0));
     }
@@ -564,7 +432,7 @@ public class StateMachine : MonoBehaviour
         float[] distances = new float[screenTargets.Count];
         for (int i = 0; i < screenTargets.Count; i++)
         {
-            distances[i] = Vector2.Distance(cam.WorldToScreenPoint(screenTargets[i].position),
+            distances[i] = Vector2.Distance(Cam.WorldToScreenPoint(screenTargets[i].position),
                 new Vector2(Screen.width / 2, Screen.height / 2));
         }
 
@@ -582,30 +450,20 @@ public class StateMachine : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, currentWeaponConfig ? currentWeaponConfig.GetRange() : 0f);
+        Gizmos.DrawWireSphere(transform.position, CurrentWeaponConfig ? CurrentWeaponConfig.GetRange() : 0f);
     }
 
     public void InitializeWeapon()
     {
-        currentWeaponConfig = defaultWeapon;
+        CurrentWeaponConfig = defaultWeapon;
         currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
         currentWeapon.ForceInit();
     }
 
     public void EquipWeapon(WeaponConfig weapon)
     {
-        currentWeaponConfig = weapon;
+        CurrentWeaponConfig = weapon;
         currentWeapon.value = AttachWeapon(weapon);
-    }
-
-    public Weapon GetCurrentWeapon()
-    {
-        return currentWeapon.value;
-    }
-
-    public float GetWeaponDamage()
-    {
-        return currentWeaponConfig.GetDamage();
     }
 
     private Weapon SetupDefaultWeapon()
@@ -619,19 +477,20 @@ public class StateMachine : MonoBehaviour
         return weapon.Spawn(rightHandTransform, leftHandTransform, weaponAnimator);
     }
 
+
     public void SetAnimZero()
     {
-        anim.SetFloat(animIDInputY, 0);
-        anim.SetFloat(animIDInputX, 0);
+        Anim.SetFloat(animIDInputY, 0);
+        Anim.SetFloat(animIDInputX, 0);
     }
-    
+
     private void CameraRotation()
     {
         // if there is an input and camera position is not fixed
-        if (input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
+        if (Input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
         {
-            cinemachineTargetYaw += input.look.x * Time.deltaTime;
-            cinemachineTargetPitch += input.look.y * Time.deltaTime;
+            cinemachineTargetYaw += Input.look.x * Time.deltaTime;
+            cinemachineTargetPitch += Input.look.y * Time.deltaTime;
         }
 
         // clamp our rotations so our values are limited 360 degrees
@@ -657,42 +516,52 @@ public class StateMachine : MonoBehaviour
 
     private void UpdateWeapon()
     {
-        var weapon= equipment.GetItemInSlot(EquipLocation.PrimaryWeapon) as WeaponConfig;
+        var weapon = equipment.GetItemInSlot(EquipLocation.PrimaryWeapon) as WeaponConfig;
         EquipWeapon(weapon == null ? defaultWeapon : weapon);
     }
-    
-    
+
+
     public void OnAbility1(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
             actionStore.Use(0, gameObject);
         }
-    }public void OnAbility2(InputAction.CallbackContext ctx)
+    }
+
+    public void OnAbility2(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
             actionStore.Use(1, gameObject);
         }
-    }public void OnAbility3(InputAction.CallbackContext ctx)
+    }
+
+    public void OnAbility3(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
             actionStore.Use(2, gameObject);
         }
-    }public void OnAbility4(InputAction.CallbackContext ctx)
+    }
+
+    public void OnAbility4(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
             actionStore.Use(3, gameObject);
         }
-    }public void OnAbility5(InputAction.CallbackContext ctx)
+    }
+
+    public void OnAbility5(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
             actionStore.Use(4, gameObject);
         }
-    }public void OnAbility6(InputAction.CallbackContext ctx)
+    }
+
+    public void OnAbility6(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
