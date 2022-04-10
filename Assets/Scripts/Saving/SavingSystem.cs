@@ -40,6 +40,23 @@ public class SavingSystem : MonoBehaviour
         File.Delete(GetPathFromSaveFile(saveFile));
     }
 
+    public bool SaveFileExists(string saveFile)
+    {
+        string path = GetPathFromSaveFile(saveFile);
+        return File.Exists(path);
+    }
+
+    public IEnumerable<string> ListSaves()
+    {
+        foreach (string path in Directory.EnumerateFiles(Application.persistentDataPath))
+        {
+            if (Path.GetExtension(path) == ".sav")
+            {
+                yield return Path.GetFileNameWithoutExtension(path);
+            }
+        }
+    }
+
     private Dictionary<string, object> LoadFile(string saveFile)
     {
         string path = GetPathFromSaveFile(saveFile);

@@ -30,6 +30,9 @@ public class WeaponConfig : EquipableItem, IModifierProvider
                 weapon = Instantiate(equippedPrefab, rightHand);
                 weapon.gameObject.name = weaponName;
                 weapon = Instantiate(equippedPrefab, leftHand);
+         
+                weapon.transform.localPosition = new Vector3(0.0071f, -0.041f, -0.0144f);
+                weapon.transform.localRotation = new Quaternion(-5.086f, 0.049f, -171.515f, 1);
                 weapon.gameObject.name = weaponName;
             }
             else

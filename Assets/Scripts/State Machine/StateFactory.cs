@@ -27,9 +27,9 @@ public class StateFactory
         return new DialogueState(context, this);
     }
 
-    public BaseState InventoryState()
+    public BaseState UiState()
     {
-        return new InventoryState(context, this);
+        return new UiState(context, this);
     }
 
     public BaseState IdleState()

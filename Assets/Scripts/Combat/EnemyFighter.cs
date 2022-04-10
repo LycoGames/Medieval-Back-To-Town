@@ -35,6 +35,7 @@ public class EnemyFighter : MonoBehaviour, IAction
     void Update()
     {
         if (targetPlayer == null) return;
+        if (targetPlayer.IsDead()) return;
         if (!GetIsInRange(targetPlayer.transform))
         {
             enemyAIController.MoveTo(targetPlayer.transform.position, 1f);

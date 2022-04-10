@@ -14,6 +14,7 @@ public class ShowHideUI : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<StateMachine>();
+        player.InventoryUi = uiContainer.gameObject;
         uiContainer.SetActive(false);
         Cursor.visible = false;
     }
@@ -24,11 +25,13 @@ public class ShowHideUI : MonoBehaviour
         {
             Cursor.visible = false;
             player.LockCameraPosition = false;
+            player.AimUI.SetActive(true);
         }
         else
         {
             Cursor.visible = true;
             player.LockCameraPosition = true;
+            player.AimUI.SetActive(false);
         }
 
         uiContainer.SetActive(!uiContainer.activeSelf);

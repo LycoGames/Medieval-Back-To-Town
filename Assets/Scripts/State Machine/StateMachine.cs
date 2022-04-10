@@ -150,10 +150,6 @@ public class StateMachine : MonoBehaviour
     //Equipment
     private Equipment equipment;
 
-    //Inventory Ui
-    private GameObject inventoryUi;
-
-
     public BaseState CurrentState
     {
         set => currentState = value;
@@ -226,6 +222,8 @@ public class StateMachine : MonoBehaviour
 
     public bool CanMove { get; set; }
 
+    public GameObject[] MainUiArray { get; private set; }
+
 
     public Transform Target
     {
@@ -235,7 +233,7 @@ public class StateMachine : MonoBehaviour
 
     public WeaponConfig CurrentWeaponConfig { get; private set; }
 
-    public GameObject InventoryUi => inventoryUi;
+    public GameObject InventoryUi { get; set; }
 
     //User interface variables
 
@@ -332,8 +330,11 @@ public class StateMachine : MonoBehaviour
             target = screenTargets[targetIndex()];
         }
 
-        inventoryUi = GameObject.FindGameObjectWithTag("Inventory");
         Controller = GetComponent<CharacterController>();
+
+        GameObject[] tempUiList = GameObject.FindGameObjectsWithTag("MainUI");
+        MainUiArray = new GameObject [tempUiList.Length];
+        MainUiArray = tempUiList;
     }
 
     private void AssignAnimationIDs()

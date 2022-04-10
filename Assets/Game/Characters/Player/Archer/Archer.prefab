@@ -2953,6 +2953,7 @@ GameObject:
   - component: {fileID: 6354857489150003295}
   - component: {fileID: 349326364}
   - component: {fileID: 3359202330842244405}
+  - component: {fileID: 9037901904075861384}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Player
@@ -3121,10 +3122,9 @@ MonoBehaviour:
   velocity: 7
   rotationSmoothTime: 0.12
   targetingSense: 3
-  canMove: 1
   aimTimer: 3
   FirePoint: {fileID: 8362726037644797101}
-  defaultWeapon: {fileID: 11400000, guid: 1d26e52e1c2e3ec469d4c1d51a9a52c0, type: 2}
+  defaultWeapon: {fileID: 11400000, guid: aa9381d1cf866174394caf40dd6e4889, type: 2}
   rightHandTransform: {fileID: 2834242506025130331}
   leftHandTransform: {fileID: 304833747960443515}
   collidingLayer:
@@ -3147,8 +3147,6 @@ MonoBehaviour:
   VerticalAnimTime: 0.2
   target: {fileID: 0}
   interactableNPC: {fileID: 0}
-  InputX: 0
-  InputY: 0
   animIDInputX: 0
   animIDInputY: 0
   animIDAimMoving: 0
@@ -3476,6 +3474,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scatterDistance: 1.6
+--- !u!114 &9037901904075861384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362726038402017683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f26506bc48154438a56710554731c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8652713835456310759
 GameObject:
   m_ObjectHideFlags: 0

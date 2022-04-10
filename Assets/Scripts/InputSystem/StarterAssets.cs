@@ -137,6 +137,14 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""29d08f40-d14a-40af-a622-82cc4395b220"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -436,6 +444,17 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                     ""action"": ""Abilitiy6"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8940f3a3-7895-4db8-bdfa-1936e46f11a0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -507,6 +526,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         m_Player_Abilitiy4 = m_Player.FindAction("Abilitiy4", throwIfNotFound: true);
         m_Player_Abilitiy5 = m_Player.FindAction("Abilitiy5", throwIfNotFound: true);
         m_Player_Abilitiy6 = m_Player.FindAction("Abilitiy6", throwIfNotFound: true);
+        m_Player_PauseMenu = m_Player.FindAction("PauseMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -571,6 +591,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Abilitiy4;
     private readonly InputAction m_Player_Abilitiy5;
     private readonly InputAction m_Player_Abilitiy6;
+    private readonly InputAction m_Player_PauseMenu;
     public struct PlayerActions
     {
         private @StarterAssets m_Wrapper;
@@ -590,6 +611,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         public InputAction @Abilitiy4 => m_Wrapper.m_Player_Abilitiy4;
         public InputAction @Abilitiy5 => m_Wrapper.m_Player_Abilitiy5;
         public InputAction @Abilitiy6 => m_Wrapper.m_Player_Abilitiy6;
+        public InputAction @PauseMenu => m_Wrapper.m_Player_PauseMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -644,6 +666,9 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 @Abilitiy6.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy6;
                 @Abilitiy6.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy6;
                 @Abilitiy6.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy6;
+                @PauseMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -693,6 +718,9 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 @Abilitiy6.started += instance.OnAbilitiy6;
                 @Abilitiy6.performed += instance.OnAbilitiy6;
                 @Abilitiy6.canceled += instance.OnAbilitiy6;
+                @PauseMenu.started += instance.OnPauseMenu;
+                @PauseMenu.performed += instance.OnPauseMenu;
+                @PauseMenu.canceled += instance.OnPauseMenu;
             }
         }
     }
@@ -750,5 +778,6 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         void OnAbilitiy4(InputAction.CallbackContext context);
         void OnAbilitiy5(InputAction.CallbackContext context);
         void OnAbilitiy6(InputAction.CallbackContext context);
+        void OnPauseMenu(InputAction.CallbackContext context);
     }
 }
