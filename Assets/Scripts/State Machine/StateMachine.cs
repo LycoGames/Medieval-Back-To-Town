@@ -151,7 +151,6 @@ public class StateMachine : MonoBehaviour
     private Equipment equipment;
 
     //Inventory Ui
-    private GameObject inventoryUi;
 
 
     public BaseState CurrentState
@@ -235,7 +234,7 @@ public class StateMachine : MonoBehaviour
 
     public WeaponConfig CurrentWeaponConfig { get; private set; }
 
-    public GameObject InventoryUi => inventoryUi;
+    public GameObject InventoryUi { get; set; }
 
     //User interface variables
 
@@ -332,7 +331,6 @@ public class StateMachine : MonoBehaviour
             target = screenTargets[targetIndex()];
         }
 
-        inventoryUi = GameObject.FindGameObjectWithTag("Inventory");
         Controller = GetComponent<CharacterController>();
     }
 
