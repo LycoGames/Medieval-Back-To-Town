@@ -50,14 +50,12 @@ public class Health : MonoBehaviour
     public float destroyDelay;
     private HealthBar healthBar;
 
-    //bool isDead = false;
+    bool wasDeadLastFrame = false;
 
     GameObject bloodInstance;
     int hurtAnimRandomisation;
     int deathAnimRandomisation;
     int hurtSoundRandomisation;
-
-    private bool isDead = false;
 
     private void Awake()
     {
@@ -77,6 +75,8 @@ public class Health : MonoBehaviour
         {
             healthBar.SetMaxHealth(GetInitialHealth());
         }
+
+        onDie.AddListener(UpdateState);
     }
 
     private void OnEnable()
@@ -118,7 +118,7 @@ public class Health : MonoBehaviour
 
     public void ApplyDamage(GameObject insigator, float dmg) //Let's apply some damage on hit, shall we?
     {
-        if (isDead) return;
+        if (IsDead()) return;
         healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
 
         takeDamage.Invoke(); //event
@@ -233,13 +233,10 @@ public class Health : MonoBehaviour
             }
         }
 
-        if (healthPoints.value <= 0) //Death,
+        if (IsDead()) //Death,
         {
-            if (insigator.CompareTag("Player"))
-                insigator.GetComponent<Experience>()
-                    .GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
             onDie.Invoke();
-
+            AwardExperience(insigator);
             //Spawn Of Death
 
             //components
@@ -355,23 +352,44 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void UpdateState()
     {
-        /*if (GetComponent<Fighter>().GetCurrentWeapon() != null)
-            Destroy(GetComponent<Fighter>().GetCurrentWeapon(), destroyDelay);*/
+        Animator animator = GetComponent<Animator>();
+        if (!wasDeadLastFrame && IsDead())
+        {
+            if (gameObject.CompareTag("Player")) return;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
+            Destroy(gameObject,destroyDelay);
+        }
 
-        isDead = true;
-        GetComponent<ActionScheduler>().CancelCurrentAction();
-        Destroy(gameObject, destroyDelay);
+        if (wasDeadLastFrame && !IsDead())
+        {
+            animator.Rebind();
+        }
+
+        wasDeadLastFrame = IsDead();
     }
 
     public bool IsDead()
     {
-        return isDead;
+        return healthPoints.value <= 0;
+    }
+
+    private void AwardExperience(GameObject insigator)
+    {
+        Experience experience = insigator.GetComponent<Experience>();
+        if (experience == null) return;
+
+        experience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
     }
 
     bool AnimatorIsPlaying(string stateName)
     {
         return hurtAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+    }
+
+    public void Heal(float healthToRestore)
+    {
+        healthPoints.value = Mathf.Min(healthPoints.value + healthToRestore, GetMaxHealthPoints());
     }
 }

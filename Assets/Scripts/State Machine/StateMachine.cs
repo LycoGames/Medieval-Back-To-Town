@@ -150,9 +150,6 @@ public class StateMachine : MonoBehaviour
     //Equipment
     private Equipment equipment;
 
-    //Inventory Ui
-
-
     public BaseState CurrentState
     {
         set => currentState = value;
@@ -224,6 +221,8 @@ public class StateMachine : MonoBehaviour
     public float InputY { get; set; }
 
     public bool CanMove { get; set; }
+
+    public GameObject[] MainUiArray { get; private set; }
 
 
     public Transform Target
@@ -332,6 +331,10 @@ public class StateMachine : MonoBehaviour
         }
 
         Controller = GetComponent<CharacterController>();
+
+        GameObject[] tempUiList = GameObject.FindGameObjectsWithTag("MainUI");
+        MainUiArray = new GameObject [tempUiList.Length];
+        MainUiArray = tempUiList;
     }
 
     private void AssignAnimationIDs()

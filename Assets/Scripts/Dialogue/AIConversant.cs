@@ -53,7 +53,9 @@ public class AIConversant : MonoBehaviour
 
     public bool CanInteractable()
     {
-        return interactable;
+        Health health = GetComponent<Health>();
+
+        return health ? !health.IsDead() && interactable : interactable;
     }
 
     public void SetInteractable(bool state)
