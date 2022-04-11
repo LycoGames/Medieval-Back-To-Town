@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class UiState : BaseState
 {
+    //TODO Paneller kaydırılacak
     public UiState(StateMachine currentContext, StateFactory stateFactory) : base(currentContext, stateFactory)
     {
     }

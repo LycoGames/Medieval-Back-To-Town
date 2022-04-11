@@ -289,12 +289,10 @@ public class StateMachine : MonoBehaviour
         InputX = Input.move.x;
         InputY = Input.move.y;
 
-        //TODO anim input z ve inputx set edildi 651
         Anim.SetFloat(animIDInputY, InputY, VerticalAnimTime, Time.deltaTime * 2f);
         Anim.SetFloat(animIDInputX, InputX, HorizontalAnimSmoothTime, Time.deltaTime * 2f);
 
         Speed = new Vector2(Input.move.x, Input.move.y).sqrMagnitude;
-        //TODO 658 stateler ile halledildi.
 
         PlayerMoveAndRotationInput();
     }

@@ -43,6 +43,7 @@ public class FreeState : BaseState
             SwitchState(factory.DialogueState());
         }
 
+        //TODO
         foreach (GameObject ui in ctx.MainUiArray)
         {
             if (ui.activeInHierarchy)

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class WStateMachine : MonoBehaviour
 {
-    //TODO console çıktılarını in game hale getirilecek ekrananın sağ tarafından akacak
     [Header("Player")] [Tooltip("Move speed of the character in m/s")] [SerializeField]
     private float moveSpeed = 2.0f;
 

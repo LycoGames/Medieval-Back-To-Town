@@ -26,10 +26,13 @@ public class Respawner : MonoBehaviour
     {
         SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
         savingWrapper.Save();
+        StateMachine stateMachine= GetComponent<StateMachine>();
+        stateMachine.enabled = false;
         yield return new WaitForSeconds(respawnDelay);
         Fader fader = FindObjectOfType<Fader>();
         yield return fader.FadeOut(fadeTime);
         RespawnPlayer();
+        stateMachine.enabled = true;
         ResetEnemies();
         yield return fader.FadeIn(fadeTime);
     }

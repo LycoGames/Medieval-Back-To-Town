@@ -17,8 +17,6 @@ public class CombatState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Combat State Enter");
-
         ctx.AimTimer = 2;
         ctx.Anim.SetBool(ctx.animIDAimMoving, true);
     }
@@ -37,13 +35,10 @@ public class CombatState : BaseState
 
 
         ctx.ApplyGravity();
-
-        Debug.Log("Combat State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Combat State Exit");
         ctx.SetAnimZero();
         ctx.Anim.SetBool(ctx.animIDAimMoving, false);
     }
@@ -66,8 +61,6 @@ public class CombatState : BaseState
     {
         ctx.transform.rotation = Quaternion.Slerp(ctx.transform.rotation, Quaternion.LookRotation(ctx.Forward),
             ctx.DesiredRotationSpeed);
-        //TODO rotation 2
-
         if (ctx.InputY < -0.3)
             ctx.Controller.Move(ctx.DesiredMoveDirection * Time.deltaTime * (ctx.Velocity / 2.4f));
         else if (ctx.InputX < -0.1 || ctx.InputX > 0.1)

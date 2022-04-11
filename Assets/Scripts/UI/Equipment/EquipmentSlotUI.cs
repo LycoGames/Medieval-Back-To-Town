@@ -37,7 +37,7 @@ public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<Invent
         if (equipableItem == null) return 0;
         if (equipableItem.GetAllowedEquipLocation() != equipLocation) return 0;
         if (GetItem() != null) return 0;
-
+        //TODO
         if (!isSlotItemAllowedSpesificCharacterClasses) return 1;
 
         return equipableItem.GetAllowedCharacterClasses()
