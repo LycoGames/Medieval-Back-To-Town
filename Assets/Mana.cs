@@ -23,9 +23,11 @@ public class Mana : MonoBehaviour
                 mana.value = GetMaxMana();
             }
         }
+        
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             print("mana: " + mana.value);
+            print("max mana: " + GetMaxMana());
         }
     }
 
