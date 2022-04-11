@@ -8,18 +8,15 @@ public class IdleState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Idle State Enter");
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Idle State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Idle State Exit");
     }
 
     public override void CheckSwitchStates()

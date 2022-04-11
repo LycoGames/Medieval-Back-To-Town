@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class WStateMachine : MonoBehaviour
 {
-    //TODO console çıktılarını in game hale getirilecek ekrananın sağ tarafından akacak
     [Header("Player")] [Tooltip("Move speed of the character in m/s")] [SerializeField]
     private float moveSpeed = 2.0f;
 
@@ -100,204 +99,231 @@ public class WStateMachine : MonoBehaviour
 
     public WBaseState CurrentState
     {
-        get { return currentState; }
-        set { currentState = value; }
+        get => currentState;
+        set => currentState = value;
     }
 
     public WStateFactory States
     {
-        get { return states; }
+        get => states;
+        set => states = value;
     }
 
     public Inputs Input
     {
-        get { return input; }
+        get => input;
+        set => input = value;
     }
 
     //Camera
     public Camera MainCamera
     {
-        get { return mainCamera; }
+        get => mainCamera;
+        set => mainCamera = value;
     }
 
     public bool LockCameraPosition
     {
-        get { return lockCameraPosition; }
+        get => lockCameraPosition;
+        set => lockCameraPosition = value;
     }
 
     public GameObject CinemachineCameraTarget
     {
-        get { return cinemachineCameraTarget; }
+        get => cinemachineCameraTarget;
+        set => cinemachineCameraTarget = value;
     }
 
     public float TopClamp
     {
-        get { return topClamp; }
+        get => topClamp;
+        set => topClamp = value;
     }
 
     public float BottomClamp
     {
-        get { return bottomClamp; }
+        get => bottomClamp;
+        set => bottomClamp = value;
     }
 
     public float CameraAngleOverride
     {
-        get { return cameraAngleOverride; }
+        get => cameraAngleOverride;
+        set => cameraAngleOverride = value;
     }
 
     public float GroundedOffset
     {
-        get { return groundedOffset; }
+        get => groundedOffset;
+        set => groundedOffset = value;
     }
 
     public float GroundedRadius
     {
-        get { return groundedRadius; }
+        get => groundedRadius;
+        set => groundedRadius = value;
     }
 
     public bool Grounded
     {
-        get { return grounded; }
-        set { grounded = value; }
+        get => grounded;
+        set => grounded = value;
     }
 
 
     public LayerMask GroundLayers
     {
-        get { return groundLayers; }
+        get => groundLayers;
+        set => groundLayers = value;
     }
 
     public bool HasAnimator
     {
-        get { return hasAnimator; }
+        get => hasAnimator;
+        set => hasAnimator = value;
     }
 
     public Animator Animator
     {
-        get { return animator; }
+        get => animator;
+        set => animator = value;
     }
 
     //animation
 
     public int AnimIDSpeed
     {
-        get { return animIDSpeed; }
+        get => animIDSpeed;
+        set => animIDSpeed = value;
     }
 
     public int AnimIDGrounded
     {
-        get { return animIDGrounded; }
+        get => animIDGrounded;
+        set => animIDGrounded = value;
     }
 
     public int AnimIDJump
     {
-        get { return animIDJump; }
+        get => animIDJump;
+        set => animIDJump = value;
     }
 
     public int AnimIDFreeFall
     {
-        get { return animIDFreeFall; }
+        get => animIDFreeFall;
+        set => animIDFreeFall = value;
     }
 
     public int AnimIDMotionSpeed
     {
-        get { return animIDMotionSpeed; }
-    }public int AnimIDInCombat
+        get => animIDMotionSpeed;
+        set => animIDMotionSpeed = value;
+    }
+
+    public int AnimIDInCombat
     {
-        get { return animIDInCombat; }
+        get => animIDInCombat;
+        set => animIDInCombat = value;
     }
 
     public float FallTimeout
     {
-        get { return fallTimeout; }
+        get => fallTimeout;
+        set => fallTimeout = value;
     }
 
     //player
     public float Speed
     {
-        get { return speed; }
-        set { speed = value; }
+        get => speed;
+        set => speed = value;
     }
 
     public float AnimationBlend
     {
-        get { return animationBlend; }
-        set { animationBlend = value; }
+        get => animationBlend;
+        set => animationBlend = value;
     }
 
     public float TargetRotation
     {
-        get { return targetRotation; }
-        set { targetRotation = value; }
+        get => targetRotation;
+        set => targetRotation = value;
     }
 
     public float RotationVelocity
     {
-        get { return rotationVelocity; }
-        set { rotationVelocity = value; }
+        get => rotationVelocity;
+        set => rotationVelocity = value;
     }
 
     public float RotationSmoothTime
     {
-        get { return rotationSmoothTime; }
+        get => rotationSmoothTime;
+        set => rotationSmoothTime = value;
     }
 
     public float VerticalVelocity
     {
-        get { return verticalVelocity; }
-        set { verticalVelocity = value; }
+        get => verticalVelocity;
+        set => verticalVelocity = value;
     }
 
     public float TerminalVelocity
     {
-        get { return terminalVelocity; }
-        set { terminalVelocity = value; }
+        get => terminalVelocity;
+        set => terminalVelocity = value;
     }
 
     public float JumpTimeoutDelta
     {
-        get { return jumpTimeoutDelta; }
-        set { jumpTimeoutDelta = value; }
+        get => jumpTimeoutDelta;
+        set => jumpTimeoutDelta = value;
     }
 
     public float FallTimeoutDelta
     {
-        get { return fallTimeoutDelta; }
-        set { fallTimeoutDelta = value; }
+        get => fallTimeoutDelta;
+        set => fallTimeoutDelta = value;
     }
 
     public float TargetSpeed
     {
-        get { return targetSpeed; }
-        set { targetSpeed = value; }
+        get => targetSpeed;
+        set => targetSpeed = value;
     }
 
     public float SpeedChangeRate
     {
-        get { return speedChangeRate; }
-        set { speedChangeRate = value; }
+        get => speedChangeRate;
+        set => speedChangeRate = value;
     }
 
     //Jump And Gravity
     public float JumpHeight
     {
-        get { return jumpHeight; }
+        get => jumpHeight;
+        set => jumpHeight = value;
     }
 
     public float Gravity
     {
-        get { return gravity; }
+        get => gravity;
+        set => gravity = value;
     }
 
     public float JumpTimeout
     {
-        get { return jumpTimeout; }
+        get => jumpTimeout;
+        set => jumpTimeout = value;
     }
 
     //Move
     public CharacterController Controller
     {
-        get { return controller; }
+        get => controller;
+        set => controller = value;
     }
 
     private void Awake()

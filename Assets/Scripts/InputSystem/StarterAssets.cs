@@ -75,9 +75,73 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""TraitsShowHide"",
+                    ""name"": ""Interaction"",
                     ""type"": ""Button"",
-                    ""id"": ""7660fb86-1959-4600-9eb1-e072f0d5c385"",
+                    ""id"": ""959e0c6c-9eb3-4ed6-8439-ed4224f2895f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""QuestShowHide"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ea02926-3e32-43d2-8943-c292a121b426"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Abilitiy1"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9cfc826-98df-4cb2-9097-a9e9a7c25b90"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Abilitiy2"",
+                    ""type"": ""Button"",
+                    ""id"": ""6deb9895-9624-4231-9a73-f445429def91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Abilitiy3"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d89fdaa-1785-487c-8f4a-992f0b0abc08"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Abilitiy4"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a62eec8-b2f1-40c3-b997-14eadb3097de"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Abilitiy5"",
+                    ""type"": ""Button"",
+                    ""id"": ""29bba88a-9dff-49ff-953d-786e4bc6540d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Abilitiy6"",
+                    ""type"": ""Button"",
+                    ""id"": ""821ab966-450a-49fc-8a2d-dc1b748d9a6c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""29d08f40-d14a-40af-a622-82cc4395b220"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -295,12 +359,100 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2359fd17-3fd9-4678-9aac-ea33a247e46a"",
-                    ""path"": ""<Keyboard>/p"",
+                    ""id"": ""d8cc951b-392b-4732-82de-c5697f19268e"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""095aa851-53b5-4d76-ad29-fcd1bbdb2e7f"",
+                    ""path"": ""<Keyboard>/l"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
-                    ""action"": ""TraitsShowHide"",
+                    ""action"": ""QuestShowHide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32ee8a30-9c39-4404-ab87-0b882680b194"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Abilitiy1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c5b98eb-e72e-44fe-b34d-d7133c38a396"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Abilitiy2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72e07acc-0f85-44a8-b2e3-9b0bc2021ee6"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Abilitiy3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""acb3bff3-2dd8-43ca-a45b-9c1bf577e9a1"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Abilitiy4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08961263-5dd4-4e97-9c8a-a15ca880d2f1"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Abilitiy5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56f4eb20-428a-4fc7-b250-015c66812876"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Abilitiy6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8940f3a3-7895-4db8-bdfa-1936e46f11a0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""PauseMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -366,7 +518,15 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         m_Player_InventoryShowHide = m_Player.FindAction("InventoryShowHide", throwIfNotFound: true);
         m_Player_BasicAttack = m_Player.FindAction("BasicAttack", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
-        m_Player_TraitsShowHide = m_Player.FindAction("TraitsShowHide", throwIfNotFound: true);
+        m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
+        m_Player_QuestShowHide = m_Player.FindAction("QuestShowHide", throwIfNotFound: true);
+        m_Player_Abilitiy1 = m_Player.FindAction("Abilitiy1", throwIfNotFound: true);
+        m_Player_Abilitiy2 = m_Player.FindAction("Abilitiy2", throwIfNotFound: true);
+        m_Player_Abilitiy3 = m_Player.FindAction("Abilitiy3", throwIfNotFound: true);
+        m_Player_Abilitiy4 = m_Player.FindAction("Abilitiy4", throwIfNotFound: true);
+        m_Player_Abilitiy5 = m_Player.FindAction("Abilitiy5", throwIfNotFound: true);
+        m_Player_Abilitiy6 = m_Player.FindAction("Abilitiy6", throwIfNotFound: true);
+        m_Player_PauseMenu = m_Player.FindAction("PauseMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -423,7 +583,15 @@ public class @StarterAssets : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_InventoryShowHide;
     private readonly InputAction m_Player_BasicAttack;
     private readonly InputAction m_Player_Roll;
-    private readonly InputAction m_Player_TraitsShowHide;
+    private readonly InputAction m_Player_Interaction;
+    private readonly InputAction m_Player_QuestShowHide;
+    private readonly InputAction m_Player_Abilitiy1;
+    private readonly InputAction m_Player_Abilitiy2;
+    private readonly InputAction m_Player_Abilitiy3;
+    private readonly InputAction m_Player_Abilitiy4;
+    private readonly InputAction m_Player_Abilitiy5;
+    private readonly InputAction m_Player_Abilitiy6;
+    private readonly InputAction m_Player_PauseMenu;
     public struct PlayerActions
     {
         private @StarterAssets m_Wrapper;
@@ -435,7 +603,15 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         public InputAction @InventoryShowHide => m_Wrapper.m_Player_InventoryShowHide;
         public InputAction @BasicAttack => m_Wrapper.m_Player_BasicAttack;
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
-        public InputAction @TraitsShowHide => m_Wrapper.m_Player_TraitsShowHide;
+        public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
+        public InputAction @QuestShowHide => m_Wrapper.m_Player_QuestShowHide;
+        public InputAction @Abilitiy1 => m_Wrapper.m_Player_Abilitiy1;
+        public InputAction @Abilitiy2 => m_Wrapper.m_Player_Abilitiy2;
+        public InputAction @Abilitiy3 => m_Wrapper.m_Player_Abilitiy3;
+        public InputAction @Abilitiy4 => m_Wrapper.m_Player_Abilitiy4;
+        public InputAction @Abilitiy5 => m_Wrapper.m_Player_Abilitiy5;
+        public InputAction @Abilitiy6 => m_Wrapper.m_Player_Abilitiy6;
+        public InputAction @PauseMenu => m_Wrapper.m_Player_PauseMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -466,9 +642,33 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 @Roll.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
                 @Roll.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
                 @Roll.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
-                @TraitsShowHide.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTraitsShowHide;
-                @TraitsShowHide.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTraitsShowHide;
-                @TraitsShowHide.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTraitsShowHide;
+                @Interaction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
+                @Interaction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
+                @Interaction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteraction;
+                @QuestShowHide.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuestShowHide;
+                @QuestShowHide.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuestShowHide;
+                @QuestShowHide.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuestShowHide;
+                @Abilitiy1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy1;
+                @Abilitiy1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy1;
+                @Abilitiy1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy1;
+                @Abilitiy2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy2;
+                @Abilitiy2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy2;
+                @Abilitiy2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy2;
+                @Abilitiy3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy3;
+                @Abilitiy3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy3;
+                @Abilitiy3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy3;
+                @Abilitiy4.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy4;
+                @Abilitiy4.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy4;
+                @Abilitiy4.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy4;
+                @Abilitiy5.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy5;
+                @Abilitiy5.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy5;
+                @Abilitiy5.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy5;
+                @Abilitiy6.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy6;
+                @Abilitiy6.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy6;
+                @Abilitiy6.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilitiy6;
+                @PauseMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseMenu;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -494,9 +694,33 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 @Roll.started += instance.OnRoll;
                 @Roll.performed += instance.OnRoll;
                 @Roll.canceled += instance.OnRoll;
-                @TraitsShowHide.started += instance.OnTraitsShowHide;
-                @TraitsShowHide.performed += instance.OnTraitsShowHide;
-                @TraitsShowHide.canceled += instance.OnTraitsShowHide;
+                @Interaction.started += instance.OnInteraction;
+                @Interaction.performed += instance.OnInteraction;
+                @Interaction.canceled += instance.OnInteraction;
+                @QuestShowHide.started += instance.OnQuestShowHide;
+                @QuestShowHide.performed += instance.OnQuestShowHide;
+                @QuestShowHide.canceled += instance.OnQuestShowHide;
+                @Abilitiy1.started += instance.OnAbilitiy1;
+                @Abilitiy1.performed += instance.OnAbilitiy1;
+                @Abilitiy1.canceled += instance.OnAbilitiy1;
+                @Abilitiy2.started += instance.OnAbilitiy2;
+                @Abilitiy2.performed += instance.OnAbilitiy2;
+                @Abilitiy2.canceled += instance.OnAbilitiy2;
+                @Abilitiy3.started += instance.OnAbilitiy3;
+                @Abilitiy3.performed += instance.OnAbilitiy3;
+                @Abilitiy3.canceled += instance.OnAbilitiy3;
+                @Abilitiy4.started += instance.OnAbilitiy4;
+                @Abilitiy4.performed += instance.OnAbilitiy4;
+                @Abilitiy4.canceled += instance.OnAbilitiy4;
+                @Abilitiy5.started += instance.OnAbilitiy5;
+                @Abilitiy5.performed += instance.OnAbilitiy5;
+                @Abilitiy5.canceled += instance.OnAbilitiy5;
+                @Abilitiy6.started += instance.OnAbilitiy6;
+                @Abilitiy6.performed += instance.OnAbilitiy6;
+                @Abilitiy6.canceled += instance.OnAbilitiy6;
+                @PauseMenu.started += instance.OnPauseMenu;
+                @PauseMenu.performed += instance.OnPauseMenu;
+                @PauseMenu.canceled += instance.OnPauseMenu;
             }
         }
     }
@@ -546,6 +770,14 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         void OnInventoryShowHide(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
-        void OnTraitsShowHide(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
+        void OnQuestShowHide(InputAction.CallbackContext context);
+        void OnAbilitiy1(InputAction.CallbackContext context);
+        void OnAbilitiy2(InputAction.CallbackContext context);
+        void OnAbilitiy3(InputAction.CallbackContext context);
+        void OnAbilitiy4(InputAction.CallbackContext context);
+        void OnAbilitiy5(InputAction.CallbackContext context);
+        void OnAbilitiy6(InputAction.CallbackContext context);
+        void OnPauseMenu(InputAction.CallbackContext context);
     }
 }

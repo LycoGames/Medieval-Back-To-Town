@@ -1,0 +1,293 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8437969791524998907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: db54b594-74a9-40c1-b4d3-195f0641d4eb
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: "Peki... \u0130yi g\xFCnler."
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 564
+    y: 143
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-8084933095562836310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 98ad0756-c2c7-445c-a28e-6ae8e4ab4858
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: "Zaten ilac\u0131 ar\u0131yorum."
+  children:
+  - 4ee86f07-09f3-4ad8-86a3-748a4339b560
+  rect:
+    serializedVersion: 2
+    x: 312
+    y: 403
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Test Quest
+        negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Test Quest
+        negate: 1
+--- !u!114 &-7803346881989153668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 74ed068b-20a7-4126-9bbc-7e5bd6118fe6
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: "\u0130laca ihtiyac\u0131m var."
+  children:
+  - 316b9f3f-3278-4fbc-bce9-bae29d7d5cbb
+  - 5668fc1a-f9be-4c68-968a-af4dc72c615f
+  - 98ad0756-c2c7-445c-a28e-6ae8e4ab4858
+  - e6d95ce5-1dce-47de-8d90-e5c6959cd70b
+  rect:
+    serializedVersion: 2
+    x: 32
+    y: 255
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-3934565697341725249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 75605829-c370-4004-a2cb-e36bb4e57795
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: "Hayat\u0131m\u0131 kurtard\u0131n te\u015Fekk\xFCrler"
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 564
+    y: 524
+    width: 200
+    height: 100
+  onExitAction: TestObjectiveComplete
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-1600281735861694501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 5668fc1a-f9be-4c68-968a-af4dc72c615f
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: "Nas\u0131l yard\u0131mc\u0131 olabilirim"
+  children:
+  - 83a10a72-8149-415e-9877-468d3e75474d
+  rect:
+    serializedVersion: 2
+    x: 314
+    y: 268
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Test Quest
+        negate: 1
+--- !u!114 &-1190548550505881714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 4ee86f07-09f3-4ad8-86a3-748a4339b560
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: "Kusura bakma unutmu\u015Fum."
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 562
+    y: 403
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036f27eaa24400444a587a3cf9fa7300, type: 3}
+  m_Name: Test Quest
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -7803346881989153668}
+  - {fileID: 5722162887131954627}
+  - {fileID: -1600281735861694501}
+  - {fileID: -8084933095562836310}
+  - {fileID: 8908243405002738728}
+  - {fileID: -1190548550505881714}
+  - {fileID: 8010392642762812077}
+  - {fileID: -3934565697341725249}
+  - {fileID: -8437969791524998907}
+  newNodeOffset: {x: 250, y: 0}
+--- !u!114 &5722162887131954627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 316b9f3f-3278-4fbc-bce9-bae29d7d5cbb
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: "Doktor gibi mi g\xF6z\xFCk\xFCyorum."
+  children:
+  - db54b594-74a9-40c1-b4d3-195f0641d4eb
+  rect:
+    serializedVersion: 2
+    x: 314
+    y: 143
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &8010392642762812077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: e6d95ce5-1dce-47de-8d90-e5c6959cd70b
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: "\u0130lac\u0131 getirdim!"
+  children:
+  - 75605829-c370-4004-a2cb-e36bb4e57795
+  rect:
+    serializedVersion: 2
+    x: 315
+    y: 524
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Test Quest
+        negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Test Quest
+        negate: 0
+      - predicate: HasInventoryItem
+        parameters:
+        - 64ab5567-2bbb-4aba-90b6-e8d736da1fb6
+        negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Test Quest
+        negate: 1
+--- !u!114 &8908243405002738728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 83a10a72-8149-415e-9877-468d3e75474d
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: "Ormana git di\u011Ferlerinden farkl\u0131 g\xF6r\xFCnen bir bitki g\xF6receksin
+    ondan getir l\xFCtfen."
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 562
+    y: 269
+    width: 200
+    height: 100
+  onExitAction: TestObjective
+  onEnterAction: 
+  condition:
+    and: []

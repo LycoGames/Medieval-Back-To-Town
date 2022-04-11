@@ -1,8 +1,5 @@
-namespace RPG.Saving
+public interface ISaveable
 {
-    public interface ISaveable
-    {
-        object CaptureState();
-        void RestoreState(object state);
-    }
+    object CaptureState();
+    void RestoreState(object state);
 }

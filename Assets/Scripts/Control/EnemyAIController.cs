@@ -19,7 +19,7 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     public GameManager gameManager;
 
-    Vector3 guardPosition;
+    LazyValue<Vector3> guardPosition;
     GameObject targetPlayer;
     NavMeshAgent navMeshAgent;
     EnemyFighter enemyFighter;
@@ -41,10 +41,10 @@ public class EnemyAIController : MonoBehaviour, IAction
     void Start()
     {
         canvasDisabler = GetComponent<CanvasDisabler>();
-        guardPosition = transform.position;
         enemyFOV = GetComponent<EnemyFOV>();
         GetPlayer();
         GetPatrolInfos();
+        guardPosition.ForceInit();
     }
 
 
@@ -76,12 +76,49 @@ public class EnemyAIController : MonoBehaviour, IAction
         // GetComponent<NavMeshAgent>().destination = target.position;
     }
 
+    public void Reset()
+    {
+        NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.Warp(guardPosition.value);
+
+        currentWaypointIndex = 0;
+        timeSinceLastSawThePLayer = Mathf.Infinity;
+        timeSinceArrivedAtLastPoint = Mathf.Infinity;
+        timeSinceAggrevated = Mathf.Infinity;
+    }
+
+
+    public void Aggrevated() //event! damage aldıgında event tetikliycek.
+    {
+        timeSinceAggrevated = 0;
+    }
+
+    public void MoveTo(Vector3 destination, float speedFraction)
+    {
+        GetComponent<NavMeshAgent>().destination = destination;
+        navMeshAgent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
+        navMeshAgent.isStopped = false;
+    }
+
+    public bool IsAggrevated()
+    {
+        float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
+        return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
+    }
+
     private void GetRequiredComponents()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyFighter = GetComponent<EnemyFighter>();
         health = GetComponent<Health>();
         animator = GetComponent<Animator>();
+        guardPosition = new LazyValue<Vector3>(GetGuardPosition);
+        guardPosition.ForceInit();
+    }
+
+    private Vector3 GetGuardPosition()
+    {
+        return transform.position;
     }
 
     private void GetPlayer()
@@ -99,16 +136,20 @@ public class EnemyAIController : MonoBehaviour, IAction
     private void AttackBehaviour()
     {
         timeSinceLastSawThePLayer = 0f;
-        enemyFighter.Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
+        enemyFighter
+            .Attack(targetPlayer); //enemy fighter scriptinde targetPlayeri setlemek göndermek için.(enemy fighter da findwithtag="player" silindigi için)
         canvasDisabler.SetActiveCanvas();
     }
 
     public void CallNearbyEnemies()
-    { //https://docs.unity3d.com/ScriptReference/Physics.SphereCastAll.html
+    {
+        //https://docs.unity3d.com/ScriptReference/Physics.SphereCastAll.html
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, callArea, Vector3.up, 0);
         foreach (RaycastHit hit in hits)
         {
-            EnemyAIController ai = hit.collider.GetComponent<EnemyAIController>(); //vuran her raycast hiti için(her bir mob için) bu scriptteki Aggrevated'i tetikle. 
+            EnemyAIController
+                ai = hit.collider
+                    .GetComponent<EnemyAIController>(); //vuran her raycast hiti için(her bir mob için) bu scriptteki Aggrevated'i tetikle. 
             if (ai == null) continue;
             if (ai == this) continue;
             ai.Aggrevated();
@@ -123,30 +164,19 @@ public class EnemyAIController : MonoBehaviour, IAction
     }
 
 
-    public void Aggrevated() //event! damage aldıgında event tetikliycek.
-    {
-        timeSinceAggrevated = 0;
-    }
-
-    public void MoveTo(Vector3 destination, float speedFraction)
-    {
-        GetComponent<NavMeshAgent>().destination = destination;
-        navMeshAgent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
-        navMeshAgent.isStopped = false;
-    }
-
     private void PatrolBehaviour()
     {
-
-        Vector3 nextPosition = guardPosition; //mobun eski pozisyonunu tuttum.
+        Vector3 nextPosition = guardPosition.value; //mobun eski pozisyonunu tuttum.
 
         if (patrolPath != null) // patrol pathi yoksa eski yerine geri dönsün.
         {
             if (AtWaypoint())
-            { //waypointe olan distancem yeterliyse patrol yap degilse sıradaki pozisyonu getcurrent waypointten al. Ardından nextposition'u degiştir o pointe git.
+            {
+                //waypointe olan distancem yeterliyse patrol yap degilse sıradaki pozisyonu getcurrent waypointten al. Ardından nextposition'u degiştir o pointe git.
                 timeSinceArrivedAtLastPoint = 0;
                 DoPatrolOnPoints();
             }
+
             nextPosition = GetCurrentWaypoint();
 
             if (timeSinceArrivedAtLastPoint > waitOnPointTime)
@@ -154,14 +184,12 @@ public class EnemyAIController : MonoBehaviour, IAction
                 //MoveTo(nextPosition, 1f);
                 StartMoveAction(nextPosition, 1f);
             }
-
         }
 
         if (patrolPath == null)
         {
             MoveTo(nextPosition, 1f); //ya patrol pathi yoksa ? eski yerine dönsün.
         }
-
     }
 
     private void StartMoveAction(Vector3 destination, float speedFraction)
@@ -181,7 +209,8 @@ public class EnemyAIController : MonoBehaviour, IAction
         currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
     }
 
-    private Vector3 GetCurrentWaypoint() //waypointi alıyorum ilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
+    private Vector3
+        GetCurrentWaypoint() //waypointi alıyorum ilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
     {
         return patrolPath.GetWaypoint(currentWaypointIndex);
     }
@@ -197,12 +226,6 @@ public class EnemyAIController : MonoBehaviour, IAction
         navMeshAgent.isStopped = true;
     }
 
-    public bool IsAggrevated()
-    {
-        float distanceToPlayer = Vector3.Distance(targetPlayer.transform.position, transform.position);
-        return (distanceToPlayer < chaseDistance || timeSinceAggrevated < agroCooldownTime);
-
-    }
 
     private void UpdateAnimator()
     {

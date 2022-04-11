@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using InputSystem;
 using UnityEditor.UIElements;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,6 @@ public class StateMachine : MonoBehaviour
     [SerializeField] float velocity = 9;
     [SerializeField] float rotationSmoothTime = 0.12f;
     [SerializeField] float targetingSense = 2;
-    [SerializeField] bool canMove;
     [SerializeField] float aimTimer = 0;
     [SerializeField] Transform FirePoint;
 
@@ -37,6 +37,8 @@ public class StateMachine : MonoBehaviour
     [Header("Canvas")]
     [SerializeField]
     Image aim;
+
+    [SerializeField] private GameObject aimUI;
 
     [SerializeField] Vector2 uiOffset;
     [SerializeField] List<Transform> screenTargets = new List<Transform>();
@@ -77,20 +79,16 @@ public class StateMachine : MonoBehaviour
 
     [SerializeField] Transform target;
 
+    [SerializeField] private AIConversant interactableNPC = null;
+
     //state variables
     BaseState currentState;
 
     BaseState currentSubState;
-    StateFactory states;
     Vector3 desiredMoveDirection;
     bool blockRotationPlayer;
-    float desiredRotationSpeed = 0.1f;
-    Animator anim;
     float Speed;
-    Camera cam;
-    CharacterController controller;
     bool isGrounded;
-    float secondLayerWeight = 0;
 
     bool casting = false;
     GameObject TargetMarker;
@@ -101,28 +99,18 @@ public class StateMachine : MonoBehaviour
     private AudioClip clip;
     private AudioSource soundComponentCast; //Play audio from PrefabsCast
 
-    private float targetRotation = 0.0f;
     float verticalVel;
 
     Vector3 moveVector;
 
-    bool activeTarget = false;
 
-
-    private Inputs input;
-    public float InputX;
-    public float InputY;
-
-    //Player move temp variables
+//Player move temp variables
     private Vector3 forward;
     private Vector3 right;
 
     //Weapon variables
     private const string weaponName = "Unarmed";
-    private WeaponConfig currentWeaponConfig;
     private LazyValue<Weapon> currentWeapon;
-
-    private bool rotateState = false;
 
 
     //Animaiton IDs
@@ -148,179 +136,131 @@ public class StateMachine : MonoBehaviour
 
     [HideInInspector] public int animIDUpAttack2;*/
 
+    //CAMERA ROTATION
+
+    private const float Threshold = 0.01f;
+    private const int CursorSwitchSpeed = 1000;
+
+
+    //User interface variables
+    private Vector3 screenCenter;
+    private Vector3 screenPos;
+    private Vector3 cornerDistance;
+    private Vector3 absCornerDistance;
+    private Vector3 worldViewField;
+
+    //cinemachine
+    private float cinemachineTargetYaw;
+    private float cinemachineTargetPitch;
+
+    //Action store
+    private ActionStore actionStore;
+
+    //Equipment
+    private Equipment equipment;
+
     public BaseState CurrentState
     {
-        get { return currentState; }
-        set { currentState = value; }
+        set => currentState = value;
     }
 
-    public StateFactory States
-    {
-        get { return states; }
-    }
+    public StateFactory States { get; private set; }
 
-    public Inputs Input
-    {
-        get { return input; }
-    }
+
+    public Inputs Input { get; private set; }
 
     public bool LockCameraPosition
     {
-        get { return lockCameraPosition; }
+        set => lockCameraPosition = value;
     }
 
-    public GameObject CinemachineCameraTarget
+    public GameObject AimUI => aimUI;
+
+    public AIConversant InteractableNpc
     {
-        get { return cinemachineCameraTarget; }
-    }
-
-    public float TopClamp
-    {
-        get { return topClamp; }
-    }
-
-    public float BottomClamp
-    {
-        get { return bottomClamp; }
-    }
-
-    public float CameraAngleOverride
-    {
-        get { return cameraAngleOverride; }
+        get => interactableNPC;
+        set => interactableNPC = value;
     }
 
 
-    public Animator Anim
-    {
-        get { return anim; }
-    }
+    public Animator Anim { get; private set; }
 
-    public CharacterController Controller
-    {
-        get { return controller; }
-    }
+    public CharacterController Controller { get; private set; }
 
 
-    public Vector3 Forward
-    {
-        get { return forward; }
-    }
+    public Vector3 Forward => forward;
 
-    public Vector3 Right
-    {
-        get { return right; }
-    }
+    public float DesiredRotationSpeed { get; } = 0.1f;
 
-    public float DesiredRotationSpeed
-    {
-        get { return desiredRotationSpeed; }
-    }
+    public float Velocity => velocity;
 
-    public float Velocity
-    {
-        get { return velocity; }
-    }
+    public float RotationSmoothTime => rotationSmoothTime;
 
-    public float RotationSmoothTime
-    {
-        get { return rotationSmoothTime; }
-    }
-
-    public float TargetRotation
-    {
-        get { return targetRotation; }
-        set { targetRotation = value; }
-    }
+    public float TargetRotation { get; set; }
 
     public float AimTimer
     {
-        get { return aimTimer; }
-        set { aimTimer = value; }
+        get => aimTimer;
+        set => aimTimer = value;
     }
 
-    public float SecondLayerWeight
-    {
-        get { return secondLayerWeight; }
-        set { secondLayerWeight = value; }
-    }
+    public float SecondLayerWeight { get; set; }
 
-    public Vector3 DesiredMoveDirection
-    {
-        get { return desiredMoveDirection; }
-    }
+    public Vector3 DesiredMoveDirection => desiredMoveDirection;
 
-    public Camera Cam
-    {
-        get { return cam; }
-    }
+    public Camera Cam { get; private set; }
 
-    public Vector2 UiOffset
-    {
-        get { return uiOffset; }
-    }
+    public Vector2 UiOffset => uiOffset;
 
-    public LayerMask CollidingLayer
-    {
-        get { return collidingLayer; }
-    }
+    public LayerMask CollidingLayer => collidingLayer;
 
-    public Image Aim
-    {
-        get { return aim; }
-    }
+    public Image Aim => aim;
 
-    public bool ActiveTarget
-    {
-        get { return activeTarget; }
-        set { activeTarget = value; }
-    }
+    public bool ActiveTarget { get; set; }
 
-    public List<Transform> ScreenTargets
-    {
-        get { return screenTargets; }
-    }
+    public List<Transform> ScreenTargets => screenTargets;
 
-    public bool CanMove
-    {
-        get { return canMove; }
-        set { canMove = value; }
-    }
+    public bool RotateState { get; private set; } = false;
 
-    public bool RotateState
-    {
-        get { return rotateState; }
-    }
+    public float FireRate => fireRate;
 
-    public float FireRate
-    {
-        get { return fireRate; }
-    }
+    public float TargetingSense => targetingSense;
 
-    public float TargetingSense
-    {
-        get { return targetingSense; }
-    }
+    public float InputX { get; set; }
+    public float InputY { get; set; }
+
+    public bool CanMove { get; set; }
+
+    public List<GameObject> MainUiArray { get; private set; }
+
 
     public Transform Target
     {
-        get { return target; }
-        set { target = value; }
+        get => target;
+        set => target = value;
     }
 
-    public WeaponConfig CurrentWeaponConfig
-    {
-        get => currentWeaponConfig;
-        set => currentWeaponConfig = value;
-    }
+    public WeaponConfig CurrentWeaponConfig { get; private set; }
+
+    public GameObject InventoryUi { get; set; }
 
     //User interface variables
 
 
     void Awake()
     {
-        states = new StateFactory(this);
-        currentState = states.AppState();
+        States = new StateFactory(this);
+        currentState = States.AppState();
         currentState.EnterState();
+
+        equipment = GetComponent<Equipment>();
+        if (equipment)
+        {
+            equipment.equipmentUpdated += UpdateWeapon;
+        }
+
+        MainUiArray = new List<GameObject>();
+        MainUiArray.AddRange(GameObject.FindGameObjectsWithTag("MainUI"));
     }
 
     void Start()
@@ -339,34 +279,44 @@ public class StateMachine : MonoBehaviour
         //     GetEnemies();
         // }
 
-        if (anim.layerCount > 1)
+        if (Anim.layerCount > 1)
         {
-            anim.SetLayerWeight(1, secondLayerWeight);
+            Anim.SetLayerWeight(1, SecondLayerWeight);
         }
+    }
+
+    private void LateUpdate()
+    {
+        CameraRotation();
     }
 
     public void InputMagnitude()
     {
-        InputX = input.move.x;
-        InputY = input.move.y;
+        if (!CanMove)
+        {
+            SetAnimZero();
+            return;
+        }
 
-        //TODO anim input z ve inputx set edildi 651
-        anim.SetFloat(animIDInputY, InputY, VerticalAnimTime, Time.deltaTime * 2f);
-        anim.SetFloat(animIDInputX, InputX, HorizontalAnimSmoothTime, Time.deltaTime * 2f);
+        InputX = Input.move.x;
+        InputY = Input.move.y;
 
-        Speed = new Vector2(input.move.x, input.move.y).sqrMagnitude;
-        //TODO 658 stateler ile halledildi.
+        Anim.SetFloat(animIDInputY, InputY, VerticalAnimTime, Time.deltaTime * 2f);
+        Anim.SetFloat(animIDInputX, InputX, HorizontalAnimSmoothTime, Time.deltaTime * 2f);
+
+        Speed = new Vector2(Input.move.x, Input.move.y).sqrMagnitude;
 
         PlayerMoveAndRotationInput();
     }
 
+
     private void PlayerMoveAndRotationInput()
     {
-        InputX = input.move.x;
-        InputY = input.move.y;
+        InputX = Input.move.x;
+        InputY = Input.move.y;
 
-        forward = cam.transform.forward;
-        right = cam.transform.right;
+        forward = Cam.transform.forward;
+        right = Cam.transform.right;
 
         forward.y = 0f;
         right.y = 0f;
@@ -381,15 +331,16 @@ public class StateMachine : MonoBehaviour
 
     private void GetRequiredComponents()
     {
-        input = GetComponent<Inputs>();
-        anim = GetComponent<Animator>();
-        cam = Camera.main;
+        Input = GetComponent<Inputs>();
+        Anim = GetComponent<Animator>();
+        actionStore = GetComponent<ActionStore>();
+        Cam = Camera.main;
         if (target)
         {
             target = screenTargets[targetIndex()];
         }
 
-        controller = GetComponent<CharacterController>();
+        Controller = GetComponent<CharacterController>();
     }
 
     private void AssignAnimationIDs()
@@ -422,7 +373,7 @@ public class StateMachine : MonoBehaviour
     public void ApplyGravity()
     {
         //If you don't need the character grounded then get rid of this part.
-        isGrounded = controller.isGrounded;
+        isGrounded = Controller.isGrounded;
         if (isGrounded)
         {
             verticalVel = 0;
@@ -433,7 +384,7 @@ public class StateMachine : MonoBehaviour
         }
 
         moveVector = new Vector3(0, verticalVel, 0);
-        controller.Move(moveVector);
+        Controller.Move(moveVector);
     }
 
     public void StartRotateCoroutine(float rotatingTime, Vector3 targetPoint)
@@ -443,7 +394,7 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator RotateToTarget(float rotatingTime, Vector3 targetPoint)
     {
-        rotateState = true;
+        RotateState = true;
         float delay = rotatingTime;
         var lookPos = targetPoint - transform.position;
         lookPos.y = 0;
@@ -454,7 +405,7 @@ public class StateMachine : MonoBehaviour
             delay -= Time.deltaTime;
             if (delay <= 0 || transform.rotation == rotation)
             {
-                rotateState = false;
+                RotateState = false;
                 yield break;
             }
 
@@ -464,8 +415,8 @@ public class StateMachine : MonoBehaviour
 
     public void PerformBasicAttack()
     {
-        anim.SetTrigger(animIDMaskAttack1);
-        secondLayerWeight = Mathf.Lerp(secondLayerWeight, 0.5f, Time.deltaTime * 60);
+        Anim.SetTrigger(animIDMaskAttack1);
+        SecondLayerWeight = Mathf.Lerp(SecondLayerWeight, 0.5f, Time.deltaTime * 60);
         try
         {
             PrefabsCast[8].GetComponent<ParticleSystem>().Play();
@@ -477,7 +428,8 @@ public class StateMachine : MonoBehaviour
 
         //float damage = currentWeaponConfig.GetDamage() + GetComponent<BaseStats>().GetStat(Stat.Damage);
         Debug.Log(uiOffset);
-        currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, 20,
+        var damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+        CurrentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage,
             uiOffset);
         //StartCoroutine(cameraShaker.Shake(0.1f, 2, 0.2f, 0));
     }
@@ -487,7 +439,7 @@ public class StateMachine : MonoBehaviour
         float[] distances = new float[screenTargets.Count];
         for (int i = 0; i < screenTargets.Count; i++)
         {
-            distances[i] = Vector2.Distance(cam.WorldToScreenPoint(screenTargets[i].position),
+            distances[i] = Vector2.Distance(Cam.WorldToScreenPoint(screenTargets[i].position),
                 new Vector2(Screen.width / 2, Screen.height / 2));
         }
 
@@ -505,30 +457,20 @@ public class StateMachine : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, currentWeaponConfig ? currentWeaponConfig.GetRange() : 0f);
+        Gizmos.DrawWireSphere(transform.position, CurrentWeaponConfig ? CurrentWeaponConfig.GetRange() : 0f);
     }
 
     public void InitializeWeapon()
     {
-        currentWeaponConfig = defaultWeapon;
+        CurrentWeaponConfig = defaultWeapon;
         currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
         currentWeapon.ForceInit();
     }
 
     public void EquipWeapon(WeaponConfig weapon)
     {
-        currentWeaponConfig = weapon;
+        CurrentWeaponConfig = weapon;
         currentWeapon.value = AttachWeapon(weapon);
-    }
-
-    public Weapon GetCurrentWeapon()
-    {
-        return currentWeapon.value;
-    }
-
-    public float GetWeaponDamage()
-    {
-        return currentWeaponConfig.GetDamage();
     }
 
     private Weapon SetupDefaultWeapon()
@@ -540,6 +482,98 @@ public class StateMachine : MonoBehaviour
     {
         Animator weaponAnimator = GetComponent<Animator>();
         return weapon.Spawn(rightHandTransform, leftHandTransform, weaponAnimator);
+    }
+
+
+    public void SetAnimZero()
+    {
+        Anim.SetFloat(animIDInputY, 0);
+        Anim.SetFloat(animIDInputX, 0);
+    }
+
+    private void CameraRotation()
+    {
+        // if there is an input and camera position is not fixed
+        if (Input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
+        {
+            cinemachineTargetYaw += Input.look.x * Time.deltaTime;
+            cinemachineTargetPitch += Input.look.y * Time.deltaTime;
+        }
+
+        // clamp our rotations so our values are limited 360 degrees
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomClamp, topClamp);
+
+        // Cinemachine will follow this target
+        /* ctx.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+             cinemachineTargetPitch + ctx.CameraAngleOverride,
+             cinemachineTargetYaw, 0.0f);*/
+
+        cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+            cinemachineTargetPitch,
+            cinemachineTargetYaw, 0.0f);
+    }
+
+    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+    private void UpdateWeapon()
+    {
+        var weapon = equipment.GetItemInSlot(EquipLocation.PrimaryWeapon) as WeaponConfig;
+        EquipWeapon(weapon == null ? defaultWeapon : weapon);
+    }
+
+
+    public void OnAbility1(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(0, gameObject);
+        }
+    }
+
+    public void OnAbility2(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(1, gameObject);
+        }
+    }
+
+    public void OnAbility3(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(2, gameObject);
+        }
+    }
+
+    public void OnAbility4(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(3, gameObject);
+        }
+    }
+
+    public void OnAbility5(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(4, gameObject);
+        }
+    }
+
+    public void OnAbility6(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(5, gameObject);
+        }
     }
 
 }

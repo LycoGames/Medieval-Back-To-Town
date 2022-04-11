@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 namespace InputSystem
 {
     public class Inputs : MonoBehaviour
@@ -12,6 +13,7 @@ namespace InputSystem
         public bool sprint;
         public bool basicAttack;
         public bool inventoryShowHide;
+        public bool interaction;
         [Header("Movement Settings")] public bool analogMovement;
         [SerializeField] Ability ability;
 
@@ -36,6 +38,11 @@ namespace InputSystem
         public void OnJump(InputAction.CallbackContext ctx)
         {
             JumpInput(ctx.ReadValueAsButton());
+        }
+
+        public void OnInteraction(InputAction.CallbackContext ctx)
+        {
+            InteractionInput(ctx.ReadValueAsButton());
         }
 
         public void OnRoll(InputAction.CallbackContext ctx)
@@ -72,6 +79,11 @@ namespace InputSystem
         public void JumpInput(bool newJumpState)
         {
             jump = newJumpState;
+        }
+
+        public void InteractionInput(bool newJumpState)
+        {
+            interaction = newJumpState;
         }
 
         public void RollInput(bool newRollState)

@@ -50,14 +50,12 @@ public class Health : MonoBehaviour
     public float destroyDelay;
     private HealthBar healthBar;
 
-    //bool isDead = false;
+    bool wasDeadLastFrame = false;
 
     GameObject bloodInstance;
     int hurtAnimRandomisation;
     int deathAnimRandomisation;
     int hurtSoundRandomisation;
-
-    private bool isDead = false;
 
     private void Awake()
     {
@@ -77,6 +75,8 @@ public class Health : MonoBehaviour
         {
             healthBar.SetMaxHealth(GetInitialHealth());
         }
+
+        onDie.AddListener(UpdateState);
     }
 
     private void OnEnable()
@@ -100,6 +100,11 @@ public class Health : MonoBehaviour
         return healthPoints.value;
     }
 
+    public float GetMaxHealthPoints()
+    {
+        return GetComponent<BaseStats>().GetStat(Stat.Health);
+    }
+
     public void
         Bloodflood(Vector3 prevMarkerPos,
             Vector3 hitPos) //Instantiate blood in the direction of the marker which hit this object.
@@ -113,9 +118,8 @@ public class Health : MonoBehaviour
 
     public void ApplyDamage(GameObject insigator, float dmg) //Let's apply some damage on hit, shall we?
     {
-        if (isDead) return;
+        if (IsDead()) return;
         healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
-        Debug.Log(healthPoints.value);
 
         takeDamage.Invoke(); //event
         takeDamageHUD.Invoke(dmg);
@@ -136,57 +140,45 @@ public class Health : MonoBehaviour
 
             if (hurtAnimator != null && AnimatorIsPlaying("Locomotion"))
             {
-                if (hurtAnimRandomisation == 1)
+                switch (hurtAnimRandomisation)
                 {
-                    hurtAnimator.Play("Hurt1");
-                }
-
-                if (hurtAnimRandomisation == 2)
-                {
-                    hurtAnimator.Play("Hurt2");
-                }
-
-                if (hurtAnimRandomisation == 3)
-                {
-                    hurtAnimator.Play("Hurt3");
-                }
-
-                if (hurtAnimRandomisation == 4)
-                {
-                    hurtAnimator.Play("Hurt4");
-                }
-
-                if (hurtAnimRandomisation == 5)
-                {
-                    hurtAnimator.Play("Hurt5");
+                    case 1:
+                        hurtAnimator.Play("Hurt1");
+                        break;
+                    case 2:
+                        hurtAnimator.Play("Hurt2");
+                        break;
+                    case 3:
+                        hurtAnimator.Play("Hurt3");
+                        break;
+                    case 4:
+                        hurtAnimator.Play("Hurt4");
+                        break;
+                    case 5:
+                        hurtAnimator.Play("Hurt5");
+                        break;
                 }
             }
 
             if (hurtLegacyAnimation != null)
             {
-                if (hurtAnimRandomisation == 1)
+                switch (hurtAnimRandomisation)
                 {
-                    hurtLegacyAnimation.Play("Hurt1");
-                }
-
-                if (hurtAnimRandomisation == 2)
-                {
-                    hurtLegacyAnimation.Play("Hurt2");
-                }
-
-                if (hurtAnimRandomisation == 3)
-                {
-                    hurtLegacyAnimation.Play("Hurt3");
-                }
-
-                if (hurtAnimRandomisation == 4)
-                {
-                    hurtLegacyAnimation.Play("Hurt4");
-                }
-
-                if (hurtAnimRandomisation == 5)
-                {
-                    hurtLegacyAnimation.Play("Hurt5");
+                    case 1:
+                        hurtLegacyAnimation.Play("Hurt1");
+                        break;
+                    case 2:
+                        hurtLegacyAnimation.Play("Hurt2");
+                        break;
+                    case 3:
+                        hurtLegacyAnimation.Play("Hurt3");
+                        break;
+                    case 4:
+                        hurtLegacyAnimation.Play("Hurt4");
+                        break;
+                    case 5:
+                        hurtLegacyAnimation.Play("Hurt5");
+                        break;
                 }
             }
 
@@ -196,46 +188,38 @@ public class Health : MonoBehaviour
                 {
                     hurtSoundRandomisation = Random.Range(1, numberOfHurtSounds + 1);
 
-                    if (hurtSoundRandomisation == 1)
+                    switch (hurtSoundRandomisation)
                     {
-                        soundSource.clip = hurtSound1;
-                        soundSource.Play();
-                    }
-
-                    if (hurtSoundRandomisation == 2)
-                    {
-                        soundSource.clip = hurtSound2;
-                        soundSource.Play();
-                    }
-
-                    if (hurtSoundRandomisation == 3)
-                    {
-                        soundSource.clip = hurtSound3;
-                        soundSource.Play();
-                    }
-
-                    if (hurtSoundRandomisation == 4)
-                    {
-                        soundSource.clip = hurtSound4;
-                        soundSource.Play();
-                    }
-
-                    if (hurtSoundRandomisation == 5)
-                    {
-                        soundSource.clip = hurtSound5;
-                        soundSource.Play();
+                        case 1:
+                            soundSource.clip = hurtSound1;
+                            soundSource.Play();
+                            break;
+                        case 2:
+                            soundSource.clip = hurtSound2;
+                            soundSource.Play();
+                            break;
+                        case 3:
+                            soundSource.clip = hurtSound3;
+                            soundSource.Play();
+                            break;
+                        case 4:
+                            soundSource.clip = hurtSound4;
+                            soundSource.Play();
+                            break;
+                        case 5:
+                            soundSource.clip = hurtSound5;
+                            soundSource.Play();
+                            break;
                     }
                 }
             }
         }
 
-        if (healthPoints.value <= 0) //Death,
+        if (IsDead()) //Death,
         {
-            if (insigator.CompareTag("Player"))
-                insigator.GetComponent<Experience>()
-                    .GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
             onDie.Invoke();
-            Die();
+
+            AwardExperience(insigator);
             //Spawn Of Death
 
             //components
@@ -256,114 +240,109 @@ public class Health : MonoBehaviour
 
             if (deathAnimator != null)
             {
-                if (deathAnimRandomisation == 1)
+                deathAnimator.applyRootMotion = true;
+                switch (deathAnimRandomisation)
                 {
-                    deathAnimator.Play("Death1");
-                }
-
-                if (deathAnimRandomisation == 2)
-                {
-                    deathAnimator.Play("Death2");
-                }
-
-                if (deathAnimRandomisation == 3)
-                {
-                    deathAnimator.Play("Death3");
-                }
-
-                if (deathAnimRandomisation == 4)
-                {
-                    deathAnimator.Play("Death4");
-                }
-
-                if (deathAnimRandomisation == 5)
-                {
-                    deathAnimator.Play("Death5");
+                    case 1:
+                        deathAnimator.Play("Death1");
+                        break;
+                    case 2:
+                        deathAnimator.Play("Death2");
+                        break;
+                    case 3:
+                        deathAnimator.Play("Death3");
+                        break;
+                    case 4:
+                        deathAnimator.Play("Death4");
+                        break;
+                    case 5:
+                        deathAnimator.Play("Death5");
+                        break;
                 }
             }
 
 
             if (deathLegacyAnimation != null)
             {
-                if (deathAnimRandomisation == 1)
+                switch (deathAnimRandomisation)
                 {
-                    deathLegacyAnimation.Play("Death1");
-                }
-
-                if (deathAnimRandomisation == 2)
-                {
-                    deathLegacyAnimation.Play("Death2");
-                }
-
-                if (deathAnimRandomisation == 3)
-                {
-                    deathLegacyAnimation.Play("Death3");
-                }
-
-                if (deathAnimRandomisation == 4)
-                {
-                    deathLegacyAnimation.Play("Death4");
-                }
-
-                if (deathAnimRandomisation == 5)
-                {
-                    deathLegacyAnimation.Play("Death5");
+                    case 1:
+                        deathLegacyAnimation.Play("Death1");
+                        break;
+                    case 2:
+                        deathLegacyAnimation.Play("Death2");
+                        break;
+                    case 3:
+                        deathLegacyAnimation.Play("Death3");
+                        break;
+                    case 4:
+                        deathLegacyAnimation.Play("Death4");
+                        break;
+                    case 5:
+                        deathLegacyAnimation.Play("Death5");
+                        break;
                 }
             }
 
-            if (soundSource != null)
+            if (soundSource == null) return;
+            if (numberOfDeathSounds <= 0) return;
+            hurtSoundRandomisation = Random.Range(1, numberOfDeathSounds + 1);
+
+            switch (hurtSoundRandomisation)
             {
-                if (numberOfDeathSounds > 0)
-                {
-                    hurtSoundRandomisation = Random.Range(1, numberOfDeathSounds + 1);
-
-                    if (hurtSoundRandomisation == 1)
-                    {
-                        soundSource.clip = deathSound1;
-                        soundSource.Play();
-                    }
-
-                    if (hurtSoundRandomisation == 2)
-                    {
-                        soundSource.clip = deathSound2;
-                        soundSource.Play();
-                    }
-
-                    if (hurtSoundRandomisation == 3)
-                    {
-                        soundSource.clip = deathSound3;
-                        soundSource.Play();
-                    }
-
-                    if (hurtSoundRandomisation == 4)
-                    {
-                        soundSource.clip = deathSound4;
-                        soundSource.Play();
-                    }
-
-                    if (hurtSoundRandomisation == 5)
-                    {
-                        soundSource.clip = deathSound5;
-                        soundSource.Play();
-                    }
-                }
+                case 1:
+                    soundSource.clip = deathSound1;
+                    soundSource.Play();
+                    break;
+                case 2:
+                    soundSource.clip = deathSound2;
+                    soundSource.Play();
+                    break;
+                case 3:
+                    soundSource.clip = deathSound3;
+                    soundSource.Play();
+                    break;
+                case 4:
+                    soundSource.clip = deathSound4;
+                    soundSource.Play();
+                    break;
+                case 5:
+                    soundSource.clip = deathSound5;
+                    soundSource.Play();
+                    break;
             }
         }
     }
 
-    public void Die()
+    public void UpdateState()
     {
-        /*if (GetComponent<Fighter>().GetCurrentWeapon() != null)
-            Destroy(GetComponent<Fighter>().GetCurrentWeapon(), destroyDelay);*/
+        Animator animator = GetComponent<Animator>();
+        if (!wasDeadLastFrame && IsDead())
+        {
+            if (gameObject.CompareTag("Player")) return;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
+            Destroy(gameObject, destroyDelay);
+        }
 
-        isDead = true;
-        GetComponent<ActionScheduler>().CancelCurrentAction();
-        Destroy(gameObject, destroyDelay);
+        if (wasDeadLastFrame && !IsDead())
+        {
+            animator.Rebind();
+        }
+
+        wasDeadLastFrame = IsDead();
     }
 
     public bool IsDead()
     {
-        return isDead;
+        return healthPoints.value <= 0;
+    }
+
+    private void AwardExperience(GameObject insigator)
+    {
+        Experience experience = insigator.GetComponent<Experience>();
+        if (experience == null) return;
+
+        experience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
     }
 
     bool AnimatorIsPlaying(string stateName)
@@ -371,8 +350,8 @@ public class Health : MonoBehaviour
         return hurtAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
 
-    public void Heal(float restoreHealth)
+    public void Heal(float healthToRestore)
     {
-        healthPoints.value = healthPoints.value + restoreHealth;
+        healthPoints.value = Mathf.Min(healthPoints.value + healthToRestore, GetMaxHealthPoints());
     }
 }

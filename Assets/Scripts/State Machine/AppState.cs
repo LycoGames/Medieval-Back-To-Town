@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AppState : BaseState
@@ -30,23 +25,17 @@ public class AppState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("App State Enter");
         ctx.InitializeWeapon();
     }
 
     public override void UpdateState()
     {
-        Debug.Log("App State Update");
         UserInterface();
-        ctx.InputMagnitude();
         GetTarget();
-
-        CameraRotation();
     }
 
     public override void ExitState()
     {
-        Debug.Log("App State Exit");
     }
 
     public override void CheckSwitchStates()
@@ -56,6 +45,7 @@ public class AppState : BaseState
     public override void InitializeSubState()
     {
         SetSubState(factory.GroundedState());
+        factory.GroundedState().EnterState();
     }
 
     private void UserInterface()
@@ -100,36 +90,6 @@ public class AppState : BaseState
         }
 
         DetectEnemies();
-    }
-
-    private void CameraRotation()
-    {
-        // if there is an input and camera position is not fixed
-        if (ctx.Input.look.sqrMagnitude >= Threshold && !ctx.LockCameraPosition)
-        {
-            cinemachineTargetYaw += ctx.Input.look.x * Time.deltaTime;
-            cinemachineTargetPitch += ctx.Input.look.y * Time.deltaTime;
-        }
-
-        // clamp our rotations so our values are limited 360 degrees
-        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, ctx.BottomClamp, ctx.TopClamp);
-
-        // Cinemachine will follow this target
-        /* ctx.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
-             cinemachineTargetPitch + ctx.CameraAngleOverride,
-             cinemachineTargetYaw, 0.0f);*/
-
-        ctx.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
-            cinemachineTargetPitch,
-            cinemachineTargetYaw, 0.0f);
-    }
-
-    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-    {
-        if (lfAngle < -360f) lfAngle += 360f;
-        if (lfAngle > 360f) lfAngle -= 360f;
-        return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
     private void GetTarget()

@@ -12,11 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cdff91d63f9554f81755e1c01a49d0, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
-  animatorOverride: {fileID: 22100000, guid: 7d5a76bf3f45de9439707a1916b0ceb7, type: 2}
+  itemID: 9f2f7402-54d1-4772-a2d9-b9676691b52d
+  displayName: 
+  description: 
+  icon: {fileID: 21300000, guid: 9415af11d73bb804c8d24343e1351132, type: 3}
+  pickup: {fileID: 6494234044896430859, guid: ab73185f2dadf4445ae07e78eb669c1f, type: 3}
+  stackable: 0
+  allowedEquipLocation: 7
+  allowedCharacterClasses: 02000000
+  properCharacterClasses: 
+  animatorController: {fileID: 0}
+  animatorOverride: {fileID: 0}
+  shouldUseOverrideController: 1
   equippedPrefab: {fileID: 4171901969173080714, guid: fedbb36ee6e00eb4e83b599cdc79fe59,
     type: 3}
-  weaponDamage: 10
+  weaponDamage: 5
+  percentageBonus: 0.1
   weaponRange: 10
   isRightHanded: 0
-  projectile: {fileID: 5949857427629981788, guid: 5e0a7f78990c3da49adaeee88e8b8a39,
-    type: 3}
+  isBothHanded: 0

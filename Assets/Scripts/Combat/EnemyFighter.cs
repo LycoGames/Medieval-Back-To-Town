@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class EnemyFighter : MonoBehaviour, IAction
 {
-
     [SerializeField] float enemyAttackCooldown = 1f;
     [SerializeField] float mobRange = 1f;
     [Range(1, 300)] [SerializeField] float speed = 200f;
@@ -30,13 +29,13 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     void Start()
     {
-
     }
 
 
     void Update()
     {
         if (targetPlayer == null) return;
+        if (targetPlayer.IsDead()) return;
         if (!GetIsInRange(targetPlayer.transform))
         {
             enemyAIController.MoveTo(targetPlayer.transform.position, 1f);
@@ -62,7 +61,8 @@ public class EnemyFighter : MonoBehaviour, IAction
     }
 
     public void AttackBehaviour()
-    {   //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
+    {
+        //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
         RotateTowardsPlayer();
 
         //   transform.LookAt(targetPlayer.transform.position);
@@ -95,8 +95,7 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     public void Hit()
     {
-        float targetPlayerHealth = targetPlayer.GetComponent<Health>().GetHealthPoints();
-        targetPlayer.GetComponent<Health>().ApplyDamage(this.gameObject,GetDamage());
+        targetPlayer.GetComponent<Health>().ApplyDamage(this.gameObject, GetDamage());
     }
 
     private float GetDamage()

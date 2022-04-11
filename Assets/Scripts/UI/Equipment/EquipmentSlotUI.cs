@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<InventoryItem>
@@ -7,7 +8,9 @@ public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<Invent
     // CONFIG DATA
 
     [SerializeField] InventoryItemIcon icon = null;
-    [SerializeField] EquipLocation equipLocation = EquipLocation.Weapon;
+    [SerializeField] EquipLocation equipLocation = EquipLocation.PrimaryWeapon;
+    [SerializeField] bool isSlotItemAllowedSpesificCharacterClasses = false;
+    [SerializeField] private CharacterClass[] allowedCharacterClasses;
 
     // CACHE
     Equipment playerEquipment;
@@ -34,13 +37,18 @@ public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<Invent
         if (equipableItem == null) return 0;
         if (equipableItem.GetAllowedEquipLocation() != equipLocation) return 0;
         if (GetItem() != null) return 0;
+        //TODO
+        if (!isSlotItemAllowedSpesificCharacterClasses) return 1;
 
-        return 1;
+        return equipableItem.GetAllowedCharacterClasses()
+            .Any(characterClass => allowedCharacterClasses.Contains(characterClass))
+            ? 1
+            : 0;
     }
 
     public void AddItems(InventoryItem item, int number)
     {
-        playerEquipment.AddItem(equipLocation, (EquipableItem)item);
+        playerEquipment.AddItem(equipLocation, (EquipableItem) item);
     }
 
     public InventoryItem GetItem()

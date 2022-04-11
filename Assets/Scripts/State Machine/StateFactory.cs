@@ -6,6 +6,7 @@ public class StateFactory
     {
         context = currentContext;
     }
+
     public BaseState AppState()
     {
         return new AppState(context, this);
@@ -19,6 +20,16 @@ public class StateFactory
     public BaseState FreeState()
     {
         return new FreeState(context, this);
+    }
+
+    public BaseState DialogueState()
+    {
+        return new DialogueState(context, this);
+    }
+
+    public BaseState UiState()
+    {
+        return new UiState(context, this);
     }
 
     public BaseState IdleState()
