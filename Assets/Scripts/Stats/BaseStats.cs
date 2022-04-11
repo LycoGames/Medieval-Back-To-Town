@@ -50,8 +50,8 @@ public class BaseStats : MonoBehaviour
         if (newLevel > currentLevel.value)
         {
             currentLevel.value = newLevel;
-            LevelUpEffect();
             onLevelUp();
+            LevelUpEffect();
         }
     }
 

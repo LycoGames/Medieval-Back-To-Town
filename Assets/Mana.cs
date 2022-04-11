@@ -6,12 +6,29 @@ public class Mana : MonoBehaviour
 {
 
     LazyValue<float> mana;
-
+    ManaBar manaBar;
+    private float tempMana = 0f;
     // Start is called before the first frame update
     void Awake()
     {
         mana = new LazyValue<float>(GetMaxMana);
+        manaBar = GetComponent<ManaBar>();
     }
+    void Start()
+    {
+        manaBar.SetMaxMana(GetMaxMana());
+        GetComponent<BaseStats>().onLevelUp += SetNewMaxMana;
+    }
+
+    /*
+        void OnEnable()
+        {
+            GetComponent<BaseStats>().onLevelUp += SetNewMaxMana;
+        }
+        void OnDisable()
+        {
+            GetComponent<BaseStats>().onLevelUp -= SetNewMaxMana;
+        }*/
 
     void Update()
     {
@@ -22,13 +39,21 @@ public class Mana : MonoBehaviour
             {
                 mana.value = GetMaxMana();
             }
+            manaBar.SetMana(GetMana());
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             print("mana: " + mana.value);
             print("max mana: " + GetMaxMana());
         }
+    }
+
+    private void SetNewMaxMana()
+    {
+        print("ilk satır");
+        manaBar.SetMaxMana(GetComponent<BaseStats>().GetStat(Stat.Mana));
+        print("maxmana " + GetComponent<BaseStats>().GetStat(Stat.Mana));
     }
 
     public float GetMaxMana()

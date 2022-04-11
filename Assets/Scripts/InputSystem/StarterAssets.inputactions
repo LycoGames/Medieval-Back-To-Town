@@ -132,6 +132,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TraitShowHide",
+                    "type": "Button",
+                    "id": "e5c732ec-4cdf-4eee-b318-f67e87e9a668",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -440,6 +448,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "PauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20601c13-cab1-4d4e-910f-8c8bb27dd396",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "TraitShowHide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
