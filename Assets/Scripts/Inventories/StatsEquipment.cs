@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatsEquipment : Equipment,IModifierProvider
+public class StatsEquipment : Equipment, IModifierProvider
 {
     IEnumerable<float> IModifierProvider.GetAdditiveModifiers(Stat stat)
     {
         foreach (var slot in GetAllPopulatedSlots())
         {
             var item = GetItemInSlot(slot) as IModifierProvider;
-            if(item==null) continue;
+            if (item == null) continue;
 
             foreach (float modifier in item.GetAdditiveModifiers(stat))
             {
@@ -23,7 +23,7 @@ public class StatsEquipment : Equipment,IModifierProvider
         foreach (var slot in GetAllPopulatedSlots())
         {
             var item = GetItemInSlot(slot) as IModifierProvider;
-            if(item==null) continue;
+            if (item == null) continue;
 
             foreach (float modifier in item.GetPercentageModifiers(stat))
             {

@@ -26,7 +26,7 @@ public class DropLibrary : ScriptableObject
             }
             int min = GetByLevel(minNumber,level);
             int max = GetByLevel(maxNumber,level);
-            return UnityEngine.Random.Range(min, max + 1);
+            return Random.Range(min, max + 1);
         }
     }
 
@@ -69,7 +69,7 @@ public class DropLibrary : ScriptableObject
         result.number = drop.GetRandomNumber(level);
         return result;
     }
-
+    
     DropConfig SelectRandomItem(int level)
     {
         float totalChance = GetTotalChance(level);
@@ -86,6 +86,7 @@ public class DropLibrary : ScriptableObject
 
         return null;
     }
+    
     private float GetTotalChance(int level)
     {
         float total = 0;

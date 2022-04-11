@@ -222,7 +222,7 @@ public class StateMachine : MonoBehaviour
 
     public bool CanMove { get; set; }
 
-    public GameObject[] MainUiArray { get; private set; }
+    public List<GameObject> MainUiArray { get; private set; }
 
 
     public Transform Target
@@ -249,6 +249,9 @@ public class StateMachine : MonoBehaviour
         {
             equipment.equipmentUpdated += UpdateWeapon;
         }
+
+        MainUiArray = new List<GameObject>();
+        MainUiArray.AddRange(GameObject.FindGameObjectsWithTag("MainUI"));
     }
 
     void Start()
@@ -329,10 +332,6 @@ public class StateMachine : MonoBehaviour
         }
 
         Controller = GetComponent<CharacterController>();
-
-        GameObject[] tempUiList = GameObject.FindGameObjectsWithTag("MainUI");
-        MainUiArray = new GameObject [tempUiList.Length];
-        MainUiArray = tempUiList;
     }
 
     private void AssignAnimationIDs()

@@ -27,7 +27,7 @@ public class ItemDropper : MonoBehaviour, ISaveable
         droppedItems.Add(pickup);
     }
 
-    [System.Serializable]
+    [Serializable]
     private struct DropRecord
     {
         public string itemID;

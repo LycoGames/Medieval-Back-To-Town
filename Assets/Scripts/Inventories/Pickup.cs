@@ -6,14 +6,11 @@
 /// </summary>
 public class Pickup : MonoBehaviour
 {
-    // STATE
     InventoryItem item;
     private int number;
 
-    // CACHED REFERENCE
     Inventory inventory;
-
-    // LIFECYCLE METHODS
+    
 
     private void Awake()
     {
@@ -22,11 +19,7 @@ public class Pickup : MonoBehaviour
     }
 
     // PUBLIC
-
-    /// <summary>
-    /// Set the vital data after creating the prefab.
-    /// </summary>
-    /// <param name="item">The type of item this prefab represents.</param>
+    
     public void Setup(InventoryItem item, int number)
     {
         this.item = item;

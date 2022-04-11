@@ -14,7 +14,6 @@ public class ShowHideUI : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<StateMachine>();
-        player.InventoryUi = uiContainer.gameObject;
         uiContainer.SetActive(false);
         Cursor.visible = false;
     }
