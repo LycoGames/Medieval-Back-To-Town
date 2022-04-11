@@ -218,6 +218,7 @@ public class Health : MonoBehaviour
         if (IsDead()) //Death,
         {
             onDie.Invoke();
+
             AwardExperience(insigator);
             //Spawn Of Death
 

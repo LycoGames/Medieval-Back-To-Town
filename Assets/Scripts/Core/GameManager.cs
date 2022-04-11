@@ -20,6 +20,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SpawnEnemies();
+        }
+
         if (Keyboard.current.tKey.isPressed)
         {
             GameObject enemySpawned = Instantiate(enemyPrefab,
@@ -28,7 +34,7 @@ public class GameManager : MonoBehaviour
             enemiesAlive++;
         }
     }
-
+   
     private void SpawnEnemies()
     {
         for (var x = 0; x < spawnPoints.Length; x++)

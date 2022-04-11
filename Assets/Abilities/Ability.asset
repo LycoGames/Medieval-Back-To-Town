@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d3e5bea7bd9c044a623a3fe2759a4e, type: 3}
+  m_Name: Ability
+  m_EditorClassIdentifier: 
+  consumable: 0
+  targetingStrategy: {fileID: 11400000, guid: b586aa6f8c569554fb80e098c48855b8, type: 2}
+  filterStrategies:
+  - {fileID: 11400000, guid: 83ccc41ffd9df35438dd906939ac22a7, type: 2}
+  effectStrategies:
+  - {fileID: 11400000, guid: 96119852aef50d04585904ca8a71d3d9, type: 2}
+  - {fileID: 11400000, guid: 7461f1952d7404a4c9c89b3a811af0c5, type: 2}
+  - {fileID: 11400000, guid: 5624ff73d2228db4882a107db46fbb4e, type: 2}
+  cooldownTime: 5
+  manaCost: 10

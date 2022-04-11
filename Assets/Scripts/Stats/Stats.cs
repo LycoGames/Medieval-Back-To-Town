@@ -7,5 +7,7 @@ public enum Stat
     Health,
     ExperienceReward,
     ExperienceToLevelUp,
-    Damage
+    Damage,
+    Mana,
+    ManaRegenRate
 }

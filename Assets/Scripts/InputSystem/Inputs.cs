@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,7 @@ namespace InputSystem
         public bool inventoryShowHide;
         public bool interaction;
         [Header("Movement Settings")] public bool analogMovement;
+        [SerializeField] Ability ability;
 
 #if !UNITY_IOS || !UNITY_ANDROID
         [Header("Mouse Cursor Settings")] public bool cursorLocked = true;
@@ -103,7 +105,26 @@ namespace InputSystem
         {
             inventoryShowHide = newInventoryShowHideState;
         }
+/////////////////////////
+        public static Ray GetMouseRay()
+        {
+            return Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
 
+        void Update()
+        {
+            UseAbilities();
+        }
+
+        private void UseAbilities()
+        {
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ability.Use(gameObject);
+            }
+
+        }
 #if !UNITY_IOS || !UNITY_ANDROID
 
         /* private void OnApplicationFocus(bool hasFocus)

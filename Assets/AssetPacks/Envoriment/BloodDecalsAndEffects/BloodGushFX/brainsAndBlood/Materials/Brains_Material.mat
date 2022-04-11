@@ -4,10 +4,11 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Brains_Material
-  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: bd6af5d577c618947b73aa60db554e51, type: 3}
   m_ShaderKeywords: _EMISSION _NORMALMAP _PARALLAXMAP _SPECGLOSSMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
@@ -98,15 +99,27 @@ Material:
         m_Texture: {fileID: 2800000, guid: 204abc37f1ef2084c8551a7afbe60edc, type: 3}
         m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
+    - _Flow:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 204abc37f1ef2084c8551a7afbe60edc, type: 3}
         m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMixerrgb_AOa:
         m_Texture: {fileID: 2800000, guid: 16c53fef92528674fbf2fab05e0bf9a7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -146,16 +159,23 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AO_boost: 1
     - _Base_Gloss: 0.5555561
+    - _Blend2: 1
     - _BottomBumpScale: 1
     - _BottomEmissionScaleUI: 0
     - _BottomGlossiness: 0.5
     - _BottomMultiplier: 0
     - _BottomUsingSpecGlossMap: 0
     - _BumpScale: 1.46
+    - _CullMode: 0
     - _Cutoff: 0.5
+    - _Depthpower: 1
     - _Detail1_strength: 0.5631068
     - _Detail2_strength: 0.5
     - _Detail3_strength: 0.8241895
@@ -165,11 +185,14 @@ Material:
     - _DetailNormalMapScale: 1
     - _Dirt_Gloss: 0.1
     - _Dirt_Top: 0
+    - _Distortionpower: 0.05
     - _DstBlend: 0
+    - _Emission: 2
     - _EmissionScaleUI: 0.48
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _InvFade: 1
     - _Metallic: 0
     - _Mode: 0
     - _Norm1Strength: 1
@@ -189,6 +212,9 @@ Material:
     - _TopUsingSpecGlossMap: 0
     - _TriplanarSpace: 0
     - _UVSec: 0
+    - _Usecenterglow: 0
+    - _Usecustomrandom: 0
+    - _Usedepth: 0
     - _UsingSpecGlossMap: 1
     - _VertexColorStrength: 1
     - _ZWrite: 1
@@ -206,6 +232,7 @@ Material:
     - _DetailSpecCol3: {r: 0, g: 0, b: 1, a: 1}
     - _Dirt_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Dirt_SpecCol: {r: 0.128, g: 0.134, b: 0.147, a: 1}
+    - _DistortionSpeedXYPowerZ: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0.19117647, g: 0.16868512, b: 0.16868512, a: 0.48}
     - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
     - _Mask1_color: {r: 1, g: 1, b: 1, a: 1}
@@ -213,7 +240,9 @@ Material:
     - _Mask3_color: {r: 0.04974049, g: 0.3912004, b: 0.6764706, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Spec_Color_Gloss: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _SpeedMainTexUVNoiseZW: {r: 0, g: 0, b: 0, a: 0}
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}
     - _TopEmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _TopEmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
     - _TopSpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_BuildTextureStacks: []
