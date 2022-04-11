@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/ Make New Weapon")]
 public class WeaponConfig : EquipableItem, IModifierProvider
 {
+    [SerializeField] private CharacterClass[] properCharacterClasses;
+    [SerializeField] private AnimatorController animatorController;
     [SerializeField] AnimatorOverrideController animatorOverride = null;
+    [SerializeField] private bool shouldUseOverrideController = true;
     [SerializeField] Weapon equippedPrefab = null;
     [SerializeField] float weaponDamage = 5f;
     [SerializeField] float percentageBonus = 0.1f;
@@ -30,7 +34,7 @@ public class WeaponConfig : EquipableItem, IModifierProvider
                 weapon = Instantiate(equippedPrefab, rightHand);
                 weapon.gameObject.name = weaponName;
                 weapon = Instantiate(equippedPrefab, leftHand);
-         
+
                 weapon.transform.localPosition = new Vector3(0.0071f, -0.041f, -0.0144f);
                 weapon.transform.localRotation = new Quaternion(-5.086f, 0.049f, -171.515f, 1);
                 weapon.gameObject.name = weaponName;
@@ -43,15 +47,22 @@ public class WeaponConfig : EquipableItem, IModifierProvider
             }
         }
 
-        var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
-
-        if (animatorOverride != null)
+        if (shouldUseOverrideController && animatorController != null)
         {
-            animator.runtimeAnimatorController = animatorOverride;
+            animator.runtimeAnimatorController = animatorController;
         }
-        else if (overrideController != null)
+        else
         {
-            animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
+            var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
+
+            if (animatorOverride != null)
+            {
+                animator.runtimeAnimatorController = animatorOverride;
+            }
+            else if (overrideController != null)
+            {
+                animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
+            }
         }
 
         return weapon;

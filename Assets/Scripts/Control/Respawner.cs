@@ -52,5 +52,8 @@ public class Respawner : MonoBehaviour
         gameObject.transform.position = respawnLocation.position;
         Health health = GetComponent<Health>();
         health.Heal(health.GetMaxHealthPoints() * healthRegenPercentage / 100);
+        Animator animator = GetComponent<Animator>();
+        animator.applyRootMotion = false;
+        animator.Rebind();
     }
 }
