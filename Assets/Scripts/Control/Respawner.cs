@@ -26,15 +26,15 @@ public class Respawner : MonoBehaviour
     {
         SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
         savingWrapper.Save();
-        StateMachine stateMachine= GetComponent<StateMachine>();
+        StateMachine stateMachine = GetComponent<StateMachine>();
         stateMachine.enabled = false;
         yield return new WaitForSeconds(respawnDelay);
         Fader fader = FindObjectOfType<Fader>();
         yield return fader.FadeOut(fadeTime);
         RespawnPlayer();
-        stateMachine.enabled = true;
         ResetEnemies();
         yield return fader.FadeIn(fadeTime);
+        stateMachine.enabled = true;
     }
 
     private void ResetEnemies()
@@ -52,11 +52,11 @@ public class Respawner : MonoBehaviour
 
     private void RespawnPlayer()
     {
-        gameObject.transform.position = respawnLocation.position;
+        transform.position = respawnLocation.position;
         Health health = GetComponent<Health>();
         health.Heal(health.GetMaxHealthPoints() * healthRegenPercentage / 100);
         Animator animator = GetComponent<Animator>();
-        animator.applyRootMotion = false;
         animator.Rebind();
+        animator.applyRootMotion = false;
     }
 }
