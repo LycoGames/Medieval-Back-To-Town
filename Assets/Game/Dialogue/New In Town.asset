@@ -228,14 +228,19 @@ MonoBehaviour:
   - 134d2d99-f1ef-4ba8-aeab-35d34216800e
   rect:
     serializedVersion: 2
-    x: 647
-    y: 384
+    x: 668
+    y: 352
     width: 200
     height: 100
   onExitAction: 
   onEnterAction: 
   condition:
-    and: []
+    and:
+    - or:
+      - predicate: HasInventoryItem
+        parameters:
+        - 64ab5567-2bbb-4aba-90b6-e8d736da1fb6
+        negate: 0
 --- !u!114 &4909825131945683777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,8 +284,8 @@ MonoBehaviour:
   - 4b901465-b3ef-4b19-819c-61a16aa52d58
   rect:
     serializedVersion: 2
-    x: 645
-    y: 260
+    x: 673
+    y: 244
     width: 200
     height: 100
   onExitAction: 
