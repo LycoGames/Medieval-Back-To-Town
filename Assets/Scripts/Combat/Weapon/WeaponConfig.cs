@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
+//using UnityEditor.Animations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/ Make New Weapon")]
 public class WeaponConfig : EquipableItem, IModifierProvider
 {
     [SerializeField] private CharacterClass[] properCharacterClasses;
-    [SerializeField] private AnimatorController animatorController;
+ //   [SerializeField] private AnimatorController animatorController;
     [SerializeField] AnimatorOverrideController animatorOverride = null;
     [SerializeField] private bool shouldUseOverrideController = true;
     [SerializeField] Weapon equippedPrefab = null;
@@ -47,10 +47,10 @@ public class WeaponConfig : EquipableItem, IModifierProvider
             }
         }
 
-        if (shouldUseOverrideController && animatorController != null)
+      /*  if (shouldUseOverrideController && animatorController != null)
         {
             animator.runtimeAnimatorController = animatorController;
-        }
+        }*/
         else
         {
             var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
