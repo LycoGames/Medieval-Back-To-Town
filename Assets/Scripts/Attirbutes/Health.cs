@@ -75,24 +75,26 @@ public class Health : MonoBehaviour
         {
             healthBar.SetMaxHealth(GetInitialHealth());
         }
-
         onDie.AddListener(UpdateState);
     }
 
     private void OnEnable()
     {
         GetComponent<BaseStats>().onLevelUp += RegenerateHealth;
+        GetComponent<BaseStats>().onLevelUp += SetNewMaxHealthOnHUD;
     }
 
     private void OnDisable()
     {
         GetComponent<BaseStats>().onLevelUp -= RegenerateHealth;
+        GetComponent<BaseStats>().onLevelUp -= SetNewMaxHealthOnHUD;
     }
 
     private void RegenerateHealth()
     {
         float regenHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) * (regenerationPercentage / 100);
         healthPoints.value = Mathf.Max(healthPoints.value, regenHealthPoints);
+        healthBar.SetHealth(GetHealthPoints());
     }
 
     public float GetHealthPoints()
@@ -104,6 +106,15 @@ public class Health : MonoBehaviour
     {
         return GetComponent<BaseStats>().GetStat(Stat.Health);
     }
+
+    public void SetNewMaxHealthOnHUD()
+    {
+        if (healthBar)
+        {
+            healthBar.SetNewMaxHealth(GetMaxHealthPoints());
+        }
+    }
+
 
     public void
         Bloodflood(Vector3 prevMarkerPos,

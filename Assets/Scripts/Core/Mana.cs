@@ -14,6 +14,7 @@ public class Mana : MonoBehaviour
         mana = new LazyValue<float>(GetMaxMana);
         manaBar = GetComponent<ManaBar>();
     }
+
     void Start()
     {
         manaBar.SetMaxMana(GetMaxMana());
@@ -28,7 +29,8 @@ public class Mana : MonoBehaviour
         void OnDisable()
         {
             GetComponent<BaseStats>().onLevelUp -= SetNewMaxMana;
-        }*/
+        }
+    */
 
     void Update()
     {
@@ -49,7 +51,7 @@ public class Mana : MonoBehaviour
         }
     }
 
-    private void SetNewMaxMana()
+    public void SetNewMaxMana()
     {
         print("ilk satır");
         manaBar.SetMaxMana(GetComponent<BaseStats>().GetStat(Stat.Mana));
