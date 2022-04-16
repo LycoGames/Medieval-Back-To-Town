@@ -22,10 +22,11 @@ public class ExpBar : MonoBehaviour
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
 
-    public void ResetSlider()
+    public void ResetSlider(float previousRequiredEXP)
     {
         slider.value = 0;
-        slider.maxValue = GetComponent<BaseStats>().GetBaseStat(Stat.ExperienceToLevelUp);
+        slider.maxValue = GetComponent<BaseStats>().GetStat(Stat.ExperienceToLevelUp) - previousRequiredEXP; //max value must be current required EXP Points - Previous Required EXP Points
+        print("slider max value: " + slider.maxValue);
         print("resetted");
     }
 

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ public class TraitUI : MonoBehaviour
     [SerializeField] Button commitButton;
 
     TraitStore playerTraitStore = null;
+
+    public event Action onConfirm;
 
     void Start()
     {
