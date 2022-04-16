@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class TraitStore : MonoBehaviour
 {
     Dictionary<Trait, int> assignedPoints = new Dictionary<Trait, int>();
     Dictionary<Trait, int> stagedPoints = new Dictionary<Trait, int>();
 
-    int unassignedPoints = 10;
+
 
     public int GetProposedPoints(Trait trait)
     {
@@ -27,19 +28,33 @@ public class TraitStore : MonoBehaviour
     {
         if (!CanAssignPoints(trait, points)) return;
         stagedPoints[trait] = GetStagedPoints(trait) + points;
-        unassignedPoints -= points;
+
     }
 
     public bool CanAssignPoints(Trait trait, int points)
     {
         if (GetStagedPoints(trait) + points < 0) return false;
-        if (unassignedPoints < points) return false;
+        if (GetUnassignedPoints() < points) return false;
         return true;
     }
 
     public int GetUnassignedPoints()
     {
-        return unassignedPoints;
+        return GetAssignablePoints() - GetTotalProposedPoints();
+    }
+
+    public int GetTotalProposedPoints()
+    {
+        int total = 0;
+        foreach (int points in assignedPoints.Values)
+        {
+            total += points;
+        }
+        foreach (int points in stagedPoints.Values)
+        {
+            total += points;
+        }
+        return total;
     }
 
     public void Commit()
@@ -51,4 +66,8 @@ public class TraitStore : MonoBehaviour
         stagedPoints.Clear();
     }
 
+    public int GetAssignablePoints()
+    {
+        return (int)GetComponent<BaseStats>().GetStat(Stat.TotalTraitPoints);
+    }
 }

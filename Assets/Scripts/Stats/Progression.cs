@@ -16,9 +16,13 @@ public class Progression : ScriptableObject
 
         float[] levels = lookupTable[characterClass][stat];
 
-        if (levels.Length < level)
+        if (levels.Length == 0)
         {
             return 0;
+        }
+        if (levels.Length < level)
+        {
+            return levels[levels.Length - 1];
         }
 
         return levels[level - 1];
@@ -41,7 +45,7 @@ public class Progression : ScriptableObject
         foreach (ProgressionCharacterClass progressionClass in characterClasses)
         {
             var statLoookupTable = new Dictionary<Stat, float[]>();
-            
+
             foreach (ProgressionStat progressionStat in progressionClass.stats)
             {
                 statLoookupTable[progressionStat.stat] = progressionStat.levels;
