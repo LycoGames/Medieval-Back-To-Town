@@ -15,7 +15,6 @@ namespace InputSystem
         public bool inventoryShowHide;
         public bool interaction;
         [Header("Movement Settings")] public bool analogMovement;
-        [SerializeField] Ability ability;
 
 #if !UNITY_IOS || !UNITY_ANDROID
         [Header("Mouse Cursor Settings")] public bool cursorLocked = true;
@@ -105,37 +104,39 @@ namespace InputSystem
         {
             inventoryShowHide = newInventoryShowHideState;
         }
-/////////////////////////
+        /////////////////////////
         public static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
+        /* 
+                void Update()
+                {
+                    UseAbilities();
+                }
 
-        void Update()
-        {
-            UseAbilities();
-        }
+                private void UseAbilities()
+                {
 
-        private void UseAbilities()
-        {
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        ability.Use(gameObject);
+                        print("girdim");
+                    }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                ability.Use(gameObject);
-            }
-
-        }
+                }
+                */
 #if !UNITY_IOS || !UNITY_ANDROID
 
-        /* private void OnApplicationFocus(bool hasFocus)
-     {
-         SetCursorState(cursorLocked);
-     }
- 
-     private void SetCursorState(bool newState)
-     {
-         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-     }*/
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            SetCursorState(cursorLocked);
+        }
+
+        private void SetCursorState(bool newState)
+        {
+            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+        }
 
 #endif
     }

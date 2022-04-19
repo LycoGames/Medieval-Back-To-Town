@@ -25,8 +25,8 @@ public class DelayedClickTargeting : TargetingStrategy
 
     private IEnumerator Targeting(AbilityData data, Inputs playerController, Action finished, StateMachine stateMachine)
     {
-        stateMachine.CanMove = true;
-        stateMachine.enabled = false;
+        //stateMachine.CanMove = true;
+        //  stateMachine.enabled = false;
 
         if (targetingPrefabInstance == null)
         {
@@ -37,12 +37,12 @@ public class DelayedClickTargeting : TargetingStrategy
             targetingPrefabInstance.gameObject.SetActive(true);
         }
 
-        targetingPrefabInstance.localScale = new Vector3(areaAffectRadius * 2, 1, areaAffectRadius * 2);
+        // targetingPrefabInstance.localScale = new Vector3(areaAffectRadius, 1, areaAffectRadius);
 
         while (!data.IsCancelled())
         {
             //run every frame
-            Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
+            // Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
             RaycastHit raycastHit;
             if (Physics.Raycast(Inputs.GetMouseRay(), out raycastHit, 1000, layerMask))
             {
@@ -58,7 +58,8 @@ public class DelayedClickTargeting : TargetingStrategy
             }
             yield return null;
         }
-        stateMachine.enabled = true;
+        // stateMachine.enabled = true;
+        //  stateMachine.CanMove = false;
         targetingPrefabInstance.gameObject.SetActive(false);
         finished();
     }

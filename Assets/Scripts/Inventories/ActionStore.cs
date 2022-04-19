@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class ActionStore : MonoBehaviour, ISaveable
 {
+    [SerializeField] Ability[] skills;
+
     private Dictionary<int, DockedItemSlot> dockedItems = new Dictionary<int, DockedItemSlot>();
 
     private class DockedItemSlot
@@ -16,6 +18,15 @@ public class ActionStore : MonoBehaviour, ISaveable
     }
 
     public event Action storeUpdated;
+
+
+    void OnEnable()
+    {
+        for (int i = 0; i < skills.Length; i++)
+        {
+            AddAction(skills[i], i, 1);
+        }
+    }
 
     public ActionItem GetAction(int index)
     {
@@ -128,7 +139,7 @@ public class ActionStore : MonoBehaviour, ISaveable
 
     void ISaveable.RestoreState(object state)
     {
-        var stateDict = (Dictionary<int, DockedItemRecord>) state;
+        var stateDict = (Dictionary<int, DockedItemRecord>)state;
         foreach (var pair in stateDict)
         {
             AddAction(InventoryItem.GetFromID(pair.Value.itemID), pair.Key, pair.Value.number);

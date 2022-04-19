@@ -12,11 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d3e5bea7bd9c044a623a3fe2759a4e, type: 3}
   m_Name: Ability
   m_EditorClassIdentifier: 
+  itemID: ad14bc9d-43e5-4776-a25b-32242637a83e
+  displayName: 
+  description: 
+  icon: {fileID: 21300000, guid: 504f47b8d2ee35c4b9a0d42a46fb61a1, type: 3}
+  pickup: {fileID: 0}
+  stackable: 0
   consumable: 0
   targetingStrategy: {fileID: 11400000, guid: b586aa6f8c569554fb80e098c48855b8, type: 2}
   filterStrategies:
   - {fileID: 11400000, guid: 83ccc41ffd9df35438dd906939ac22a7, type: 2}
   effectStrategies:
+  - {fileID: 11400000, guid: 34fb231fea58e3943a401664bd754b3e, type: 2}
   - {fileID: 11400000, guid: 96119852aef50d04585904ca8a71d3d9, type: 2}
   - {fileID: 11400000, guid: 7461f1952d7404a4c9c89b3a811af0c5, type: 2}
   - {fileID: 11400000, guid: 5624ff73d2228db4882a107db46fbb4e, type: 2}
