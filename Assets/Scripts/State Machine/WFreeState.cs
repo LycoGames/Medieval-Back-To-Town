@@ -38,6 +38,10 @@ public class WFreeState : WBaseState
             ctx.Animator.SetBool(ctx.AnimIDInCombat, true);
             SwitchState(factory.CombatState());
         }*/
+        if (ctx.InteractableNpc != null && ctx.Input.interaction)
+        {
+            SwitchState(factory.WDialogueState());
+        }
     }
 
     public override void InitializeSubState()

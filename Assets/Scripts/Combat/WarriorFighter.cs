@@ -39,15 +39,10 @@ public class WarriorFighter : Fighter
             noOfClicks++;
         }
 
-        if (ctx.started && noOfClicks == 1)
+       /* if (ctx.started && noOfClicks == 1)
         {
             StartCoroutine(PerformAttack(animIDBasicAttack));
-        }
-
-        /*  if (ctx.started && !isAttacking)
-          {
-              StartCoroutine(PerformAttack(animIDBasicAttack));
-          }*/
+        }*/
     }
 
     public void ComboCheck()

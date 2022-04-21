@@ -326,6 +326,9 @@ public class WStateMachine : MonoBehaviour
         set => controller = value;
     }
 
+    public AIConversant InteractableNpc { get; set; }
+    public bool CanMove { get; set; }
+
     private void Awake()
     {
         if (mainCamera == null)
@@ -345,9 +348,7 @@ public class WStateMachine : MonoBehaviour
         input = GetComponent<Inputs>();
 
         AssignAnimationIDs();
-
-        jumpTimeoutDelta = jumpTimeout;
-        fallTimeoutDelta = fallTimeout;
+        CanMove = true;
     }
 
     void Update()
@@ -361,9 +362,8 @@ public class WStateMachine : MonoBehaviour
         animIDGrounded = Animator.StringToHash("Grounded");
         animIDJump = Animator.StringToHash("Jump");
         animIDFreeFall = Animator.StringToHash("FreeFall");
-        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");        
+        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         animIDInCombat = Animator.StringToHash("InCombat");
-        
     }
 
     public void SetSpeedToIdle()
@@ -383,6 +383,8 @@ public class WStateMachine : MonoBehaviour
 
     public void Move()
     {
+        if(!CanMove)
+            return;
         Vector3 targetDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
 
         // move the player
