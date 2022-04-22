@@ -58,7 +58,6 @@ public class FreeState : BaseState
         SetSubState(factory.IdleState());
         factory.IdleState().EnterState();
     }
-
     private void PlayerMoveAndRotation()
     {
         if (currentSubState.GetType() != ctx.States.IdleState().GetType())

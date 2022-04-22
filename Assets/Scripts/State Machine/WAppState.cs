@@ -2,12 +2,6 @@ using UnityEngine;
 
 public class WAppState : WBaseState
 {
-    private const float Threshold = 0.01f;
-
-    //cinemachine
-    private float cinemachineTargetYaw;
-    private float cinemachineTargetPitch;
-
     public WAppState(WStateMachine currentContext, WStateFactory stateFactory) : base(currentContext, stateFactory)
     {
         isRootState = true;
@@ -24,7 +18,6 @@ public class WAppState : WBaseState
         Debug.Log("App State Update");
         ApplyGravity();
         GroundedCheck();
-        CameraRotation();
     }
 
     public override void ExitState()
@@ -41,38 +34,11 @@ public class WAppState : WBaseState
         SetSubState(factory.WGroundedState());
     }
 
-
-    private void CameraRotation()
-    {
-        // if there is an input and camera position is not fixed
-        if (ctx.Input.look.sqrMagnitude >= Threshold && !ctx.LockCameraPosition)
-        {
-            cinemachineTargetYaw += ctx.Input.look.x * Time.deltaTime;
-            cinemachineTargetPitch += ctx.Input.look.y * Time.deltaTime;
-        }
-
-        // clamp our rotations so our values are limited 360 degrees
-        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, ctx.BottomClamp, ctx.TopClamp);
-
-        // Cinemachine will follow this target
-        ctx.CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
-            cinemachineTargetPitch + ctx.CameraAngleOverride,
-            cinemachineTargetYaw, 0.0f);
-    }
-
-    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-    {
-        if (lfAngle < -360f) lfAngle += 360f;
-        if (lfAngle > 360f) lfAngle -= 360f;
-        return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-
     public void ApplyGravity()
     {
         // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
 
-        if (currentSubState.GetType() == factory.WGroundedState().GetType() && ctx.VerticalVelocity < 0)
+        if (currentSubState is WGroundedState && ctx.VerticalVelocity < 0)
         {
             ctx.VerticalVelocity = -2f;
         }

@@ -105,26 +105,27 @@ namespace InputSystem
         {
             inventoryShowHide = newInventoryShowHideState;
         }
+
 /////////////////////////
         public static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
 
-        void Update()
-        {
-            UseAbilities();
-        }
+        /* void Update()
+         {
+             UseAbilities();
+         }*/
 
-        private void UseAbilities()
-        {
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                ability.Use(gameObject);
-            }
-
-        }
+        /* private void UseAbilities()
+         {
+ 
+             if (Input.GetKeyDown(KeyCode.Alpha1))
+             {
+                 ability.Use(gameObject);
+             }
+ 
+         }*/
 #if !UNITY_IOS || !UNITY_ANDROID
 
         /* private void OnApplicationFocus(bool hasFocus)
