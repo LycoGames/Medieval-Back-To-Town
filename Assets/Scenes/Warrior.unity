@@ -1035,15 +1035,19 @@ PrefabInstance:
     m_TransformParent: {fileID: 2135177393}
     m_Modifications:
     - target: {fileID: 1057987400, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
+      propertyPath: moveSpeed
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057987400, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
+      propertyPath: fallTimeout
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057987400, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
       propertyPath: sprintSpeed
-      value: 15
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 1330088605, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1330088605, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1330088605, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
@@ -1065,6 +1069,10 @@ PrefabInstance:
     - target: {fileID: 1330088605, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnInteraction
+      objectReference: {fileID: 0}
+    - target: {fileID: 1330088605, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InputSystem.Inputs, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1330088605, guid: e1417abeb0cf6ab4585f0541cc18f33a, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1260,7 +1268,7 @@ PrefabInstance:
     - target: {fileID: 688181315702535808, guid: 0c5e98d9196858743b5d3915485d48e7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -662.3499
+      value: -662.3498
       objectReference: {fileID: 0}
     - target: {fileID: 688401320945496000, guid: 0c5e98d9196858743b5d3915485d48e7,
         type: 3}

@@ -11,6 +11,7 @@ public abstract class Fighter : MonoBehaviour
 
     //Animation
     protected Animator animator;
+    protected WStateMachine stateMachine;
 
     //Weapon
     private WeaponConfig currentWeaponConfig;
@@ -30,6 +31,7 @@ public abstract class Fighter : MonoBehaviour
     protected void Start()
     {
         animator = GetComponent<Animator>();
+        stateMachine = GetComponent<WStateMachine>();
         AssignAnimationIDs();
     }
 
