@@ -30,8 +30,8 @@ public class Ability : ActionItem
 
         AbilityData data = new AbilityData(user);
 
-        ActionScheduler actionScheduler = user.GetComponent<ActionScheduler>();
-        actionScheduler.StartAction(data);
+        //    ActionScheduler actionScheduler = user.GetComponent<ActionScheduler>();
+        //    actionScheduler.StartAction(data);
 
         targetingStrategy.StartTargeting(data,
             () =>

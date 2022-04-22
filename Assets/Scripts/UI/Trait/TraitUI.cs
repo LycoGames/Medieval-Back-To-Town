@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +10,20 @@ public class TraitUI : MonoBehaviour
 
     TraitStore playerTraitStore = null;
 
+    Mana mana;
+    Health health;
+
+
+    public event Action onConfirm;
+
     void Start()
     {
         playerTraitStore = GameObject.FindGameObjectWithTag("Player").GetComponent<TraitStore>();
-        commitButton.onClick.AddListener(playerTraitStore.Commit);
+        mana = GameObject.FindGameObjectWithTag("Player").GetComponent<Mana>();
+        health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        commitButton.onClick.AddListener(playerTraitStore.Commit); //onConfirm 
+        commitButton.onClick.AddListener(mana.SetNewMaxMana);
+        commitButton.onClick.AddListener(health.SetNewMaxHealthOnHUD);
     }
 
     void Update()

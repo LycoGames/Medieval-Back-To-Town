@@ -7,6 +7,7 @@ public class Experience : MonoBehaviour
     ExpBar expBar;
     ManaBar manaBar;
     private float tempEXP = 0f;
+    private float tempEXP2 = 0f;
     public event Action OnExperienceGained;
 
     void Start()
@@ -17,19 +18,29 @@ public class Experience : MonoBehaviour
         {
             expBar.SetMaxEXP(GetComponent<BaseStats>().GetBaseStat(Stat.ExperienceToLevelUp));
         }
+        GetComponent<BaseStats>().onLevelUp += ResetSlider;
+    }
+
+    private void ResetSlider()
+    {
+        expBar.ResetSlider(experiencePoints); //the points i ve collected till now. 
+        tempEXP = 0f;
     }
 
     public void GainExperience(float experience)
     {
         experiencePoints += experience;
         tempEXP += experience;
+
         expBar.SetEXP(tempEXP);
-        if (experiencePoints >= GetMaxExp())
+
+        /*if (experiencePoints >= GetMaxExp())
         {
             expBar.SetMaxEXP(GetComponent<BaseStats>().GetBaseStat(Stat.ExperienceToLevelUp)); tempEXP = 0f;
             print("exp: " + GetComponent<BaseStats>().GetBaseStat(Stat.ExperienceToLevelUp));
 
-        } //if char levelled up.
+        } //if char levelled up. */
+
         OnExperienceGained();
     }
 
