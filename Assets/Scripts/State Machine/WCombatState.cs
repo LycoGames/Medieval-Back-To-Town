@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class WCombatState : WBaseState
@@ -17,12 +18,11 @@ public class WCombatState : WBaseState
     {
         Debug.Log("Combat State Update");
         CheckSwitchStates();
-        if (currentSubState.GetType()
-            != factory.WCombatIdleState().GetType())
+        /*if (!(currentSubState is WCombatIdleState))
         {
             ctx.RotatePlayerToMoveDirection();
             ctx.Move();
-        }
+        }*/
     }
 
     public override void ExitState()
@@ -32,11 +32,8 @@ public class WCombatState : WBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Keyboard.current.gKey.isPressed)
-        {
-            ctx.Animator.SetBool(ctx.AnimIDInCombat, false);
+        if(!ctx.IsAttacking)
             SwitchState(factory.WFreeState());
-        }
     }
 
     public override void InitializeSubState()

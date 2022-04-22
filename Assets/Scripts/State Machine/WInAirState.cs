@@ -4,9 +4,6 @@ using UnityEngine.InputSystem;
 
 public class WInAirState : WBaseState
 {
-    //timeout deltatime
-    private float fallTimeoutDelta;
-
     public WInAirState(WStateMachine currentContext, WStateFactory stateFactory) : base(currentContext, stateFactory)
     {
         InitializeSubState();
@@ -16,7 +13,6 @@ public class WInAirState : WBaseState
     {
         Debug.Log("In Air State Enter");
         // if we are not grounded, do not jump
-        ctx.Input.jump = false;
     }
 
     public override void UpdateState()
@@ -26,9 +22,9 @@ public class WInAirState : WBaseState
         ctx.RotatePlayerToMoveDirection();
 
         // fall timeout
-        if (fallTimeoutDelta >= 0.0f)
+        if (ctx.FallTimeoutDelta >= 0.0f)
         {
-            fallTimeoutDelta -= Time.deltaTime;
+            ctx.FallTimeoutDelta -= Time.deltaTime;
         }
         else
         {
@@ -45,8 +41,7 @@ public class WInAirState : WBaseState
     public override void ExitState()
     {
         Debug.Log("In Air State Exit");
-        // reset the fall timeout timer
-        fallTimeoutDelta = ctx.FallTimeout;
+        ctx.FallTimeoutDelta = ctx.FallTimeout;
 
         // update animator if using character
         if (ctx.HasAnimator)

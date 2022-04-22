@@ -24,6 +24,7 @@ public class PlayerConversant : MonoBehaviour
     private LayerMask NPCLayerMask;
 
     private StateMachine stateMachine;
+    private WStateMachine wStateMachine;
 
     public event Action onConversationUpdated;
 
@@ -45,6 +46,8 @@ public class PlayerConversant : MonoBehaviour
         NPCLayerMask = LayerMask.GetMask("NPC");
         cam = Camera.main;
         stateMachine = GetComponent<StateMachine>();
+        if (stateMachine == null)
+            wStateMachine = GetComponent<WStateMachine>();
     }
 
     private void Update()
@@ -94,6 +97,11 @@ public class PlayerConversant : MonoBehaviour
 
     public AIConversant GetInteractableNPC()
     {
+        if (stateMachine == null)
+        {
+            return wStateMachine.InteractableNpc;
+        }
+
         return stateMachine.InteractableNpc;
     }
 
@@ -264,20 +272,29 @@ public class PlayerConversant : MonoBehaviour
                 canInteractDistance && activeAIConservant.CanInteractable())
             {
                 npcUI.SetActiveInteract(true);
-                stateMachine.InteractableNpc = activeAIConservant.GetComponent<AIConversant>();
+                if (stateMachine != null)
+                    stateMachine.InteractableNpc = activeAIConservant.GetComponent<AIConversant>();
+                else
+                    wStateMachine.InteractableNpc = activeAIConservant.GetComponent<AIConversant>();
             }
             else if (activeAIConservant.CanInteractable())
             {
                 npcUI.SetActiveInteract(false);
                 npcUI.SetActiveInteractInfo(true);
-                stateMachine.InteractableNpc = null;
+                if (stateMachine != null)
+                    stateMachine.InteractableNpc = null;
+                else
+                    wStateMachine.InteractableNpc = null;
             }
         }
         else
         {
             npcUI.SetActiveInteract(false);
             npcUI.SetActiveInteractInfo(false);
-            stateMachine.InteractableNpc = null;
+            if (stateMachine != null)
+                stateMachine.InteractableNpc = null;
+            else
+                wStateMachine.InteractableNpc = null;
         }
     }
 }

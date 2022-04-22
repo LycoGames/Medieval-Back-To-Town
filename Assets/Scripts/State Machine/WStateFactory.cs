@@ -36,6 +36,10 @@ public class WStateFactory
     {
         return new WRunState(context, this);
     }
+    public WBaseState WDialogueState()
+    {
+        return new WDialogueState(context, this);
+    }
 
     public WBaseState WCombatState()
     {

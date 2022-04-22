@@ -1,5 +1,7 @@
+using System;
 using InputSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WStateMachine : MonoBehaviour
 {
@@ -15,16 +17,10 @@ public class WStateMachine : MonoBehaviour
     [Tooltip("Acceleration and deceleration")] [SerializeField]
     private float speedChangeRate = 10.0f;
 
-    [Space(10)] [Tooltip("The height the player can jump")] [SerializeField]
-    private float jumpHeight = 1.2f;
 
     [Tooltip("The character uses its own gravity value. The engine default is -9.81f")] [SerializeField]
     private float gravity = -15.0f;
 
-    [Space(10)]
-    [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
-    [SerializeField]
-    private float jumpTimeout = 0.50f;
 
     [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")] [SerializeField]
     private float fallTimeout = 0.15f;
@@ -300,23 +296,10 @@ public class WStateMachine : MonoBehaviour
         set => speedChangeRate = value;
     }
 
-    //Jump And Gravity
-    public float JumpHeight
-    {
-        get => jumpHeight;
-        set => jumpHeight = value;
-    }
-
     public float Gravity
     {
         get => gravity;
         set => gravity = value;
-    }
-
-    public float JumpTimeout
-    {
-        get => jumpTimeout;
-        set => jumpTimeout = value;
     }
 
     //Move
@@ -326,13 +309,23 @@ public class WStateMachine : MonoBehaviour
         set => controller = value;
     }
 
+    public AIConversant InteractableNpc { get; set; }
+    public bool CanMove { get; set; }
+    
+    public bool IsAttacking { get; set; }
+
+    private const float Threshold = 0.01f;
+
+    //cinemachine
+    private float cinemachineTargetYaw;
+    private float cinemachineTargetPitch;
+
     private void Awake()
     {
         if (mainCamera == null)
         {
             mainCamera = Camera.main;
         }
-
         states = new WStateFactory(this);
         currentState = states.WAppState();
         currentState.EnterState();
@@ -345,14 +338,17 @@ public class WStateMachine : MonoBehaviour
         input = GetComponent<Inputs>();
 
         AssignAnimationIDs();
-
-        jumpTimeoutDelta = jumpTimeout;
-        fallTimeoutDelta = fallTimeout;
+        CanMove = true;
     }
 
     void Update()
     {
         currentState.UpdateStates();
+    }
+
+    private void LateUpdate()
+    {
+        CameraRotation();
     }
 
     private void AssignAnimationIDs()
@@ -361,9 +357,8 @@ public class WStateMachine : MonoBehaviour
         animIDGrounded = Animator.StringToHash("Grounded");
         animIDJump = Animator.StringToHash("Jump");
         animIDFreeFall = Animator.StringToHash("FreeFall");
-        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");        
+        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         animIDInCombat = Animator.StringToHash("InCombat");
-        
     }
 
     public void SetSpeedToIdle()
@@ -383,6 +378,8 @@ public class WStateMachine : MonoBehaviour
 
     public void Move()
     {
+        if (!CanMove)
+            return;
         Vector3 targetDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
 
         // move the player
@@ -406,5 +403,31 @@ public class WStateMachine : MonoBehaviour
 
         // rotate to face input direction relative to camera position
         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+    }
+
+    private void CameraRotation()
+    {
+        // if there is an input and camera position is not fixed
+        if (input.look.sqrMagnitude >= Threshold && !LockCameraPosition)
+        {
+            cinemachineTargetYaw += input.look.x * Time.deltaTime;
+            cinemachineTargetPitch += input.look.y * Time.deltaTime;
+        }
+
+        // clamp our rotations so our values are limited 360 degrees
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomClamp, topClamp);
+
+        // Cinemachine will follow this target
+        cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+            cinemachineTargetPitch + cameraAngleOverride,
+            cinemachineTargetYaw, 0.0f);
+    }
+
+    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 }
