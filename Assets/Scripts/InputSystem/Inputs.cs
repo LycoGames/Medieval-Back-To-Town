@@ -104,7 +104,7 @@ namespace InputSystem
         {
             inventoryShowHide = newInventoryShowHideState;
         }
-        /////////////////////////
+        
         public static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);

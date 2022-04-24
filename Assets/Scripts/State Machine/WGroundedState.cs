@@ -11,9 +11,6 @@ public class WGroundedState : WBaseState
     {
         Debug.Log("Grounded State Enter");
 
-        // reset the fall timeout timer
-        ctx.FallTimeoutDelta = ctx.FallTimeout;
-
         // update animator if using character
         if (ctx.HasAnimator)
         {
@@ -25,7 +22,6 @@ public class WGroundedState : WBaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Timers();
         UpdateSpeed();
         UpdateAnimations();
         Debug.Log("Grounded State Update");
@@ -38,12 +34,7 @@ public class WGroundedState : WBaseState
 
     public override void CheckSwitchStates()
     {
-        if (ctx.JumpTimeoutDelta <= 0.0f && ctx.Input.jump)
-        {
-            Jump();
-            SwitchState(factory.WInAirState());
-        }
-        else if (!ctx.Grounded)
+        if (!ctx.Grounded)
         {
             SwitchState(factory.WInAirState());
         }
@@ -52,29 +43,6 @@ public class WGroundedState : WBaseState
     public override void InitializeSubState()
     {
         SetSubState(factory.WFreeState());
-    }
-
-    private void Timers()
-    {
-        // jump timeout
-        if (ctx.JumpTimeoutDelta >= 0.0f)
-        {
-            ctx.JumpTimeoutDelta -= Time.deltaTime;
-        }
-    }
-
-    private void Jump()
-    {
-        // Jump
-        // the square root of H * -2 * G = how much velocity needed to reach desired height
-        ctx.VerticalVelocity = Mathf.Sqrt(ctx.JumpHeight * -2f * ctx.Gravity);
-        // update animator if using character
-        if (ctx.HasAnimator)
-        {
-            ctx.Animator.SetBool(ctx.AnimIDJump, true);
-        }
-
-        ctx.JumpTimeoutDelta = ctx.JumpTimeout;
     }
 
     public void UpdateSpeed()

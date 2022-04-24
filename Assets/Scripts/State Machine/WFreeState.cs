@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class WFreeState : WBaseState
@@ -7,7 +9,6 @@ public class WFreeState : WBaseState
     {
         InitializeSubState();
     }
-
     public override void EnterState()
     {
         Debug.Log("Free State Enter");
@@ -16,8 +17,7 @@ public class WFreeState : WBaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
-        if (currentSubState.GetType()
-            != factory.WIdleState().GetType())
+        if (!(currentSubState is WIdleState))
         {
             ctx.RotatePlayerToMoveDirection();
             ctx.Move();
@@ -38,7 +38,18 @@ public class WFreeState : WBaseState
             ctx.Animator.SetBool(ctx.AnimIDInCombat, true);
             SwitchState(factory.CombatState());
         }*/
+        if (ctx.InteractableNpc != null && ctx.Input.interaction)
+        {
+            SwitchState(factory.WDialogueState());
+        }
+
+        if (ctx.IsAttacking)
+        {
+            SwitchState(factory.WCombatState());
+        }
     }
+    
+    
 
     public override void InitializeSubState()
     {
