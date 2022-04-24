@@ -6,7 +6,7 @@ public class WStateFactory
     {
         context = currentContext;
     }
-    
+
     public WBaseState WAppState()
     {
         return new WAppState(context, this);
@@ -36,6 +36,7 @@ public class WStateFactory
     {
         return new WRunState(context, this);
     }
+
     public WBaseState WDialogueState()
     {
         return new WDialogueState(context, this);
@@ -69,5 +70,10 @@ public class WStateFactory
     public WBaseState WInAirState()
     {
         return new WInAirState(context, this);
+    }
+
+    public WBaseState WUiState()
+    {
+        return new WUiState(context, this);
     }
 }

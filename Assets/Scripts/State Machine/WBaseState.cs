@@ -4,8 +4,8 @@ public abstract class WBaseState
     protected WStateMachine ctx;
     protected WStateFactory factory;
 
-    protected WBaseState currentSuperState;
-    protected WBaseState currentSubState;
+    public WBaseState currentSuperState;
+    public WBaseState currentSubState;
 
     public WBaseState(WStateMachine currentContext, WStateFactory stateFactory)
     {

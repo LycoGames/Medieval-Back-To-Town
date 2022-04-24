@@ -7,12 +7,37 @@ using UnityEngine;
 public class TriggerAnimationEffect : EffectStrategy
 {
     [SerializeField] string animationTrigger;
+    [SerializeField] private bool shouldUseRootMotion;
 
     public override void StartEffect(AbilityData data, Action finished)
     {
         Animator animator = data.GetUser().GetComponent<Animator>();
-        animator.SetTrigger(animationTrigger);
+        if (shouldUseRootMotion)
+        {
+            WStateMachine stateMachine = data.GetUser().GetComponent<WStateMachine>();
+            stateMachine.StartCoroutine(PerformAnimation(animator, stateMachine));
+        }
+        else
+            animator.SetTrigger(animationTrigger);
+
         finished();
     }
 
+    private IEnumerator PerformAnimation(Animator animator, WStateMachine stateMachine)
+    {
+        float animTime = 0;
+        foreach (var clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == animationTrigger)
+                animTime = clip.length;
+        }
+
+        animator.applyRootMotion = true;
+        animator.SetTrigger(animationTrigger);
+        stateMachine.IsAttacking = true;
+        yield return new WaitForSeconds(animTime);
+        animator.ResetTrigger(animationTrigger);
+        stateMachine.IsAttacking = false;
+        animator.applyRootMotion = false;
+    }
 }
