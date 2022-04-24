@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using InputSystem;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class WStateMachine : MonoBehaviour
 {
@@ -58,65 +60,30 @@ public class WStateMachine : MonoBehaviour
     bool lockCameraPosition = false;
 
     //state variables
-    private WBaseState currentState;
     private WBaseState currentSubState;
-    private WStateFactory states;
 
     //player
-    private float speed;
-    private float animationBlend;
-    private float targetRotation = 0.0f;
     private float rotationVelocity;
-    private float verticalVelocity;
-    private float terminalVelocity = 53.0f;
-    private float targetSpeed;
 
     //animation IDs
-    private int animIDSpeed;
-    private int animIDGrounded;
-    private int animIDJump;
-    private int animIDFreeFall;
-    private int animIDMotionSpeed;
-    private int animIDInCombat;
 
     //Jump
-    private float jumpTimeoutDelta;
-    private float fallTimeoutDelta;
 
     private Animator animator;
-    private CharacterController controller;
-    private Camera mainCamera;
-    private Inputs input;
 
-    private bool hasAnimator;
+    private ActionStore actionStore;
 
 
     //getters and setters
 
-    public WBaseState CurrentState
-    {
-        get => currentState;
-        set => currentState = value;
-    }
+    public WBaseState CurrentState { get; set; }
 
-    public WStateFactory States
-    {
-        get => states;
-        set => states = value;
-    }
+    public WStateFactory States { get; set; }
 
-    public Inputs Input
-    {
-        get => input;
-        set => input = value;
-    }
+    public Inputs Input { get; set; }
 
     //Camera
-    public Camera MainCamera
-    {
-        get => mainCamera;
-        set => mainCamera = value;
-    }
+    public Camera MainCamera { get; set; }
 
     public bool LockCameraPosition
     {
@@ -173,11 +140,7 @@ public class WStateMachine : MonoBehaviour
         set => groundLayers = value;
     }
 
-    public bool HasAnimator
-    {
-        get => hasAnimator;
-        set => hasAnimator = value;
-    }
+    public bool HasAnimator { get; set; }
 
     public Animator Animator
     {
@@ -187,41 +150,17 @@ public class WStateMachine : MonoBehaviour
 
     //animation
 
-    public int AnimIDSpeed
-    {
-        get => animIDSpeed;
-        set => animIDSpeed = value;
-    }
+    public int AnimIDSpeed { get; set; }
 
-    public int AnimIDGrounded
-    {
-        get => animIDGrounded;
-        set => animIDGrounded = value;
-    }
+    public int AnimIDGrounded { get; set; }
 
-    public int AnimIDJump
-    {
-        get => animIDJump;
-        set => animIDJump = value;
-    }
+    public int AnimIDJump { get; set; }
 
-    public int AnimIDFreeFall
-    {
-        get => animIDFreeFall;
-        set => animIDFreeFall = value;
-    }
+    public int AnimIDFreeFall { get; set; }
 
-    public int AnimIDMotionSpeed
-    {
-        get => animIDMotionSpeed;
-        set => animIDMotionSpeed = value;
-    }
+    public int AnimIDMotionSpeed { get; set; }
 
-    public int AnimIDInCombat
-    {
-        get => animIDInCombat;
-        set => animIDInCombat = value;
-    }
+    public int AnimIDInCombat { get; set; }
 
     public float FallTimeout
     {
@@ -230,23 +169,11 @@ public class WStateMachine : MonoBehaviour
     }
 
     //player
-    public float Speed
-    {
-        get => speed;
-        set => speed = value;
-    }
+    public float Speed { get; set; }
 
-    public float AnimationBlend
-    {
-        get => animationBlend;
-        set => animationBlend = value;
-    }
+    public float AnimationBlend { get; set; }
 
-    public float TargetRotation
-    {
-        get => targetRotation;
-        set => targetRotation = value;
-    }
+    public float TargetRotation { get; set; } = 0.0f;
 
     public float RotationVelocity
     {
@@ -260,35 +187,15 @@ public class WStateMachine : MonoBehaviour
         set => rotationSmoothTime = value;
     }
 
-    public float VerticalVelocity
-    {
-        get => verticalVelocity;
-        set => verticalVelocity = value;
-    }
+    public float VerticalVelocity { get; set; }
 
-    public float TerminalVelocity
-    {
-        get => terminalVelocity;
-        set => terminalVelocity = value;
-    }
+    public float TerminalVelocity { get; set; } = 53.0f;
 
-    public float JumpTimeoutDelta
-    {
-        get => jumpTimeoutDelta;
-        set => jumpTimeoutDelta = value;
-    }
+    public float JumpTimeoutDelta { get; set; }
 
-    public float FallTimeoutDelta
-    {
-        get => fallTimeoutDelta;
-        set => fallTimeoutDelta = value;
-    }
+    public float FallTimeoutDelta { get; set; }
 
-    public float TargetSpeed
-    {
-        get => targetSpeed;
-        set => targetSpeed = value;
-    }
+    public float TargetSpeed { get; set; }
 
     public float SpeedChangeRate
     {
@@ -303,15 +210,11 @@ public class WStateMachine : MonoBehaviour
     }
 
     //Move
-    public CharacterController Controller
-    {
-        get => controller;
-        set => controller = value;
-    }
+    public CharacterController Controller { get; set; }
 
     public AIConversant InteractableNpc { get; set; }
     public bool CanMove { get; set; }
-    
+
     public bool IsAttacking { get; set; }
 
     private const float Threshold = 0.01f;
@@ -320,22 +223,31 @@ public class WStateMachine : MonoBehaviour
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
 
+
+    public List<GameObject> MainUiArray { get; private set; }
+
+
     private void Awake()
     {
-        if (mainCamera == null)
+        if (MainCamera == null)
         {
-            mainCamera = Camera.main;
+            MainCamera = Camera.main;
         }
-        states = new WStateFactory(this);
-        currentState = states.WAppState();
-        currentState.EnterState();
+
+        MainUiArray = new List<GameObject>();
+        MainUiArray.AddRange(GameObject.FindGameObjectsWithTag("MainUI"));
+
+        States = new WStateFactory(this);
+        CurrentState = States.WAppState();
+        CurrentState.EnterState();
     }
 
     void Start()
     {
-        hasAnimator = TryGetComponent(out animator);
-        controller = GetComponent<CharacterController>();
-        input = GetComponent<Inputs>();
+        HasAnimator = TryGetComponent(out animator);
+        Controller = GetComponent<CharacterController>();
+        Input = GetComponent<Inputs>();
+        actionStore = GetComponent<ActionStore>();
 
         AssignAnimationIDs();
         CanMove = true;
@@ -343,7 +255,7 @@ public class WStateMachine : MonoBehaviour
 
     void Update()
     {
-        currentState.UpdateStates();
+        CurrentState.UpdateStates();
     }
 
     private void LateUpdate()
@@ -353,51 +265,51 @@ public class WStateMachine : MonoBehaviour
 
     private void AssignAnimationIDs()
     {
-        animIDSpeed = Animator.StringToHash("Speed");
-        animIDGrounded = Animator.StringToHash("Grounded");
-        animIDJump = Animator.StringToHash("Jump");
-        animIDFreeFall = Animator.StringToHash("FreeFall");
-        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-        animIDInCombat = Animator.StringToHash("InCombat");
+        AnimIDSpeed = Animator.StringToHash("Speed");
+        AnimIDGrounded = Animator.StringToHash("Grounded");
+        AnimIDJump = Animator.StringToHash("Jump");
+        AnimIDFreeFall = Animator.StringToHash("FreeFall");
+        AnimIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        AnimIDInCombat = Animator.StringToHash("InCombat");
     }
 
     public void SetSpeedToIdle()
     {
-        targetSpeed = 0f;
+        TargetSpeed = 0f;
     }
 
     public void SetSpeedToWalk()
     {
-        targetSpeed = moveSpeed;
+        TargetSpeed = moveSpeed;
     }
 
     public void SetSpeedToRun()
     {
-        targetSpeed = sprintSpeed;
+        TargetSpeed = sprintSpeed;
     }
 
     public void Move()
     {
         if (!CanMove)
             return;
-        Vector3 targetDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        Vector3 targetDirection = Quaternion.Euler(0.0f, TargetRotation, 0.0f) * Vector3.forward;
 
         // move the player
-        controller.Move(targetDirection.normalized * (speed * Time.deltaTime) +
-                        new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+        Controller.Move(targetDirection.normalized * (Speed * Time.deltaTime) +
+                        new Vector3(0.0f, VerticalVelocity, 0.0f) * Time.deltaTime);
     }
 
     public void RotatePlayerToMoveDirection()
     {
         // normalise input direction
-        Vector3 inputDirection = new Vector3(input.move.x, 0.0f, input.move.y).normalized;
+        Vector3 inputDirection = new Vector3(Input.move.x, 0.0f, Input.move.y).normalized;
 
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
 
-        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                         mainCamera.transform.eulerAngles.y;
-        float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation,
+        TargetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+                         MainCamera.transform.eulerAngles.y;
+        float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, TargetRotation,
             ref rotationVelocity,
             rotationSmoothTime);
 
@@ -408,10 +320,10 @@ public class WStateMachine : MonoBehaviour
     private void CameraRotation()
     {
         // if there is an input and camera position is not fixed
-        if (input.look.sqrMagnitude >= Threshold && !LockCameraPosition)
+        if (Input.look.sqrMagnitude >= Threshold && !LockCameraPosition)
         {
-            cinemachineTargetYaw += input.look.x * Time.deltaTime;
-            cinemachineTargetPitch += input.look.y * Time.deltaTime;
+            cinemachineTargetYaw += Input.look.x * Time.deltaTime;
+            cinemachineTargetPitch += Input.look.y * Time.deltaTime;
         }
 
         // clamp our rotations so our values are limited 360 degrees
@@ -429,5 +341,53 @@ public class WStateMachine : MonoBehaviour
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+    public void OnAbility1(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(0, gameObject);
+        }
+    }
+
+    public void OnAbility2(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(1, gameObject);
+        }
+    }
+
+    public void OnAbility3(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(2, gameObject);
+        }
+    }
+
+    public void OnAbility4(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(3, gameObject);
+        }
+    }
+
+    public void OnAbility5(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(4, gameObject);
+        }
+    }
+
+    public void OnAbility6(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            actionStore.Use(5, gameObject);
+        }
     }
 }

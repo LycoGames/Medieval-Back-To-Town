@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Spawn Target Prefab Effect", menuName = "Abilities/Effects/Spawn Target Prefab", order = 0)]
+[CreateAssetMenu(fileName = "Spawn Target Prefab Effect", menuName = "Abilities/Effects/Spawn Target Prefab",
+    order = 0)]
 public class SpawnTargetPrefabEffect : EffectStrategy
 {
     [SerializeField] Transform prefabToSpawn;
@@ -61,6 +62,7 @@ public class SpawnTargetPrefabEffect : EffectStrategy
             yield return new WaitForSeconds(destroyDelay);
             Destroy(instance.gameObject);
         }
+
         finished();
     }
 }

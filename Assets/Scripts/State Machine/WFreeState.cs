@@ -9,9 +9,11 @@ public class WFreeState : WBaseState
     {
         InitializeSubState();
     }
+
     public override void EnterState()
     {
         Debug.Log("Free State Enter");
+        ctx.CanMove = true;
     }
 
     public override void UpdateState()
@@ -47,9 +49,17 @@ public class WFreeState : WBaseState
         {
             SwitchState(factory.WCombatState());
         }
+
+        //TODO
+        foreach (GameObject ui in ctx.MainUiArray)
+        {
+            if (ui.activeInHierarchy)
+            {
+                SwitchState(factory.WUiState());
+            }
+        }
     }
-    
-    
+
 
     public override void InitializeSubState()
     {
