@@ -19,9 +19,11 @@ public class StateMachine : MonoBehaviour
 
     [Header("Weapon")][SerializeField] private WeaponConfig defaultWeapon = null;
     [SerializeField] private Transform rightHandTransform = null;
+    public Transform GetRightHandTransform() { return rightHandTransform; }
     [SerializeField] private Transform leftHandTransform = null;
-
-
+    public Transform GetLeftHandTransform() { return leftHandTransform; }
+    [SerializeField] private Transform head = null;
+    public Transform GetHeadTransform() { return head; }
     [SerializeField] LayerMask collidingLayer = ~0; //Target marker can only collide with scene layer
 
     //[SerializeField] GameObject TargetMarker2;
@@ -104,7 +106,7 @@ public class StateMachine : MonoBehaviour
     Vector3 moveVector;
 
 
-//Player move temp variables
+    //Player move temp variables
     private Vector3 forward;
     private Vector3 right;
 
