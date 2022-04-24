@@ -14,8 +14,6 @@ public class TraitUI : MonoBehaviour
     Health health;
 
 
-    public event Action onConfirm;
-
     void Start()
     {
         playerTraitStore = GameObject.FindGameObjectWithTag("Player").GetComponent<TraitStore>();
