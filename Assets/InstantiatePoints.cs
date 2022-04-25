@@ -21,6 +21,6 @@ public class InstantiatePoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("head" + head.transform.position);
+        //print("head" + head.transform.position);
     }
 }

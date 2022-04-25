@@ -39,5 +39,4 @@ public class WUiState : WBaseState
     public override void InitializeSubState()
     {
     }
-    
 }

@@ -104,7 +104,7 @@ namespace InputSystem
         {
             inventoryShowHide = newInventoryShowHideState;
         }
-        
+
         public static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -128,15 +128,15 @@ namespace InputSystem
                 */
 #if !UNITY_IOS || !UNITY_ANDROID
 
-        private void OnApplicationFocus(bool hasFocus)
-        {
-            SetCursorState(cursorLocked);
-        }
-
-        private void SetCursorState(bool newState)
-        {
-            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-        }
+        /*  private void OnApplicationFocus(bool hasFocus)
+          {
+              SetCursorState(cursorLocked);
+          }
+  
+          private void SetCursorState(bool newState)
+          {
+              Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+          }*/
 
 #endif
     }

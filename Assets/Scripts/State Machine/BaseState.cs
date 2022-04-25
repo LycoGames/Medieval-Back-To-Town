@@ -4,8 +4,8 @@ public abstract class BaseState
     protected StateMachine ctx;
     protected StateFactory factory;
 
-    protected BaseState currentSuperState;
-    protected BaseState currentSubState;
+    public BaseState currentSuperState;
+    public BaseState currentSubState;
 
     public BaseState(StateMachine currentContext, StateFactory stateFactory)
     {
