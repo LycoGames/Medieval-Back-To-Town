@@ -345,7 +345,7 @@ public class WStateMachine : MonoBehaviour
 
     public void OnAbility1(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.started && !IsAttacking)
         {
             actionStore.Use(0, gameObject);
         }
@@ -353,7 +353,7 @@ public class WStateMachine : MonoBehaviour
 
     public void OnAbility2(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.started && !IsAttacking)
         {
             actionStore.Use(1, gameObject);
         }
@@ -361,7 +361,7 @@ public class WStateMachine : MonoBehaviour
 
     public void OnAbility3(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.started && !IsAttacking)
         {
             actionStore.Use(2, gameObject);
         }
@@ -369,7 +369,7 @@ public class WStateMachine : MonoBehaviour
 
     public void OnAbility4(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.started && !IsAttacking)
         {
             actionStore.Use(3, gameObject);
         }
@@ -377,7 +377,7 @@ public class WStateMachine : MonoBehaviour
 
     public void OnAbility5(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.started && !IsAttacking)
         {
             actionStore.Use(4, gameObject);
         }
@@ -385,7 +385,7 @@ public class WStateMachine : MonoBehaviour
 
     public void OnAbility6(InputAction.CallbackContext ctx)
     {
-        if (ctx.started)
+        if (ctx.started && !IsAttacking)
         {
             actionStore.Use(5, gameObject);
         }

@@ -8,6 +8,7 @@ public class TriggerAnimationEffect : EffectStrategy
 {
     [SerializeField] string animationTrigger;
     [SerializeField] private bool shouldUseRootMotion;
+    [SerializeField] private float rootMotionUseTime = -1;
 
     public override void StartEffect(AbilityData data, Action finished)
     {
@@ -26,11 +27,16 @@ public class TriggerAnimationEffect : EffectStrategy
     private IEnumerator PerformAnimation(Animator animator, WStateMachine stateMachine)
     {
         float animTime = 0;
-        foreach (var clip in animator.runtimeAnimatorController.animationClips)
+        if (rootMotionUseTime == -1)
         {
-            if (clip.name == animationTrigger)
-                animTime = clip.length;
+            foreach (var clip in animator.runtimeAnimatorController.animationClips)
+            {
+                if (clip.name == animationTrigger)
+                    animTime = clip.length;
+            }
         }
+        else
+            animTime = rootMotionUseTime;
 
         animator.applyRootMotion = true;
         animator.SetTrigger(animationTrigger);

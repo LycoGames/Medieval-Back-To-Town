@@ -19,7 +19,6 @@ public class RandomDropper : ItemDropper
         {
             DropItem(drop.item, drop.number);
         }
-        
     }
 
     protected override Vector3 GetDropLocation()
