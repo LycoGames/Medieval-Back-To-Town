@@ -11,8 +11,12 @@ public class Ability : ActionItem
     [SerializeField] TargetingStrategy targetingStrategy;
     [SerializeField] FilterStrategy[] filterStrategies;
     [SerializeField] EffectStrategy[] effectStrategies;
+    [SerializeField] AudioClip audioClip = null;
+    [SerializeField] float soundDelay;
     [SerializeField] float cooldownTime = 0;
     [SerializeField] float manaCost = 0;
+
+    AudioSource audioSource = null;
 
     public override void Use(GameObject user)
     {
@@ -28,6 +32,11 @@ public class Ability : ActionItem
             return;
         }
 
+        if (audioClip != null)
+        {
+            PlaySoundEffect(user);
+        }
+
         AbilityData data = new AbilityData(user);
 
         //    ActionScheduler actionScheduler = user.GetComponent<ActionScheduler>();
@@ -38,6 +47,13 @@ public class Ability : ActionItem
             {
                 TargetAquired(data);
             });
+    }
+
+    private void PlaySoundEffect(GameObject user)
+    {
+        audioSource = user.GetComponent<AudioSource>();
+        audioSource.clip = audioClip;
+        audioSource.PlayDelayed(soundDelay);
     }
 
     private void TargetAquired(AbilityData data)
