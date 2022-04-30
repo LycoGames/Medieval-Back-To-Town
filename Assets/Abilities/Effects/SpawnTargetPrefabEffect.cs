@@ -12,6 +12,9 @@ public class SpawnTargetPrefabEffect : EffectStrategy
     [SerializeField] bool shouldSpawnOnPoint;
     [SerializeField] bool shouldSpawnOnHand;
     [SerializeField] bool staticSpawnPoint;
+    [Tooltip("Input 'projectile damage' if you set 'isProjectile'")]
+    [SerializeField] bool isProjectile;
+    [SerializeField] float projectileDamage;
     GameObject player;
 
     Vector3 posX;
@@ -36,12 +39,24 @@ public class SpawnTargetPrefabEffect : EffectStrategy
 
         else if (shouldSpawnOnHand)
         {
+            if (isProjectile)
+            {
+                Transform target = data.GetUser().GetComponent<StateMachine>().Target;
+                if (target != null)
+                {
+                   
+                    instance = Instantiate(prefabToSpawn, data.GetUser().GetComponent<StateMachine>().GetLeftHandTransform());
+                    instance.GetComponent<TargetProjectile>().SetPosition(data.GetUser().GetComponent<StateMachine>().GetLeftHandTransform().position);
+                    Vector2 offset = data.GetUser().GetComponent<StateMachine>().GetUIOffset();
+                    instance.GetComponent<TargetProjectile>().UpdateTarget(target, data.GetUser(), projectileDamage, (Vector3)offset);
+                  
+                }
+            }
             if (staticSpawnPoint)
             {
                 instance = Instantiate(prefabToSpawn);
                 instance.position = data.GetUser().GetComponent<StateMachine>().GetLeftHandTransform().position;
                 instance.rotation = data.GetUser().GetComponent<StateMachine>().GetLeftHandTransform().rotation;
-
             }
             else { instance = Instantiate(prefabToSpawn, data.GetUser().GetComponent<StateMachine>().GetLeftHandTransform()); }
 
