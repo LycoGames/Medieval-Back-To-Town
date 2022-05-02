@@ -15,11 +15,24 @@ public class Ability : ActionItem
     [SerializeField] float soundDelay;
     [SerializeField] float cooldownTime = 0;
     [SerializeField] float manaCost = 0;
-
+    [SerializeField] bool isTargetRequired = false;
     AudioSource audioSource = null;
 
     public override void Use(GameObject user)
     {
+        StateMachine stateMachine = user.GetComponent<StateMachine>();
+        Transform target = null;
+
+        if (stateMachine)
+        {
+            target = user.GetComponent<StateMachine>().Target;
+        }
+        if (isTargetRequired && target == null)
+        {
+            Debug.Log("Hedef Yok");
+            return;
+        }
+
         Mana mana = user.GetComponent<Mana>();
         if (mana.GetMana() < manaCost)
         {
@@ -31,6 +44,8 @@ public class Ability : ActionItem
         {
             return;
         }
+
+
 
         if (audioClip != null)
         {

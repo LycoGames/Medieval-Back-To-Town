@@ -6,7 +6,7 @@ using InputSystem;
 using UnityEditor.UIElements;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
+
 
 public class StateMachine : MonoBehaviour
 {
@@ -235,6 +235,7 @@ public class StateMachine : MonoBehaviour
 
     public List<GameObject> MainUiArray { get; private set; }
 
+    public bool IsAttacking { get; set; }
 
     public Transform Target
     {
@@ -491,6 +492,10 @@ public class StateMachine : MonoBehaviour
     {
         Anim.SetFloat(animIDInputY, 0);
         Anim.SetFloat(animIDInputX, 0);
+    }
+    public void StopPlayer()
+    {
+        
     }
 
     private void CameraRotation()
