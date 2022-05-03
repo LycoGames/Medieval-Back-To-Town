@@ -10,6 +10,7 @@ public class DelayCompositeEffect : EffectStrategy
     [SerializeField] float delay = 0;
     [SerializeField] EffectStrategy[] delayedEffects;
     [SerializeField] bool abortIfCancelled = false;
+    [SerializeField] AudioClip audioClip;
 
     public override void StartEffect(AbilityData data, Action finished)
     {
@@ -19,6 +20,12 @@ public class DelayCompositeEffect : EffectStrategy
     private IEnumerator DelayedEffect(AbilityData data, Action finished)
     {
         yield return new WaitForSeconds(delay);
+        if (audioClip != null)
+        {
+            AudioSource audioSource = data.GetUser().GetComponent<AudioSource>();
+            audioSource.clip = audioClip;
+            audioSource.PlayOneShot(audioClip);
+        }
         if (abortIfCancelled && data.IsCancelled()) yield break;
         foreach (var effect in delayedEffects)
         {

@@ -14,7 +14,7 @@ public class TargetProjectile : MonoBehaviour
     private Transform target;
     private Vector3 targetOffset;
 
-    [Space] [Header("Projectile Path")] private float randomUpAngle;
+    [Space][Header("Projectile Path")] private float randomUpAngle;
     private float randomSideAngle;
     [SerializeField] private float sideAngle = 25;
     [SerializeField] private float upAngle = 20;
@@ -141,6 +141,7 @@ public class TargetProjectile : MonoBehaviour
     {
         if (other.gameObject.CompareTag(targetTag))
         {
+            Debug.Log("carptim");
             other.gameObject.GetComponent<Health>().ApplyDamage(insitigator, damage);
         }
     }

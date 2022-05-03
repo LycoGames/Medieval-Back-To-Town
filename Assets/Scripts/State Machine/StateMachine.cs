@@ -6,7 +6,7 @@ using InputSystem;
 using UnityEditor.UIElements;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
+
 
 public class StateMachine : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class StateMachine : MonoBehaviour
     [SerializeField] Transform FirePoint;
 
 
-    [Header("Weapon")] [SerializeField] private WeaponConfig defaultWeapon = null;
+    [Header("Weapon")][SerializeField] private WeaponConfig defaultWeapon = null;
     [SerializeField] private Transform rightHandTransform = null;
     public Transform GetRightHandTransform() { return rightHandTransform; }
     [SerializeField] private Transform leftHandTransform = null;
@@ -25,7 +25,8 @@ public class StateMachine : MonoBehaviour
     [SerializeField] private Transform head = null;
     public Transform GetHeadTransform() { return head; }
     [SerializeField] LayerMask collidingLayer = ~0; //Target marker can only collide with scene layer
-
+    NoTargetText noTargetText;
+    NotEnoughMana notEnoughManaText;
     //[SerializeField] GameObject TargetMarker2;
     [SerializeField] GameObject[] Prefabs;
 
@@ -35,12 +36,14 @@ public class StateMachine : MonoBehaviour
     //[SerializeField] float[] castingTime; //If 0 - can loop, if > 0 - one shot time
 
 
-    [Space] [Header("Canvas")] [SerializeField]
+    [Space]
+    [Header("Canvas")]
+    [SerializeField]
     Image aim;
 
     [SerializeField] private GameObject aimUI;
 
-    [SerializeField] Vector2 uiOffset;
+    [SerializeField] Vector2 uiOffset; public Vector2 GetUIOffset() { return uiOffset; }
     [SerializeField] List<Transform> screenTargets = new List<Transform>();
 
     [SerializeField] float fireRate = 0.1f;
@@ -50,25 +53,30 @@ public class StateMachine : MonoBehaviour
     [SerializeField]
     GameObject cinemachineCameraTarget;
 
-    [Tooltip("How far in degrees can you move the camera up")] [SerializeField]
+    [Tooltip("How far in degrees can you move the camera up")]
+    [SerializeField]
     float topClamp = 70.0f;
 
-    [Tooltip("How far in degrees can you move the camera down")] [SerializeField]
+    [Tooltip("How far in degrees can you move the camera down")]
+    [SerializeField]
     float bottomClamp = -30.0f;
 
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField]
     float cameraAngleOverride = 0.0f;
 
-    [Tooltip("For locking the camera position on all axis")] [SerializeField]
+    [Tooltip("For locking the camera position on all axis")]
+    [SerializeField]
     bool lockCameraPosition = false;
 
 
-    [Header("Animation Smoothing")] [Range(0, 1f)] [SerializeField]
+    [Header("Animation Smoothing")]
+    [Range(0, 1f)]
+    [SerializeField]
     float HorizontalAnimSmoothTime = 0.2f;
 
 
-    [Range(0, 1f)] [SerializeField] float VerticalAnimTime = 0.2f;
+    [Range(0, 1f)][SerializeField] float VerticalAnimTime = 0.2f;
     /*[Range(0, 1f)] [SerializeField] float StartAnimTime = 0.3f;
     [Range(0, 1f)] [SerializeField] float StopAnimTime = 0.15f;*/
 
@@ -228,6 +236,7 @@ public class StateMachine : MonoBehaviour
 
     public List<GameObject> MainUiArray { get; private set; }
 
+    public bool IsAttacking { get; set; }
 
     public Transform Target
     {
@@ -256,12 +265,24 @@ public class StateMachine : MonoBehaviour
 
         MainUiArray = new List<GameObject>();
         MainUiArray.AddRange(GameObject.FindGameObjectsWithTag("MainUI"));
+        noTargetText = FindObjectOfType<NoTargetText>();
+        notEnoughManaText = FindObjectOfType<NotEnoughMana>();
     }
 
     void Start()
     {
         GetRequiredComponents();
         AssignAnimationIDs();
+
+    }
+
+    public void ShowNoTargetText()
+    {
+        noTargetText.ShowNoTargetText();
+    }
+    public void ShowNotEnoughManaText()
+    {
+        notEnoughManaText.ShowNotEnoughManaText();
     }
 
     void Update()
@@ -484,6 +505,10 @@ public class StateMachine : MonoBehaviour
     {
         Anim.SetFloat(animIDInputY, 0);
         Anim.SetFloat(animIDInputX, 0);
+    }
+    public void StopPlayer()
+    {
+
     }
 
     private void CameraRotation()

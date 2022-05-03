@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d3e5bea7bd9c044a623a3fe2759a4e, type: 3}
+  m_Name: Ability4
+  m_EditorClassIdentifier: 
+  itemID: 31e38c82-a066-458c-a8c3-cfe5d557304d
+  displayName: Dash
+  description: 
+  icon: {fileID: 21300000, guid: 0c68ae5c47796954dbeff5d364eb4e34, type: 3}
+  pickup: {fileID: 0}
+  stackable: 0
+  consumable: 0
+  targetingStrategy: {fileID: 11400000, guid: 8a3c336c4511bfd4da24ed420d61adb9, type: 2}
+  filterStrategies:
+  - {fileID: 11400000, guid: 2c4d932956a7b104cb2d2ef5ab901a51, type: 2}
+  effectStrategies:
+  - {fileID: 11400000, guid: 47d160d0fd671284a8360a52a8934087, type: 2}
+  audioClip: {fileID: 8300000, guid: a2029f2d31009334b9d02e84294febc9, type: 3}
+  soundDelay: 0
+  cooldownTime: 0.35
+  manaCost: 1
