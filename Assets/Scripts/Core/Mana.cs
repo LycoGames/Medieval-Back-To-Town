@@ -46,16 +46,16 @@ public class Mana : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            print("mana: " + mana.value);
-            print("max mana: " + GetMaxMana());
+           // print("mana: " + mana.value);
+           // print("max mana: " + GetMaxMana());
         }
     }
 
     public void SetNewMaxMana()
     {
-        print("ilk satır");
-        manaBar.SetMaxMana(GetComponent<BaseStats>().GetStat(Stat.Mana));
-        print("maxmana " + GetComponent<BaseStats>().GetStat(Stat.Mana));
+        // print("ilk satır");
+        manaBar.SetMaxMana(GetComponent<BaseStats>().GetStat(Stat.Mana)); 
+        // print("maxmana " + GetComponent<BaseStats>().GetStat(Stat.Mana));
     }
 
     public float GetMaxMana()

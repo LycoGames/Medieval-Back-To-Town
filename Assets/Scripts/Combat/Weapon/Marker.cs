@@ -2,26 +2,20 @@ using UnityEngine;
 
 public class Marker : MonoBehaviour
 {
-    [HideInInspector]
-    public Transform target;
+    [HideInInspector] public Transform target;
 
-    [HideInInspector]
-    public Vector3 tempPos;
+    [HideInInspector] public Vector3 tempPos;
 
-    [HideInInspector]
-    public float dist;
+    [HideInInspector] public float dist;
 
-    [HideInInspector]
-    public Vector3 dir;
+    [HideInInspector] public Vector3 dir;
 
-    [HideInInspector]
-    public RaycastHit hit;
+    [HideInInspector] public RaycastHit hit;
 
     public LayerMask layers;
 
     void Start()
     {
-
         tempPos = transform.position;
         if (GetComponent<Renderer>() != null)
         {

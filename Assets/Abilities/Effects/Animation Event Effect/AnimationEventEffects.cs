@@ -36,7 +36,6 @@ public class AnimationEventEffects : MonoBehaviour
         public float DestroyAfter = 10;
         public bool UseLocalPosition = true;
         public float damage;
-        public bool shouldDealDamage;
     }
 
     //   // Update is called once per frame
@@ -76,6 +75,9 @@ public class AnimationEventEffects : MonoBehaviour
                 instance.transform.localRotation = new Quaternion();
             }
 
+            EffectDamage effectDamage = instance.GetComponentInChildren<EffectDamage>();
+            if (effectDamage != null)
+                effectDamage.SetDamage(effects[EffectNumber].damage);
 
             Destroy(instance, effects[EffectNumber].DestroyAfter);
         }

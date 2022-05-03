@@ -7,7 +7,6 @@ public class DemoTargeting : TargetingStrategy
 {
     public override void StartTargeting(AbilityData data, Action finished)
     {
-        Debug.Log("demo targeting started");
         finished();
     }
 }

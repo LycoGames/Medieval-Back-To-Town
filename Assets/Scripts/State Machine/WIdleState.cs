@@ -8,19 +8,16 @@ public class WIdleState : WBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Idle State Enter");
         ctx.SetSpeedToIdle();
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Idle State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Idle State Exit");
     }
 
     public override void CheckSwitchStates()
