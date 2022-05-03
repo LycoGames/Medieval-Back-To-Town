@@ -12,6 +12,7 @@ public class RunOverPickup : MonoBehaviour
         if (other.gameObject == player)
         {
             GetComponent<Pickup>().PickupItem();
+            //TODO playoneshot audio
         }
     }
 }

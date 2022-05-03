@@ -27,15 +27,17 @@ public class Ability : ActionItem
         {
             target = user.GetComponent<StateMachine>().Target;
         }
+        
         if (isTargetRequired && target == null)
         {
-            Debug.Log("Hedef Yok");
+            stateMachine.ShowNoTargetText();
             return;
         }
 
         Mana mana = user.GetComponent<Mana>();
         if (mana.GetMana() < manaCost)
         {
+            stateMachine.ShowNotEnoughManaText();
             return;
         }
 

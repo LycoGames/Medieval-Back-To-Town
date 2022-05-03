@@ -25,7 +25,8 @@ public class StateMachine : MonoBehaviour
     [SerializeField] private Transform head = null;
     public Transform GetHeadTransform() { return head; }
     [SerializeField] LayerMask collidingLayer = ~0; //Target marker can only collide with scene layer
-
+    NoTargetText noTargetText;
+    NotEnoughMana notEnoughManaText;
     //[SerializeField] GameObject TargetMarker2;
     [SerializeField] GameObject[] Prefabs;
 
@@ -264,12 +265,24 @@ public class StateMachine : MonoBehaviour
 
         MainUiArray = new List<GameObject>();
         MainUiArray.AddRange(GameObject.FindGameObjectsWithTag("MainUI"));
+        noTargetText = FindObjectOfType<NoTargetText>();
+        notEnoughManaText = FindObjectOfType<NotEnoughMana>();
     }
 
     void Start()
     {
         GetRequiredComponents();
         AssignAnimationIDs();
+
+    }
+
+    public void ShowNoTargetText()
+    {
+        noTargetText.ShowNoTargetText();
+    }
+    public void ShowNotEnoughManaText()
+    {
+        notEnoughManaText.ShowNotEnoughManaText();
     }
 
     void Update()
@@ -495,7 +508,7 @@ public class StateMachine : MonoBehaviour
     }
     public void StopPlayer()
     {
-        
+
     }
 
     private void CameraRotation()
