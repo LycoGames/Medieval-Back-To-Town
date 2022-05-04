@@ -445,6 +445,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1548457209}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &572520950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1897535143, guid: 0c5e98d9196858743b5d3915485d48e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2135177390}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &581592913 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1750861921094136842, guid: 0c5e98d9196858743b5d3915485d48e7,
@@ -1776,27 +1788,27 @@ PrefabInstance:
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
       propertyPath: Abilities.Array.data[0].AbilityEffects.Array.data[0].DestroyAfter
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
       propertyPath: Abilities.Array.data[0].AbilityEffects.Array.data[1].DestroyAfter
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
       propertyPath: Abilities.Array.data[0].AbilityEffects.Array.data[2].DestroyAfter
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
       propertyPath: Abilities.Array.data[0].AbilityEffects.Array.data[3].DestroyAfter
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
       propertyPath: Abilities.Array.data[0].AbilityEffects.Array.data[4].DestroyAfter
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
@@ -1806,12 +1818,12 @@ PrefabInstance:
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
       propertyPath: Abilities.Array.data[1].AbilityEffects.Array.data[0].DestroyAfter
-      value: 6
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
       propertyPath: Abilities.Array.data[2].AbilityEffects.Array.data[0].DestroyAfter
-      value: 6
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 3278037239788815721, guid: e1417abeb0cf6ab4585f0541cc18f33a,
         type: 3}
@@ -2200,6 +2212,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2b226ab23d62c764e9e334832d6fde53,
         type: 2}
+    - target: {fileID: 45251385, guid: 0c5e98d9196858743b5d3915485d48e7, type: 3}
+      propertyPath: cooldownOverlay
+      value: 
+      objectReference: {fileID: 572520950}
     - target: {fileID: 540427223, guid: 0c5e98d9196858743b5d3915485d48e7, type: 3}
       propertyPath: ability
       value: 
@@ -2283,7 +2299,7 @@ PrefabInstance:
     - target: {fileID: 688181315702535808, guid: 0c5e98d9196858743b5d3915485d48e7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -662.35
+      value: -662.3499
       objectReference: {fileID: 0}
     - target: {fileID: 688269509056030910, guid: 0c5e98d9196858743b5d3915485d48e7,
         type: 3}

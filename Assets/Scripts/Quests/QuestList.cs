@@ -35,6 +35,11 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         }
     }
 
+    public void UpdateObjectiveStatus(Quest quest, string objective)
+    {
+        QuestStatus status = GetQuestStatus(quest);
+    }
+
 
     public bool HasQuest(Quest quest)
     {
@@ -69,6 +74,11 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
                 GetComponent<ItemDropper>().DropItem(reward.item, reward.number);
             }
         }
+    }
+
+    private IEnumerable<IPredicateNumberEvaluator> GetNumberEvaluators()
+    {
+        return GetComponents<IPredicateNumberEvaluator>();
     }
 
     public object CaptureState()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using RPG.Saving;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
+public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator, IPredicateNumberEvaluator
 {
     //CONFIG DATA
     [SerializeField] int inventorySize = 16;
@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
     //STATE
 
     InventorySlot[] slots;
-    
+
     public struct InventorySlot
     {
         public InventoryItem item;
@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
         {
             return false;
         }
-        
+
         slots[i].item = item;
         slots[i].number += number;
         if (inventoryUpdated != null)
@@ -75,21 +75,34 @@ public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
     {
         return slots[slot].item;
     }
-    
+
     public int GetNumberInSlot(int index)
     {
         return slots[index].number;
     }
 
-    public void RemoveFromSlot(int slot,int number)
+    public int GetSlot(InventoryItem item)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (ReferenceEquals(slots[i].item, item))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public void RemoveFromSlot(int slot, int number)
     {
         slots[slot].number -= number;
         if (slots[slot].number <= 0)
         {
             slots[slot].number = 0;
-            slots[slot].item = null;    
+            slots[slot].item = null;
         }
-        
+
         //TODO
         if (inventoryUpdated != null)
         {
@@ -101,7 +114,7 @@ public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
     {
         if (slots[slot].item != null)
         {
-            return AddToFirstEmptySlot(item,number);
+            return AddToFirstEmptySlot(item, number);
         }
 
         var i = FindStack(item);
@@ -110,7 +123,7 @@ public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
         {
             slot = i;
         }
-        
+
         slots[slot].item = item;
         slots[slot].number += number;
         if (inventoryUpdated != null)
@@ -126,17 +139,18 @@ public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
         slots = new InventorySlot[inventorySize];
     }
 
-    private int FindSlot(InventoryItem item)
+    public int FindSlot(InventoryItem item)
     {
         int i = FindStack(item);
         if (i < 0)
         {
-            i=FindEmptySlot();
+            i = FindEmptySlot();
         }
+
         return i;
     }
 
-    private int FindStack(InventoryItem item)
+    public int FindStack(InventoryItem item)
     {
         if (!item.IsStackable())
         {
@@ -145,7 +159,7 @@ public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
 
         for (int i = 0; i < slots.Length; i++)
         {
-            if (ReferenceEquals(slots[i].item,item))
+            if (ReferenceEquals(slots[i].item, item))
             {
                 return i;
             }
@@ -209,6 +223,19 @@ public class Inventory : MonoBehaviour, ISaveable,IPredicateEvaluator
         {
             case "HasInventoryItem":
                 return HasItem(InventoryItem.GetFromID(parameters[0]));
+        }
+
+        return null;
+    }
+
+    int? IPredicateNumberEvaluator.Evaluate(string predicate, string[] parameters)
+    {
+        switch (predicate)
+        {
+            case "GetCollectedItemNumber":
+                if (HasItem(InventoryItem.GetFromID(parameters[0])))
+                    return GetNumberInSlot(FindSlot(InventoryItem.GetFromID(parameters[0])));
+                break;
         }
 
         return null;
