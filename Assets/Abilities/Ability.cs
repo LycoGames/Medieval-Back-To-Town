@@ -11,14 +11,33 @@ public class Ability : ActionItem
     [SerializeField] TargetingStrategy targetingStrategy;
     [SerializeField] FilterStrategy[] filterStrategies;
     [SerializeField] EffectStrategy[] effectStrategies;
+    [SerializeField] AudioClip audioClip = null;
+    [SerializeField] float soundDelay;
     [SerializeField] float cooldownTime = 0;
     [SerializeField] float manaCost = 0;
+    [SerializeField] bool isTargetRequired = false;
+    AudioSource audioSource = null;
 
     public override void Use(GameObject user)
     {
+        StateMachine stateMachine = user.GetComponent<StateMachine>();
+        Transform target = null;
+
+        if (stateMachine)
+        {
+            target = user.GetComponent<StateMachine>().Target;
+        }
+        
+        if (isTargetRequired && target == null)
+        {
+            stateMachine.ShowNoTargetText();
+            return;
+        }
+
         Mana mana = user.GetComponent<Mana>();
         if (mana.GetMana() < manaCost)
         {
+            stateMachine.ShowNotEnoughManaText();
             return;
         }
 
@@ -26,6 +45,13 @@ public class Ability : ActionItem
         if (cooldownStore.GetTimeRemaining(this) > 0)
         {
             return;
+        }
+
+
+
+        if (audioClip != null)
+        {
+            PlaySoundEffect(user);
         }
 
         AbilityData data = new AbilityData(user);
@@ -38,6 +64,13 @@ public class Ability : ActionItem
             {
                 TargetAquired(data);
             });
+    }
+
+    private void PlaySoundEffect(GameObject user)
+    {
+        audioSource = user.GetComponent<AudioSource>();
+        audioSource.clip = audioClip;
+        audioSource.PlayDelayed(soundDelay);
     }
 
     private void TargetAquired(AbilityData data)

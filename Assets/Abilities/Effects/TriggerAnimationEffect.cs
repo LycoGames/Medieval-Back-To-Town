@@ -16,7 +16,15 @@ public class TriggerAnimationEffect : EffectStrategy
         if (shouldUseRootMotion)
         {
             WStateMachine stateMachine = data.GetUser().GetComponent<WStateMachine>();
-            stateMachine.StartCoroutine(PerformAnimation(animator, stateMachine));
+            if (stateMachine != null)
+            {
+                stateMachine.StartCoroutine(PerformAnimation(animator, stateMachine));
+            }
+            else
+            {
+                StateMachine stateMachineArcher = data.GetUser().GetComponent<StateMachine>();
+                stateMachineArcher.StartCoroutine(PerformAnimationForArcher(animator, stateMachineArcher));
+            }
         }
         else
             animator.SetTrigger(animationTrigger);
@@ -45,5 +53,31 @@ public class TriggerAnimationEffect : EffectStrategy
         animator.ResetTrigger(animationTrigger);
         stateMachine.IsAttacking = false;
         animator.applyRootMotion = false;
+    }
+
+    private IEnumerator PerformAnimationForArcher(Animator animator, StateMachine stateMachine)
+    {
+        float animTime = 0;
+        if (rootMotionUseTime == -1)
+        {
+            foreach (var clip in animator.runtimeAnimatorController.animationClips)
+            {
+                if (clip.name == animationTrigger)
+                    animTime = clip.length;
+            }
+        }
+        else
+            animTime = rootMotionUseTime;
+
+        //animator.applyRootMotion = true;
+        stateMachine.SetAnimZero();
+        stateMachine.CanMove = false;
+        animator.SetTrigger(animationTrigger);
+        stateMachine.IsAttacking = true;
+        yield return new WaitForSeconds(animTime);
+        animator.ResetTrigger(animationTrigger);
+        stateMachine.IsAttacking = false;
+        //  animator.applyRootMotion = false;
+        stateMachine.CanMove = true;
     }
 }

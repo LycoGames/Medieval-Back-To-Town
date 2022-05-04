@@ -60,6 +60,7 @@ public class FreeState : BaseState
     }
     private void PlayerMoveAndRotation()
     {
+        if (!ctx.CanMove) { return; }
         if (currentSubState.GetType() != ctx.States.IdleState().GetType())
         {
             Vector3 inputDirection = new Vector3(ctx.Input.move.x, 0.0f, ctx.Input.move.y).normalized;

@@ -24,25 +24,25 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            SpawnEnemies();
+            //SpawnEnemies();
         }
 
         if (Keyboard.current.tKey.isPressed)
         {
             GameObject enemySpawned = Instantiate(enemyPrefab,
-                new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20)), Quaternion.identity,parent) as GameObject;
+                new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20)), Quaternion.identity, parent) as GameObject;
             enemySpawned.GetComponent<EnemyAIController>().gameManager = GetComponent<GameManager>();
             enemiesAlive++;
         }
     }
-   
+
     private void SpawnEnemies()
     {
         for (var x = 0; x < spawnPoints.Length; x++)
         {
             GameObject spawnPoint = spawnPoints[x];
             GameObject enemySpawned =
-                Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity,parent) as GameObject;
+                Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity, parent) as GameObject;
             enemySpawned.GetComponent<EnemyAIController>().gameManager = GetComponent<GameManager>();
             enemiesAlive++;
         }
