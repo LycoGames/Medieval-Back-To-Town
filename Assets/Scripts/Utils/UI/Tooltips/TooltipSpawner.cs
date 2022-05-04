@@ -80,7 +80,8 @@ using UnityEngine.EventSystems;
             int slotCorner = GetCornerIndex(below, right);
             int tooltipCorner = GetCornerIndex(!below, !right);
 
-            tooltip.transform.position = slotCorners[slotCorner] - tooltipCorners[tooltipCorner] + tooltip.transform.position;
+            Vector3 offset=new Vector3(0,100,0);
+            tooltip.transform.position = slotCorners[slotCorner] - tooltipCorners[tooltipCorner] + tooltip.transform.position+offset;
         }
 
         private int GetCornerIndex(bool below, bool right)

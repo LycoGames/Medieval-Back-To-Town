@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] spawnPoints;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] private Transform parent;
+    private List<IEffect> effects;
 
     private void Start()
     {

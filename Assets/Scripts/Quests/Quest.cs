@@ -21,6 +21,12 @@ public class Quest : ScriptableObject
     {
         public string reference;
         public string description;
+        public bool isCollectItemQuest;
+        public InventoryItem itemToCollect;
+        public int quantity;
+        public bool isKillEnemyQuest;
+        public GameObject enemy;
+        public int number;
     }
 
     public string GetTitle()
@@ -64,6 +70,102 @@ public class Quest : ScriptableObject
             {
                 return quest;
             }
+        }
+
+        return null;
+    }
+
+    public bool GetIsCollectItemQuest(Predicate<Objective> objective)
+    {
+        return objectives.Find(objective).isCollectItemQuest;
+    }
+
+    public bool? GetIsCollectItemQuest(string objectiveRef)
+    {
+        foreach (Objective objective in objectives)
+        {
+            if (objective.reference == objectiveRef)
+                return objective.isCollectItemQuest;
+        }
+
+        return null;
+    }
+
+    public bool GetIsKillEnemyQuest(Predicate<Objective> objective)
+    {
+        return objectives.Find(objective).isKillEnemyQuest;
+    }
+
+    public bool? GetIsKillEnemyQuest(string objectiveRef)
+    {
+        foreach (Objective objective in objectives)
+        {
+            if (objective.reference == objectiveRef)
+                return objective.isKillEnemyQuest;
+        }
+
+        return null;
+    }
+
+    public int GetCollectQuantity(Predicate<Objective> objective)
+    {
+        return objectives.Find(objective).quantity;
+    }
+
+    public int? GetCollectQuantity(string objectiveRef)
+    {
+        foreach (Objective objective in objectives)
+        {
+            if (objective.reference == objectiveRef)
+                return objective.quantity;
+        }
+
+        return null;
+    }
+
+    public int GetKillNumber(Predicate<Objective> objective)
+    {
+        return objectives.Find(objective).number;
+    }
+
+    public int? GetKillNumber(string objectiveRef)
+    {
+        foreach (Objective objective in objectives)
+        {
+            if (objective.reference == objectiveRef)
+                return objective.number;
+        }
+
+        return null;
+    }
+
+    public InventoryItem GetItemToCollect(Predicate<Objective> objective)
+    {
+        return objectives.Find(objective).itemToCollect;
+    }
+
+    public InventoryItem GetItemToCollect(string objectiveRef)
+    {
+        foreach (Objective objective in objectives)
+        {
+            if (objective.reference == objectiveRef)
+                return objective.itemToCollect;
+        }
+
+        return null;
+    }
+
+    public GameObject GetEnemy(Predicate<Objective> objective)
+    {
+        return objectives.Find(objective).enemy;
+    }
+
+    public GameObject GetEnemy(string objectiveRef)
+    {
+        foreach (Objective objective in objectives)
+        {
+            if (objective.reference == objectiveRef)
+                return objective.enemy;
         }
 
         return null;

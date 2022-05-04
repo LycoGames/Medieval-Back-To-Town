@@ -58,9 +58,10 @@ public class QuestStatus
                 return false;
             }
         }
+
         return true;
     }
-
+    
     public object CaptureState()
     {
         var state = new QuestStatusRecord();

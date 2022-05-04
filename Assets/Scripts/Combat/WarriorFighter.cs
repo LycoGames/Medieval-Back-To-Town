@@ -43,7 +43,8 @@ public class WarriorFighter : Fighter
 
     public override void BasicAttack(InputAction.CallbackContext ctx)
     {
-        if (GetComponent<WStateMachine>().CurrentState.currentSubState.currentSubState is WUiState)
+        if (GetComponent<WStateMachine>().CurrentState.currentSubState.currentSubState is WUiState ||
+            GetComponent<WStateMachine>().CurrentState.currentSubState.currentSubState is WDialogueState)
             return;
         if (ctx.started && canClick)
         {

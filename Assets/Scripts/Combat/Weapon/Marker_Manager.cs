@@ -8,7 +8,7 @@ public class Marker_Manager : MonoBehaviour
     public Transform markersParent;
     /*public string targetTag = "Enemy";*/
 
-    public int damage = 50;
+    float damage;
 
     public GameObject blood;
     private Transform parent;
@@ -18,7 +18,10 @@ public class Marker_Manager : MonoBehaviour
     Marker[] markers;
 
     List<Transform> targetsRawHit = new List<Transform>(); //Targets initialy hit by the blade (pre-check
-    List<Transform> usedTargets = new List<Transform>(); //Targets which were excluded from being hit or were already hit in that frame
+
+    List<Transform>
+        usedTargets =
+            new List<Transform>(); //Targets which were excluded from being hit or were already hit in that frame
 
     List<Vector3> bladeDirection = new List<Vector3>();
     List<Vector3> bladeStartpoint = new List<Vector3>();
@@ -32,8 +35,7 @@ public class Marker_Manager : MonoBehaviour
 
     public AudioSource soundSource;
 
-    [Range(0, 5)]
-    public int numberOfTargetHitSounds;
+    [Range(0, 5)] public int numberOfTargetHitSounds;
     public AudioClip targetHitSound1;
     public AudioClip targetHitSound2;
     public AudioClip targetHitSound3;
@@ -44,13 +46,19 @@ public class Marker_Manager : MonoBehaviour
 
     private int sRoll;
 
+    private GameObject instigator;
+    private BaseStats playerStats;
+
     private void Start()
     {
+        instigator = GameObject.FindGameObjectWithTag("Player");
+        playerStats = instigator.GetComponent<BaseStats>();
         parent = transform.root.GetChild(0);
         if (markersParent == null)
         {
             markersParent = transform;
         }
+
         markers = new Marker[markersParent.childCount];
 
         for (int i = 0; i < markers.Length; i++)
@@ -89,6 +97,7 @@ public class Marker_Manager : MonoBehaviour
                 i2 = 0;
             }
         }
+
         ClearLists();
         for (int i2 = 0; i2 < markers.Length; i2++)
         {
@@ -141,7 +150,10 @@ public class Marker_Manager : MonoBehaviour
             {
                 if (markers[i].HitCheck() != null)
                 {
-                    if (/*markers[i].target.tag == targetTag && */ markers[i].target != parent && targetsRawHit.Contains(markers[i].target) == false && usedTargets.Contains(markers[i].target) == false)
+                    if ( /*markers[i].target.tag == targetTag && */ markers[i].target != parent &&
+                                                                    targetsRawHit.Contains(markers[i].target) ==
+                                                                    false && usedTargets.Contains(markers[i].target) ==
+                                                                    false)
                     {
                         bladeDirection.Add(markers[i].tempPos);
                         bladeStartpoint.Add(markers[i].hit.point);
@@ -150,11 +162,13 @@ public class Marker_Manager : MonoBehaviour
                         {
                             rawTargetInstance = markers[i].target.GetComponent<Health>();
                         }
+
                         if (markers[i].target.GetComponent<Limb_Hitbox>() != null)
                         {
                             rawTargetInstance = markers[i].target.GetComponent<Limb_Hitbox>().health;
                             usedTargets.Add(markers[i].target.transform);
                         }
+
                         if (rawTargetInstance != null)
                         {
                             targetsRawHit.Add(rawTargetInstance.transform);
@@ -162,11 +176,11 @@ public class Marker_Manager : MonoBehaviour
                     }
                 }
             }
+
             if (i > markers.Length)
             {
                 i = 0;
             }
-
         }
 
         // Dealing Damage
@@ -177,7 +191,8 @@ public class Marker_Manager : MonoBehaviour
         {
             for (int i2 = 0; i2 < targetsRawHit.Count; i2++)
             {
-                if (targetsRawHit[i2] != null && targetsRawHit[i2].GetComponent<Health>() != null && usedTargets.Contains(targetsRawHit[i2]) == false)
+                if (targetsRawHit[i2] != null && targetsRawHit[i2].GetComponent<Health>() != null &&
+                    usedTargets.Contains(targetsRawHit[i2]) == false)
                 {
                     targetsRawHit[i2].GetComponent<Health>().Bloodflood(bladeDirection[i2], bladeStartpoint[i2]);
 
@@ -185,7 +200,8 @@ public class Marker_Manager : MonoBehaviour
 
                     if (targetsRawHit[i2].GetComponent<Health>() != null)
                     {
-                        //targetsRawHit[i2].GetComponent<Health>().ApplyDamage(damage);
+                        damage = playerStats.GetStat(Stat.Damage);
+                        targetsRawHit[i2].GetComponent<Health>().ApplyDamage(instigator, damage);
                     }
 
                     if (blood != null)
@@ -194,11 +210,15 @@ public class Marker_Manager : MonoBehaviour
                         b.transform.LookAt(markersParent);
                         Destroy(b, 2);
                     }
+
                     usedTargets.Add(targetsRawHit[i2]);
                 }
-                if (targetsRawHit[i2] != null && targetsRawHit[i2].GetComponent<Limb_Hitbox>() != null && usedTargets.Contains(targetsRawHit[i2]) == false)
+
+                if (targetsRawHit[i2] != null && targetsRawHit[i2].GetComponent<Limb_Hitbox>() != null &&
+                    usedTargets.Contains(targetsRawHit[i2]) == false)
                 {
-                    targetsRawHit[i2].GetComponent<Limb_Hitbox>().health.Bloodflood(bladeDirection[i2], bladeStartpoint[i2]);
+                    targetsRawHit[i2].GetComponent<Limb_Hitbox>().health
+                        .Bloodflood(bladeDirection[i2], bladeStartpoint[i2]);
 
                     PlayTargetHitSound();
 
@@ -210,6 +230,7 @@ public class Marker_Manager : MonoBehaviour
                         b.transform.LookAt(markersParent);
                         Destroy(b, 2);
                     }
+
                     usedTargets.Add(targetsRawHit[i2].GetComponent<Limb_Hitbox>().health.transform);
                 }
             }
@@ -228,31 +249,29 @@ public class Marker_Manager : MonoBehaviour
                 {
                     soundSource.PlayOneShot(targetHitSound1);
                 }
+
                 if (sRoll == 2)
                 {
                     soundSource.PlayOneShot(targetHitSound2);
-
                 }
+
                 if (sRoll == 3)
                 {
                     soundSource.PlayOneShot(targetHitSound3);
-
                 }
+
                 if (sRoll == 4)
                 {
                     soundSource.PlayOneShot(targetHitSound4);
-
                 }
+
                 if (sRoll == 5)
                 {
                     soundSource.PlayOneShot(targetHitSound5);
-
                 }
-
             }
         }
     }
 
     /* SHIELD HIT SOUND  */
-
 }

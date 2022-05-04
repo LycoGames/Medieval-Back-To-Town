@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Health : MonoBehaviour
 {
@@ -75,6 +77,7 @@ public class Health : MonoBehaviour
         {
             healthBar.SetMaxHealth(GetInitialHealth());
         }
+
         onDie.AddListener(UpdateState);
     }
 
@@ -365,4 +368,15 @@ public class Health : MonoBehaviour
     {
         healthPoints.value = Mathf.Min(healthPoints.value + healthToRestore, GetMaxHealthPoints());
     }
+    
+    /*private void OnParticleCollision(GameObject other)
+    {
+        
+        //if (CompareTag("Enemy"))
+        if (CompareTag("Enemy"))
+        {
+            ApplyDamage(gameObject, 5);
+            Debug.Log(other);
+        }
+    }*/
 }
