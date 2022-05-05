@@ -35,12 +35,6 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         }
     }
 
-    public void UpdateObjectiveStatus(Quest quest, string objective)
-    {
-        QuestStatus status = GetQuestStatus(quest);
-    }
-
-
     public bool HasQuest(Quest quest)
     {
         return GetQuestStatus(quest) != null;
