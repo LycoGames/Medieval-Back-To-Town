@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using InputSystem;
 
-[CreateAssetMenu(fileName = "Delayed Click Targeting", menuName = "Abilities/Targeting/DelayedClickTargeting", order = 0)]
-
+[CreateAssetMenu(fileName = "Delayed Click Targeting", menuName = "Abilities/Targeting/DelayedClickTargeting",
+    order = 0)]
 public class DelayedClickTargeting : TargetingStrategy
 {
     [SerializeField] Texture2D cursorTexture;
@@ -54,11 +54,14 @@ public class DelayedClickTargeting : TargetingStrategy
                     yield return new WaitWhile(() => Input.GetMouseButton(0));
                     data.SetTargetedPoint(raycastHit.point);
                     data.SetTargets(GetGameObjectsInRadius(raycastHit.point));
+                    Cursor.lockState = CursorLockMode.None;
                     break;
                 }
             }
+
             yield return null;
         }
+
         // stateMachine.enabled = true;
         //  stateMachine.CanMove = false;
         targetingPrefabInstance.gameObject.SetActive(false);
@@ -67,13 +70,10 @@ public class DelayedClickTargeting : TargetingStrategy
 
     private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 point)
     {
-
         RaycastHit[] hits = Physics.SphereCastAll(point, areaAffectRadius, Vector3.up, 0);
         foreach (var hit in hits)
         {
             yield return hit.collider.gameObject;
         }
-
     }
 }
-
