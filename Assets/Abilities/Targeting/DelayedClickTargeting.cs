@@ -27,6 +27,7 @@ public class DelayedClickTargeting : TargetingStrategy
     {
         //stateMachine.CanMove = true;
         //  stateMachine.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         if (targetingPrefabInstance == null)
         {
