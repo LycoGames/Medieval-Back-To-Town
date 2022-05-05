@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using InputSystem;
+using RPG.Saving;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class WStateMachine : MonoBehaviour
+public class WStateMachine : MonoBehaviour, ISaveable
 {
     [Header("Player")] [Tooltip("Move speed of the character in m/s")] [SerializeField]
     private float moveSpeed = 2.0f;
@@ -389,5 +390,18 @@ public class WStateMachine : MonoBehaviour
         {
             actionStore.Use(5, gameObject);
         }
+    }
+
+    public object CaptureState()
+    {
+        return new SerializableVector3(transform.position);
+    }
+
+    public void RestoreState(object state)
+    {
+        SerializableVector3 position = (SerializableVector3) state;
+        CanMove = false;
+        transform.position = position.ToVector();
+        CanMove = true;
     }
 }

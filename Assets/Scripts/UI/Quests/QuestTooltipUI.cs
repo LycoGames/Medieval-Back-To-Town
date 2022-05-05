@@ -70,6 +70,7 @@ public class QuestTooltipUI : MonoBehaviour
     private string GetKilledEnemyCount(Quest.Objective objective)
     {
         throw new System.NotImplementedException();
+        
         //TODO
     }
 
