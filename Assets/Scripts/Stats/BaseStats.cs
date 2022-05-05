@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class BaseStats : MonoBehaviour
 {
-    [Range(1, 99)]
-    [SerializeField] int startingLevel = 1;
+    [Range(1, 99)] [SerializeField] int startingLevel = 1;
     [SerializeField] CharacterClass characterClass;
     [SerializeField] Progression progression;
     [SerializeField] GameObject levelUpParticleEffect;
@@ -28,6 +27,7 @@ public class BaseStats : MonoBehaviour
     {
         currentLevel.ForceInit();
     }
+
     private void OnEnable()
     {
         if (experience != null)
@@ -77,8 +77,10 @@ public class BaseStats : MonoBehaviour
         {
             currentLevel.value = CalculateLevel();
         }
+
         return currentLevel.value;
     }
+
     private float GetAdditiveModifier(Stat stat)
     {
         if (!shouldUseModifier) return 0;
@@ -91,6 +93,7 @@ public class BaseStats : MonoBehaviour
                 total += modifier;
             }
         }
+
         return total;
     }
 
@@ -106,6 +109,7 @@ public class BaseStats : MonoBehaviour
                 total += modifier;
             }
         }
+
         return total;
     }
 
@@ -126,7 +130,5 @@ public class BaseStats : MonoBehaviour
         }
 
         return penultimateLevel + 1;
-
     }
-
 }

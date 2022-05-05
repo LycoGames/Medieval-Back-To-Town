@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using RPG.Saving;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ public class Equipment : MonoBehaviour, ISaveable
         Debug.Assert(item.GetAllowedEquipLocation() == slot);
 
         equippedItems[slot] = item;
+        UpdateHuds(item);
 
         if (equipmentUpdated != null)
         {
@@ -32,10 +34,29 @@ public class Equipment : MonoBehaviour, ISaveable
 
     public void RemoveItem(EquipLocation slot)
     {
+        EquipableItem item = GetItemInSlot(slot);
         equippedItems.Remove(slot);
+        UpdateHuds(item);
+
         if (equipmentUpdated != null)
         {
             equipmentUpdated();
+        }
+    }
+
+    private void UpdateHuds(EquipableItem item)
+    {
+        StatsEquipableItem stats = item as StatsEquipableItem;
+        if (stats != null)
+        {
+            if (stats.GetAdditiveModifiers(Stat.Health).Any() || stats.GetPercentageModifiers(Stat.Health).Any())
+            {
+                GetComponent<Health>().SetNewMaxHealthOnHUD();
+            }
+
+
+            if (stats.GetAdditiveModifiers(Stat.Mana).Any() || stats.GetPercentageModifiers(Stat.Mana).Any())
+                GetComponent<Mana>().SetNewMaxMana();
         }
     }
 
