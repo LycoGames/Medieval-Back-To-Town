@@ -10,5 +10,7 @@ public enum Stat
     Damage,
     Mana,
     ManaRegenRate,
-    TotalTraitPoints
+    TotalTraitPoints,
+    Defence,
+    MovementSpeed,
 }

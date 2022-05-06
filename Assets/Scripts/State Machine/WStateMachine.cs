@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class WStateMachine : MonoBehaviour, ISaveable
+public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
 {
     [Header("Player")] [Tooltip("Move speed of the character in m/s")] [SerializeField]
     private float moveSpeed = 2.0f;
@@ -197,6 +197,7 @@ public class WStateMachine : MonoBehaviour, ISaveable
     public float FallTimeoutDelta { get; set; }
 
     public float TargetSpeed { get; set; }
+    public float modfifiedSpeed { get; set; }
 
     public float SpeedChangeRate
     {
@@ -252,11 +253,13 @@ public class WStateMachine : MonoBehaviour, ISaveable
 
         AssignAnimationIDs();
         CanMove = true;
+        UpdateModifiedSpeed();
     }
 
     void Update()
     {
         CurrentState.UpdateStates();
+        Debug.LogError(modfifiedSpeed);
     }
 
     private void LateUpdate()
@@ -279,6 +282,18 @@ public class WStateMachine : MonoBehaviour, ISaveable
         TargetSpeed = 0f;
     }
 
+    public void Move()
+    {
+        if (!CanMove)
+            return;
+        Vector3 targetDirection = Quaternion.Euler(0.0f, TargetRotation, 0.0f) * Vector3.forward;
+
+        // move the player
+
+        Controller.Move(targetDirection.normalized * (modfifiedSpeed * Time.deltaTime) +
+                        new Vector3(0.0f, VerticalVelocity, 0.0f) * Time.deltaTime);
+    }
+
     public void SetSpeedToWalk()
     {
         TargetSpeed = moveSpeed;
@@ -287,17 +302,6 @@ public class WStateMachine : MonoBehaviour, ISaveable
     public void SetSpeedToRun()
     {
         TargetSpeed = sprintSpeed;
-    }
-
-    public void Move()
-    {
-        if (!CanMove)
-            return;
-        Vector3 targetDirection = Quaternion.Euler(0.0f, TargetRotation, 0.0f) * Vector3.forward;
-
-        // move the player
-        Controller.Move(targetDirection.normalized * (Speed * Time.deltaTime) +
-                        new Vector3(0.0f, VerticalVelocity, 0.0f) * Time.deltaTime);
     }
 
     public void RotatePlayerToMoveDirection()
@@ -403,5 +407,10 @@ public class WStateMachine : MonoBehaviour, ISaveable
         CanMove = false;
         transform.position = position.ToVector();
         CanMove = true;
+    }
+
+    public void UpdateModifiedSpeed()
+    {
+        modfifiedSpeed = moveSpeed + GetComponent<BaseStats>().GetStat(Stat.MovementSpeed);
     }
 }

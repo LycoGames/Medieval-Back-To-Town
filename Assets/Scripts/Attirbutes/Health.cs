@@ -133,6 +133,9 @@ public class Health : MonoBehaviour
     public void ApplyDamage(GameObject insigator, float dmg) //Let's apply some damage on hit, shall we?
     {
         if (IsDead()) return;
+        float defencePoint = GetComponent<BaseStats>().GetStat(Stat.Defence);
+        dmg = Mathf.Max(dmg - defencePoint, 0);
+        //TODO eğer 0 damage atarsa miss yazsın
         healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
 
         takeDamage.Invoke(); //event

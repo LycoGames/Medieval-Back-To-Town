@@ -24,7 +24,7 @@ public class Equipment : MonoBehaviour, ISaveable
         Debug.Assert(item.GetAllowedEquipLocation() == slot);
 
         equippedItems[slot] = item;
-        UpdateHuds(item);
+        UpdateHudsAndStats(item);
 
         if (equipmentUpdated != null)
         {
@@ -36,7 +36,7 @@ public class Equipment : MonoBehaviour, ISaveable
     {
         EquipableItem item = GetItemInSlot(slot);
         equippedItems.Remove(slot);
-        UpdateHuds(item);
+        UpdateHudsAndStats(item);
 
         if (equipmentUpdated != null)
         {
@@ -44,11 +44,18 @@ public class Equipment : MonoBehaviour, ISaveable
         }
     }
 
-    private void UpdateHuds(EquipableItem item)
+    private void UpdateHudsAndStats(EquipableItem item)
     {
         StatsEquipableItem stats = item as StatsEquipableItem;
         if (stats != null)
         {
+            if (stats.GetAdditiveModifiers(Stat.MovementSpeed).Any() ||
+                stats.GetPercentageModifiers(Stat.MovementSpeed).Any())
+            {
+                ICommonFunctions commonFunctions = GetComponent<ICommonFunctions>();
+                commonFunctions.UpdateModifiedSpeed();
+            }
+
             if (stats.GetAdditiveModifiers(Stat.Health).Any() || stats.GetPercentageModifiers(Stat.Health).Any())
             {
                 GetComponent<Health>().SetNewMaxHealthOnHUD();

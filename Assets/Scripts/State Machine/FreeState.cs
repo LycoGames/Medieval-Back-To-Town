@@ -58,9 +58,14 @@ public class FreeState : BaseState
         SetSubState(factory.IdleState());
         factory.IdleState().EnterState();
     }
+
     private void PlayerMoveAndRotation()
     {
-        if (!ctx.CanMove) { return; }
+        if (!ctx.CanMove)
+        {
+            return;
+        }
+
         if (currentSubState.GetType() != ctx.States.IdleState().GetType())
         {
             Vector3 inputDirection = new Vector3(ctx.Input.move.x, 0.0f, ctx.Input.move.y).normalized;
@@ -78,7 +83,7 @@ public class FreeState : BaseState
                     Quaternion.LookRotation(ctx.DesiredMoveDirection),
                     ctx.DesiredRotationSpeed);*/
         }
-
-        ctx.Controller.Move(ctx.DesiredMoveDirection * Time.deltaTime * ctx.Velocity);
+        
+        ctx.Controller.Move(ctx.DesiredMoveDirection * Time.deltaTime * ctx.ModifiedSpeed);
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
-public class StateMachine : MonoBehaviour
+public class StateMachine : MonoBehaviour,ICommonFunctions
 {
     [SerializeField] float velocity = 9;
     [SerializeField] float rotationSmoothTime = 0.12f;
@@ -17,16 +17,33 @@ public class StateMachine : MonoBehaviour
     [SerializeField] Transform FirePoint;
 
 
-    [Header("Weapon")][SerializeField] private WeaponConfig defaultWeapon = null;
+    [Header("Weapon")] [SerializeField] private WeaponConfig defaultWeapon = null;
     [SerializeField] private Transform rightHandTransform = null;
-    public Transform GetRightHandTransform() { return rightHandTransform; }
+
+    public Transform GetRightHandTransform()
+    {
+        return rightHandTransform;
+    }
+
     [SerializeField] private Transform leftHandTransform = null;
-    public Transform GetLeftHandTransform() { return leftHandTransform; }
+
+    public Transform GetLeftHandTransform()
+    {
+        return leftHandTransform;
+    }
+
     [SerializeField] private Transform head = null;
-    public Transform GetHeadTransform() { return head; }
+
+    public Transform GetHeadTransform()
+    {
+        return head;
+    }
+
     [SerializeField] LayerMask collidingLayer = ~0; //Target marker can only collide with scene layer
     NoTargetText noTargetText;
+
     NotEnoughMana notEnoughManaText;
+
     //[SerializeField] GameObject TargetMarker2;
     [SerializeField] GameObject[] Prefabs;
 
@@ -36,14 +53,18 @@ public class StateMachine : MonoBehaviour
     //[SerializeField] float[] castingTime; //If 0 - can loop, if > 0 - one shot time
 
 
-    [Space]
-    [Header("Canvas")]
-    [SerializeField]
+    [Space] [Header("Canvas")] [SerializeField]
     Image aim;
 
     [SerializeField] private GameObject aimUI;
 
-    [SerializeField] Vector2 uiOffset; public Vector2 GetUIOffset() { return uiOffset; }
+    [SerializeField] Vector2 uiOffset;
+
+    public Vector2 GetUIOffset()
+    {
+        return uiOffset;
+    }
+
     [SerializeField] List<Transform> screenTargets = new List<Transform>();
 
     [SerializeField] float fireRate = 0.1f;
@@ -53,30 +74,25 @@ public class StateMachine : MonoBehaviour
     [SerializeField]
     GameObject cinemachineCameraTarget;
 
-    [Tooltip("How far in degrees can you move the camera up")]
-    [SerializeField]
+    [Tooltip("How far in degrees can you move the camera up")] [SerializeField]
     float topClamp = 70.0f;
 
-    [Tooltip("How far in degrees can you move the camera down")]
-    [SerializeField]
+    [Tooltip("How far in degrees can you move the camera down")] [SerializeField]
     float bottomClamp = -30.0f;
 
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField]
     float cameraAngleOverride = 0.0f;
 
-    [Tooltip("For locking the camera position on all axis")]
-    [SerializeField]
+    [Tooltip("For locking the camera position on all axis")] [SerializeField]
     bool lockCameraPosition = false;
 
 
-    [Header("Animation Smoothing")]
-    [Range(0, 1f)]
-    [SerializeField]
+    [Header("Animation Smoothing")] [Range(0, 1f)] [SerializeField]
     float HorizontalAnimSmoothTime = 0.2f;
 
 
-    [Range(0, 1f)][SerializeField] float VerticalAnimTime = 0.2f;
+    [Range(0, 1f)] [SerializeField] float VerticalAnimTime = 0.2f;
     /*[Range(0, 1f)] [SerializeField] float StartAnimTime = 0.3f;
     [Range(0, 1f)] [SerializeField] float StopAnimTime = 0.15f;*/
 
@@ -195,7 +211,11 @@ public class StateMachine : MonoBehaviour
 
     public float DesiredRotationSpeed { get; } = 0.1f;
 
-    public float Velocity => velocity;
+    public float Velocity
+    {
+        get => velocity;
+        set => velocity = value;
+    }
 
     public float RotationSmoothTime => rotationSmoothTime;
 
@@ -233,6 +253,7 @@ public class StateMachine : MonoBehaviour
     public float InputY { get; set; }
 
     public bool CanMove { get; set; }
+    public float ModifiedSpeed { get; set; }
 
     public List<GameObject> MainUiArray { get; private set; }
 
@@ -247,6 +268,8 @@ public class StateMachine : MonoBehaviour
     public WeaponConfig CurrentWeaponConfig { get; private set; }
 
     public GameObject InventoryUi { get; set; }
+
+    public BaseStats baseStats { get; set; }
 
     //User interface variables
 
@@ -263,6 +286,7 @@ public class StateMachine : MonoBehaviour
             equipment.equipmentUpdated += UpdateWeapon;
         }
 
+        baseStats = GetComponent<BaseStats>();
         MainUiArray = new List<GameObject>();
         MainUiArray.AddRange(GameObject.FindGameObjectsWithTag("MainUI"));
         noTargetText = FindObjectOfType<NoTargetText>();
@@ -273,13 +297,14 @@ public class StateMachine : MonoBehaviour
     {
         GetRequiredComponents();
         AssignAnimationIDs();
-
+        UpdateModifiedSpeed();
     }
 
     public void ShowNoTargetText()
     {
         noTargetText.ShowNoTargetText();
     }
+
     public void ShowNotEnoughManaText()
     {
         notEnoughManaText.ShowNotEnoughManaText();
@@ -506,9 +531,9 @@ public class StateMachine : MonoBehaviour
         Anim.SetFloat(animIDInputY, 0);
         Anim.SetFloat(animIDInputX, 0);
     }
+
     public void StopPlayer()
     {
-
     }
 
     private void CameraRotation()
@@ -594,5 +619,10 @@ public class StateMachine : MonoBehaviour
         {
             actionStore.Use(5, gameObject);
         }
+    }
+
+    public void UpdateModifiedSpeed()
+    {
+        ModifiedSpeed = Velocity + baseStats.GetStat(Stat.MovementSpeed);
     }
 }
