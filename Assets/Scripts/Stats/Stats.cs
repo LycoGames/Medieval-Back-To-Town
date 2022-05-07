@@ -13,4 +13,5 @@ public enum Stat
     TotalTraitPoints,
     Defence,
     MovementSpeed,
+    AbilityPower,
 }

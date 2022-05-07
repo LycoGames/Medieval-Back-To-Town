@@ -10,15 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c8581d32b9819b4eb2fc18e831591ca, type: 3}
-  m_Name: Renegade Gloves
+  m_Name: Guard Pants
   m_EditorClassIdentifier: 
-  itemID: 8664f8e3-83bf-4514-a9e6-594cb04e9f77
-  displayName: 
-  description: 
-  icon: {fileID: 0}
+  itemID: 7e56d2ae-24aa-4120-a0e0-87330f2f3cac
+  displayName: Guard Pants
+  description: Guard Pants
+  icon: {fileID: 21300000, guid: 0050bf45cae023a4a9d48684f150e306, type: 3}
   pickup: {fileID: 0}
   stackable: 0
-  allowedEquipLocation: 7
-  allowedCharacterClasses: 
-  additiveModifiers: []
+  allowedEquipLocation: 3
+  allowedCharacterClasses: 00000000
+  additiveModifiers:
+  - stat: 7
+    value: 16
+  - stat: 0
+    value: 70
   percentageModifiers: []

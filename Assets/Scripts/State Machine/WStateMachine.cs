@@ -198,6 +198,7 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
 
     public float TargetSpeed { get; set; }
     public float modfifiedSpeed { get; set; }
+    public float additiveAbilityDamage { get; set; }
 
     public float SpeedChangeRate
     {
@@ -218,6 +219,7 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
     public bool CanMove { get; set; }
 
     public bool IsAttacking { get; set; }
+    public BaseStats baseStats { get; set; }
 
     private const float Threshold = 0.01f;
 
@@ -250,16 +252,17 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
         Controller = GetComponent<CharacterController>();
         Input = GetComponent<Inputs>();
         actionStore = GetComponent<ActionStore>();
+        baseStats = GetComponent<BaseStats>();
 
         AssignAnimationIDs();
         CanMove = true;
         UpdateModifiedSpeed();
+        UpdateAdditiveAbilityDamage();
     }
 
     void Update()
     {
         CurrentState.UpdateStates();
-        Debug.LogError(modfifiedSpeed);
     }
 
     private void LateUpdate()
@@ -411,6 +414,16 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
 
     public void UpdateModifiedSpeed()
     {
-        modfifiedSpeed = moveSpeed + GetComponent<BaseStats>().GetStat(Stat.MovementSpeed);
+        modfifiedSpeed = moveSpeed + baseStats.GetStat(Stat.MovementSpeed);
+    }
+
+    public void UpdateAdditiveAbilityDamage()
+    {
+        additiveAbilityDamage = baseStats.GetStat(Stat.AbilityPower);
+    }
+
+    public float GetAdditiveAbilityDamage()
+    {
+        return additiveAbilityDamage;
     }
 }

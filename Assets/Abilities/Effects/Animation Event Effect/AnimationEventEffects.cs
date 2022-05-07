@@ -21,6 +21,8 @@ public class AnimationEventEffects : MonoBehaviour
 
     private const int ATTEMPTS = 50;
 
+    private ICommonFunctions commonFunctions;
+
 
     [System.Serializable]
     public class AbilityInfo
@@ -52,6 +54,12 @@ public class AnimationEventEffects : MonoBehaviour
     //       Destroy(effectOBJ, DestroyAfterWorld);
     //   }
 
+    private void Start()
+    {
+        commonFunctions = GetComponent<ICommonFunctions>();
+    }
+
+
     void InstantiateEffect(string data)
     {
         int abilityNumber = Convert.ToInt32(data.Substring(0, 1));
@@ -77,7 +85,7 @@ public class AnimationEventEffects : MonoBehaviour
 
             EffectDamage effectDamage = instance.GetComponentInChildren<EffectDamage>();
             if (effectDamage != null)
-                effectDamage.SetDamage(effects[EffectNumber].damage);
+                effectDamage.SetDamage(effects[EffectNumber].damage + commonFunctions.GetAdditiveAbilityDamage());
 
             Destroy(instance, effects[EffectNumber].DestroyAfter);
         }

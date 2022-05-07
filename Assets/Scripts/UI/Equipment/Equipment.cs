@@ -13,6 +13,12 @@ public class Equipment : MonoBehaviour, ISaveable
     // PUBLIC
 
     public event Action equipmentUpdated;
+    private ICommonFunctions commonFunctions;
+
+    private void Start()
+    {
+        commonFunctions = GetComponent<ICommonFunctions>();
+    }
 
     public EquipableItem GetItemInSlot(EquipLocation equipLocation)
     {
@@ -52,8 +58,13 @@ public class Equipment : MonoBehaviour, ISaveable
             if (stats.GetAdditiveModifiers(Stat.MovementSpeed).Any() ||
                 stats.GetPercentageModifiers(Stat.MovementSpeed).Any())
             {
-                ICommonFunctions commonFunctions = GetComponent<ICommonFunctions>();
                 commonFunctions.UpdateModifiedSpeed();
+            }
+
+            if (stats.GetAdditiveModifiers(Stat.AbilityPower).Any() ||
+                stats.GetPercentageModifiers(Stat.AbilityPower).Any())
+            {
+                commonFunctions.UpdateAdditiveAbilityDamage();
             }
 
             if (stats.GetAdditiveModifiers(Stat.Health).Any() || stats.GetPercentageModifiers(Stat.Health).Any())

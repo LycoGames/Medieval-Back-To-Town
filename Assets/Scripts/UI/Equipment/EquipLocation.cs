@@ -6,7 +6,7 @@ using UnityEngine;
 public enum EquipLocation
 {
     Helmet,
-    Necklace,
+    Belt,
     Body,
     Trousers,
     Boots,

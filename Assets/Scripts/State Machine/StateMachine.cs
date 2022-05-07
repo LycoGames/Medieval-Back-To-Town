@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
-public class StateMachine : MonoBehaviour,ICommonFunctions
+public class StateMachine : MonoBehaviour, ICommonFunctions
 {
     [SerializeField] float velocity = 9;
     [SerializeField] float rotationSmoothTime = 0.12f;
@@ -203,6 +203,8 @@ public class StateMachine : MonoBehaviour,ICommonFunctions
 
 
     public Animator Anim { get; private set; }
+    public float additiveAbilityDamage { get; set; }
+
 
     public CharacterController Controller { get; private set; }
 
@@ -624,5 +626,15 @@ public class StateMachine : MonoBehaviour,ICommonFunctions
     public void UpdateModifiedSpeed()
     {
         ModifiedSpeed = Velocity + baseStats.GetStat(Stat.MovementSpeed);
+    }
+
+    public void UpdateAdditiveAbilityDamage()
+    {
+        additiveAbilityDamage = baseStats.GetStat(Stat.AbilityPower);
+    }
+
+    public float GetAdditiveAbilityDamage()
+    {
+        return additiveAbilityDamage;
     }
 }
