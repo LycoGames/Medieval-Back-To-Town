@@ -45,7 +45,6 @@ public class ActionStore : MonoBehaviour, ISaveable
             if (ReferenceEquals(item, dockedItems[index].item))
             {
                 dockedItems[index].number += number;
-                Debug.LogWarning("sayı arttı");
             }
         }
         else
@@ -139,7 +138,7 @@ public class ActionStore : MonoBehaviour, ISaveable
 
     void ISaveable.RestoreState(object state)
     {
-        var stateDict = (Dictionary<int, DockedItemRecord>)state;
+        var stateDict = (Dictionary<int, DockedItemRecord>) state;
         foreach (var pair in stateDict)
         {
             AddAction(InventoryItem.GetFromID(pair.Value.itemID), pair.Key, pair.Value.number);
