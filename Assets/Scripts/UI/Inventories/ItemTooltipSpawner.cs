@@ -19,7 +19,9 @@ public class ItemTooltipSpawner : TooltipSpawner
         if (!itemTooltip) return;
 
         var item = GetComponent<IItemHolder>().GetItem();
-
-        itemTooltip.Setup(item);
+        var equipableItemTooltip = itemTooltip as EquipableItemTooltip;
+        if (equipableItemTooltip != null) equipableItemTooltip.Setup(item);
+        else
+            itemTooltip.Setup(item);
     }
 }
