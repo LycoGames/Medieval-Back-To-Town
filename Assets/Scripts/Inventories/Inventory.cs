@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using RPG.Saving;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator, IPredicateNumberEvaluator
+public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
 {
     //CONFIG DATA
     [SerializeField] int inventorySize = 16;
@@ -223,19 +223,6 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator, IPredica
         {
             case "HasInventoryItem":
                 return HasItem(InventoryItem.GetFromID(parameters[0]));
-        }
-
-        return null;
-    }
-
-    int? IPredicateNumberEvaluator.Evaluate(string predicate, string[] parameters)
-    {
-        switch (predicate)
-        {
-            case "GetCollectedItemNumber":
-                if (HasItem(InventoryItem.GetFromID(parameters[0])))
-                    return GetNumberInSlot(FindSlot(InventoryItem.GetFromID(parameters[0])));
-                break;
         }
 
         return null;

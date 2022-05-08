@@ -8,7 +8,7 @@ public class OrientToTargetEffect : EffectStrategy
     public override void StartEffect(AbilityData data, Action finished)
     {
         // data.GetUser().transform.LookAt(data.GetTargetedPoint());
-        Transform target = data.GetUser().GetComponent<StateMachine>().Target;
+        Transform target = data.GetUser().GetComponent<ICommonFunctions>().GetTarget();
         data.GetUser().transform.LookAt(target);
         finished();
     }

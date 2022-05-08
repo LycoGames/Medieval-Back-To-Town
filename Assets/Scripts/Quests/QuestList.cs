@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using RPG.Saving;
+using UnityEditor;
 using UnityEngine;
 
 public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
@@ -29,10 +31,29 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
             GiveReward(quest);
         }
 
-        if (onUpdate != null)
+        onUpdate?.Invoke();
+    }
+
+    public void UpdateKillObjectiveStatus(GameObject enemy, int value)
+    {
+        foreach (var questStatus in GetStatuses())
         {
-            onUpdate();
+            foreach (var objectiveStatus in questStatus.GetKillObjectives())
+            {
+                if (enemy.name.Substring(0, enemy.name.Length - 7) == objectiveStatus.Enemy.name)
+                {
+                    questStatus.UpdateKillObjectiveStatus(objectiveStatus.Reference, 1);
+                }
+            }
         }
+        /*  var status = GetQuestStatus(quest);
+          status.UpdateKillObjectiveStatus(objective, value);*/
+    }
+
+    public void UpdateCollectObjectiveStatus(Quest quest, string objective, int value)
+    {
+        var status = GetQuestStatus(quest);
+        status.UpdateKillObjectiveStatus(objective, value);
     }
 
     public bool HasQuest(Quest quest)
@@ -70,11 +91,6 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         }
     }
 
-    private IEnumerable<IPredicateNumberEvaluator> GetNumberEvaluators()
-    {
-        return GetComponents<IPredicateNumberEvaluator>();
-    }
-
     public object CaptureState()
     {
         List<object> state = new List<object>();
@@ -106,6 +122,24 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
                 return HasQuest(Quest.GetByName(parameters[0]));
             case "CompletedQuest":
                 return GetQuestStatus(Quest.GetByName(parameters[0])).IsComplete();
+            case "HasKilledEnoughEnemy":
+                return GetKillObjectiveResultWithEnemyName(parameters[0]);
+        }
+
+        return null;
+    }
+
+    private bool? GetKillObjectiveResultWithEnemyName(string parameter)
+    {
+        foreach (var status in statuses)
+        {
+            foreach (var objectiveStatus in status.GetKillObjectives())
+            {
+                if (objectiveStatus.Enemy.name == parameter)
+                    return objectiveStatus.Number == status.GetObjectiveByReference(objectiveStatus.Reference).number;
+            }
+
+            return null;
         }
 
         return null;

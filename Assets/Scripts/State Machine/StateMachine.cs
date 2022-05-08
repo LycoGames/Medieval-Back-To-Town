@@ -637,4 +637,9 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     {
         return additiveAbilityDamage;
     }
+
+    public Transform GetTarget()
+    {
+        return target;
+    }
 }

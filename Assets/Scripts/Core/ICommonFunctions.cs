@@ -7,4 +7,5 @@ public interface ICommonFunctions
     public void UpdateModifiedSpeed();
     public void UpdateAdditiveAbilityDamage();
     public float GetAdditiveAbilityDamage();
+    public Transform GetTarget();
 }

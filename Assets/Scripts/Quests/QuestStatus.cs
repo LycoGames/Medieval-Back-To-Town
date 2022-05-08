@@ -1,11 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class QuestStatus
 {
     private Quest quest;
+    private List<CollectObjectiveStatus> collectObjectiveStatuses;
+    private List<KillObjectiveStatus> killObjectiveStatuses;
     private List<string> completedObjectives = new List<string>();
+
+
+    class CollectObjectiveStatus
+    {
+        public string Reference { get; set; }
+        public InventoryItem Item { get; set; }
+        public int Number { get; set; }
+    }
+
+    public class KillObjectiveStatus
+    {
+        public string Reference { get; set; }
+        public GameObject Enemy { get; set; }
+        public int Number { get; set; }
+    }
+
 
     [System.Serializable]
     class QuestStatusRecord
@@ -17,7 +36,21 @@ public class QuestStatus
     public QuestStatus(Quest quest)
     {
         this.quest = quest;
+        foreach (var objective in quest.GetObjectives())
+        {
+            if (objective.isCollectItemQuest)
+            {
+                collectObjectiveStatuses ??= new List<CollectObjectiveStatus>();
+                collectObjectiveStatuses.Add(SetupCollectObjectiveStatus(objective));
+            }
+            else if (objective.isKillEnemyQuest)
+            {
+                killObjectiveStatuses ??= new List<KillObjectiveStatus>();
+                killObjectiveStatuses.Add(SetupKillObjectiveStatus(objective));
+            }
+        }
     }
+
 
     public QuestStatus(object objectState)
     {
@@ -31,6 +64,11 @@ public class QuestStatus
         return quest;
     }
 
+    public IEnumerable<Quest.Objective> GetObjectives()
+    {
+        return quest.GetObjectives();
+    }
+
     public int GetCompletedCount()
     {
         return completedObjectives.Count;
@@ -38,6 +76,7 @@ public class QuestStatus
 
     public bool IsObjectiveComplete(string objective)
     {
+        Debug.LogError(objective);
         return completedObjectives.Contains(objective);
     }
 
@@ -47,6 +86,63 @@ public class QuestStatus
         {
             completedObjectives.Add(objective);
         }
+    }
+
+    public void UpdateKillObjectiveStatus(string objective, int value)
+    {
+        foreach (var objectiveStatus in killObjectiveStatuses.Where(objectiveStatus =>
+                     objectiveStatus.Reference == objective))
+        {
+            if (GetObjectiveByReference(objective).number > objectiveStatus.Number)
+                objectiveStatus.Number += value;
+        }
+    }
+
+    public void UpdateCollectObjectiveStatus(string objective, int value)
+    {
+        foreach (var objectiveStatus in collectObjectiveStatuses.Where(objectiveStatus =>
+                     objectiveStatus.Reference == objective))
+        {
+            objectiveStatus.Number += value;
+        }
+    }
+
+    public int GetKillObjectiveStatus(string objective)
+    {
+        foreach (var objectiveStatus in killObjectiveStatuses.Where(objectiveStatus =>
+                     objectiveStatus.Reference == objective))
+        {
+            return objectiveStatus.Number;
+        }
+
+        return -1;
+    }
+
+    public IEnumerable<KillObjectiveStatus> GetKillObjectives()
+    {
+        return killObjectiveStatuses;
+    }
+
+    public Quest.Objective GetObjectiveByReference(string reference)
+    {
+        foreach (var objective in quest.GetObjectives())
+        {
+            if (objective.reference == reference)
+                return objective;
+        }
+
+        return null;
+    }
+
+    public int GetCollectObjectiveStatus(string objective)
+    {
+        foreach (var objectiveStatus in collectObjectiveStatuses.Where(objectiveStatus =>
+                     objectiveStatus.Reference == objective))
+        {
+            return objectiveStatus.Number;
+        }
+
+        return -1;
     }
 
     public bool IsComplete()
@@ -61,12 +157,32 @@ public class QuestStatus
 
         return true;
     }
-    
+
     public object CaptureState()
     {
         var state = new QuestStatusRecord();
         state.questName = quest.name;
         state.completedObjective = completedObjectives;
         return state;
+    }
+
+    private CollectObjectiveStatus SetupCollectObjectiveStatus(Quest.Objective objective)
+    {
+        var collectObjectiveStatus = new CollectObjectiveStatus
+        {
+            Reference = objective.reference,
+            Item = objective.itemToCollect,
+        };
+        return collectObjectiveStatus;
+    }
+
+    private KillObjectiveStatus SetupKillObjectiveStatus(Quest.Objective objective)
+    {
+        var killObjectiveStatus = new KillObjectiveStatus
+        {
+            Reference = objective.reference,
+            Enemy = objective.enemy,
+        };
+        return killObjectiveStatus;
     }
 }

@@ -26,13 +26,13 @@ public class QuestTooltipUI : MonoBehaviour
         foreach (var objective in quest.GetObjectives())
         {
             GameObject prefab;
-            if (objective.isCollectItemQuest ||
-                objective.isKillEnemyQuest && status.IsObjectiveComplete(objective.reference))
+            if ((objective.isCollectItemQuest ||
+                 objective.isKillEnemyQuest) && status.IsObjectiveComplete(objective.reference))
             {
                 prefab = objectiveWithNumberPrefab;
             }
-            else if (objective.isCollectItemQuest ||
-                     objective.isKillEnemyQuest && !status.IsObjectiveComplete(objective.reference))
+            else if ((objective.isCollectItemQuest ||
+                      objective.isKillEnemyQuest) && !status.IsObjectiveComplete(objective.reference))
             {
                 prefab = objectiveWithNumberInCompletePrefab;
             }
@@ -47,15 +47,13 @@ public class QuestTooltipUI : MonoBehaviour
             {
                 TextMeshProUGUI[] textList = objectiveInstance.GetComponentsInChildren<TextMeshProUGUI>();
                 textList[0].text = objective.description;
-                //textList[1].text = status.GetCollectedItemCount(objective.reference);
-                textList[1].text = GetCollectedItemCount(objective);
+                textList[1].text = status.GetCollectObjectiveStatus(objective.reference) + " / " + objective.quantity;
             }
             else if (objective.isKillEnemyQuest)
             {
                 TextMeshProUGUI[] textList = objectiveInstance.GetComponentsInChildren<TextMeshProUGUI>();
                 textList[0].text = objective.description;
-                //textList[1].text = status.GetKilledEnemyCount(objective.reference);
-                textList[1].text = GetKilledEnemyCount(objective);
+                textList[1].text = status.GetKillObjectiveStatus(objective.reference) + " / " + objective.number;
             }
             else
             {
@@ -65,25 +63,6 @@ public class QuestTooltipUI : MonoBehaviour
         }
 
         rewardText.text = GetRewardText(quest);
-    }
-
-    private string GetKilledEnemyCount(Quest.Objective objective)
-    {
-        throw new System.NotImplementedException();
-        
-        //TODO
-    }
-
-    private string GetCollectedItemCount(Quest.Objective objective)
-    {
-        Inventory playerInventory = FindObjectOfType<Inventory>();
-        if (playerInventory.HasItem(objective.itemToCollect))
-        {
-            int itemCount = playerInventory.GetNumberInSlot(playerInventory.GetSlot(objective.itemToCollect));
-            return itemCount + "/" + objective.quantity;
-        }
-
-        return "0/" + objective.quantity;
     }
 
     private string GetRewardText(Quest quest)

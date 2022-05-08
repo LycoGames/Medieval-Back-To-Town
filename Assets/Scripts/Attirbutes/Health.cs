@@ -235,6 +235,11 @@ public class Health : MonoBehaviour
         if (IsDead()) //Death,
         {
             onDie.Invoke();
+            if (CompareTag("Enemy"))
+            {
+                insigator.GetComponent<QuestList>()
+                    .UpdateKillObjectiveStatus(gameObject, 1);
+            }
 
             AwardExperience(insigator);
             //Spawn Of Death
