@@ -5,7 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = ("Inventory/Potion"))]
 public class PotionItem : ActionItem
 {
-    [Tooltip("The value that directly affects the status.")] [SerializeField]
+    [Header("For One Time Effect Potion Attirbutes")] [SerializeField]
+    private bool increaseHealthPoints;
+
+    [SerializeField] private bool increaseManaPoints;
+    [SerializeField] private int value;
+
+    [Header("For Long Term Effect Potion Attirbutes")]
+    [Tooltip("The value that directly affects the status.")]
+    [SerializeField]
     private Modifier[] additiveModifiers;
 
     [Tooltip("The value that affects the status as a percentage.")] [SerializeField]
@@ -14,7 +22,9 @@ public class PotionItem : ActionItem
     [Tooltip("Unit is Second, The effect takes effect as long as the entered time.")] [SerializeField]
     private float impactTime;
 
-    [Tooltip("VFX that will be active for the duration of the pot's duration")] [SerializeField]
+    [Tooltip(
+        "VFX that will be active for the duration of the pot's duration. Vfx will work both one time and long term effect potions")]
+    [SerializeField]
     private GameObject vfxPrefab;
 
     [System.Serializable]
@@ -27,6 +37,14 @@ public class PotionItem : ActionItem
     public override void Use(GameObject user)
     {
         base.Use(user);
+        if (increaseHealthPoints || increaseManaPoints)
+        {
+            if (increaseHealthPoints)
+                user.GetComponent<Health>().Heal(value);
+            else
+                user.GetComponent<Mana>().AddMana(value);
+        }
+
         var potionEffect = user.GetComponent<PotionEffect>();
         potionEffect.Setup(impactTime, additiveModifiers, percentageModifiers);
         potionEffect.StartCoroutine(StartEffect(user));

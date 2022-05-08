@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Mana : MonoBehaviour
 {
-
     LazyValue<float> mana;
     ManaBar manaBar;
+
     private float tempMana = 0f;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,21 +42,28 @@ public class Mana : MonoBehaviour
             {
                 mana.value = GetMaxMana();
             }
+
             manaBar.SetMana(GetMana());
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-           // print("mana: " + mana.value);
-           // print("max mana: " + GetMaxMana());
+            // print("mana: " + mana.value);
+            // print("max mana: " + GetMaxMana());
         }
     }
 
     public void SetNewMaxMana()
     {
         // print("ilk satır");
-        manaBar.SetMaxMana(GetComponent<BaseStats>().GetStat(Stat.Mana)); 
+        manaBar.SetMaxMana(GetComponent<BaseStats>().GetStat(Stat.Mana));
         // print("maxmana " + GetComponent<BaseStats>().GetStat(Stat.Mana));
+    }
+
+    public void AddMana(float value)
+    {
+        mana.value = Mathf.Min(mana.value + value, GetMaxMana());
+        manaBar.SetMana(mana.value);
     }
 
     public float GetMaxMana()
@@ -79,6 +87,7 @@ public class Mana : MonoBehaviour
         {
             return false;
         }
+
         mana.value -= manaToUse;
         return true;
     }
