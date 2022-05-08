@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c80e49fe1df7654699c5df14a15c73e, type: 3}
-  m_Name: Mana Potion
+  m_Name: Max Health Potion
   m_EditorClassIdentifier: 
-  itemID: 06034407-839a-42d3-9005-5b8c3dca6965
-  displayName: Mana Potion
-  description: Mana Potion
-  icon: {fileID: 21300000, guid: de4b86cd800fdeb4eaaa4c6fc340b245, type: 3}
+  itemID: 04a18335-294a-4afe-94b3-4df85879b487
+  displayName: Max Health Potion
+  description: Increase your max health for temporary
+  icon: {fileID: 21300000, guid: f145000a897364b46bb4d91e2918e213, type: 3}
   pickup: {fileID: 6494234044896430859, guid: ab73185f2dadf4445ae07e78eb669c1f, type: 3}
   stackable: 1
   consumable: 1
   additiveModifiers:
-  - stat: 5
-    value: 3
+  - stat: 0
+    value: 50
   percentageModifiers: []
-  impactTime: 3
+  impactTime: 15
   vfxPrefab: {fileID: 0}

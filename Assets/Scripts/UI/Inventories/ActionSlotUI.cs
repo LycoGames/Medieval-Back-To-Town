@@ -25,7 +25,6 @@ public class ActionSlotUI : MonoBehaviour, IItemHolder, IDragContainer<Inventory
 
     public void AddItems(InventoryItem item, int number)
     {
-        Debug.LogError("Item Added");
         store.AddAction(item, index, number);
     }
 
