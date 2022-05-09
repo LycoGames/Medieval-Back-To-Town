@@ -11,6 +11,7 @@ public class UiState : BaseState
     public override void EnterState()
     {
         ctx.CanMove = false;
+        Cursor.lockState = CursorLockMode.None;
         Debug.Log("Ui State Enter");
     }
 
@@ -23,6 +24,7 @@ public class UiState : BaseState
     public override void ExitState()
     {
         Debug.Log("Ui State Exit");
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public override void CheckSwitchStates()
