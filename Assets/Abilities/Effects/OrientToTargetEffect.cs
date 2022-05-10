@@ -9,7 +9,15 @@ public class OrientToTargetEffect : EffectStrategy
     {
         // data.GetUser().transform.LookAt(data.GetTargetedPoint());
         Transform target = data.GetUser().GetComponent<ICommonFunctions>().GetTarget();
-        data.GetUser().transform.LookAt(target);
+        if (target == null)
+        {
+            data.GetUser().transform.LookAt(data.GetTargetedPoint());
+        }
+        else
+        {
+            data.GetUser().transform.LookAt(target);
+        }
+
         finished();
     }
 }
