@@ -17,7 +17,7 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     [SerializeField] Transform FirePoint;
 
 
-    [Header("Weapon")] [SerializeField] private WeaponConfig defaultWeapon = null;
+    [Header("Weapon")][SerializeField] private WeaponConfig defaultWeapon = null;
     [SerializeField] private Transform rightHandTransform = null;
 
     public Transform GetRightHandTransform()
@@ -53,7 +53,9 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     //[SerializeField] float[] castingTime; //If 0 - can loop, if > 0 - one shot time
 
 
-    [Space] [Header("Canvas")] [SerializeField]
+    [Space]
+    [Header("Canvas")]
+    [SerializeField]
     Image aim;
 
     [SerializeField] private GameObject aimUI;
@@ -74,25 +76,30 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     [SerializeField]
     GameObject cinemachineCameraTarget;
 
-    [Tooltip("How far in degrees can you move the camera up")] [SerializeField]
+    [Tooltip("How far in degrees can you move the camera up")]
+    [SerializeField]
     float topClamp = 70.0f;
 
-    [Tooltip("How far in degrees can you move the camera down")] [SerializeField]
+    [Tooltip("How far in degrees can you move the camera down")]
+    [SerializeField]
     float bottomClamp = -30.0f;
 
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField]
     float cameraAngleOverride = 0.0f;
 
-    [Tooltip("For locking the camera position on all axis")] [SerializeField]
+    [Tooltip("For locking the camera position on all axis")]
+    [SerializeField]
     bool lockCameraPosition = false;
 
 
-    [Header("Animation Smoothing")] [Range(0, 1f)] [SerializeField]
+    [Header("Animation Smoothing")]
+    [Range(0, 1f)]
+    [SerializeField]
     float HorizontalAnimSmoothTime = 0.2f;
 
 
-    [Range(0, 1f)] [SerializeField] float VerticalAnimTime = 0.2f;
+    [Range(0, 1f)][SerializeField] float VerticalAnimTime = 0.2f;
     /*[Range(0, 1f)] [SerializeField] float StartAnimTime = 0.3f;
     [Range(0, 1f)] [SerializeField] float StopAnimTime = 0.15f;*/
 
@@ -180,6 +187,7 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
 
     public BaseState CurrentState
     {
+        get => currentState;
         set => currentState = value;
     }
 
