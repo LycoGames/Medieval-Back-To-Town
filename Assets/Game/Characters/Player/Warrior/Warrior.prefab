@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 8587695863407685584}
   - component: {fileID: 3278037239788815721}
   - component: {fileID: 814154138182546237}
+  - component: {fileID: 7037789464443072649}
   m_Layer: 7
   m_Name: Warrior
   m_TagString: Player
@@ -1130,8 +1131,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da33597adb3c05e4c848bfc7a0a5dfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  additiveModifiers: []
-  percentageModifiers: []
+  additiveModifierList: []
+  percentageModifierList: []
+--- !u!81 &7037789464443072649
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413686320663055636}
+  m_Enabled: 1
 --- !u!1 &1986973617149731749
 GameObject:
   m_ObjectHideFlags: 0
