@@ -8,7 +8,7 @@ public class EnemyFighter : MonoBehaviour, IAction
 {
     [SerializeField] float enemyAttackCooldown = 1f;
     [SerializeField] float mobRange = 1f;
-    [Range(1, 300)] [SerializeField] float speed = 200f;
+    [Range(1, 300)][SerializeField] float speed = 200f;
 
     EnemyAIController enemyAIController;
     Animator animator;
@@ -65,7 +65,7 @@ public class EnemyFighter : MonoBehaviour, IAction
         //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
         RotateTowardsPlayer();
 
-        //   transform.LookAt(targetPlayer.transform.position);
+        // transform.LookAt(targetPlayer.transform.position);
         if (TimeSinceLastAttack > enemyAttackCooldown)
         {
             animator.SetTrigger("attack");
@@ -75,10 +75,12 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     private void RotateTowardsPlayer()
     {
-        Vector3 targetDir = transform.position - targetPlayer.transform.position;
+        Vector3 targetDir = (targetPlayer.transform.position - transform.position).normalized;
         targetDir.y = 0.0f;
         var step = speed * Time.deltaTime;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetPlayer.transform.rotation, step);
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+        // transform.rotation = Quaternion.RotateTowards(transform.rotation, targetPlayer.transform.rotation, step);
+        transform.rotation = Quaternion.LookRotation(newDir);
     }
 
     public void Attack(GameObject combatTarget)

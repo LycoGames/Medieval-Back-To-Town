@@ -109,23 +109,7 @@ namespace InputSystem
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
-        /* 
-                void Update()
-                {
-                    UseAbilities();
-                }
-
-                private void UseAbilities()
-                {
-
-                    if (Input.GetKeyDown(KeyCode.Alpha1))
-                    {
-                        ability.Use(gameObject);
-                        print("girdim");
-                    }
-
-                }
-                */
+    
 #if !UNITY_IOS || !UNITY_ANDROID
 
         /*  private void OnApplicationFocus(bool hasFocus)
