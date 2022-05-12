@@ -34,6 +34,7 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     void Update()
     {
+
         if (targetPlayer == null) return;
         if (targetPlayer.IsDead()) return;
         if (!GetIsInRange(targetPlayer.transform))
@@ -71,6 +72,11 @@ public class EnemyFighter : MonoBehaviour, IAction
             animator.SetTrigger("attack");
             TimeSinceLastAttack = 0;
         }
+    }
+
+    public void Death()
+    {
+        print("fall"); animator.SetTrigger("Fall1");
     }
 
     private void RotateTowardsPlayer()
