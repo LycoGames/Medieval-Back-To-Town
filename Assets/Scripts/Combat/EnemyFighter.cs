@@ -76,7 +76,7 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     public void Death()
     {
-        print("fall"); animator.SetTrigger("Fall1");
+        animator.SetTrigger("Death");
     }
 
     private void RotateTowardsPlayer()
