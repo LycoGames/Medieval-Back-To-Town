@@ -63,6 +63,7 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     public void AttackBehaviour()
     {
+        enemyAIController.Cancel();
         //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
         RotateTowardsPlayer();
 
@@ -110,4 +111,16 @@ public class EnemyFighter : MonoBehaviour, IAction
     {
         return GetComponent<BaseStats>().GetBaseStat(Stat.Damage);
     }
+
+    public void ApplyRootMotion()
+    {
+        animator.applyRootMotion = true;
+        print("a");
+    }
+    public void DisableRootMotion()
+    {
+        animator.applyRootMotion = false;
+        print("b");
+    }
+
 }

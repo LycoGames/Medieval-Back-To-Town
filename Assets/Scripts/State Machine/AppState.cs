@@ -64,23 +64,19 @@ public class AppState : BaseState
             return;
         }
         Vector2 offSet = new Vector2(0, 2 * (ctx.Target.GetComponent<NavMeshAgent>().height) / 3);
-        Debug.Log(ctx.Target.GetComponent<NavMeshAgent>().height);
+        //  Debug.Log(ctx.Target.GetComponent<NavMeshAgent>().height);
         ctx.UiOffset = offSet;
-        Debug.Log("off: " + ctx.UiOffset);
+        // Debug.Log("off: " + ctx.UiOffset);
         screenPos = ctx.Cam.WorldToScreenPoint(ctx.Target.position + (Vector3)ctx.UiOffset);
         cornerDistance = screenPos - screenCenter;
         absCornerDistance = new Vector3(Mathf.Abs(cornerDistance.x), Mathf.Abs(cornerDistance.y),
             Mathf.Abs(cornerDistance.z));
 
-        Debug.Log(!Physics.Linecast(ctx.transform.position + (Vector3)ctx.UiOffset,
-            ctx.Target.position + (Vector3)ctx.UiOffset * 2,
-            ctx.CollidingLayer));
-            
         if (absCornerDistance.x < screenCenter.x / ctx.TargetingSense &&
             absCornerDistance.y < screenCenter.y / ctx.TargetingSense && screenPos.x > 0 &&
             screenPos.y > 0 && screenPos.z > 0 //If target is in the middle of the screen
             && !Physics.Linecast(ctx.transform.position + (Vector3)ctx.UiOffset,
-                ctx.Target.position + (Vector3)ctx.UiOffset ,
+                ctx.Target.position + (Vector3)ctx.UiOffset,
                 ctx.CollidingLayer)) //If player can see the target
         {
             ctx.Aim.transform.position =
