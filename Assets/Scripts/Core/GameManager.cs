@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] int enemiesAlive;
     [SerializeField] GameObject[] spawnPoints;
-    [SerializeField] GameObject enemyPrefab;
+    GameObject enemyPrefab;
+    public GameObject[] enemyPrefabs;
     [SerializeField] private Transform parent;
     private List<IEffect> effects;
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
 
         if (Keyboard.current.tKey.isPressed)
         {
+            enemyPrefab = GetRandomEnemy();
             GameObject enemySpawned = Instantiate(enemyPrefab,
                 new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20)), Quaternion.identity, parent) as GameObject;
             enemySpawned.GetComponent<EnemyAIController>().gameManager = GetComponent<GameManager>();
@@ -36,10 +38,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private GameObject GetRandomEnemy()
+    {
+        return enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+    }
+
     private void SpawnEnemies()
     {
         for (var x = 0; x < spawnPoints.Length; x++)
         {
+            enemyPrefab = GetRandomEnemy();
             GameObject spawnPoint = spawnPoints[x];
             GameObject enemySpawned =
                 Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity, parent) as GameObject;
