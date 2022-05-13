@@ -10,5 +10,7 @@ public enum CharacterClass
     Priest,
     SkeletonWarrior,
     Spider,
-    BigSpider
+    BigSpider,
+    Skeleton,
+    Troll
 }

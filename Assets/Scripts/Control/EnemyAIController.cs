@@ -8,6 +8,7 @@ using System;
 public class EnemyAIController : MonoBehaviour, IAction
 {
     [SerializeField] PatrolPath patrolPath;
+    [SerializeField] int pathID;
     [SerializeField] Transform target;
     [SerializeField] float waypointTolerance = 1f;
     [SerializeField] float maxSpeed = 1f;
@@ -129,7 +130,14 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     private void GetPatrolInfos()
     {
-        patrolPath = GameObject.FindObjectOfType<PatrolPath>();
+        foreach (var item in GameObject.FindObjectsOfType<PatrolPath>())
+        {
+            if (item.GetPathID() == pathID)
+            {
+                patrolPath = item;
+            }
+        }
+        //  patrolPath = GameObject.FindObjectsOfType<PatrolPath>();
         currentWaypointIndex = patrolPath.GetWaypointIndex(transform);
     }
 
