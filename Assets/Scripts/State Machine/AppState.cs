@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.AI;
 public class AppState : BaseState
 {
     private const float Threshold = 0.01f;
@@ -63,8 +63,11 @@ public class AppState : BaseState
                 ctx.ActiveTarget = false;
             return;
         }
-
-        screenPos = ctx.Cam.WorldToScreenPoint(ctx.Target.position + (Vector3) ctx.UiOffset);
+        Vector2 offSet = new Vector2(0, 2 * (ctx.Target.GetComponent<NavMeshAgent>().height) / 3);
+        //  Debug.Log(ctx.Target.GetComponent<NavMeshAgent>().height);
+        ctx.UiOffset = offSet;
+        // Debug.Log("off: " + ctx.UiOffset);
+        screenPos = ctx.Cam.WorldToScreenPoint(ctx.Target.position + (Vector3)ctx.UiOffset);
         cornerDistance = screenPos - screenCenter;
         absCornerDistance = new Vector3(Mathf.Abs(cornerDistance.x), Mathf.Abs(cornerDistance.y),
             Mathf.Abs(cornerDistance.z));
@@ -72,8 +75,8 @@ public class AppState : BaseState
         if (absCornerDistance.x < screenCenter.x / ctx.TargetingSense &&
             absCornerDistance.y < screenCenter.y / ctx.TargetingSense && screenPos.x > 0 &&
             screenPos.y > 0 && screenPos.z > 0 //If target is in the middle of the screen
-            && !Physics.Linecast(ctx.transform.position + (Vector3) ctx.UiOffset,
-                ctx.Target.position + (Vector3) ctx.UiOffset * 2,
+            && !Physics.Linecast(ctx.transform.position + (Vector3)ctx.UiOffset,
+                ctx.Target.position + (Vector3)ctx.UiOffset,
                 ctx.CollidingLayer)) //If player can see the target
         {
             ctx.Aim.transform.position =
@@ -83,6 +86,7 @@ public class AppState : BaseState
         }
         else
         {
+            Debug.Log("göremiyorum");
             ctx.Aim.transform.position =
                 Vector3.MoveTowards(ctx.Aim.transform.position, screenCenter, Time.deltaTime * CursorSwitchSpeed);
             if (ctx.ActiveTarget)
@@ -101,6 +105,11 @@ public class AppState : BaseState
 
         if (ctx.ScreenTargets.Count != 0)
         {
+            if (ctx.ScreenTargets[ctx.targetIndex()].GetComponent<Health>().IsDead())
+            {
+                ctx.Target = null;
+                return;
+            }
             ctx.Target = ctx.ScreenTargets[ctx.targetIndex()];
         }
     }

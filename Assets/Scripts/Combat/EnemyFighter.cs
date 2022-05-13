@@ -34,6 +34,7 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     void Update()
     {
+
         if (targetPlayer == null) return;
         if (targetPlayer.IsDead()) return;
         if (!GetIsInRange(targetPlayer.transform))
@@ -62,6 +63,7 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     public void AttackBehaviour()
     {
+        enemyAIController.Cancel();
         //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
         RotateTowardsPlayer();
 
@@ -71,6 +73,11 @@ public class EnemyFighter : MonoBehaviour, IAction
             animator.SetTrigger("attack");
             TimeSinceLastAttack = 0;
         }
+    }
+
+    public void Death()
+    {
+        animator.SetTrigger("Death");
     }
 
     private void RotateTowardsPlayer()
@@ -104,4 +111,16 @@ public class EnemyFighter : MonoBehaviour, IAction
     {
         return GetComponent<BaseStats>().GetBaseStat(Stat.Damage);
     }
+
+    public void ApplyRootMotion()
+    {
+        animator.applyRootMotion = true;
+        print("a");
+    }
+    public void DisableRootMotion()
+    {
+        animator.applyRootMotion = false;
+        print("b");
+    }
+
 }

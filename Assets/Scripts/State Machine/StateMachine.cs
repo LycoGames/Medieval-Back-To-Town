@@ -243,7 +243,7 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
 
     public Camera Cam { get; private set; }
 
-    public Vector2 UiOffset => uiOffset;
+    public Vector2 UiOffset { get => uiOffset; set => uiOffset = value; }
 
     public LayerMask CollidingLayer => collidingLayer;
 

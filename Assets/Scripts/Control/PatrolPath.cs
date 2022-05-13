@@ -6,6 +6,7 @@ using UnityEngine;
 public class PatrolPath : MonoBehaviour
 {
     const float waypointGizmoRadius = 0.3f;
+    [Range(0, 10)][SerializeField] int PathhID;
 
     void OnDrawGizmos()
     {
@@ -24,9 +25,12 @@ public class PatrolPath : MonoBehaviour
         return transform.GetChild(i).position;
     }
 
-    public int GetWaypointIndex(Transform transform){
-        for(int i=0;i<transform.childCount;i++){
-            if(GetWaypoint(i) == transform.position){
+    public int GetWaypointIndex(Transform transform)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (GetWaypoint(i) == transform.position)
+            {
                 return i;
             }
         }
@@ -42,5 +46,9 @@ public class PatrolPath : MonoBehaviour
             return 0;
         }
         return i + 1;
+    }
+    public int GetPathID()
+    {
+        return PathhID;
     }
 }

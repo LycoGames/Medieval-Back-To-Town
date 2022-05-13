@@ -432,4 +432,9 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
         //TODO return mouse pos transform for skill
         return transform;
     }
+
+    public void ShowNotEnoughManaText()
+    {
+       // notEnoughManaText.ShowNotEnoughManaText();
+    }
 }
