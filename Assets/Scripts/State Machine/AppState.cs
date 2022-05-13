@@ -86,7 +86,6 @@ public class AppState : BaseState
         }
         else
         {
-            Debug.Log("göremiyorum");
             ctx.Aim.transform.position =
                 Vector3.MoveTowards(ctx.Aim.transform.position, screenCenter, Time.deltaTime * CursorSwitchSpeed);
             if (ctx.ActiveTarget)

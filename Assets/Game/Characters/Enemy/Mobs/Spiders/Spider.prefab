@@ -1912,6 +1912,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5233968596193093333}
+        m_TargetAssemblyTypeName: EnemyFighter, Assembly-CSharp
+        m_MethodName: Death
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   takeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -1987,7 +1999,7 @@ MonoBehaviour:
   deathAnimator: {fileID: 0}
   deathLegacyAnimation: {fileID: 0}
   destroyOnDeath: 0
-  destroyDelay: 0
+  destroyDelay: 1
 --- !u!114 &3718555659752136246
 MonoBehaviour:
   m_ObjectHideFlags: 0

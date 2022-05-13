@@ -478,7 +478,6 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
         }
 
         //float damage = currentWeaponConfig.GetDamage() + GetComponent<BaseStats>().GetStat(Stat.Damage);
-        Debug.Log(uiOffset);
         var damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
         CurrentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage,
             uiOffset);
