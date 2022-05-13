@@ -27,7 +27,9 @@ public class MainMenuUI : MonoBehaviour
 
     public void NewGame()
     {
-        savingWrapper.value.NewGame(newGameNameField.text);
+        if (newGameNameField.text == null)
+            return;
+        FindObjectOfType<MainMenuManager>().SwitchToCharacterSelection(newGameNameField.text);
     }
 
     public void QuitGame()
