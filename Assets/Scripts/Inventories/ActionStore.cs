@@ -54,7 +54,7 @@ public class ActionStore : MonoBehaviour, ISaveable
             slot.number = number;
             dockedItems[index] = slot;
         }
-
+        Debug.Log(storeUpdated);
         storeUpdated?.Invoke();
     }
 
@@ -138,7 +138,7 @@ public class ActionStore : MonoBehaviour, ISaveable
 
     void ISaveable.RestoreState(object state)
     {
-        var stateDict = (Dictionary<int, DockedItemRecord>) state;
+        var stateDict = (Dictionary<int, DockedItemRecord>)state;
         foreach (var pair in stateDict)
         {
             AddAction(InventoryItem.GetFromID(pair.Value.itemID), pair.Key, pair.Value.number);

@@ -53,5 +53,6 @@ public class ActionSlotUI : MonoBehaviour, IItemHolder, IDragContainer<Inventory
     void UpdateIcon()
     {
         icon.SetItem(GetItem(), GetNumber());
+        Debug.Log("var");
     }
 }
