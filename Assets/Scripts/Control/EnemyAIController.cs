@@ -130,6 +130,7 @@ public class EnemyAIController : MonoBehaviour, IAction
 
     private void GetPatrolInfos()
     {
+        if (patrolPath == null) { return; }
         foreach (var item in GameObject.FindObjectsOfType<PatrolPath>())
         {
             if (item.GetPathID() == pathID)

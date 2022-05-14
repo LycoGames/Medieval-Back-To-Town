@@ -54,7 +54,6 @@ public class ActionStore : MonoBehaviour, ISaveable
             slot.number = number;
             dockedItems[index] = slot;
         }
-        Debug.Log(storeUpdated);
         storeUpdated?.Invoke();
     }
 
