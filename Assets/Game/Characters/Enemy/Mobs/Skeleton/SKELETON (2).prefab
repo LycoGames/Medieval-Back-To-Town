@@ -85,7 +85,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2.95
+  m_Height: 2.02
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -135,11 +135,11 @@ MonoBehaviour:
   target: {fileID: 0}
   waypointTolerance: 1
   maxSpeed: 3
-  chaseDistance: 3
+  chaseDistance: 5
   suspicionTime: 4
   waitOnPointTime: 1
   agroCooldownTime: 4
-  callArea: 5
+  callArea: 1
   gameManager: {fileID: 0}
 --- !u!114 &173886616694026926
 MonoBehaviour:
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackCooldown: 1.5
   mobRange: 3
+  attackSound: {fileID: 0}
   speed: 200
 --- !u!114 &173886616694026928
 MonoBehaviour:
