@@ -14,4 +14,6 @@ public enum Stat
     Defence,
     MovementSpeed,
     AbilityPower,
+    CriticChance,
+    Accuracy
 }
