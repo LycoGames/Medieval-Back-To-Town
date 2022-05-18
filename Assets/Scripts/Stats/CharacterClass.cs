@@ -12,5 +12,9 @@ public enum CharacterClass
     Spider,
     BigSpider,
     Skeleton,
-    Troll
+    Troll,
+    EarthGolem,
+    FireGolem,
+    LightGolem,
+    IceGolem
 }

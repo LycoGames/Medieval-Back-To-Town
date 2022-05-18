@@ -22,7 +22,8 @@ public class AnimationEventEffects : MonoBehaviour
     private const int ATTEMPTS = 50;
 
     private ICommonFunctions commonFunctions;
-
+    private BaseStats stats;
+    private AudioSource audioSource;
 
     [System.Serializable]
     public class AbilityInfo
@@ -37,7 +38,8 @@ public class AnimationEventEffects : MonoBehaviour
         public Transform StartPositionRotation;
         public float DestroyAfter = 10;
         public bool UseLocalPosition = true;
-        public float damage;
+        public float damageMultiplier;
+        public AudioClip effectSfx;
     }
 
     //   // Update is called once per frame
@@ -57,6 +59,8 @@ public class AnimationEventEffects : MonoBehaviour
     private void Start()
     {
         commonFunctions = GetComponent<ICommonFunctions>();
+        stats = GetComponent<BaseStats>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -83,9 +87,11 @@ public class AnimationEventEffects : MonoBehaviour
                 instance.transform.localRotation = new Quaternion();
             }
 
+            if (effects[EffectNumber].effectSfx != null)
+                audioSource.PlayOneShot(effects[EffectNumber].effectSfx);
             EffectDamage effectDamage = instance.GetComponentInChildren<EffectDamage>();
             if (effectDamage != null)
-                effectDamage.SetDamage(effects[EffectNumber].damage + commonFunctions.GetAdditiveAbilityDamage());
+                effectDamage.SetDamage(stats.GetStat(Stat.AbilityPower) * effects[EffectNumber].damageMultiplier);
 
             Destroy(instance, effects[EffectNumber].DestroyAfter);
         }

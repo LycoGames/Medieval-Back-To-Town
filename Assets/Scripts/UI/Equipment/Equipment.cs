@@ -19,7 +19,7 @@ public class Equipment : MonoBehaviour, ISaveable
     {
         commonFunctions = GetComponent<ICommonFunctions>();
     }
-
+    
     public EquipableItem GetItemInSlot(EquipLocation equipLocation)
     {
         return !equippedItems.ContainsKey(equipLocation) ? null : equippedItems[equipLocation];
