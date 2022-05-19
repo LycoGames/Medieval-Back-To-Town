@@ -7,10 +7,18 @@ using UnityEngine.AI;
 public class PathFollower : MonoBehaviour
 {
     [SerializeField] int pathID;
-    [SerializeField] private bool shouldPathReverse = false;
+    [SerializeField] private PathRouteType pathRouteType = PathRouteType.Circular;
     [SerializeField] private float speed = 2f;
     [SerializeField] float waypointTolerance = 1f;
     [SerializeField] float waitOnPointTime = 2f;
+
+    enum PathRouteType
+    {
+        Circular,
+        CircularReverse,
+        RoundTrip,
+        ReverseRoundTrip
+    }
 
 
     private PatrolPath path;
@@ -85,10 +93,17 @@ public class PathFollower : MonoBehaviour
 
     private void DoPatrolOnPoints() // waypointin nextini alıyorum. 
     {
-        currentWaypointIndex = shouldPathReverse
+        /*currentWaypointIndex = shouldPathReverse
             ? path.GetReverseNextIndex(currentWaypointIndex)
-            : path.GetNextIndex(currentWaypointIndex);
-        ;
+            : path.GetNextIndex(currentWaypointIndex);*/
+        currentWaypointIndex = pathRouteType switch
+        {
+            PathRouteType.Circular => path.GetNextIndex(currentWaypointIndex),
+            PathRouteType.CircularReverse => path.GetReverseNextIndex(currentWaypointIndex),
+            PathRouteType.RoundTrip => path.GetRoundTripNextIndex(currentWaypointIndex, gameObject),
+            PathRouteType.ReverseRoundTrip => path.GetReverseRoundTripNextIndex(currentWaypointIndex, gameObject),
+            _ => currentWaypointIndex
+        };
     }
 
     private void GetPatrolInfos()

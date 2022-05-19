@@ -8,6 +8,9 @@ public class PatrolPath : MonoBehaviour
     const float waypointGizmoRadius = 0.3f;
     [Range(0, 10)] [SerializeField] int PathhID;
 
+    private List<GameObject> returningPathFollowers;
+    private List<GameObject> returningRPathFollowers;
+
     void OnDrawGizmos()
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -72,5 +75,51 @@ public class PatrolPath : MonoBehaviour
         }
 
         return closestIndex;
+    }
+
+    public int GetRoundTripNextIndex(int currentWaypointIndex, GameObject pathFollower)
+    {
+        returningPathFollowers ??= new List<GameObject>();
+        if (!returningPathFollowers.Contains(pathFollower))
+        {
+            if (currentWaypointIndex == transform.childCount - 1)
+            {
+                returningPathFollowers.Add(pathFollower);
+                return GetReverseNextIndex(currentWaypointIndex);
+            }
+
+            return GetNextIndex(currentWaypointIndex);
+        }
+
+        if (currentWaypointIndex == 0)
+        {
+            returningPathFollowers.Remove(pathFollower);
+            return GetNextIndex(currentWaypointIndex);
+        }
+
+        return GetReverseNextIndex(currentWaypointIndex);
+    }
+
+    public int GetReverseRoundTripNextIndex(int currentWaypointIndex, GameObject pathFollower)
+    {
+        returningRPathFollowers ??= new List<GameObject>();
+        if (!returningRPathFollowers.Contains(pathFollower))
+        {
+            if (currentWaypointIndex == 0)
+            {
+                returningRPathFollowers.Add(pathFollower);
+                return GetNextIndex(currentWaypointIndex);
+            }
+
+            return GetReverseNextIndex(currentWaypointIndex);
+        }
+
+        if (currentWaypointIndex == transform.childCount - 1)
+        {
+            returningRPathFollowers.Remove(pathFollower);
+            return GetReverseNextIndex(currentWaypointIndex);
+        }
+
+        return GetNextIndex(currentWaypointIndex);
     }
 }
