@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using RPG.Saving;
 using UnityEngine;
 
 public class ActionStore : MonoBehaviour, ISaveable
@@ -18,7 +15,6 @@ public class ActionStore : MonoBehaviour, ISaveable
     }
 
     public event Action storeUpdated;
-
 
     void OnEnable()
     {
@@ -83,10 +79,7 @@ public class ActionStore : MonoBehaviour, ISaveable
                 dockedItems.Remove(index);
             }
 
-            if (storeUpdated != null)
-            {
-                storeUpdated();
-            }
+            storeUpdated?.Invoke();
         }
     }
 

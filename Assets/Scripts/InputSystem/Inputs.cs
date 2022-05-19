@@ -109,7 +109,7 @@ namespace InputSystem
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
-    
+
 #if !UNITY_IOS || !UNITY_ANDROID
 
         /*  private void OnApplicationFocus(bool hasFocus)

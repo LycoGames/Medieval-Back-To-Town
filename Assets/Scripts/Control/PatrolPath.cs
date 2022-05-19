@@ -6,7 +6,10 @@ using UnityEngine;
 public class PatrolPath : MonoBehaviour
 {
     const float waypointGizmoRadius = 0.3f;
-    [Range(0, 10)][SerializeField] int PathhID;
+    [Range(0, 10)] [SerializeField] int PathhID;
+
+    private List<GameObject> returningPathFollowers;
+    private List<GameObject> returningRPathFollowers;
 
     void OnDrawGizmos()
     {
@@ -16,7 +19,6 @@ public class PatrolPath : MonoBehaviour
             Gizmos.color = Color.magenta; //ilk child'a renk atmıyordu en üste taşıdım.
             Gizmos.DrawSphere(GetWaypoint(i), waypointGizmoRadius);
             Gizmos.DrawLine(GetWaypoint(i), GetWaypoint(j));
-
         }
     }
 
@@ -34,6 +36,7 @@ public class PatrolPath : MonoBehaviour
                 return i;
             }
         }
+
         return 0;
     }
 
@@ -45,10 +48,78 @@ public class PatrolPath : MonoBehaviour
         {
             return 0;
         }
+
         return i + 1;
     }
+
+    public int GetReverseNextIndex(int i)
+    {
+        return i - 1 < 0 ? transform.childCount - 1 : i - 1;
+    }
+
     public int GetPathID()
     {
         return PathhID;
+    }
+
+    public int GetClosestIndex(Vector3 position)
+    {
+        int closestIndex = -1;
+        float closestDistance = float.MaxValue;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            float distance = Vector3.Distance(position, transform.GetChild(i).position);
+            if (distance > closestDistance) continue;
+            closestDistance = distance;
+            closestIndex = i;
+        }
+
+        return closestIndex;
+    }
+
+    public int GetRoundTripNextIndex(int currentWaypointIndex, GameObject pathFollower)
+    {
+        returningPathFollowers ??= new List<GameObject>();
+        if (!returningPathFollowers.Contains(pathFollower))
+        {
+            if (currentWaypointIndex == transform.childCount - 1)
+            {
+                returningPathFollowers.Add(pathFollower);
+                return GetReverseNextIndex(currentWaypointIndex);
+            }
+
+            return GetNextIndex(currentWaypointIndex);
+        }
+
+        if (currentWaypointIndex == 0)
+        {
+            returningPathFollowers.Remove(pathFollower);
+            return GetNextIndex(currentWaypointIndex);
+        }
+
+        return GetReverseNextIndex(currentWaypointIndex);
+    }
+
+    public int GetReverseRoundTripNextIndex(int currentWaypointIndex, GameObject pathFollower)
+    {
+        returningRPathFollowers ??= new List<GameObject>();
+        if (!returningRPathFollowers.Contains(pathFollower))
+        {
+            if (currentWaypointIndex == 0)
+            {
+                returningRPathFollowers.Add(pathFollower);
+                return GetNextIndex(currentWaypointIndex);
+            }
+
+            return GetReverseNextIndex(currentWaypointIndex);
+        }
+
+        if (currentWaypointIndex == transform.childCount - 1)
+        {
+            returningRPathFollowers.Remove(pathFollower);
+            return GetReverseNextIndex(currentWaypointIndex);
+        }
+
+        return GetNextIndex(currentWaypointIndex);
     }
 }

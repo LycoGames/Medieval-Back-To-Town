@@ -7,7 +7,7 @@ public class StatsEquipableItem : EquipableItem, IModifierProvider
 {
     [SerializeField] private Modifier[] additiveModifiers;
     [SerializeField] private Modifier[] percentageModifiers;
-    
+
     [System.Serializable]
     struct Modifier
     {
@@ -32,6 +32,7 @@ public class StatsEquipableItem : EquipableItem, IModifierProvider
         {
             if (modifier.stat == stat)
             {
+                Debug.LogError(name);
                 yield return modifier.value;
             }
         }

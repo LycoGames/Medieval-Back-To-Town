@@ -9,4 +9,6 @@ public interface ICommonFunctions
     public float GetAdditiveAbilityDamage();
     public void ShowNotEnoughManaText();
     public Transform GetTarget();
+    void DisablePlayerControl();
+    void EnablePlayerControl();
 }

@@ -433,8 +433,18 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
         return transform;
     }
 
+    public void DisablePlayerControl()
+    {
+        CanMove = false;
+    }
+
+    public void EnablePlayerControl()
+    {
+        CanMove = true;
+    }
+
     public void ShowNotEnoughManaText()
     {
-       // notEnoughManaText.ShowNotEnoughManaText();
+        // notEnoughManaText.ShowNotEnoughManaText();
     }
 }

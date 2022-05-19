@@ -7,7 +7,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Ability", order = 0)]
 public class Ability : ActionItem
 {
-
     [SerializeField] TargetingStrategy targetingStrategy;
     [SerializeField] FilterStrategy[] filterStrategies;
     [SerializeField] EffectStrategy[] effectStrategies;
@@ -27,7 +26,7 @@ public class Ability : ActionItem
         {
             target = user.GetComponent<StateMachine>().Target;
         }
-        
+
         if (isTargetRequired && target == null)
         {
             stateMachine.ShowNoTargetText();
@@ -48,7 +47,6 @@ public class Ability : ActionItem
         }
 
 
-
         if (audioClip != null)
         {
             PlaySoundEffect(user);
@@ -60,10 +58,7 @@ public class Ability : ActionItem
         //    actionScheduler.StartAction(data);
 
         targetingStrategy.StartTargeting(data,
-            () =>
-            {
-                TargetAquired(data);
-            });
+            () => { TargetAquired(data); });
     }
 
     private void PlaySoundEffect(GameObject user)
@@ -77,7 +72,8 @@ public class Ability : ActionItem
     {
         if (data.IsCancelled()) return;
         Mana mana = data.GetUser().GetComponent<Mana>();
-        if (!mana.UseMana(manaCost)) return; //if my mana higher than cost it'll return true, if its false mymana doesnt enough so return directly.
+        if (!mana.UseMana(manaCost))
+            return; //if my mana higher than cost it'll return true, if its false mymana doesnt enough so return directly.
 
         CooldownStore cooldownStore = data.GetUser().GetComponent<CooldownStore>();
         cooldownStore.StartCooldown(this, cooldownTime);
@@ -91,8 +87,9 @@ public class Ability : ActionItem
         {
             effect.StartEffect(data, EffectFinished);
         }
-
     }
 
-    private void EffectFinished() { }
+    private void EffectFinished()
+    {
+    }
 }

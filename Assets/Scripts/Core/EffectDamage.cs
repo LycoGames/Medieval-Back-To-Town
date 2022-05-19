@@ -18,8 +18,8 @@ public class EffectDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Health health = other.GetComponent<Health>();
-        if (other == null || hitEnemies.Contains(other.gameObject) || health.IsDead() || !other.CompareTag("Enemy") ||
+        var health = other.GetComponent<Health>();
+        if (other == null | !other.CompareTag("Enemy") | hitEnemies.Contains(other.gameObject) || health.IsDead() ||
             health == null)
             return;
 
