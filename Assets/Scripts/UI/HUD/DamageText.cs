@@ -9,11 +9,16 @@ public class DamageText : MonoBehaviour
 
     public void DestroyText()
     {
-      Destroy(gameObject,0.2f);
+        Destroy(gameObject, 0.2f);
     }
 
     public void SetDamageTextValue(float dmg)
     {
-        damageText.text = string.Format("{0:0}", dmg);
+        if (dmg <= 0)
+        {
+            damageText.text = string.Format("MISS");
+        }
+        else
+            damageText.text = string.Format("{0:0}", dmg);
     }
 }

@@ -13,6 +13,7 @@ public enum CharacterClass
     BigSpider,
     Skeleton,
     Troll,
+    CommonEnemy,
     EarthGolem,
     FireGolem,
     LightGolem,

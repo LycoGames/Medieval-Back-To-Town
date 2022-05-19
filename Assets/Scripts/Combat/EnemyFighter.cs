@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class EnemyFighter : MonoBehaviour, IAction
 {
+    AudioSource audioSource;
     [SerializeField] float enemyAttackCooldown = 1f;
     [SerializeField] float mobRange = 1f;
+    [SerializeField] AudioClip attackSound;
     [Range(1, 300)][SerializeField] float speed = 200f;
 
     EnemyAIController enemyAIController;
@@ -29,6 +31,7 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -66,7 +69,6 @@ public class EnemyFighter : MonoBehaviour, IAction
         enemyAIController.Cancel();
         //attack animasyonunu baslatıcak. Aynı zamanda animasyondaki Hit eventini baslatıcak.
         RotateTowardsPlayer();
-
         // transform.LookAt(targetPlayer.transform.position);
         if (TimeSinceLastAttack > enemyAttackCooldown)
         {
@@ -78,6 +80,15 @@ public class EnemyFighter : MonoBehaviour, IAction
     public void Death()
     {
         animator.SetTrigger("Death");
+    }
+
+    public void PlayAttackSound()
+    {
+        // audioSource.clip = attackSound;
+        // GetComponent<AudioSource>().PlayDelayed(attackSoundDelay);
+        if (attackSound != null)
+            audioSource.PlayOneShot(attackSound);
+        //  GetComponent<AudioSource>().PlayOneShot(attackSound);
     }
 
     private void RotateTowardsPlayer()

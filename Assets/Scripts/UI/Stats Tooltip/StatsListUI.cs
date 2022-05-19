@@ -18,7 +18,8 @@ public class StatsListUI : MonoBehaviour
     private const string STAT_MANAREGENRATE_TEXT = "Mana Regen Rate";
     private const string STAT_TOTALTRAITPOINTS_TEXT = "Total Trait Points";
     private const string STAT_EXPERIENCETOLEVELUP_TEXT = "Experience to Levelup";
-
+    private const string STAT_CRITICCHANCE_TEXT = "Critic Chance";
+    private const string STAT_ACCURACY_TEXT = "Accuracy";
     // Start is called before the first frame update
 
 
@@ -55,6 +56,24 @@ public class StatsListUI : MonoBehaviour
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
                 uiInstance.Setup(STAT_DEFENCE_TEXT, value);
+            }
+        }
+
+        if (item.GetAdditiveModifiers(Stat.CriticChance).Any())
+        {
+            foreach (var value in item.GetAdditiveModifiers(Stat.CriticChance))
+            {
+                StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
+                uiInstance.Setup(STAT_CRITICCHANCE_TEXT, value);
+            }
+        }
+
+        if (item.GetAdditiveModifiers(Stat.Accuracy).Any())
+        {
+            foreach (var value in item.GetAdditiveModifiers(Stat.Accuracy))
+            {
+                StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
+                uiInstance.Setup(STAT_ACCURACY_TEXT, value);
             }
         }
 

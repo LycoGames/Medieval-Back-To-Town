@@ -133,10 +133,41 @@ public class Health : MonoBehaviour
     public void ApplyDamage(GameObject insigator, float dmg) //Let's apply some damage on hit, shall we?
     {
         if (IsDead()) return;
-        float defencePoint = GetComponent<BaseStats>().GetStat(Stat.Defence);
-        dmg = Mathf.Max(dmg - defencePoint, 0);
-        //TODO eğer 0 damage atarsa miss yazsın
-        healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
+        if (insigator.gameObject.tag == "Player")
+        {
+            float defencePoint = GetComponent<BaseStats>().GetStat(Stat.Defence) * UnityEngine.Random.Range(0f, 1f); //let dmg=5 def=5 5def*1=5def dmg-def=5-5=0=>miss
+            float criticPercantage = insigator.GetComponent<BaseStats>().GetStat(Stat.CriticChance);
+            float accuracy=insigator.GetComponent<BaseStats>().GetStat(Stat.Accuracy);
+
+            if (UnityEngine.Random.Range(0, 1000) < 100-accuracy)
+            {
+                dmg = 0;
+                healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
+                print("u need more accuracy");
+            }
+            else
+            {
+                print("player crit chance is: " + criticPercantage);
+                print("defence point : " + defencePoint);
+                print("normal dmg: " + dmg);
+                int criticChance = UnityEngine.Random.Range(0, 100);
+                print("critic chance: " + criticChance);
+                if (criticChance < criticPercantage)
+                {
+                    dmg = dmg * 2;
+                }
+                dmg = Mathf.Max(0, Mathf.Ceil(dmg - defencePoint)); //ceil returns the smallest int which is larger than dmg f.e 3.04 => 4.
+                print("dmg: " + dmg);
+                healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
+            }
+        }
+        if (insigator.gameObject.tag != "Player")
+        {
+            float defencePoint = GetComponent<BaseStats>().GetStat(Stat.Defence) * UnityEngine.Random.Range(0f, 1f); //let dmg=5 def=5 5def*1=5def dmg-def=5-5=0=>miss
+            dmg = Mathf.Max(0, Mathf.Ceil(dmg - defencePoint)); //ceil returns the smallest int which is larger than dmg f.e 3.04 => 4.
+            healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
+        }
+
 
         takeDamage.Invoke(); //event
         takeDamageHUD.Invoke(dmg);
