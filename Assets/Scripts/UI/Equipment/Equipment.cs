@@ -19,7 +19,7 @@ public class Equipment : MonoBehaviour, ISaveable
     {
         commonFunctions = GetComponent<ICommonFunctions>();
     }
-    
+
     public EquipableItem GetItemInSlot(EquipLocation equipLocation)
     {
         return !equippedItems.ContainsKey(equipLocation) ? null : equippedItems[equipLocation];
@@ -30,6 +30,11 @@ public class Equipment : MonoBehaviour, ISaveable
         Debug.Assert(item.GetAllowedEquipLocation() == slot);
 
         equippedItems[slot] = item;
+        if (slot == EquipLocation.PrimaryWeapon)
+        {
+            GetComponent<WarriorFighter>().EquipWeapon(item as WeaponConfig);
+        }
+
         UpdateHudsAndStats(item);
 
         if (equipmentUpdated != null)
