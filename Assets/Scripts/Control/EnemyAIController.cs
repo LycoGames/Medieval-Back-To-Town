@@ -135,7 +135,7 @@ public class EnemyAIController : MonoBehaviour, IAction
         {
             if (item.GetPathID() == pathID)
             {
-                patrolPath = item;
+                patrolPath ??= item;
             }
         }
         //  patrolPath = GameObject.FindObjectsOfType<PatrolPath>();
