@@ -83,7 +83,7 @@ public class FreeState : BaseState
                     Quaternion.LookRotation(ctx.DesiredMoveDirection),
                     ctx.DesiredRotationSpeed);*/
         }
-        
+
         ctx.Controller.Move(ctx.DesiredMoveDirection * Time.deltaTime * ctx.ModifiedSpeed);
     }
 }

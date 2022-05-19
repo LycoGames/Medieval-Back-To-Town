@@ -375,7 +375,8 @@ public class Health : MonoBehaviour
     public void Heal(float healthToRestore)
     {
         healthPoints.value = Mathf.Min(healthPoints.value + healthToRestore, GetMaxHealthPoints());
-        healthBar.SetHealth(healthPoints.value);
+        if (healthBar)
+            healthBar.SetHealth(healthPoints.value);
     }
 
     /*private void OnParticleCollision(GameObject other)

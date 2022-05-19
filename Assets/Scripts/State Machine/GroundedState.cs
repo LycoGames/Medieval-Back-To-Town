@@ -9,7 +9,6 @@ public class GroundedState : BaseState
 
     public override void EnterState()
     {
-        
     }
 
     public override void UpdateState()
@@ -23,14 +22,14 @@ public class GroundedState : BaseState
 
     public override void CheckSwitchStates()
     {
-        if (ctx.Input.jump )
+        if (ctx.Input.jump)
         {
             SwitchState(factory.InAirState());
         }
-       /* else if (!ctx.Grounded)
-        {
-            SwitchState(factory.InAirState());
-        }*/
+        /* else if (!ctx.Grounded)
+         {
+             SwitchState(factory.InAirState());
+         }*/
     }
 
     public override void InitializeSubState()
@@ -38,6 +37,4 @@ public class GroundedState : BaseState
         SetSubState(factory.FreeState());
         factory.FreeState().EnterState();
     }
-
-  
 }

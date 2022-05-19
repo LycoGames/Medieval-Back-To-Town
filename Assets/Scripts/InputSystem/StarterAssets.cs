@@ -133,7 +133,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Abilitiy6"",
                     ""type"": ""Button"",
-                    ""id"": ""821ab966-450a-49fc-8a2d-dc1b748d9a6c"",
+                    ""id"": ""9b81e5b2-3bb5-47b2-91c6-b8c66096d687"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -444,17 +444,6 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""56f4eb20-428a-4fc7-b250-015c66812876"",
-                    ""path"": ""<Keyboard>/6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
-                    ""action"": ""Abilitiy6"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8940f3a3-7895-4db8-bdfa-1936e46f11a0"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -472,6 +461,17 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
                     ""action"": ""TraitShowHide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30447037-826c-415d-a327-5bfb0add80c4"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Abilitiy6"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }

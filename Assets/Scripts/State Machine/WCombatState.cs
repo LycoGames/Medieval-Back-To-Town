@@ -32,7 +32,7 @@ public class WCombatState : WBaseState
 
     public override void CheckSwitchStates()
     {
-        if(!ctx.IsAttacking)
+        if (!ctx.IsAttacking)
             SwitchState(factory.WFreeState());
     }
 

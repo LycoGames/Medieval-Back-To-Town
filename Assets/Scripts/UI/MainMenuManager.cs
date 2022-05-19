@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
@@ -26,6 +27,12 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Animator archerAnim;
     [SerializeField] private Animator warriorAnim;
 
+    [SerializeField] private AudioClip menuSwitchSfx;
+    [SerializeField] private AudioClip characterSelectionSwitchSfx;
+    [SerializeField] private AudioClip switchToCharacterSelectionSfx;
+
+    private AudioSource audioSource;
+
 
     private void Awake()
     {
@@ -36,11 +43,13 @@ public class MainMenuManager : MonoBehaviour
     {
         SetupUIs();
         playableDirector.stopped += StartSelectionState;
+        if (Camera.main != null) audioSource = Camera.main.GetComponent<AudioSource>();
     }
 
 
     public void SwitchToCharacterSelection(string newGameNameField)
     {
+        audioSource.PlayOneShot(switchToCharacterSelectionSfx);
         playableDirector.Play();
         this.newGameNameField = newGameNameField;
         CloseMenus();
@@ -53,6 +62,16 @@ public class MainMenuManager : MonoBehaviour
         string characterPref = isArcherSelected ? "Archer" : "Warrior";
         PlayerPrefs.SetString("CharacterPref", characterPref);
         savingWrapper.value.NewGame(newGameNameField);
+    }
+
+    public void MenuSwitchVoiceTrigger()
+    {
+        audioSource.PlayOneShot(menuSwitchSfx);
+    }
+
+    public void CharacterSwitchVoiceTrigger()
+    {
+        audioSource.PlayOneShot(characterSelectionSwitchSfx);
     }
 
     private SavingWrapper GetSavingWrapper()
