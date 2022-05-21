@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using RPG.Saving;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Equipment : MonoBehaviour, ISaveable
 {
     // STATE
     Dictionary<EquipLocation, EquipableItem> equippedItems = new Dictionary<EquipLocation, EquipableItem>();
+    public UnityEvent updateEquipmentUiStatsEvent;
 
     // PUBLIC
 
@@ -60,6 +62,30 @@ public class Equipment : MonoBehaviour, ISaveable
         StatsEquipableItem stats = item as StatsEquipableItem;
         if (stats != null)
         {
+            if (stats.GetAdditiveModifiers(Stat.Damage).Any() ||
+                stats.GetPercentageModifiers(Stat.Damage).Any())
+            {
+                updateEquipmentUiStatsEvent?.Invoke();
+            }
+
+            if (stats.GetAdditiveModifiers(Stat.Defence).Any() ||
+                stats.GetPercentageModifiers(Stat.Defence).Any())
+            {
+                updateEquipmentUiStatsEvent?.Invoke();
+            }
+
+            if (stats.GetAdditiveModifiers(Stat.CriticChance).Any() ||
+                stats.GetPercentageModifiers(Stat.CriticChance).Any())
+            {
+                updateEquipmentUiStatsEvent?.Invoke();
+            }
+
+            if (stats.GetAdditiveModifiers(Stat.Accuracy).Any() ||
+                stats.GetPercentageModifiers(Stat.Accuracy).Any())
+            {
+                updateEquipmentUiStatsEvent?.Invoke();
+            }
+
             if (stats.GetAdditiveModifiers(Stat.MovementSpeed).Any() ||
                 stats.GetPercentageModifiers(Stat.MovementSpeed).Any())
             {
