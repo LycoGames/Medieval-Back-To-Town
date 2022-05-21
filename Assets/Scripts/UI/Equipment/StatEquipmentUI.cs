@@ -26,6 +26,15 @@ public class StatEquipmentUI : MonoBehaviour
 
     private void UpdateUi()
     {
-        value.text = stats.GetStat(stat).ToString(CultureInfo.InvariantCulture);
+        int newValue = (int)stats.GetStat(stat);
+        if (stat == Stat.Damage)
+        {
+            newValue = (int)(stats.GetStat(stat) / 10);
+        }
+        else if (stat == Stat.Defence)
+        {
+            newValue = (int)(stats.GetStat(stat) / 2);
+        }
+        value.text = newValue.ToString(CultureInfo.InvariantCulture);
     }
 }
