@@ -9,9 +9,15 @@ public class StatsItemUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statName;
     [SerializeField] private TextMeshProUGUI value;
 
-    public void Setup(string stat, float value)
+    public void Setup(string stat, float value, bool isPercentage)
     {
         statName.text = stat;
-        this.value.text = value.ToString(CultureInfo.CurrentCulture);
+        if (isPercentage)
+            this.value.text = "+" + value.ToString(CultureInfo.CurrentCulture) + "%";
+        else
+        {
+            this.value.text = value.ToString(CultureInfo.CurrentCulture);
+        }
+
     }
 }

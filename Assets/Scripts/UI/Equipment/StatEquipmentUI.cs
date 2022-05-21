@@ -33,7 +33,7 @@ public class StatEquipmentUI : MonoBehaviour
         }
         else if (stat == Stat.Defence)
         {
-            newValue = (int)(stats.GetStat(stat) / 2);
+            newValue = (int)(stats.GetStat(stat));
         }
         value.text = newValue.ToString(CultureInfo.InvariantCulture);
     }

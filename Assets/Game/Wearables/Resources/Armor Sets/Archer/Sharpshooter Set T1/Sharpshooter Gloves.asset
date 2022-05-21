@@ -10,23 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c8581d32b9819b4eb2fc18e831591ca, type: 3}
-  m_Name: Iron Hunter Belt
+  m_Name: Sharpshooter Gloves
   m_EditorClassIdentifier: 
-  itemID: e3953ef2-87a6-402f-add8-df7a81a96227
-  displayName: Iron Hunter Belt
-  description: Iron Hunter Belt
-  icon: {fileID: 21300000, guid: 5e7257aca94e1fa42be58bd8e381e87e, type: 3}
+  itemID: f2040d3f-636d-4ac4-ae56-6b89d6722352
+  displayName: Sharpshooter Gloves
+  description: Sharpshooter Gloves
+  icon: {fileID: 21300000, guid: f28cc74ccf60cf643a8bc37584355159, type: 3}
   pickup: {fileID: 6494234044896430859, guid: ab73185f2dadf4445ae07e78eb669c1f, type: 3}
   stackable: 0
-  allowedEquipLocation: 1
+  allowedEquipLocation: 6
   allowedCharacterClasses: 02000000
   additiveModifiers:
+  - stat: 7
+    value: 12
+  - stat: 7
+    value: 70
+  - stat: 9
+    value: 30
+  - stat: 4
+    value: 50
+  percentageModifiers:
   - stat: 3
     value: 10
-  - stat: 7
-    value: 3
-  - stat: 9
-    value: 10
-  - stat: 4
-    value: 20
-  percentageModifiers: []

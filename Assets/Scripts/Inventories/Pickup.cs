@@ -10,16 +10,21 @@ public class Pickup : MonoBehaviour
     private int number;
 
     Inventory inventory;
-    
+
 
     private void Awake()
+    {
+
+
+    }
+
+    // PUBLIC
+    private void Start()
     {
         var player = GameObject.FindGameObjectWithTag("Player");
         inventory = player.GetComponent<Inventory>();
     }
 
-    // PUBLIC
-    
     public void Setup(InventoryItem item, int number)
     {
         this.item = item;
@@ -30,7 +35,7 @@ public class Pickup : MonoBehaviour
     {
         return item;
     }
-    
+
     public int GetNumber()
     {
         return number;
@@ -39,7 +44,7 @@ public class Pickup : MonoBehaviour
     public void PickupItem()
     {
         //TODO
-        bool foundSlot = inventory.AddToFirstEmptySlot(item,number);
+        bool foundSlot = inventory.AddToFirstEmptySlot(item, number);
         if (foundSlot)
         {
             Destroy(gameObject);

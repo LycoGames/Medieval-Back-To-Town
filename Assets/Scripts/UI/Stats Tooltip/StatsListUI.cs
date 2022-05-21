@@ -46,7 +46,16 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.Damage))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_DAMAGE_TEXT, value);
+                uiInstance.Setup(STAT_DAMAGE_TEXT, value,false);
+            }
+        }
+
+        if (item.GetPercentageModifiers(Stat.Damage).Any())
+        {
+            foreach (var value in item.GetPercentageModifiers(Stat.Damage))
+            {
+                StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
+                uiInstance.Setup(STAT_DAMAGE_TEXT, value,true);
             }
         }
 
@@ -55,7 +64,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.Defence))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_DEFENCE_TEXT, value);
+                uiInstance.Setup(STAT_DEFENCE_TEXT, value, false);
             }
         }
 
@@ -64,7 +73,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.CriticChance))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_CRITICCHANCE_TEXT, value);
+                uiInstance.Setup(STAT_CRITICCHANCE_TEXT, value, false);
             }
         }
 
@@ -73,7 +82,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.Accuracy))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_ACCURACY_TEXT, value);
+                uiInstance.Setup(STAT_ACCURACY_TEXT, value, false);
             }
         }
 
@@ -82,7 +91,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.Health))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_HEALTH_TEXT, value);
+                uiInstance.Setup(STAT_HEALTH_TEXT, value, false);
             }
         }
 
@@ -91,7 +100,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.Mana))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_MANA_TEXT, value);
+                uiInstance.Setup(STAT_MANA_TEXT, value, false);
             }
         }
 
@@ -100,7 +109,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.AbilityPower))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_ABILITYPOWER_TEXT, value);
+                uiInstance.Setup(STAT_ABILITYPOWER_TEXT, value, false);
             }
         }
 
@@ -109,7 +118,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.ExperienceReward))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_EXPERIENCEREWARD_TEXT, value);
+                uiInstance.Setup(STAT_EXPERIENCEREWARD_TEXT, value, false);
             }
         }
 
@@ -118,7 +127,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.MovementSpeed))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_MOVEMENTSPEED_TEXT, value);
+                uiInstance.Setup(STAT_MOVEMENTSPEED_TEXT, value, false);
             }
         }
 
@@ -127,7 +136,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.ManaRegenRate))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_MANAREGENRATE_TEXT, value);
+                uiInstance.Setup(STAT_MANAREGENRATE_TEXT, value, false);
             }
         }
 
@@ -136,7 +145,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.TotalTraitPoints))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_TOTALTRAITPOINTS_TEXT, value);
+                uiInstance.Setup(STAT_TOTALTRAITPOINTS_TEXT, value, false);
             }
         }
 
@@ -145,7 +154,7 @@ public class StatsListUI : MonoBehaviour
             foreach (var value in item.GetAdditiveModifiers(Stat.ExperienceToLevelUp))
             {
                 StatsItemUI uiInstance = Instantiate<StatsItemUI>(statPrefab, transform);
-                uiInstance.Setup(STAT_EXPERIENCETOLEVELUP_TEXT, value);
+                uiInstance.Setup(STAT_EXPERIENCETOLEVELUP_TEXT, value, false);
             }
         }
 
