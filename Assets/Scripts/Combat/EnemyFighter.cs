@@ -115,7 +115,10 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     public void Hit()
     {
-        targetPlayer.GetComponent<Health>().ApplyDamage(this.gameObject, GetDamage());
+        if (!health.IsDead() && targetPlayer != null)
+        {
+            targetPlayer.GetComponent<Health>().ApplyDamage(this.gameObject, GetDamage());
+        }
     }
 
     private float GetDamage()
