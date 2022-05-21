@@ -1815,7 +1815,7 @@ MonoBehaviour:
   pathID: 1
   target: {fileID: 0}
   waypointTolerance: 1
-  maxSpeed: 2
+  maxSpeed: 4
   chaseDistance: 5
   suspicionTime: 4
   waitOnPointTime: 1
@@ -1859,6 +1859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackCooldown: 1
   mobRange: 2
+  attackSound: {fileID: 0}
   speed: 160
 --- !u!114 &1397489867675479929
 MonoBehaviour:
@@ -2830,6 +2831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054978027363591127, guid: 7947276cd04a7b946af9f60be9892cc3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5472999196146012056, guid: 7947276cd04a7b946af9f60be9892cc3,
         type: 3}
