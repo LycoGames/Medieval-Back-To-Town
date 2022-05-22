@@ -91,7 +91,7 @@ public class AnimationEventEffects : MonoBehaviour
                 audioSource.PlayOneShot(effects[EffectNumber].effectSfx);
             EffectDamage effectDamage = instance.GetComponentInChildren<EffectDamage>();
             if (effectDamage != null)
-                effectDamage.SetDamage(stats.GetStat(Stat.AbilityPower) * effects[EffectNumber].damageMultiplier);
+                effectDamage.SetDamage(stats.GetStat(Stat.Damage) * effects[EffectNumber].damageMultiplier);
 
             Destroy(instance, effects[EffectNumber].DestroyAfter);
         }

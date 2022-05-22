@@ -9,23 +9,28 @@ public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<Invent
 
     [SerializeField] InventoryItemIcon icon = null;
     [SerializeField] EquipLocation equipLocation = EquipLocation.PrimaryWeapon;
-    [SerializeField] bool isSlotItemAllowedSpesificCharacterClasses = false;
     [SerializeField] private CharacterClass[] allowedCharacterClasses;
 
     // CACHE
     Equipment playerEquipment;
+    private GameObject player;
 
     // LIFECYCLE METHODS
 
     private void Awake()
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         playerEquipment = player.GetComponent<Equipment>();
         playerEquipment.equipmentUpdated += RedrawUI;
     }
 
     private void Start()
     {
+        allowedCharacterClasses = new CharacterClass[1];
+        if (player.GetComponent<StateMachine>() != null)
+            allowedCharacterClasses[0] = CharacterClass.Archer;
+        else
+            allowedCharacterClasses[0] = CharacterClass.Warrior;
         RedrawUI();
     }
 
@@ -37,9 +42,10 @@ public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<Invent
         if (equipableItem == null) return 0;
         if (equipableItem.GetAllowedEquipLocation() != equipLocation) return 0;
         if (GetItem() != null) return 0;
-        //TODO
-        if (!isSlotItemAllowedSpesificCharacterClasses) return 1;
-
+        //TODO 
+        //if (!isSlotItemAllowedSpesificCharacterClasses) return 1;
+        if (equipableItem.GetAllowedCharacterClasses().Length == 0)
+            return 1;
         return equipableItem.GetAllowedCharacterClasses()
             .Any(characterClass => allowedCharacterClasses.Contains(characterClass))
             ? 1

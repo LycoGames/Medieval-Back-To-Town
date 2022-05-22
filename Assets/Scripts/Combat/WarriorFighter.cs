@@ -26,6 +26,9 @@ public class WarriorFighter : Fighter
 
     public override void BasicAttack(InputAction.CallbackContext ctx)
     {
+        if (GetCurrentWeaponConfig() == null || GetCurrentWeaponConfig().name == "Unarmed")
+            return;
+
         if (GetComponent<WStateMachine>().CurrentState.currentSubState.currentSubState is WUiState ||
             GetComponent<WStateMachine>().CurrentState.currentSubState.currentSubState is WDialogueState)
             return;

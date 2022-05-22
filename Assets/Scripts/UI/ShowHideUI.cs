@@ -30,10 +30,12 @@ public class ShowHideUI : MonoBehaviour
             {
                 player.LockCameraPosition = false;
                 player.AimUI.SetActive(true);
+                Cursor.lockState = CursorLockMode.None; //HardCoding
             }
             else
             {
                 warrior.LockCameraPosition = false;
+                Cursor.lockState = CursorLockMode.None; //HardCoding
             }
         }
         else
@@ -43,10 +45,12 @@ public class ShowHideUI : MonoBehaviour
             {
                 player.LockCameraPosition = true;
                 player.AimUI.SetActive(false);
+                Cursor.lockState = CursorLockMode.Confined; //HardCoding
             }
             else
             {
                 warrior.LockCameraPosition = true;
+                Cursor.lockState = CursorLockMode.Confined; //HardCoding
             }
         }
 
