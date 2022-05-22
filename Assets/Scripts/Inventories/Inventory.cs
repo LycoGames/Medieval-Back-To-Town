@@ -55,7 +55,6 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
             inventoryUpdated();
         }
 
-        GetComponent<QuestList>().UpdateCollectObjectiveStatus(item, number);
         return true;
     }
 
@@ -131,8 +130,6 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
         {
             inventoryUpdated();
         }
-
-        GetComponent<QuestList>().UpdateCollectObjectiveStatus(item, number);
 
         return true;
     }

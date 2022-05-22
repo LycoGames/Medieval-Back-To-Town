@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using CompassNavigatorPro;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Quest", menuName = "Quest", order = 0)]
@@ -28,7 +27,6 @@ public class Quest : ScriptableObject
         public bool isKillEnemyQuest;
         public GameObject enemy;
         public int number;
-        public GameObject compassProPOI;
     }
 
     public string GetTitle()
