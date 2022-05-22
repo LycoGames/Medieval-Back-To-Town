@@ -11,7 +11,7 @@ public class QuestStatus
     private List<string> completedObjectives = new List<string>();
 
 
-    class CollectObjectiveStatus
+    public class CollectObjectiveStatus
     {
         public string Reference { get; set; }
         public InventoryItem Item { get; set; }
@@ -121,6 +121,11 @@ public class QuestStatus
     public IEnumerable<KillObjectiveStatus> GetKillObjectives()
     {
         return killObjectiveStatuses;
+    }
+
+    public IEnumerable<CollectObjectiveStatus> GetCollectObjectives()
+    {
+        return collectObjectiveStatuses;
     }
 
     public Quest.Objective GetObjectiveByReference(string reference)
