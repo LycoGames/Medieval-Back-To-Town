@@ -46,6 +46,11 @@ public abstract class Fighter : MonoBehaviour
         return currentWeapon.value;
     }
 
+    public WeaponConfig GetCurrentWeaponConfig()
+    {
+        return currentWeaponConfig;
+    }
+
     public float GetWeaponDamage()
     {
         return currentWeaponConfig.GetDamage();

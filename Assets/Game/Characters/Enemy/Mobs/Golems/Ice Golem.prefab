@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627326618}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8, y: -0.56, z: 0}
+  m_LocalPosition: {x: 96.6, y: -24.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1801203371}
@@ -252,7 +252,7 @@ RectTransform:
   m_GameObject: {fileID: 1761221542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.85, z: 0.85}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 72892078}
   - {fileID: 538746261}
@@ -262,7 +262,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -34.2}
-  m_SizeDelta: {x: 300, y: 20}
+  m_SizeDelta: {x: 150, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1761221544
 MonoBehaviour:
@@ -563,11 +563,11 @@ MonoBehaviour:
   target: {fileID: 0}
   waypointTolerance: 1
   maxSpeed: 3
-  chaseDistance: 5
+  chaseDistance: 15
   suspicionTime: 3
   waitOnPointTime: 1
   agroCooldownTime: 4
-  callArea: 8
+  callArea: 15
   gameManager: {fileID: 0}
 --- !u!114 &3909863269171264302
 MonoBehaviour:

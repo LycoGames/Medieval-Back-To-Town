@@ -7,6 +7,7 @@ public class CharacterManager : MonoBehaviour
 {
     [SerializeField] private GameObject CoreArcher;
     [SerializeField] private GameObject CoreWarrior;
+    [SerializeField] private Transform spawnTransfrom;
 
     private void Awake()
     {
@@ -14,10 +15,10 @@ public class CharacterManager : MonoBehaviour
         switch (selectedCharacterString)
         {
             case "Archer":
-                Instantiate(CoreArcher, Vector3.zero, Quaternion.identity);
+                Instantiate(CoreArcher, spawnTransfrom.position, spawnTransfrom.rotation);
                 break;
             case "Warrior":
-                Instantiate(CoreWarrior, Vector3.zero, Quaternion.identity);
+                Instantiate(CoreWarrior, spawnTransfrom.position, spawnTransfrom.rotation);
                 break;
         }
     }

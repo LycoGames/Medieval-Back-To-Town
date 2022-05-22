@@ -153,6 +153,22 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ability7"",
+                    ""type"": ""Button"",
+                    ""id"": ""30ce21ab-8c86-4327-9d45-398bde7ddb8d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ability8"",
+                    ""type"": ""Button"",
+                    ""id"": ""721e33be-6b65-45cb-a07b-2fd73ed55765"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -474,6 +490,28 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                     ""action"": ""Abilitiy6"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9005c9e1-1c15-44a9-bbf1-6c61d2619759"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Ability7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc645d78-2204-40f3-8d42-81f047ecb3d2"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Ability8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -547,6 +585,8 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         m_Player_Abilitiy6 = m_Player.FindAction("Abilitiy6", throwIfNotFound: true);
         m_Player_PauseMenu = m_Player.FindAction("PauseMenu", throwIfNotFound: true);
         m_Player_TraitShowHide = m_Player.FindAction("TraitShowHide", throwIfNotFound: true);
+        m_Player_Ability7 = m_Player.FindAction("Ability7", throwIfNotFound: true);
+        m_Player_Ability8 = m_Player.FindAction("Ability8", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -613,6 +653,8 @@ public class @StarterAssets : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Abilitiy6;
     private readonly InputAction m_Player_PauseMenu;
     private readonly InputAction m_Player_TraitShowHide;
+    private readonly InputAction m_Player_Ability7;
+    private readonly InputAction m_Player_Ability8;
     public struct PlayerActions
     {
         private @StarterAssets m_Wrapper;
@@ -634,6 +676,8 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         public InputAction @Abilitiy6 => m_Wrapper.m_Player_Abilitiy6;
         public InputAction @PauseMenu => m_Wrapper.m_Player_PauseMenu;
         public InputAction @TraitShowHide => m_Wrapper.m_Player_TraitShowHide;
+        public InputAction @Ability7 => m_Wrapper.m_Player_Ability7;
+        public InputAction @Ability8 => m_Wrapper.m_Player_Ability8;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -694,6 +738,12 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 @TraitShowHide.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTraitShowHide;
                 @TraitShowHide.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTraitShowHide;
                 @TraitShowHide.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTraitShowHide;
+                @Ability7.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility7;
+                @Ability7.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility7;
+                @Ability7.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility7;
+                @Ability8.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility8;
+                @Ability8.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility8;
+                @Ability8.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility8;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -749,6 +799,12 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 @TraitShowHide.started += instance.OnTraitShowHide;
                 @TraitShowHide.performed += instance.OnTraitShowHide;
                 @TraitShowHide.canceled += instance.OnTraitShowHide;
+                @Ability7.started += instance.OnAbility7;
+                @Ability7.performed += instance.OnAbility7;
+                @Ability7.canceled += instance.OnAbility7;
+                @Ability8.started += instance.OnAbility8;
+                @Ability8.performed += instance.OnAbility8;
+                @Ability8.canceled += instance.OnAbility8;
             }
         }
     }
@@ -808,5 +864,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
         void OnAbilitiy6(InputAction.CallbackContext context);
         void OnPauseMenu(InputAction.CallbackContext context);
         void OnTraitShowHide(InputAction.CallbackContext context);
+        void OnAbility7(InputAction.CallbackContext context);
+        void OnAbility8(InputAction.CallbackContext context);
     }
 }

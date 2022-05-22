@@ -32,7 +32,6 @@ public class StatsEquipableItem : EquipableItem, IModifierProvider
         {
             if (modifier.stat == stat)
             {
-                Debug.LogError(name);
                 yield return modifier.value;
             }
         }

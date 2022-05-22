@@ -399,6 +399,22 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
         }
     }
 
+    public void OnAbility7(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started && !IsAttacking)
+        {
+            actionStore.Use(6, gameObject);
+        }
+    }
+
+    public void OnAbility8(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started && !IsAttacking)
+        {
+            actionStore.Use(7, gameObject);
+        }
+    }
+
     public object CaptureState()
     {
         return new SerializableVector3(transform.position);

@@ -26,7 +26,6 @@ public class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
             {
                 if (itemLookupCache.ContainsKey(item.itemID))
                 {
-                    Debug.LogError(string.Format("Aynı öğeden birden fazla adet var"));
                     continue;
                 }
 

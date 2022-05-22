@@ -1,0 +1,468 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7854512408743680492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7854512408743680493}
+  m_Layer: 0
+  m_Name: POIs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7854512408743680493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854512408743680492}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 112.12135, y: -4.4254994, z: 114.59878}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7854512408928069159}
+  - {fileID: 7854512409629364245}
+  - {fileID: 7854512409867443935}
+  - {fileID: 7854512408900577327}
+  - {fileID: 7854512409709184138}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7854512408900702653
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7854512408743680493}
+    m_Modifications:
+    - target: {fileID: 105238, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_Name
+      value: CompassPOIWestForest
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -249.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 31.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -302.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: id
+      value: 311534533
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: title
+      value: West Forest
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visibility
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedText
+      value: WEST FOREST
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: minDistanceText
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c87215117593d41ac89c48ea43d40d35, type: 3}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: showPlayModeGizmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedDistanceOverride
+      value: 100
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+--- !u!4 &7854512408900577327 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7854512408900702653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7854512408927674293
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7854512408743680493}
+    m_Modifications:
+    - target: {fileID: 105238, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_Name
+      value: CompassPOISpiderCave
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.2855
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 18.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: id
+      value: 1571914754
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: title
+      value: Spider Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visibility
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c87215117593d41ac89c48ea43d40d35, type: 3}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedDistanceOverride
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+--- !u!4 &7854512408928069159 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7854512408927674293}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7854512409629501831
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7854512408743680493}
+    m_Modifications:
+    - target: {fileID: 105238, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_Name
+      value: CompassPOIIceLand
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -195.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.2855
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 107.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: id
+      value: 537560490
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: title
+      value: Ice Land
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visibility
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c87215117593d41ac89c48ea43d40d35, type: 3}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedDistanceOverride
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+--- !u!4 &7854512409629364245 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7854512409629501831}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7854512409709067544
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7854512408743680493}
+    m_Modifications:
+    - target: {fileID: 105238, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_Name
+      value: CompassPOIGolem Pit
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -48
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 39.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -494.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: id
+      value: 1340166972
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: title
+      value: Golem Pit
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visibility
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: minDistanceText
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c87215117593d41ac89c48ea43d40d35, type: 3}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedDistanceOverride
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+--- !u!4 &7854512409709184138 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7854512409709067544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7854512409867577165
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7854512408743680493}
+    m_Modifications:
+    - target: {fileID: 105238, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_Name
+      value: CompassPOIFireLand
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -473.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 54.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -294.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: id
+      value: -1923910846
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: title
+      value: Fire Land
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visibility
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c87215117593d41ac89c48ea43d40d35, type: 3}
+    - target: {fileID: 11463480, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+      propertyPath: visitedDistanceOverride
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68ba53a8493e94ec2b84b54871115f6a, type: 3}
+--- !u!4 &7854512409867443935 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 407954, guid: 68ba53a8493e94ec2b84b54871115f6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7854512409867577165}
+  m_PrefabAsset: {fileID: 0}
