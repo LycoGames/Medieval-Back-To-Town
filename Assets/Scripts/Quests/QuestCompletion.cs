@@ -12,5 +12,11 @@ public class QuestCompletion : MonoBehaviour
     {
         QuestList questList = GameObject.FindGameObjectWithTag("Player").GetComponent<QuestList>();
         questList.CompleteObjective(quest, objective);
+        string conversantName = gameObject.transform.parent.GetComponent<AIConversant>().GetConversantName();
+        conversantName = conversantName.Replace(" ", "");
+        string compassName = "CompassPOI" + conversantName;
+        GameObject compassPOI = GameObject.Find("compassName");
+        if (compassPOI)
+            Destroy(compassPOI);
     }
 }

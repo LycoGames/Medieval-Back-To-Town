@@ -1,0 +1,259 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8405875457457941290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 0e95e69f-441b-46e5-aa34-1b7b07a3c652
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Thanks. Is there anything that I can do for you?
+  children:
+  - 33272db6-ad08-4cc7-bc39-d33eaf4d41d1
+  rect:
+    serializedVersion: 2
+    x: 1206
+    y: 171
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-5690943724742258054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 6158c579-128e-4544-bb98-a80a1716c5b6
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Erhard said that you will give to me new clothes to wear. Are they ready?
+  children:
+  - c46e7a54-8adf-442d-b000-0ac5ba90fc2e
+  rect:
+    serializedVersion: 2
+    x: 706
+    y: 171
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-3436608390863782471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: da86f89d-fe5b-410b-a9d4-d12349070260
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Oh! I missed you so much. How are you doing?
+  children:
+  - 5782e7f8-cce4-400f-8d35-b6cd980c3c4a
+  - 59718633-2511-44b2-9e46-69765b8b13e3
+  rect:
+    serializedVersion: 2
+    x: 18
+    y: 188
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-1938565431384572902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: e62e4b06-8645-4896-90bc-7aa9912088cd
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Sure. (Take foods)
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1706
+    y: 171
+    width: 200
+    height: 100
+  onExitAction: GiveQuest2
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-1019291121431764170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 33272db6-ad08-4cc7-bc39-d33eaf4d41d1
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Could you bring these foods to first town for me please?
+  children:
+  - e62e4b06-8645-4896-90bc-7aa9912088cd
+  rect:
+    serializedVersion: 2
+    x: 1456
+    y: 171
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-860382882134011055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: c46e7a54-8adf-442d-b000-0ac5ba90fc2e
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Yes. Here they are.
+  children:
+  - 0e95e69f-441b-46e5-aa34-1b7b07a3c652
+  rect:
+    serializedVersion: 2
+    x: 956
+    y: 171
+    width: 200
+    height: 100
+  onExitAction: CompleteQuest1
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036f27eaa24400444a587a3cf9fa7300, type: 3}
+  m_Name: Second Town Pia Ariel
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -3436608390863782471}
+  - {fileID: 4817847055367120289}
+  - {fileID: 6855788214740807547}
+  - {fileID: 5339626967120277432}
+  - {fileID: -5690943724742258054}
+  - {fileID: -860382882134011055}
+  - {fileID: -8405875457457941290}
+  - {fileID: -1019291121431764170}
+  - {fileID: -1938565431384572902}
+  newNodeOffset: {x: 250, y: 0}
+--- !u!114 &4817847055367120289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 5782e7f8-cce4-400f-8d35-b6cd980c3c4a
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Nothing special. You?
+  children:
+  - 1da11ae8-aaff-4ca2-9c1b-0d10b8dd44dd
+  rect:
+    serializedVersion: 2
+    x: 242
+    y: 105
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &5339626967120277432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 1da11ae8-aaff-4ca2-9c1b-0d10b8dd44dd
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Same, nothing changed. I'm getting elder day by day.
+  children:
+  - 6158c579-128e-4544-bb98-a80a1716c5b6
+  rect:
+    serializedVersion: 2
+    x: 479
+    y: 171
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &6855788214740807547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 59718633-2511-44b2-9e46-69765b8b13e3
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I'm fine. You?
+  children:
+  - 1da11ae8-aaff-4ca2-9c1b-0d10b8dd44dd
+  rect:
+    serializedVersion: 2
+    x: 241
+    y: 242
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
