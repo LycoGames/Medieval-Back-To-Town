@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CompassNavigatorPro;
 using RPG.Saving;
 using UnityEditor;
 using UnityEngine;
@@ -15,10 +16,22 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
     {
         if (HasQuest(quest)) return;
         QuestStatus newStatus = new QuestStatus(quest);
+        CreateNavigations(newStatus);
         statuses.Add(newStatus);
         if (onUpdate != null)
         {
             onUpdate();
+        }
+    }
+
+    private void CreateNavigations(QuestStatus newStatus)
+    {
+        foreach (var objective in newStatus.GetObjectives())
+        {
+            if (objective.compassProPOI == null) continue;
+
+            GameObject compassPOIInstance =
+                Instantiate(objective.compassProPOI, objective.compassProPOI.transform.position, Quaternion.identity);
         }
     }
 
@@ -50,10 +63,18 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
           status.UpdateKillObjectiveStatus(objective, value);*/
     }
 
-    public void UpdateCollectObjectiveStatus(Quest quest, string objective, int value)
+    public void UpdateCollectObjectiveStatus(InventoryItem item, int value)
     {
-        var status = GetQuestStatus(quest);
-        status.UpdateKillObjectiveStatus(objective, value);
+        foreach (var questStatus in GetStatuses())
+        {
+            foreach (var objectiveStatus in questStatus.GetCollectObjectives())
+            {
+                if (item == objectiveStatus.Item)
+                {
+                    questStatus.UpdateCollectObjectiveStatus(objectiveStatus.Reference, value);
+                }
+            }
+        }
     }
 
     public bool HasQuest(Quest quest)
