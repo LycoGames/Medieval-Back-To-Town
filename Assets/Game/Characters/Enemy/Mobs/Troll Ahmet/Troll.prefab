@@ -134,12 +134,12 @@ MonoBehaviour:
   pathID: 1
   target: {fileID: 0}
   waypointTolerance: 1
-  maxSpeed: 3
-  chaseDistance: 5
+  maxSpeed: 4
+  chaseDistance: 8
   suspicionTime: 4
   waitOnPointTime: 2
   agroCooldownTime: 4
-  callArea: 3
+  callArea: 6
   gameManager: {fileID: 0}
 --- !u!114 &3415885011211988104
 MonoBehaviour:
@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackCooldown: 1.5
   mobRange: 2
+  attackSound: {fileID: 0}
   speed: 200
 --- !u!114 &3105838081548674496
 MonoBehaviour:
