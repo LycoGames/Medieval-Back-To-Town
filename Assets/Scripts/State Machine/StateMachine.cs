@@ -7,7 +7,10 @@ using UnityEditor.UIElements;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-
+	[RequireComponent(typeof(CharacterController))]
+#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+	[RequireComponent(typeof(PlayerInput))]
+#endif
 public class StateMachine : MonoBehaviour, ICommonFunctions
 {
     [SerializeField] float velocity = 9;
@@ -16,8 +19,8 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     [SerializeField] float aimTimer = 0;
     [SerializeField] Transform FirePoint;
     Health health;
-
-    [Header("Weapon")] [SerializeField] private WeaponConfig defaultWeapon = null;
+    PlayerInput playerInput;
+    [Header("Weapon")][SerializeField] private WeaponConfig defaultWeapon = null;
     [SerializeField] private Transform rightHandTransform = null;
 
     public Transform GetRightHandTransform()
@@ -53,7 +56,9 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     //[SerializeField] float[] castingTime; //If 0 - can loop, if > 0 - one shot time
 
 
-    [Space] [Header("Canvas")] [SerializeField]
+    [Space]
+    [Header("Canvas")]
+    [SerializeField]
     Image aim;
 
     [SerializeField] private GameObject aimUI;
@@ -74,25 +79,30 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     [SerializeField]
     GameObject cinemachineCameraTarget;
 
-    [Tooltip("How far in degrees can you move the camera up")] [SerializeField]
+    [Tooltip("How far in degrees can you move the camera up")]
+    [SerializeField]
     float topClamp = 70.0f;
 
-    [Tooltip("How far in degrees can you move the camera down")] [SerializeField]
+    [Tooltip("How far in degrees can you move the camera down")]
+    [SerializeField]
     float bottomClamp = -30.0f;
 
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField]
     float cameraAngleOverride = 0.0f;
 
-    [Tooltip("For locking the camera position on all axis")] [SerializeField]
+    [Tooltip("For locking the camera position on all axis")]
+    [SerializeField]
     bool lockCameraPosition = false;
 
 
-    [Header("Animation Smoothing")] [Range(0, 1f)] [SerializeField]
+    [Header("Animation Smoothing")]
+    [Range(0, 1f)]
+    [SerializeField]
     float HorizontalAnimSmoothTime = 0.2f;
 
 
-    [Range(0, 1f)] [SerializeField] float VerticalAnimTime = 0.2f;
+    [Range(0, 1f)][SerializeField] float VerticalAnimTime = 0.2f;
     /*[Range(0, 1f)] [SerializeField] float StartAnimTime = 0.3f;
     [Range(0, 1f)] [SerializeField] float StopAnimTime = 0.15f;*/
 
@@ -279,6 +289,7 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     public BaseStats baseStats { get; set; }
 
     //User interface variables
+    private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == "KeyboardMouse";
 
 
     void Awake()
@@ -388,7 +399,7 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
         {
             target = screenTargets[targetIndex()];
         }
-
+        playerInput = GetComponent<PlayerInput>();
         Controller = GetComponent<CharacterController>();
     }
 
@@ -548,8 +559,13 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
         // if there is an input and camera position is not fixed
         if (Input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
         {
-            cinemachineTargetYaw += Input.look.x * Time.deltaTime;
-            cinemachineTargetPitch += Input.look.y * Time.deltaTime;
+            //  cinemachineTargetYaw += Input.look.x * Time.deltaTime;
+            // cinemachineTargetPitch += Input.look.y * Time.deltaTime;
+
+            float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+
+            cinemachineTargetYaw += Input.look.x * deltaTimeMultiplier;
+            cinemachineTargetPitch += Input.look.y * deltaTimeMultiplier;
         }
 
         // clamp our rotations so our values are limited 360 degrees
@@ -562,7 +578,7 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
              cinemachineTargetYaw, 0.0f);*/
 
         cinemachineCameraTarget.transform.rotation = Quaternion.Euler(
-            cinemachineTargetPitch,
+            cinemachineTargetPitch + cameraAngleOverride,
             cinemachineTargetYaw, 0.0f);
     }
 
