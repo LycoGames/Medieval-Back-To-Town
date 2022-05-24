@@ -8,18 +8,18 @@ public class CombatIdleState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Combat Idle State Enter");
+       // Debug.Log("Combat Idle State Enter");
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Combat Idle State Update");
+     //   Debug.Log("Combat Idle State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Combat Idle State Exit");
+       // Debug.Log("Combat Idle State Exit");
     }
 
     public override void CheckSwitchStates()

@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Health Effect", menuName = "Abilities/Effects/Health", order = 0)]
 public class HealthEffect : EffectStrategy
 {
-    [SerializeField] float healthChange;
+
+    [SerializeField] float skillDamageMultiplier = 1;
 
     public override void StartEffect(AbilityData data, Action finished)
     {
@@ -14,13 +15,10 @@ public class HealthEffect : EffectStrategy
             var health = target.GetComponent<Health>();
             if (health)
             {
-                if (healthChange < 0)
+                float healthChange = data.GetUser().GetComponent<BaseStats>().GetStat(Stat.Damage) * skillDamageMultiplier;
+                if (healthChange > 0)
                 {
-                    health.ApplyDamage(data.GetUser(), -healthChange);
-                }
-                else
-                {
-                    health.Heal(healthChange);
+                    health.ApplyDamage(data.GetUser(), healthChange);
                 }
             }
         }

@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
+#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+#endif
 
 namespace InputSystem
 {
@@ -21,49 +23,52 @@ namespace InputSystem
         public bool cursorInputForLook = true;
 #endif
 
-        public void OnMove(InputAction.CallbackContext ctx)
+#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+        public void OnMove(InputValue value)
         {
-            MoveInput(ctx.ReadValue<Vector2>());
+            MoveInput(value.Get<Vector2>());
         }
 
-        public void OnLook(InputAction.CallbackContext ctx)
+        public void OnLook(InputValue value)
         {
             if (cursorInputForLook)
             {
-                LookInput(ctx.ReadValue<Vector2>());
+                LookInput(value.Get<Vector2>());
             }
         }
 
-        public void OnJump(InputAction.CallbackContext ctx)
+        public void OnJump(InputValue value)
         {
-            JumpInput(ctx.ReadValueAsButton());
+            JumpInput(value.isPressed);
         }
 
-        public void OnInteraction(InputAction.CallbackContext ctx)
+        public void OnInteraction(InputValue value)
         {
-            InteractionInput(ctx.ReadValueAsButton());
+            InteractionInput(value.isPressed);
         }
 
-        public void OnRoll(InputAction.CallbackContext ctx)
+        public void OnRoll(InputValue value)
         {
-            RollInput(ctx.ReadValueAsButton());
+            RollInput(value.isPressed);
         }
 
-        public void OnSprint(InputAction.CallbackContext ctx)
+        public void OnSprint(InputValue value)
         {
-            SprintInput(ctx.ReadValueAsButton());
+            SprintInput(value.isPressed);
         }
 
-        public void OnBasicAttack(InputAction.CallbackContext ctx)
+        public void OnBasicAttack(InputValue value)
         {
-            BasicAttackInput(ctx.ReadValueAsButton());
+            BasicAttackInput(value.isPressed);
         }
 
-        public void OnInventoryShowHideInput(InputAction.CallbackContext ctx)
+        public void OnInventoryShowHideInput(InputValue value)
         {
-            InventoryShowHideInput(ctx.started);
+            InventoryShowHideInput(value.isPressed);
         }
-
+#else
+        // old input sys if we do decide to have it (most likely wont)...
+#endif
 
         public void MoveInput(Vector2 newMoveDirection)
         {

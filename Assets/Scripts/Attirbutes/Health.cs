@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
     [SerializeField] float regenerationPercentage = 50;
     public UnityEvent onDie;
     public UnityEvent takeDamage;
-
+    EnemySpawner[] enemySpawner;
     public TakeDamageHUDEvent takeDamageHUD;
 
     [System.Serializable]
@@ -77,7 +77,7 @@ public class Health : MonoBehaviour
         {
             healthBar.SetMaxHealth(GetInitialHealth());
         }
-
+        enemySpawner = FindObjectsOfType<EnemySpawner>();
         onDie.AddListener(UpdateState);
     }
 
@@ -137,21 +137,21 @@ public class Health : MonoBehaviour
         {
             float defencePoint = GetComponent<BaseStats>().GetStat(Stat.Defence) * UnityEngine.Random.Range(0f, 1f); //let dmg=5 def=5 5def*1=5def dmg-def=5-5=0=>miss
             float criticPercantage = insigator.GetComponent<BaseStats>().GetStat(Stat.CriticChance);
-            float accuracy=insigator.GetComponent<BaseStats>().GetStat(Stat.Accuracy);
+            float accuracy = insigator.GetComponent<BaseStats>().GetStat(Stat.Accuracy);
 
-            if (UnityEngine.Random.Range(0, 1000) < 100-accuracy)
+            if (UnityEngine.Random.Range(0, 1000) < 100 - accuracy)
             {
                 dmg = 0;
                 healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
-                print("u need more accuracy");
+                //  print("u need more accuracy");
             }
             else
             {
-                print("player crit chance is: " + criticPercantage);
-                print("defence point : " + defencePoint);
-                print("normal dmg: " + dmg);
+                //            print("player crit chance is: " + criticPercantage);
+                //          print("defence point : " + defencePoint);
+                //              print("normal dmg: " + dmg);
                 int criticChance = UnityEngine.Random.Range(0, 100);
-                print("critic chance: " + criticChance);
+                //                print("critic chance: " + criticChance);
                 if (criticChance < criticPercantage)
                 {
                     dmg = dmg * 2;
@@ -266,6 +266,8 @@ public class Health : MonoBehaviour
         if (IsDead()) //Death,
         {
             onDie.Invoke();
+            enemySpawner[0].SpawnEnemy(this.gameObject);
+
             if (CompareTag("Enemy"))
             {
                 insigator.GetComponent<QuestList>()
