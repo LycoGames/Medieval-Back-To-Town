@@ -350,70 +350,73 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
-
-    public void OnAbility1(InputAction.CallbackContext ctx)
+#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+    public void OnAbility1(InputValue ctx)
     {
-        if (ctx.started && !IsAttacking)
+        if (ctx.isPressed && !IsAttacking)
         {
             actionStore.Use(0, gameObject);
         }
     }
 
-    public void OnAbility2(InputAction.CallbackContext ctx)
+    public void OnAbility2(InputValue ctx)
     {
-        if (ctx.started && !IsAttacking)
+        if (ctx.isPressed && !IsAttacking)
         {
             actionStore.Use(1, gameObject);
         }
     }
 
-    public void OnAbility3(InputAction.CallbackContext ctx)
+    public void OnAbility3(InputValue ctx)
     {
-        if (ctx.started && !IsAttacking)
+        if (ctx.isPressed && !IsAttacking)
         {
             actionStore.Use(2, gameObject);
         }
     }
 
-    public void OnAbility4(InputAction.CallbackContext ctx)
+    public void OnAbility4(InputValue ctx)
     {
-        if (ctx.started && !IsAttacking)
+        if (ctx.isPressed && !IsAttacking)
         {
             actionStore.Use(3, gameObject);
         }
     }
 
-    public void OnAbility5(InputAction.CallbackContext ctx)
+    public void OnAbility5(InputValue ctx)
     {
-        if (ctx.started && !IsAttacking)
+        if (ctx.isPressed && !IsAttacking)
         {
             actionStore.Use(4, gameObject);
         }
     }
 
-    public void OnAbility6(InputAction.CallbackContext ctx)
+    public void OnAbility6(InputValue ctx)
     {
-        if (ctx.started && !IsAttacking)
+        if (ctx.isPressed && !IsAttacking)
         {
             actionStore.Use(5, gameObject);
         }
     }
 
-    public void OnAbility7(InputAction.CallbackContext ctx)
+    public void OnAbility7(InputValue ctx)
     {
-        if (ctx.started && !IsAttacking)
+        if (ctx.isPressed && !IsAttacking)
         {
             actionStore.Use(6, gameObject);
         }
     }
 
-    public void OnAbility8(InputAction.CallbackContext ctx)
+    public void OnAbility8(InputValue ctx)
     {
-        if (ctx.started && !IsAttacking)
+        if (ctx.isPressed && !IsAttacking)
         {
             actionStore.Use(7, gameObject);
         }
     }
+#else
+        // old input sys if we do decide to have it (most likely wont)...
+#endif
 
     public object CaptureState()
     {
