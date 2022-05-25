@@ -13,19 +13,24 @@ MonoBehaviour:
   m_Name: 0e95e69f-441b-46e5-aa34-1b7b07a3c652
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 1
-  text: Thanks. Is there anything that I can do for you?
+  text: Is there anything that I can do for you?
   children:
   - 33272db6-ad08-4cc7-bc39-d33eaf4d41d1
   rect:
     serializedVersion: 2
-    x: 1206
-    y: 171
+    x: 1193
+    y: 325
     width: 200
     height: 100
   onExitAction: 
   onEnterAction: 
   condition:
-    and: []
+    and:
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - First Quest
+        negate: 0
 --- !u!114 &-5690943724742258054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,7 +56,17 @@ MonoBehaviour:
   onExitAction: 
   onEnterAction: 
   condition:
-    and: []
+    and:
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - First Quest
+        negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - First Quest
+        negate: 1
 --- !u!114 &-3436608390863782471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 1
   text: Sure. (Take foods)
-  children: []
+  children:
+  - f5e1692d-dc25-4e06-8402-a405b55ad905
   rect:
     serializedVersion: 2
     x: 1706
@@ -152,8 +168,8 @@ MonoBehaviour:
     y: 171
     width: 200
     height: 100
-  onExitAction: CompleteQuest1
-  onEnterAction: 
+  onExitAction: 
+  onEnterAction: CompleteQuest1
   condition:
     and: []
 --- !u!114 &11400000
@@ -178,6 +194,7 @@ MonoBehaviour:
   - {fileID: -8405875457457941290}
   - {fileID: -1019291121431764170}
   - {fileID: -1938565431384572902}
+  - {fileID: 8082511211614228280}
   newNodeOffset: {x: 250, y: 0}
 --- !u!114 &4817847055367120289
 MonoBehaviour:
@@ -221,10 +238,11 @@ MonoBehaviour:
   text: Same, nothing changed. I'm getting elder day by day.
   children:
   - 6158c579-128e-4544-bb98-a80a1716c5b6
+  - 0e95e69f-441b-46e5-aa34-1b7b07a3c652
   rect:
     serializedVersion: 2
-    x: 479
-    y: 171
+    x: 482
+    y: 221
     width: 200
     height: 100
   onExitAction: 
@@ -251,6 +269,31 @@ MonoBehaviour:
     serializedVersion: 2
     x: 241
     y: 242
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &8082511211614228280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: f5e1692d-dc25-4e06-8402-a405b55ad905
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Bye.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1957
+    y: 171
     width: 200
     height: 100
   onExitAction: 

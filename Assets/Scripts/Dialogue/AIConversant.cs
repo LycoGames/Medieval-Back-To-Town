@@ -10,7 +10,8 @@ public class AIConversant : MonoBehaviour
     [SerializeField] private Dialogue dialogue = null;
     [SerializeField] private bool repeatableDialogue = false;
     private bool interactable = true;
-/*
+
+    /*
     private GameObject player;
     private Inputs input;
 

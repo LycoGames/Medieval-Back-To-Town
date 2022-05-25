@@ -70,7 +70,19 @@ public class QuestTooltipUI : MonoBehaviour
         var rewardTextString = "";
         foreach (var reward in quest.GetRewards())
         {
-            Debug.Log(reward.item.GetDisplayName());
+            EquipableItem equipableItem = reward.item as EquipableItem;
+            if (equipableItem)
+            {
+                if (equipableItem.GetAllowedCharacterClasses().Length > 0 &&
+                    equipableItem.GetAllowedCharacterClasses()[0] == CharacterClass.Warrior &&
+                    PlayerPrefs.GetString("CharacterPref") == "Archer")
+                    continue;
+                if (equipableItem.GetAllowedCharacterClasses().Length > 0 &&
+                    equipableItem.GetAllowedCharacterClasses()[0] == CharacterClass.Archer &&
+                    PlayerPrefs.GetString("CharacterPref") == "Warrior")
+                    continue;
+            }
+
             if (rewardTextString != "")
             {
                 rewardTextString += ", ";

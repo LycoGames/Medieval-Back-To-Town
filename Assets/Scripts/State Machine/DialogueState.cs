@@ -12,7 +12,6 @@ public class DialogueState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Dialogue State Enter");
         SetRequiredComponents();
         StartDialogue();
         ctx.CanMove = false;
@@ -22,12 +21,10 @@ public class DialogueState : BaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Dialogue State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Dialogue State Exit");
         ctx.LockCameraPosition = false;
         Cursor.visible = false;
         ctx.AimUI.SetActive(true);

@@ -76,7 +76,6 @@ public class QuestStatus
 
     public bool IsObjectiveComplete(string objective)
     {
-        Debug.LogError(objective);
         return completedObjectives.Contains(objective);
     }
 
@@ -88,23 +87,32 @@ public class QuestStatus
         }
     }
 
-    public void UpdateKillObjectiveStatus(string objective, int value)
+    public bool UpdateKillObjectiveStatus(string objective, int value)
     {
         foreach (var objectiveStatus in killObjectiveStatuses.Where(objectiveStatus =>
                      objectiveStatus.Reference == objective))
         {
             if (GetObjectiveByReference(objective).number > objectiveStatus.Number)
+            {
                 objectiveStatus.Number += value;
+                return GetObjectiveByReference(objective).number == objectiveStatus.Number;
+            }
         }
+
+        return false;
     }
 
-    public void UpdateCollectObjectiveStatus(string objective, int value)
+
+    public bool UpdateCollectObjectiveStatus(string objective, int value)
     {
         foreach (var objectiveStatus in collectObjectiveStatuses.Where(objectiveStatus =>
                      objectiveStatus.Reference == objective))
         {
             objectiveStatus.Number += value;
+            return GetObjectiveByReference(objective).quantity == objectiveStatus.Number;
         }
+
+        return false;
     }
 
     public int GetKillObjectiveStatus(string objective)
@@ -189,5 +197,33 @@ public class QuestStatus
             Enemy = objective.enemy,
         };
         return killObjectiveStatus;
+    }
+
+    private bool CanCompleteCollectObjective(string reference)
+    {
+        int collectedItem = GetCollectObjectiveStatus(reference);
+        Quest.Objective objective = GetObjectiveByReference(reference);
+        return collectedItem >= objective.quantity;
+    }
+
+    public bool? Evaluate(string predicate, string[] parameters)
+    {
+        switch (predicate)
+        {
+            case "HasEnoughInventoryItem":
+                return CanCompleteCollectObjective(parameters[0]);
+        }
+
+        return null;
+    }
+
+    public bool HasKillObjectives()
+    {
+        return killObjectiveStatuses != null;
+    }
+
+    public bool HasCollectObjectives()
+    {
+        return collectObjectiveStatuses != null;
     }
 }

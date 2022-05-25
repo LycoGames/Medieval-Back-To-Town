@@ -17,7 +17,7 @@ public class Quest : ScriptableObject
         public InventoryItem item;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class Objective
     {
         public string reference;
@@ -28,7 +28,8 @@ public class Quest : ScriptableObject
         public bool isKillEnemyQuest;
         public GameObject enemy;
         public int number;
-        public GameObject compassProPOI;
+        public GameObject compassProPOILocation;
+        public GameObject compassProPOINpc;
     }
 
     public string GetTitle()

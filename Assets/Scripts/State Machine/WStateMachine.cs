@@ -228,6 +228,7 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
     private float cinemachineTargetPitch;
 
 
+    private NotEnoughMana notEnoughManaText;
     public List<GameObject> MainUiArray { get; private set; }
 
 
@@ -253,6 +254,8 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
         Input = GetComponent<Inputs>();
         actionStore = GetComponent<ActionStore>();
         baseStats = GetComponent<BaseStats>();
+        notEnoughManaText = FindObjectOfType<NotEnoughMana>();
+
 
         AssignAnimationIDs();
         CanMove = true;
@@ -461,6 +464,6 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
 
     public void ShowNotEnoughManaText()
     {
-        // notEnoughManaText.ShowNotEnoughManaText();
+        notEnoughManaText.ShowNotEnoughManaText();
     }
 }

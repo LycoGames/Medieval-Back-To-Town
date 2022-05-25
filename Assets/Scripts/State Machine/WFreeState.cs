@@ -12,7 +12,6 @@ public class WFreeState : WBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Free State Enter");
         ctx.CanMove = true;
     }
 
@@ -25,12 +24,10 @@ public class WFreeState : WBaseState
             ctx.Move();
         }
 
-        Debug.Log("Free State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Free State Exit");
     }
 
     public override void CheckSwitchStates()

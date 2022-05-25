@@ -11,12 +11,10 @@ public class WCombatState : WBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Combat State Enter");
     }
 
     public override void UpdateState()
     {
-        Debug.Log("Combat State Update");
         CheckSwitchStates();
         /*if (!(currentSubState is WCombatIdleState))
         {
@@ -27,7 +25,6 @@ public class WCombatState : WBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Combat State Exit");
     }
 
     public override void CheckSwitchStates()

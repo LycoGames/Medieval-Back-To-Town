@@ -12,7 +12,6 @@ public class WDialogueState : WBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Dialogue State Enter");
         SetRequiredComponents();
         StartDialogue();
         Cursor.visible = true;
@@ -24,12 +23,10 @@ public class WDialogueState : WBaseState
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Dialogue State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Dialogue State Exit");
         ctx.LockCameraPosition = false;
         Cursor.visible = false;
         ctx.CanMove = true;
