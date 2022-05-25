@@ -9,18 +9,15 @@ public class RunState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Run State Enter");
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Run State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Run State Exit");
     }
 
     public override void CheckSwitchStates()

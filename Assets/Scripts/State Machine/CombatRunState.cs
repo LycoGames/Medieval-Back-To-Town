@@ -9,18 +9,15 @@ public class CombatRunState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Combat Run State Enter");
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Combat Run State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Combat Run State Exit");
     }
 
     public override void CheckSwitchStates()

@@ -155,6 +155,7 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
 
     public int FindStack(InventoryItem item)
     {
+        
         if (!item.IsStackable())
         {
             return -1;

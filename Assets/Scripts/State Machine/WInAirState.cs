@@ -11,13 +11,11 @@ public class WInAirState : WBaseState
 
     public override void EnterState()
     {
-        Debug.Log("In Air State Enter");
         // if we are not grounded, do not jump
     }
 
     public override void UpdateState()
     {
-        Debug.Log("In Air State Update");
         ctx.Move();
         ctx.RotatePlayerToMoveDirection();
 
@@ -40,7 +38,6 @@ public class WInAirState : WBaseState
 
     public override void ExitState()
     {
-        Debug.Log("In Air State Exit");
         ctx.FallTimeoutDelta = ctx.FallTimeout;
 
         // update animator if using character

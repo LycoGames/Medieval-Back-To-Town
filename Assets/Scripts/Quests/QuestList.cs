@@ -10,13 +10,15 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
 {
     private List<QuestStatus> statuses = new List<QuestStatus>();
 
+    private List<Quest> completedQuests = new List<Quest>();
+
     public event Action onUpdate;
 
     public void AddQuest(Quest quest)
     {
         if (HasQuest(quest)) return;
         QuestStatus newStatus = new QuestStatus(quest);
-        CreateNavigations(newStatus);
+        UpdateNavigations(newStatus);
         statuses.Add(newStatus);
         if (onUpdate != null)
         {
@@ -24,15 +26,38 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         }
     }
 
-    private void CreateNavigations(QuestStatus newStatus)
+    private void UpdateNavigations(QuestStatus newStatus)
     {
         foreach (var objective in newStatus.GetObjectives())
         {
-            if (objective.compassProPOI == null) continue;
-
-            GameObject compassPOIInstance =
-                Instantiate(objective.compassProPOI, objective.compassProPOI.transform.position, Quaternion.identity);
+            if (objective.compassProPOINpc == null) continue;
+            if (objective.isCollectItemQuest || objective.isKillEnemyQuest)
+            {
+                if (objective.compassProPOILocation == null)
+                    continue;
+                CreateLocationPOI(objective);
+            }
+            else
+            {
+                if (objective.compassProPOINpc == null)
+                    continue;
+                CreateNPCPOI(objective);
+            }
         }
+    }
+
+    private void CreateNPCPOI(Quest.Objective objective)
+    {
+        GameObject compassPOIInstance =
+            Instantiate(objective.compassProPOINpc, objective.compassProPOINpc.transform.position, Quaternion.identity,
+                GameObject.FindGameObjectWithTag("POIParent").transform);
+    }
+
+    private void CreateLocationPOI(Quest.Objective objective)
+    {
+        GameObject compassPOIInstance =
+            Instantiate(objective.compassProPOINpc, objective.compassProPOINpc.transform.position, Quaternion.identity,
+                GameObject.FindGameObjectWithTag("POIParent").transform);
     }
 
     public void CompleteObjective(Quest quest, string objective)
@@ -42,6 +67,7 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         if (status.IsComplete())
         {
             GiveReward(quest);
+            completedQuests.Add(quest);
         }
 
         onUpdate?.Invoke();
@@ -51,11 +77,23 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
     {
         foreach (var questStatus in GetStatuses())
         {
+            if (!questStatus.HasKillObjectives())
+                return;
             foreach (var objectiveStatus in questStatus.GetKillObjectives())
             {
                 if (enemy.name.Substring(0, enemy.name.Length - 7) == objectiveStatus.Enemy.name)
                 {
-                    questStatus.UpdateKillObjectiveStatus(objectiveStatus.Reference, 1);
+                    if (questStatus.UpdateKillObjectiveStatus(objectiveStatus.Reference, 1))
+                    {
+                        GameObject prefab = questStatus.GetObjectiveByReference(objectiveStatus.Reference)
+                            .compassProPOINpc;
+                        Instantiate(prefab, prefab.transform.position, Quaternion.identity,
+                            GameObject.FindGameObjectWithTag("POIParent").transform);
+                        string compassName = "CompassPOI" + questStatus.GetQuest().name + " Variant(Clone)";
+                        GameObject compassPOI = GameObject.Find(compassName);
+                        if (compassPOI)
+                            Destroy(compassPOI);
+                    }
                 }
             }
         }
@@ -67,11 +105,15 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
     {
         foreach (var questStatus in GetStatuses())
         {
+            if (!questStatus.HasCollectObjectives())
+                return;
             foreach (var objectiveStatus in questStatus.GetCollectObjectives())
             {
                 if (item == objectiveStatus.Item)
                 {
-                    questStatus.UpdateCollectObjectiveStatus(objectiveStatus.Reference, value);
+                    if (questStatus.UpdateCollectObjectiveStatus(objectiveStatus.Reference, value))
+                    {
+                    }
                 }
             }
         }
@@ -104,12 +146,30 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
     {
         foreach (var reward in quest.GetRewards())
         {
+            EquipableItem equipableItem = reward.item as EquipableItem;
+            if (equipableItem)
+            {
+                if (equipableItem.GetAllowedCharacterClasses().Length > 0 &&
+                    equipableItem.GetAllowedCharacterClasses()[0] == CharacterClass.Warrior &&
+                    PlayerPrefs.GetString("CharacterPref") == "Archer")
+                    continue;
+                if (equipableItem.GetAllowedCharacterClasses().Length > 0 &&
+                    equipableItem.GetAllowedCharacterClasses()[0] == CharacterClass.Archer &&
+                    PlayerPrefs.GetString("CharacterPref") == "Warrior")
+                    continue;
+            }
+
             bool success = GetComponent<Inventory>().AddToFirstEmptySlot(reward.item, reward.number);
             if (!success)
             {
                 GetComponent<ItemDropper>().DropItem(reward.item, reward.number);
             }
         }
+    }
+
+    public List<Quest> GetCompletedQuests()
+    {
+        return completedQuests;
     }
 
     public object CaptureState()
@@ -141,8 +201,10 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         {
             case "HasQuest":
                 return HasQuest(Quest.GetByName(parameters[0]));
-            case "CompletedQuest":
+            case "CompletedObjective":
                 return GetQuestStatus(Quest.GetByName(parameters[0])).IsComplete();
+            case "CompletedQuest":
+                return completedQuests.Contains(Quest.GetByName(parameters[0]));
             case "HasKilledEnoughEnemy":
                 return GetKillObjectiveResultWithEnemyName(parameters[0]);
         }

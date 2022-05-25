@@ -20,6 +20,7 @@ public class Ability : ActionItem
     public override void Use(GameObject user)
     {
         StateMachine stateMachine = user.GetComponent<StateMachine>();
+        ICommonFunctions commonFunctions = user.GetComponent<ICommonFunctions>();
         Transform target = null;
 
         if (stateMachine)
@@ -36,7 +37,7 @@ public class Ability : ActionItem
         Mana mana = user.GetComponent<Mana>();
         if (mana.GetMana() < manaCost)
         {
-            stateMachine.ShowNotEnoughManaText();
+            commonFunctions.ShowNotEnoughManaText();
             return;
         }
 

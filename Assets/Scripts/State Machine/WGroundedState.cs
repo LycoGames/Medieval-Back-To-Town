@@ -9,7 +9,6 @@ public class WGroundedState : WBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Grounded State Enter");
 
         // update animator if using character
         if (ctx.HasAnimator)
@@ -24,12 +23,10 @@ public class WGroundedState : WBaseState
         CheckSwitchStates();
         UpdateSpeed();
         UpdateAnimations();
-        Debug.Log("Grounded State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Grounded State Exit");
     }
 
     public override void CheckSwitchStates()

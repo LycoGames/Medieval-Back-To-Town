@@ -8,19 +8,16 @@ public class WCombatIdleState : WBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Combat Idle State Enter");
         ctx.SetSpeedToIdle();
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Combat Idle State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Combat Idle State Exit");
     }
 
     public override void CheckSwitchStates()

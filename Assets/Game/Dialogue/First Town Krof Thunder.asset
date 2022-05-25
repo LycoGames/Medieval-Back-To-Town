@@ -1,0 +1,460 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8521238295882977479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 72d9cd30-5124-44dc-bfbd-a03e36986e37
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: There is a rumor about that wander souls. Go graveyard and check how many
+    fugitive souls are there. Then I may give you something you will like.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 336
+    y: 669
+    width: 200
+    height: 100
+  onExitAction: GiveQuest5
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Check Graveyard
+        negate: 0
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Fugitive Souls
+        negate: 1
+--- !u!114 &-7266153279173202301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 4083865f-01b1-457f-8b9f-9ddcfb055959
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Thank you.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 584
+    y: 567
+    width: 200
+    height: 100
+  onExitAction: CompleteQuest4
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-1873312111686909627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: eaebe440-5fe0-472e-8bb7-34eb4749312c
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Okay then. Have a good day.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 720
+    y: 256
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-1552481199709034699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: e016932f-c45b-4756-be1b-0d936b9e522a
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: How is graveyard? Check there. Bring me 10 bone of sinner to prove yourself.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 336
+    y: 459
+    width: 200
+    height: 100
+  onExitAction: GiveQuest4
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Spider Web
+        negate: 0
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Check Graveyard
+        negate: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036f27eaa24400444a587a3cf9fa7300, type: 3}
+  m_Name: First Town Krof Thunder
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 1166615350164166786}
+  - {fileID: 6520977497441539230}
+  - {fileID: 3545867860833276871}
+  - {fileID: 7851171260924184083}
+  - {fileID: 3613685473341080990}
+  - {fileID: -1873312111686909627}
+  - {fileID: -1552481199709034699}
+  - {fileID: -8521238295882977479}
+  - {fileID: 3385416379920668421}
+  - {fileID: 1715709720751725115}
+  - {fileID: 8711678674958995724}
+  - {fileID: 5369709952950910292}
+  - {fileID: -7266153279173202301}
+  - {fileID: 6781621344020281152}
+  newNodeOffset: {x: 250, y: 0}
+--- !u!114 &1166615350164166786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 91825bbc-402b-4349-bf36-5264589a807a
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Hello there.
+  children:
+  - 7a26cf1e-c3b4-494d-950c-4b01fefcee9e
+  - e016932f-c45b-4756-be1b-0d936b9e522a
+  - 72d9cd30-5124-44dc-bfbd-a03e36986e37
+  - 4ced917a-0692-4e79-8fd6-e641f680f21c
+  - c450f495-6851-4164-ab4d-21423e696711
+  - d9461484-5b0e-44ab-a2d2-9e28eee0919a
+  - 42db3d1f-ca4f-45de-b413-fc4478f3a163
+  rect:
+    serializedVersion: 2
+    x: 44
+    y: 294
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &1715709720751725115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: c450f495-6851-4164-ab4d-21423e696711
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I collected the spider webs you wanted, here they are.
+  children:
+  - 4287adec-84cd-49f7-87eb-4e3f8a77159c
+  rect:
+    serializedVersion: 2
+    x: 331
+    y: 357
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Spider Web
+        negate: 0
+    - or:
+      - predicate: HasEnoughInventoryItem
+        parameters:
+        - 1
+        negate: 0
+--- !u!114 &3385416379920668421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 4ced917a-0692-4e79-8fd6-e641f680f21c
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: 'There are terrible horse sounds in the west forest. We are afraid of the
+    forest. Can you check there for us? '
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 339
+    y: 796
+    width: 200
+    height: 100
+  onExitAction: GiveQuest6
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Fugitive Souls
+        negate: 0
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Explore West Forest
+        negate: 1
+--- !u!114 &3545867860833276871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 738e2c76-f646-488f-861e-5624b7e7d347
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Go big cave and bring me 20 spider web.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 721
+    y: 105
+    width: 200
+    height: 100
+  onExitAction: GiveQuest3
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Second Quest
+        negate: 0
+--- !u!114 &3613685473341080990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 6ebf4b82-2653-4567-9e54-3aa5d853403d
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: No. I have no time.
+  children:
+  - eaebe440-5fe0-472e-8bb7-34eb4749312c
+  rect:
+    serializedVersion: 2
+    x: 489
+    y: 255
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &5369709952950910292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: d9461484-5b0e-44ab-a2d2-9e28eee0919a
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I collected the bone of sinners you wanted, here they are.
+  children:
+  - 4083865f-01b1-457f-8b9f-9ddcfb055959
+  rect:
+    serializedVersion: 2
+    x: 334
+    y: 567
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Check Graveyard
+        negate: 0
+    - or:
+      - predicate: HasEnoughInventoryItem
+        parameters:
+        - 1
+        negate: 0
+--- !u!114 &6520977497441539230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 7a26cf1e-c3b4-494d-950c-4b01fefcee9e
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: I guess you want to help me. I got some stuff to do for you.
+  children:
+  - 3feb0d2c-be38-437b-b032-fcd6b27451d3
+  - 6ebf4b82-2653-4567-9e54-3aa5d853403d
+  rect:
+    serializedVersion: 2
+    x: 273
+    y: 186
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Second Quest
+        negate: 0
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Spider Web
+        negate: 1
+--- !u!114 &6781621344020281152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 42db3d1f-ca4f-45de-b413-fc4478f3a163
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Bye.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 323
+    y: -37
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &7851171260924184083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 3feb0d2c-be38-437b-b032-fcd6b27451d3
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: Yes anything.
+  children:
+  - 738e2c76-f646-488f-861e-5624b7e7d347
+  rect:
+    serializedVersion: 2
+    x: 494
+    y: 110
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &8711678674958995724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 4287adec-84cd-49f7-87eb-4e3f8a77159c
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Thank you.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 560
+    y: 357
+    width: 200
+    height: 100
+  onExitAction: CompleteQuest3
+  onEnterAction: 
+  condition:
+    and: []

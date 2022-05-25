@@ -12,18 +12,15 @@ public class UiState : BaseState
     {
         ctx.CanMove = false;
         Cursor.lockState = CursorLockMode.None;
-        Debug.Log("Ui State Enter");
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
-        Debug.Log("Ui State Update");
     }
 
     public override void ExitState()
     {
-        Debug.Log("Ui State Exit");
         Cursor.lockState = CursorLockMode.Locked;
     }
 
