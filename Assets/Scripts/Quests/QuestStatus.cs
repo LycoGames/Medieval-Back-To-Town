@@ -40,13 +40,11 @@ public class QuestStatus
         {
             if (objective.isCollectItemQuest)
             {
-                Debug.LogError("new collect quest");
                 collectObjectiveStatuses ??= new List<CollectObjectiveStatus>();
                 collectObjectiveStatuses.Add(SetupCollectObjectiveStatus(objective));
             }
             else if (objective.isKillEnemyQuest)
             {
-                Debug.LogError("new kill quest");
                 killObjectiveStatuses ??= new List<KillObjectiveStatus>();
                 killObjectiveStatuses.Add(SetupKillObjectiveStatus(objective));
             }

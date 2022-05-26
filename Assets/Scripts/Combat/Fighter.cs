@@ -41,6 +41,11 @@ public abstract class Fighter : MonoBehaviour
         currentWeapon.value = AttachWeapon(weapon);
     }
 
+    public void EquipUnarmed()
+    {
+        SetupDefaultWeapon();
+    }
+
     public Weapon GetCurrentWeapon()
     {
         return currentWeapon.value;

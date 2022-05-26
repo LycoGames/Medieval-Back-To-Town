@@ -26,39 +26,6 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         }
     }
 
-    private void UpdateNavigations(QuestStatus newStatus)
-    {
-        foreach (var objective in newStatus.GetObjectives())
-        {
-            if (objective.compassProPOINpc == null) continue;
-            if (objective.isCollectItemQuest || objective.isKillEnemyQuest)
-            {
-                if (objective.compassProPOILocation == null)
-                    continue;
-                CreateLocationPOI(objective);
-            }
-            else
-            {
-                if (objective.compassProPOINpc == null)
-                    continue;
-                CreateNPCPOI(objective);
-            }
-        }
-    }
-
-    private void CreateNPCPOI(Quest.Objective objective)
-    {
-        GameObject compassPOIInstance =
-            Instantiate(objective.compassProPOINpc, objective.compassProPOINpc.transform.position, Quaternion.identity,
-                GameObject.FindGameObjectWithTag("POIParent").transform);
-    }
-
-    private void CreateLocationPOI(Quest.Objective objective)
-    {
-        GameObject compassPOIInstance =
-            Instantiate(objective.compassProPOINpc, objective.compassProPOINpc.transform.position, Quaternion.identity,
-                GameObject.FindGameObjectWithTag("POIParent").transform);
-    }
 
     public void CompleteObjective(Quest quest, string objective)
     {
@@ -68,6 +35,7 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         {
             GiveReward(quest);
             completedQuests.Add(quest);
+            RecieveCollectableItemIfNeeded(status);
         }
 
         onUpdate?.Invoke();
@@ -126,43 +94,6 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         return statuses;
     }
 
-    private QuestStatus GetQuestStatus(Quest quest)
-    {
-        foreach (QuestStatus status in statuses)
-        {
-            if (status.GetQuest() == quest)
-            {
-                return status;
-            }
-        }
-
-        return null;
-    }
-
-    private void GiveReward(Quest quest)
-    {
-        foreach (var reward in quest.GetRewards())
-        {
-            EquipableItem equipableItem = reward.item as EquipableItem;
-            if (equipableItem)
-            {
-                if (equipableItem.GetAllowedCharacterClasses().Length > 0 &&
-                    equipableItem.GetAllowedCharacterClasses()[0] == CharacterClass.Warrior &&
-                    PlayerPrefs.GetString("CharacterPref") == "Archer")
-                    continue;
-                if (equipableItem.GetAllowedCharacterClasses().Length > 0 &&
-                    equipableItem.GetAllowedCharacterClasses()[0] == CharacterClass.Archer &&
-                    PlayerPrefs.GetString("CharacterPref") == "Warrior")
-                    continue;
-            }
-
-            bool success = GetComponent<Inventory>().AddToFirstEmptySlot(reward.item, reward.number);
-            if (!success)
-            {
-                GetComponent<ItemDropper>().DropItem(reward.item, reward.number);
-            }
-        }
-    }
 
     public List<Quest> GetCompletedQuests()
     {
@@ -209,6 +140,79 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         return null;
     }
 
+    private void UpdateNavigations(QuestStatus newStatus)
+    {
+        foreach (var objective in newStatus.GetObjectives())
+        {
+            if (objective.isCollectItemQuest || objective.isKillEnemyQuest)
+            {
+                if (objective.compassProPOILocation == null)
+                    continue;
+                CreateLocationPOI(objective);
+            }
+            else
+            {
+                if (objective.compassProPOINpc == null)
+                    continue;
+                CreateNPCPOI(objective);
+            }
+        }
+    }
+
+    private void CreateNPCPOI(Quest.Objective objective)
+    {
+        GameObject compassPOIInstance =
+            Instantiate(objective.compassProPOINpc, objective.compassProPOINpc.transform.position, Quaternion.identity,
+                GameObject.FindGameObjectWithTag("POIParent").transform);
+    }
+
+    private void CreateLocationPOI(Quest.Objective objective)
+    {
+        GameObject compassPOIInstance =
+            Instantiate(objective.compassProPOILocation, objective.compassProPOILocation.transform.position,
+                Quaternion.identity,
+                GameObject.FindGameObjectWithTag("POIParent").transform);
+    }
+
+    private QuestStatus GetQuestStatus(Quest quest)
+    {
+        foreach (QuestStatus status in statuses)
+        {
+            if (status.GetQuest() == quest)
+            {
+                return status;
+            }
+        }
+
+        return null;
+    }
+
+    private void GiveReward(Quest quest)
+    {
+        foreach (var reward in quest.GetRewards())
+        {
+            EquipableItem equipableItem = reward.item as EquipableItem;
+            if (equipableItem)
+            {
+                if (equipableItem.GetAllowedCharacterClasses().Length > 0 &&
+                    equipableItem.GetAllowedCharacterClasses()[0] == CharacterClass.Warrior &&
+                    PlayerPrefs.GetString("CharacterPref") == "Archer")
+                    continue;
+                if (equipableItem.GetAllowedCharacterClasses().Length > 0 &&
+                    equipableItem.GetAllowedCharacterClasses()[0] == CharacterClass.Archer &&
+                    PlayerPrefs.GetString("CharacterPref") == "Warrior")
+                    continue;
+            }
+
+            bool success = GetComponent<Inventory>().AddToFirstEmptySlot(reward.item, reward.number);
+            if (!success)
+            {
+                GetComponent<ItemDropper>().DropItem(reward.item, reward.number);
+            }
+        }
+    }
+
+
     private bool? GetKillObjectiveResultWithEnemyName(string parameter)
     {
         foreach (var status in statuses)
@@ -223,5 +227,16 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         }
 
         return null;
+    }
+
+    private void RecieveCollectableItemIfNeeded(QuestStatus status)
+    {
+        foreach (Quest.Objective objective in status.GetObjectives())
+        {
+            if (objective.isCollectItemQuest)
+            {
+                GetComponent<Inventory>().DeleteItem(objective.itemToCollect, objective.quantity);
+            }
+        }
     }
 }

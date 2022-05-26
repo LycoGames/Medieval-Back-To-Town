@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
     //STATE
 
     InventorySlot[] slots;
+    public event Action inventoryUpdated;
 
     public struct InventorySlot
     {
@@ -19,8 +20,18 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
         public int number;
     }
 
-    public event Action inventoryUpdated;
+    [Serializable]
+    private struct InventorySlotRecord
+    {
+        public string itemID;
+        public int number;
+    }
 
+
+    private void Awake()
+    {
+        slots = new InventorySlot[inventorySize];
+    }
 
     public static Inventory GetPlayerInventory()
     {
@@ -137,10 +148,6 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
         return true;
     }
 
-    private void Awake()
-    {
-        slots = new InventorySlot[inventorySize];
-    }
 
     public int FindSlot(InventoryItem item)
     {
@@ -155,7 +162,6 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
 
     public int FindStack(InventoryItem item)
     {
-        
         if (!item.IsStackable())
         {
             return -1;
@@ -172,24 +178,18 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
         return -1;
     }
 
-    private int FindEmptySlot()
+    public void DeleteItem(InventoryItem item, int number)
     {
-        for (int i = 0; i < slots.Length; i++)
+        int slotNumberOfStack = FindStack(item);
+        if (slots[slotNumberOfStack].number == number)
         {
-            if (slots[i].item == null)
-            {
-                return i;
-            }
+            slots[slotNumberOfStack].number = 0;
+            slots[slotNumberOfStack].item = null;
         }
-
-        return -1;
-    }
-
-    [System.Serializable]
-    private struct InventorySlotRecord
-    {
-        public string itemID;
-        public int number;
+        else if (slots[slotNumberOfStack].number > number)
+        {
+            slots[slotNumberOfStack].number -= number;
+        }
     }
 
     public object CaptureState()
@@ -230,5 +230,18 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
         }
 
         return null;
+    }
+
+    private int FindEmptySlot()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null)
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 72d9cd30-5124-44dc-bfbd-a03e36986e37
   m_EditorClassIdentifier: 
   isPlayerSpeaking: 0
-  text: There is a rumor about that wander souls. Go graveyard and check how many
-    fugitive souls are there. Then I may give you something you will like.
+  text: I want you to test yourself. Go to the forests on the west side and defeat
+    some trolls.
   children: []
   rect:
     serializedVersion: 2
-    x: 336
+    x: 338
     y: 669
     width: 200
     height: 100
@@ -34,7 +34,7 @@ MonoBehaviour:
     - or:
       - predicate: HasQuest
         parameters:
-        - Fugitive Souls
+        - Defeat Trolls
         negate: 1
 --- !u!114 &-7266153279173202301
 MonoBehaviour:
@@ -58,6 +58,31 @@ MonoBehaviour:
     width: 200
     height: 100
   onExitAction: CompleteQuest4
+  onEnterAction: 
+  condition:
+    and: []
+--- !u!114 &-4727784383221035499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 803fe6b6-900d-4672-beed-cade1dff5129
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Wonderful! I'm glad you realize your strength.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 575
+    y: 776
+    width: 200
+    height: 100
+  onExitAction: CompleteQuest5
   onEnterAction: 
   condition:
     and: []
@@ -148,6 +173,10 @@ MonoBehaviour:
   - {fileID: 5369709952950910292}
   - {fileID: -7266153279173202301}
   - {fileID: 6781621344020281152}
+  - {fileID: 6581916422481678052}
+  - {fileID: -4727784383221035499}
+  - {fileID: 1325548372917465004}
+  - {fileID: 5469588678128943799}
   newNodeOffset: {x: 250, y: 0}
 --- !u!114 &1166615350164166786
 MonoBehaviour:
@@ -171,6 +200,8 @@ MonoBehaviour:
   - c450f495-6851-4164-ab4d-21423e696711
   - d9461484-5b0e-44ab-a2d2-9e28eee0919a
   - 42db3d1f-ca4f-45de-b413-fc4478f3a163
+  - fbfef4bb-3984-484c-b409-48ca734750fa
+  - 290f7fa1-a8cd-4191-84f0-a01c22b3a74c
   rect:
     serializedVersion: 2
     x: 44
@@ -181,6 +212,49 @@ MonoBehaviour:
   onEnterAction: 
   condition:
     and: []
+--- !u!114 &1325548372917465004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: 290f7fa1-a8cd-4191-84f0-a01c22b3a74c
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I went there and detected the presence of the centaur. They noticed me and
+    I defeated a few of them. These creatures may cause trouble in the future, something
+    should be done about them.
+  children:
+  - fa9271fc-f832-45f2-b05a-afd04b20d3e5
+  rect:
+    serializedVersion: 2
+    x: 340
+    y: 1011
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Explore West Forest
+        negate: 0
+    - or:
+      - predicate: HasKilledEnoughEnemy
+        parameters:
+        - Centaur_Unity
+        negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Explore West Forest
+        negate: 1
 --- !u!114 &1715709720751725115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,8 +314,8 @@ MonoBehaviour:
   children: []
   rect:
     serializedVersion: 2
-    x: 339
-    y: 796
+    x: 343
+    y: 886
     width: 200
     height: 100
   onExitAction: GiveQuest6
@@ -251,7 +325,7 @@ MonoBehaviour:
     - or:
       - predicate: CompletedQuest
         parameters:
-        - Fugitive Souls
+        - Defeat Trolls
         negate: 0
     - or:
       - predicate: HasQuest
@@ -332,8 +406,8 @@ MonoBehaviour:
   - 4083865f-01b1-457f-8b9f-9ddcfb055959
   rect:
     serializedVersion: 2
-    x: 335
-    y: 567
+    x: 336
+    y: 571
     width: 200
     height: 100
   onExitAction: 
@@ -355,6 +429,31 @@ MonoBehaviour:
         parameters:
         - Check Graveyard
         negate: 1
+--- !u!114 &5469588678128943799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: fa9271fc-f832-45f2-b05a-afd04b20d3e5
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Thanks for your research, we will try to find a solution as soon as possible.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 590
+    y: 1011
+    width: 200
+    height: 100
+  onExitAction: CompleteQuest6
+  onEnterAction: 
+  condition:
+    and: []
 --- !u!114 &6520977497441539230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +490,47 @@ MonoBehaviour:
       - predicate: HasQuest
         parameters:
         - Spider Web
+        negate: 1
+--- !u!114 &6581916422481678052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: fbfef4bb-3984-484c-b409-48ca734750fa
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 1
+  text: I've killed many trolls as you asked me to do and now I feel even stronger.
+  children:
+  - 803fe6b6-900d-4672-beed-cade1dff5129
+  rect:
+    serializedVersion: 2
+    x: 334
+    y: 776
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        parameters:
+        - Defeat Trolls
+        negate: 0
+    - or:
+      - predicate: HasKilledEnoughEnemy
+        parameters:
+        - Troll
+        negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Defeat Trolls
         negate: 1
 --- !u!114 &6781621344020281152
 MonoBehaviour:

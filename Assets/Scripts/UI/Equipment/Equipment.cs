@@ -49,6 +49,11 @@ public class Equipment : MonoBehaviour, ISaveable
     {
         EquipableItem item = GetItemInSlot(slot);
         equippedItems.Remove(slot);
+        if (item as WeaponConfig)
+        {
+            GetComponent<WarriorFighter>().EquipUnarmed();
+        }
+
         UpdateHudsAndStats(item);
 
         if (equipmentUpdated != null)
