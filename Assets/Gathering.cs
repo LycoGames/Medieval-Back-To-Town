@@ -28,12 +28,14 @@ public class Gathering : MonoBehaviour
     NavMeshAgent agent;
     private Animator anim;
     int currentWaypointIndex;
+    int currentGatheringIndex=0;
     float timeSinceArrivedAtLastPoint = Mathf.Infinity;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        counter = 0;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         GetPatrolInfos();
@@ -65,9 +67,8 @@ public class Gathering : MonoBehaviour
                 agent.isStopped = true;
                 timeSinceArrivedAtLastPoint = 0;
                 anim.SetTrigger("Gathering");
-                print("counter");
-                Counter();
                 DoPatrolOnPoints();
+                DoGatheringOnPoints();
             }
 
             nextPosition = GetCurrentWaypoint();
@@ -92,12 +93,15 @@ public class Gathering : MonoBehaviour
         return distanceToWaypoint < waypointTolerance;
     }
 
-    private Vector3
-        GetCurrentWaypoint()
+    private Vector3 GetCurrentWaypoint()
     {
         return path.GetWaypoint(currentWaypointIndex);
     }
 
+    private Vector3 GetLookAtWaypoint() //waypointi alıyorum ilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
+    {
+        return gatheringPoints.GetWaypoint(currentGatheringIndex);
+    }
 
     private void DoPatrolOnPoints() // waypointin nextini alıyorum. 
     {
@@ -112,6 +116,11 @@ public class Gathering : MonoBehaviour
             PathRouteType.ReverseRoundTrip => path.GetReverseRoundTripNextIndex(currentWaypointIndex, gameObject),
             _ => currentWaypointIndex
         };
+    }
+
+    private void DoGatheringOnPoints() // waypointin nextini alıyorum. 
+    {
+        currentGatheringIndex = gatheringPoints.GetNextIndex(currentGatheringIndex);
     }
 
     private void GetPatrolInfos()
@@ -132,8 +141,7 @@ public class Gathering : MonoBehaviour
         Vector3 localVelocity = transform.InverseTransformDirection(velocity);
         if (AtWaypoint())
         {
-            print(Counter());
-            transform.LookAt(gatheringPoints.GetPoints(Counter()));
+            transform.LookAt(GetLookAtWaypoint());
         }
         // Update animation parameters
         anim.SetFloat("speed", localVelocity.z);
@@ -143,16 +151,5 @@ public class Gathering : MonoBehaviour
     {
         timeSinceArrivedAtLastPoint += Time.deltaTime;
     }
-    private int Counter()
-    {
 
-        counter++;
-        if (counter > 2)
-        {
-            counter = 0;
-
-        }
-
-        return counter;
-    }
 }

@@ -218,8 +218,7 @@ public class EnemyAIController : MonoBehaviour, IAction
         currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
     }
 
-    private Vector3
-        GetCurrentWaypoint() //waypointi alıyorum ilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
+    private Vector3 GetCurrentWaypoint() //waypointi alıyorum ilk başta 0 gönderip. Aynı zamanda distancede kullanmak için waypointin tranformunu alıyorum.
     {
         return patrolPath.GetWaypoint(currentWaypointIndex);
     }
