@@ -190,6 +190,9 @@ public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
         {
             slots[slotNumberOfStack].number -= number;
         }
+
+        if (inventoryUpdated != null)
+            inventoryUpdated();
     }
 
     public object CaptureState()

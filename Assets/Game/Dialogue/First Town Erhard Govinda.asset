@@ -120,6 +120,36 @@ MonoBehaviour:
         parameters:
         - First Quest
         negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Second Quest
+        negate: 1
+--- !u!114 &-5499777378508093736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e3e3a3adc91dd4ab1f188cae06cb6f, type: 3}
+  m_Name: f9971769-3e3b-43b0-a22b-3820fc506d01
+  m_EditorClassIdentifier: 
+  isPlayerSpeaking: 0
+  text: Bye
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 256
+    y: 489
+    width: 200
+    height: 100
+  onExitAction: 
+  onEnterAction: 
+  condition:
+    and: []
 --- !u!114 &-640172260449409176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +167,7 @@ MonoBehaviour:
   children:
   - bec8fa62-48d7-41b4-86a4-c419344f9853
   - 93e03d91-ed6e-4575-ac02-3462da54d700
+  - f9971769-3e3b-43b0-a22b-3820fc506d01
   rect:
     serializedVersion: 2
     x: 5
@@ -168,6 +199,7 @@ MonoBehaviour:
   - {fileID: -7100834888927203737}
   - {fileID: 677347713215312004}
   - {fileID: -8912273678476384664}
+  - {fileID: -5499777378508093736}
   newNodeOffset: {x: 250, y: 0}
 --- !u!114 &677347713215312004
 MonoBehaviour:
