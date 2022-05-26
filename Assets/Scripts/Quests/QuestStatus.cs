@@ -40,11 +40,13 @@ public class QuestStatus
         {
             if (objective.isCollectItemQuest)
             {
+                Debug.LogError("new collect quest");
                 collectObjectiveStatuses ??= new List<CollectObjectiveStatus>();
                 collectObjectiveStatuses.Add(SetupCollectObjectiveStatus(objective));
             }
             else if (objective.isKillEnemyQuest)
             {
+                Debug.LogError("new kill quest");
                 killObjectiveStatuses ??= new List<KillObjectiveStatus>();
                 killObjectiveStatuses.Add(SetupKillObjectiveStatus(objective));
             }
@@ -87,7 +89,7 @@ public class QuestStatus
         }
     }
 
-    public bool UpdateKillObjectiveStatus(string objective, int value)
+    public void UpdateKillObjectiveStatus(string objective, int value)
     {
         foreach (var objectiveStatus in killObjectiveStatuses.Where(objectiveStatus =>
                      objectiveStatus.Reference == objective))
@@ -95,24 +97,18 @@ public class QuestStatus
             if (GetObjectiveByReference(objective).number > objectiveStatus.Number)
             {
                 objectiveStatus.Number += value;
-                return GetObjectiveByReference(objective).number == objectiveStatus.Number;
             }
         }
-
-        return false;
     }
 
 
-    public bool UpdateCollectObjectiveStatus(string objective, int value)
+    public void UpdateCollectObjectiveStatus(string objective, int value)
     {
         foreach (var objectiveStatus in collectObjectiveStatuses.Where(objectiveStatus =>
                      objectiveStatus.Reference == objective))
         {
             objectiveStatus.Number += value;
-            return GetObjectiveByReference(objective).quantity == objectiveStatus.Number;
         }
-
-        return false;
     }
 
     public int GetKillObjectiveStatus(string objective)
@@ -219,11 +215,11 @@ public class QuestStatus
 
     public bool HasKillObjectives()
     {
-        return killObjectiveStatuses != null;
+        return killObjectiveStatuses != null && killObjectiveStatuses.Count > 0;
     }
 
     public bool HasCollectObjectives()
     {
-        return collectObjectiveStatuses != null;
+        return collectObjectiveStatuses != null && collectObjectiveStatuses.Count > 0;
     }
 }

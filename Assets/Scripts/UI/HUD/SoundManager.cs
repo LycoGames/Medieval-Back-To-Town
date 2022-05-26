@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-
     AudioSource[] sources;
     public AudioClip[] audioClips;
     StateMachine stateMachine;
     WStateMachine wStateMachine;
     BaseState state;
+
     WBaseState wstate;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +36,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            wstate = wStateMachine.CurrentState.currentSubState.currentSubState.currentSubState;
+            wstate = wStateMachine.CurrentState?.currentSubState?.currentSubState?.currentSubState;
             if (wstate is WWalkState || wstate is WRunState)
             {
                 AudioClip clip = GetRandomClip();

@@ -217,6 +217,11 @@ MonoBehaviour:
         parameters:
         - 1
         negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Spider Web
+        negate: 1
 --- !u!114 &3385416379920668421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +332,7 @@ MonoBehaviour:
   - 4083865f-01b1-457f-8b9f-9ddcfb055959
   rect:
     serializedVersion: 2
-    x: 334
+    x: 335
     y: 567
     width: 200
     height: 100
@@ -345,6 +350,11 @@ MonoBehaviour:
         parameters:
         - 1
         negate: 0
+    - or:
+      - predicate: CompletedQuest
+        parameters:
+        - Check Graveyard
+        negate: 1
 --- !u!114 &6520977497441539230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,8 +409,8 @@ MonoBehaviour:
   children: []
   rect:
     serializedVersion: 2
-    x: 323
-    y: -37
+    x: 306
+    y: 12
     width: 200
     height: 100
   onExitAction: 

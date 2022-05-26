@@ -20,10 +20,11 @@ public class QuestCompletion : MonoBehaviour
         foreach (CompletionData data in completionDatas)
         {
             if (!questList.HasQuest(data.quest)) continue;
+            if (questList.GetCompletedQuests().Contains(data.quest)) continue;
             questList.CompleteObjective(data.quest, data.objective);
             string conversantName = transform.GetComponent<AIConversant>().GetConversantName();
             conversantName = conversantName.Replace(" ", "");
-            string compassName = "CompassPOI" + conversantName+" Variant(Clone)";
+            string compassName = "CompassPOI" + conversantName + " Variant(Clone)";
             GameObject compassPOI = GameObject.Find(compassName);
             if (compassPOI)
                 Destroy(compassPOI);

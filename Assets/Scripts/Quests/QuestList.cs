@@ -78,22 +78,21 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         foreach (var questStatus in GetStatuses())
         {
             if (!questStatus.HasKillObjectives())
-                return;
+                continue;
             foreach (var objectiveStatus in questStatus.GetKillObjectives())
             {
-                if (enemy.name.Substring(0, enemy.name.Length - 7) == objectiveStatus.Enemy.name)
+                if (enemy.name.Split(' ')[0] == objectiveStatus.Enemy.name)
                 {
-                    if (questStatus.UpdateKillObjectiveStatus(objectiveStatus.Reference, 1))
-                    {
-                        GameObject prefab = questStatus.GetObjectiveByReference(objectiveStatus.Reference)
-                            .compassProPOINpc;
-                        Instantiate(prefab, prefab.transform.position, Quaternion.identity,
-                            GameObject.FindGameObjectWithTag("POIParent").transform);
-                        string compassName = "CompassPOI" + questStatus.GetQuest().name + " Variant(Clone)";
-                        GameObject compassPOI = GameObject.Find(compassName);
-                        if (compassPOI)
-                            Destroy(compassPOI);
-                    }
+                    questStatus.UpdateKillObjectiveStatus(objectiveStatus.Reference, 1);
+
+                    GameObject prefab = questStatus.GetObjectiveByReference(objectiveStatus.Reference)
+                        .compassProPOINpc;
+                    Instantiate(prefab, prefab.transform.position, Quaternion.identity,
+                        GameObject.FindGameObjectWithTag("POIParent").transform);
+                    string compassName = "CompassPOI" + questStatus.GetQuest().name + " Variant(Clone)";
+                    GameObject compassPOI = GameObject.Find(compassName);
+                    if (compassPOI)
+                        Destroy(compassPOI);
                 }
             }
         }
@@ -106,14 +105,12 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
         foreach (var questStatus in GetStatuses())
         {
             if (!questStatus.HasCollectObjectives())
-                return;
+                continue;
             foreach (var objectiveStatus in questStatus.GetCollectObjectives())
             {
                 if (item == objectiveStatus.Item)
                 {
-                    if (questStatus.UpdateCollectObjectiveStatus(objectiveStatus.Reference, value))
-                    {
-                    }
+                    questStatus.UpdateCollectObjectiveStatus(objectiveStatus.Reference, value);
                 }
             }
         }
