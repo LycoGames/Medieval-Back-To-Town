@@ -27,8 +27,12 @@ public class MainMenuUI : MonoBehaviour
 
     public void NewGame()
     {
-        if (newGameNameField.text == null)
+        if (newGameNameField.text == String.Empty)
+        {
+            newGameNameField.text = "This field is required...";
             return;
+        }
+
         FindObjectOfType<MainMenuManager>().SwitchToCharacterSelection(newGameNameField.text);
     }
 
