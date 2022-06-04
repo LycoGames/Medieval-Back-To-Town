@@ -7,7 +7,6 @@ public class Experience : MonoBehaviour
     ExpBar expBar;
     ManaBar manaBar;
     private float tempEXP = 0f;
-    private float tempEXP2 = 0f;
     public event Action OnExperienceGained;
 
     void Start()
@@ -43,7 +42,10 @@ public class Experience : MonoBehaviour
 
         OnExperienceGained();
     }
-
+    public float expPointsCurrentToPrevious()
+    {
+        return tempEXP;
+    }
     public float GetPoints()
     {
         return experiencePoints;
@@ -52,6 +54,7 @@ public class Experience : MonoBehaviour
     {
         return GetComponent<BaseStats>().GetBaseStat(Stat.ExperienceToLevelUp);
     }
+
 
 
 }
