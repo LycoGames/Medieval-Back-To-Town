@@ -14,7 +14,7 @@ public class SpawnTargetPrefabEffect : EffectStrategy
     [SerializeField] bool staticSpawnPoint;
     [Tooltip("Input 'projectile damage' if you set 'isProjectile'")]
     [SerializeField] bool isProjectile;
-    [SerializeField] float projectileDamage;
+    [SerializeField] float skillDamageMultiplier;
     GameObject player;
 
     Vector3 posX;
@@ -48,7 +48,7 @@ public class SpawnTargetPrefabEffect : EffectStrategy
                     instance = Instantiate(prefabToSpawn, data.GetUser().GetComponent<StateMachine>().GetLeftHandTransform());
                     instance.GetComponent<TargetProjectile>().SetPosition(data.GetUser().GetComponent<StateMachine>().GetLeftHandTransform().position);
                     Vector2 offset = data.GetUser().GetComponent<StateMachine>().GetUIOffset();
-                    instance.GetComponent<TargetProjectile>().UpdateTarget(target, data.GetUser(), projectileDamage, (Vector3)offset);
+                    instance.GetComponent<TargetProjectile>().UpdateTarget(target, data.GetUser(), data.GetUser().GetComponent<BaseStats>().GetStat(Stat.Damage) * skillDamageMultiplier, (Vector3)offset);
                   
                 }
             }
