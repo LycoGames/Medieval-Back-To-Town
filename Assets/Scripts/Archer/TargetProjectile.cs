@@ -141,7 +141,6 @@ public class TargetProjectile : MonoBehaviour
     {
         if (other.gameObject.CompareTag(targetTag))
         {
-            Debug.Log("carptim");
             other.gameObject.GetComponent<Health>().ApplyDamage(insitigator, damage);
         }
     }

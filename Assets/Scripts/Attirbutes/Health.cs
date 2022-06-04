@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class Health : MonoBehaviour
 {
+
+    public Enemies typeOfEnemy;
     [SerializeField] float regenerationPercentage = 50;
     public UnityEvent onDie;
     public UnityEvent takeDamage;
@@ -58,6 +60,9 @@ public class Health : MonoBehaviour
     int hurtAnimRandomisation;
     int deathAnimRandomisation;
     int hurtSoundRandomisation;
+    EnemySpawner[] enemySpawners;
+    Vector3 startPosition;
+    Quaternion startRotation;
 
     private void Awake()
     {
@@ -71,6 +76,13 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
+
+        // enemySpawners = FindObjectsOfType<EnemySpawner>();
+        if (CompareTag("Enemy"))
+        {
+            startPosition = transform.position;
+            startRotation = transform.rotation;
+        }
         healthPoints.ForceInit();
         healthBar = GetComponent<HealthBar>();
         if (healthBar)
@@ -137,27 +149,22 @@ public class Health : MonoBehaviour
         {
             float defencePoint = GetComponent<BaseStats>().GetStat(Stat.Defence) * UnityEngine.Random.Range(0f, 1f); //let dmg=5 def=5 5def*1=5def dmg-def=5-5=0=>miss
             float criticPercantage = insigator.GetComponent<BaseStats>().GetStat(Stat.CriticChance);
-            float accuracy=insigator.GetComponent<BaseStats>().GetStat(Stat.Accuracy);
+            float accuracy = insigator.GetComponent<BaseStats>().GetStat(Stat.Accuracy);
 
-            if (UnityEngine.Random.Range(0, 1000) < 100-accuracy)
+            if (UnityEngine.Random.Range(0, 1000) < 100 - accuracy)
             {
                 dmg = 0;
                 healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
-                print("u need more accuracy");
             }
             else
             {
-                print("player crit chance is: " + criticPercantage);
-                print("defence point : " + defencePoint);
-                print("normal dmg: " + dmg);
+
                 int criticChance = UnityEngine.Random.Range(0, 100);
-                print("critic chance: " + criticChance);
                 if (criticChance < criticPercantage)
                 {
                     dmg = dmg * 2;
                 }
                 dmg = Mathf.Max(0, Mathf.Ceil(dmg - defencePoint)); //ceil returns the smallest int which is larger than dmg f.e 3.04 => 4.
-                print("dmg: " + dmg);
                 healthPoints.value = Mathf.Max(healthPoints.value - dmg, 0);
             }
         }
@@ -268,6 +275,8 @@ public class Health : MonoBehaviour
             onDie.Invoke();
             if (CompareTag("Enemy"))
             {
+
+                SelfRespawner.sharedInstance.RespawnSelf(startPosition, startRotation, typeOfEnemy);
                 insigator.GetComponent<QuestList>()
                     .UpdateKillObjectiveStatus(gameObject, 1);
             }

@@ -7,67 +7,43 @@ public class EnemySpawner : MonoBehaviour
 {
 
     [SerializeField] GameObject enemyPrefab;
-    GameObject[] enemies;
+    public string[] enemies;
+    int numberOfEnemies;
     Vector3[] enemyStartPosition;
-    float delayUpdateForOptimization = 0.5f;
-
+    public int enemyRespawnCooldown = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        // StartCoroutine(Updater());
-        enemies = new GameObject[transform.childCount];
+        numberOfEnemies = transform.childCount;
+        enemies = new string[transform.childCount];
         enemyStartPosition = new Vector3[transform.childCount];
-        int columns = transform.childCount;
-        print("" + columns);
-        for (int i = 0; i < columns; i++)
+        for (int i = 0; i < numberOfEnemies; i++)
         {
-            enemies[i] = transform.GetChild(i).gameObject;
+            enemies[i] = transform.GetChild(i).name;
             enemyStartPosition[i] = transform.GetChild(i).gameObject.transform.position;
-            print("pos: " + enemyStartPosition[i]);
-            //  print("child: " + enemies[i]);
         }
-        //  StartCoroutine(Updater());
     }
-    /*
-        private IEnumerator Updater()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(delayUpdateForOptimization);
-                Spawner();
-            }
-        }*/
+
     public void SpawnEnemy(GameObject enemy)
     {
-        for (int i = 0; i < 23; i++)
+        StartCoroutine(SpawnCoroutine(enemy));
+    }
+
+    IEnumerator SpawnCoroutine(GameObject enemy)
+    {
+        int indexOfEnemy = 0;
+        string enemyName = enemy.name;
+        for (int i = 0; i < numberOfEnemies; i++)
         {
-            print("calıstım");
-            if (enemy.GetInstanceID() == enemies[i].GetInstanceID())
+            if (enemyName == enemies[i])
             {
-                print("im equal");
-                Instantiate(enemyPrefab, enemyStartPosition[i], Quaternion.identity, transform);
+                indexOfEnemy = i;
             }
         }
-
-        print("spawned: " + enemyStartPosition);
-    }
-    /*
-        private void Spawner()
-        {
-            for (int i = 0; i < 23; i++)
-            {
-                if (enemies[i].GetComponent<Health>().IsDead())
-                {
-                    SpawnEnemy(i);
-                    print("spawner2");
-                }
-            }
-        }*/
-    // Update is called once per frame
-    void Update()
-    {
-
+        yield return new WaitForSeconds(enemyRespawnCooldown);
+        GameObject newEnemy = Instantiate(enemyPrefab, enemyStartPosition[indexOfEnemy], Quaternion.identity, transform);
+        newEnemy.name = enemies[indexOfEnemy]; // set died enemy's name original name
     }
 }
 
