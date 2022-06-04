@@ -78,6 +78,6 @@ public class SelfRespawner : MonoBehaviour
     {
 
         yield return respawnCooldownWaitForSecons;
-        Instantiate(objectToInstantiate, enemyPosition, rotation);
+        Instantiate(objectToInstantiate, enemyPosition, rotation,transform);
     }
 }
