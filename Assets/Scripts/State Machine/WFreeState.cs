@@ -47,7 +47,6 @@ public class WFreeState : WBaseState
             SwitchState(factory.WCombatState());
         }
 
-        //TODO
         foreach (GameObject ui in ctx.MainUiArray)
         {
             if (ui.activeInHierarchy)

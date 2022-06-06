@@ -20,6 +20,7 @@ public class ActionStore : MonoBehaviour, ISaveable
     {
         for (int i = 0; i < skills.Length; i++)
         {
+            RemoveItems(i, 1);
             AddAction(skills[i], i, 1);
         }
     }

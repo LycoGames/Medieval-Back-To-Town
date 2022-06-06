@@ -111,7 +111,7 @@ public class DragItem<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         var removedSourceItem = source.GetItem();
         var removedDestinationNumber = destination.GetNumber();
         var removedDestinationItem = destination.GetItem();
-        
+
         if (removedDestinationItem as Ability)
             return;
 

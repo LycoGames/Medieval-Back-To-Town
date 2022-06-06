@@ -130,9 +130,9 @@ public class PlayerConversant : MonoBehaviour
         }
 
         DialogueNode[] children = FilterOnCondition(currentDialogue.GetAIChildren(currentNode)).ToArray();
-        int randomIndex = Random.Range(0, children.Length);
+        int randomIndex = Random.Range(0, children.Count());
         TriggerExitAction();
-        currentNode = children[randomIndex];
+        currentNode = children[0];
         TriggerEnterAction();
         onConversationUpdated();
     }

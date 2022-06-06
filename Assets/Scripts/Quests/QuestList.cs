@@ -103,7 +103,7 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
     public object CaptureState()
     {
         List<object> state = new List<object>();
-        foreach (QuestStatus status in statuses)
+        foreach (var status in statuses)
         {
             state.Add(status.CaptureState());
         }
@@ -113,11 +113,11 @@ public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
 
     public void RestoreState(object state)
     {
-        List<object> stateList = state as List<object>;
+        var stateList = state as List<object>;
         if (stateList == null) return;
 
         statuses.Clear();
-        foreach (object objectState in stateList)
+        foreach (var objectState in stateList)
         {
             statuses.Add(new QuestStatus(objectState));
         }

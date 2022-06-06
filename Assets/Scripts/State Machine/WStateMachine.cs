@@ -448,7 +448,6 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
 
     public Transform GetTarget()
     {
-        //TODO return mouse pos transform for skill
         return transform;
     }
 
