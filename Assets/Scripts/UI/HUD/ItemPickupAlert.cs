@@ -24,7 +24,7 @@ public class ItemPickupAlert : MonoBehaviour
         timer = 0;
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
         string itemName = name;
-        text.GetComponent<Text>().text = string.Format("Edindin: " + itemName);
+        text.GetComponent<Text>().text = string.Format("You have obtained: " + itemName);
     }
 
 }

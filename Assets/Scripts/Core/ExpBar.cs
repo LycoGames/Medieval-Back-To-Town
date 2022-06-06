@@ -26,8 +26,6 @@ public class ExpBar : MonoBehaviour
     {
         slider.value = 0;
         slider.maxValue = GetComponent<BaseStats>().GetStat(Stat.ExperienceToLevelUp) - previousRequiredEXP; //max value must be current required EXP Points - Previous Required EXP Points
-        print("slider max value: " + slider.maxValue);
-        print("resetted");
     }
 
 }

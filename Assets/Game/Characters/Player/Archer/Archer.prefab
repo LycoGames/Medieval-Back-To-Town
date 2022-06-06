@@ -2940,6 +2940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12d92e46a8bb1f469d9e11fefff586f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeOfEnemy: 0
   regenerationPercentage: 50
   onDie:
     m_PersistentCalls:
@@ -3003,7 +3004,7 @@ MonoBehaviour:
   aimUI: {fileID: 0}
   uiOffset: {x: 0, y: 0.5}
   screenTargets: []
-  fireRate: 0.3
+  fireRate: 0.4
   cinemachineCameraTarget: {fileID: 5597473062854070968}
   topClamp: 70
   bottomClamp: -50
@@ -3059,6 +3060,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942ca2fb9ffbf634ea36f8165557f998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateEquipmentUiStatsEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &450022664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3357,6 +3361,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9b81e5b2-3bb5-47b2-91c6-b8c66096d687
     m_ActionName: Player/Abilitiy6[/Keyboard/6]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 30ce21ab-8c86-4327-9d45-398bde7ddb8d
+    m_ActionName: Player/Ability7[/Keyboard/7]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 721e33be-6b65-45cb-a07b-2fd73ed55765
+    m_ActionName: Player/Ability8[/Keyboard/8]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
