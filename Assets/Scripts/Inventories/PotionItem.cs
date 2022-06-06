@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = ("Inventory/Potion"))]
 public class PotionItem : ActionItem
 {
+    [SerializeField] private float cooldownTime = 1f;
+
     [Header("For One Time Effect Potion Attirbutes")] [SerializeField]
     private bool increaseHealthPoints;
 
@@ -27,6 +29,8 @@ public class PotionItem : ActionItem
     [SerializeField]
     private GameObject vfxPrefab;
 
+    [SerializeField] private AudioClip useSfx;
+
     [System.Serializable]
     public struct Modifier
     {
@@ -34,9 +38,16 @@ public class PotionItem : ActionItem
         public float value;
     }
 
-    public override void Use(GameObject user)
+    public override bool Use(GameObject user)
     {
         base.Use(user);
+
+        CooldownStore cooldownStore = user.GetComponent<CooldownStore>();
+        if (cooldownStore.GetTimeRemaining(this) > 0)
+        {
+            return false;
+        }
+        
         if (increaseHealthPoints || increaseManaPoints)
         {
             if (increaseHealthPoints)
@@ -45,9 +56,17 @@ public class PotionItem : ActionItem
                 user.GetComponent<Mana>().AddMana(value);
         }
 
+        if (useSfx != null)
+        {
+            var sources = user.GetComponents<AudioSource>();
+            sources[1].PlayOneShot(useSfx);
+        }
+
         var potionEffect = user.GetComponent<PotionEffect>();
         potionEffect.Setup(impactTime, additiveModifiers, percentageModifiers);
         potionEffect.StartCoroutine(StartEffect(user));
+        cooldownStore.StartCooldown(this, cooldownTime);
+        return true;
     }
 
     private IEnumerator StartEffect(GameObject user)

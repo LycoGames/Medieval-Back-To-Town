@@ -17,7 +17,7 @@ public class Ability : ActionItem
     [SerializeField] bool isTargetRequired = false;
     AudioSource audioSource = null;
 
-    public override void Use(GameObject user)
+    public override bool Use(GameObject user)
     {
         StateMachine stateMachine = user.GetComponent<StateMachine>();
         ICommonFunctions commonFunctions = user.GetComponent<ICommonFunctions>();
@@ -31,20 +31,20 @@ public class Ability : ActionItem
         if (isTargetRequired && target == null)
         {
             stateMachine.ShowNoTargetText();
-            return;
+            return false;
         }
 
         Mana mana = user.GetComponent<Mana>();
         if (mana.GetMana() < manaCost)
         {
             commonFunctions.ShowNotEnoughManaText();
-            return;
+            return false;
         }
 
         CooldownStore cooldownStore = user.GetComponent<CooldownStore>();
         if (cooldownStore.GetTimeRemaining(this) > 0)
         {
-            return;
+            return false;
         }
 
 
@@ -60,6 +60,7 @@ public class Ability : ActionItem
 
         targetingStrategy.StartTargeting(data,
             () => { TargetAquired(data); });
+        return true;
     }
 
     private void PlaySoundEffect(GameObject user)

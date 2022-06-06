@@ -50,6 +50,7 @@ public class ActionStore : MonoBehaviour, ISaveable
             slot.number = number;
             dockedItems[index] = slot;
         }
+
         storeUpdated?.Invoke();
     }
 
@@ -57,8 +58,7 @@ public class ActionStore : MonoBehaviour, ISaveable
     {
         if (dockedItems.ContainsKey(index))
         {
-            dockedItems[index].item.Use(user);
-            if (dockedItems[index].item.isConsumable())
+            if (dockedItems[index].item.Use(user) && dockedItems[index].item.isConsumable())
             {
                 RemoveItems(index, 1);
             }
@@ -130,7 +130,7 @@ public class ActionStore : MonoBehaviour, ISaveable
 
     void ISaveable.RestoreState(object state)
     {
-        var stateDict = (Dictionary<int, DockedItemRecord>)state;
+        var stateDict = (Dictionary<int, DockedItemRecord>) state;
         foreach (var pair in stateDict)
         {
             AddAction(InventoryItem.GetFromID(pair.Value.itemID), pair.Key, pair.Value.number);

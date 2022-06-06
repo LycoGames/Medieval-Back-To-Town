@@ -7,9 +7,10 @@ public class ActionItem : InventoryItem
 {
     [SerializeField] private bool consumable = false;
 
-    public virtual void Use(GameObject user)
+    public virtual bool Use(GameObject user)
     {
         Debug.Log("Usin Action: " + this);
+        return this;
     }
 
     public bool isConsumable()
