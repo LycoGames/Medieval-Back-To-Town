@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 1413686320663055636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_Children:
   - {fileID: 1313278907795759545}
   - {fileID: 822361619}
@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12d92e46a8bb1f469d9e11fefff586f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeOfEnemy: 0
   regenerationPercentage: 50
   onDie:
     m_PersistentCalls:
@@ -409,6 +410,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942ca2fb9ffbf634ea36f8165557f998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateEquipmentUiStatsEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2959236461504650538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,94 +1020,111 @@ MonoBehaviour:
       StartPositionRotation: {fileID: 4088793558194519547}
       DestroyAfter: 2
       UseLocalPosition: 0
-      damage: 5
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1935082409722074, guid: 73c5905a45ba2d841a54b3c5468d23a6, type: 3}
       StartPositionRotation: {fileID: 6347304078287368370}
       DestroyAfter: 2
       UseLocalPosition: 0
-      damage: 5
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1935082409722074, guid: d2910e4d9472c8843a387bdd9a51d879, type: 3}
       StartPositionRotation: {fileID: 8027096869495678508}
       DestroyAfter: 2
       UseLocalPosition: 0
-      damage: 5
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1935082409722074, guid: 73c5905a45ba2d841a54b3c5468d23a6, type: 3}
       StartPositionRotation: {fileID: 4648422248335379602}
       DestroyAfter: 2
       UseLocalPosition: 0
-      damage: 5
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1935082409722074, guid: d2910e4d9472c8843a387bdd9a51d879, type: 3}
       StartPositionRotation: {fileID: 3637410203071270543}
       DestroyAfter: 2
       UseLocalPosition: 0
-      damage: 5
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1115641076847360, guid: 9a16638939e243d4d9f9c0ee07466c8b, type: 3}
       StartPositionRotation: {fileID: 7239965473501231499}
       DestroyAfter: 8
       UseLocalPosition: 0
-      damage: 10
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
   - AbilityEffects:
     - Effect: {fileID: 1949624779417528, guid: e73124b5ba126cc499fb7e927b7a79ac, type: 3}
       StartPositionRotation: {fileID: 5811230192462822991}
       DestroyAfter: 2.2
       UseLocalPosition: 0
-      damage: 20
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
   - AbilityEffects:
     - Effect: {fileID: 1646871050452766, guid: 95b3ea755bc01f344a99fccc5f4702f8, type: 3}
       StartPositionRotation: {fileID: 4962037769726992169}
       DestroyAfter: 3.8
       UseLocalPosition: 0
-      damage: 10
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
   - AbilityEffects:
     - Effect: {fileID: 1377753740826374, guid: d4b90f79c1890ee4a9580fdcffa3e2e0, type: 3}
       StartPositionRotation: {fileID: 7014555537500729061}
       DestroyAfter: 6
       UseLocalPosition: 0
-      damage: 10
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
   - AbilityEffects:
     - Effect: {fileID: 1683321806259216, guid: 170cd7184503c124895727d3348aa99a, type: 3}
       StartPositionRotation: {fileID: 9051826429285371831}
       DestroyAfter: 4
       UseLocalPosition: 0
-      damage: 0
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1648509489993130, guid: 8a0c2ade089d4c44fbdf861f7bcd7be6, type: 3}
       StartPositionRotation: {fileID: 2084037653346134185}
       DestroyAfter: 4
       UseLocalPosition: 0
-      damage: 30
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1184443940743768, guid: 6f0dcb0cbac32e147aaa2047bff67f61, type: 3}
       StartPositionRotation: {fileID: 1381230122024341503}
       DestroyAfter: 7
       UseLocalPosition: 1
-      damage: 0
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
   - AbilityEffects:
     - Effect: {fileID: 1217668729914568, guid: 02f36df5dc2d4da4da06be6b63b1a7fc, type: 3}
       StartPositionRotation: {fileID: 6445964584380420072}
       DestroyAfter: 6
       UseLocalPosition: 0
-      damage: 0
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
   - AbilityEffects:
     - Effect: {fileID: 1563435664761700, guid: 96c2388d3a717254c918608a033b4bf3, type: 3}
       StartPositionRotation: {fileID: 1035759186552336284}
       DestroyAfter: 3
       UseLocalPosition: 0
-      damage: 0
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1934977346563538, guid: 8c2a99d5d9b4d4a4d973ce3412f51745, type: 3}
       StartPositionRotation: {fileID: 343478097179457737}
       DestroyAfter: 7
       UseLocalPosition: 0
-      damage: 0
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
     - Effect: {fileID: 1427184144938852, guid: dc97aa01df27d194d8e5911051209943, type: 3}
       StartPositionRotation: {fileID: 8605030768878297008}
       DestroyAfter: 7
       UseLocalPosition: 0
-      damage: 0
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
   - AbilityEffects:
     - Effect: {fileID: 1543153927702632, guid: 638bf80b37fd48a458d61ac9d454265e, type: 3}
       StartPositionRotation: {fileID: 4184747980737814122}
       DestroyAfter: 6
       UseLocalPosition: 0
-      damage: 30
+      damageMultiplier: 0
+      effectSfx: {fileID: 0}
   tpDistance: 10
 --- !u!114 &814154138182546237
 MonoBehaviour:
