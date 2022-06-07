@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class WarriorFighter : Fighter
 {
+    [SerializeField] private float rotationSpeed = 10;
+
     //Animation IDs
     private int animIDComboOne;
     private int animIDComboThree;
@@ -40,9 +42,7 @@ public class WarriorFighter : Fighter
 
         if (ctx.started && noOfClicks == 1)
         {
-            currentComboAnimID = animIDComboOne;
-            PerformAttack(animIDComboOne);
-            currentCombo = 1;
+            StartCoroutine(Attack());
         }
     }
 
@@ -77,6 +77,25 @@ public class WarriorFighter : Fighter
     {
         if (!InCombo() || animator.GetCurrentAnimatorStateInfo(0).shortNameHash == currentComboAnimID)
             stateMachine.IsAttacking = false;
+    }
+
+    private IEnumerator Attack()
+    {
+        while (Camera.main != null &&
+               Quaternion.Angle(
+                   Quaternion.Euler(transform.rotation.x, Camera.main.transform.localEulerAngles.y,
+                       transform.rotation.z),
+                   transform.rotation) > 2f)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.Euler(transform.rotation.x, Camera.main.transform.localEulerAngles.y, transform.rotation.z),
+                rotationSpeed * Time.deltaTime * 3f);
+            yield return null;
+        }
+
+        currentComboAnimID = animIDComboOne;
+        PerformAttack(animIDComboOne);
+        currentCombo = 1;
     }
 
     private bool InCombo()
