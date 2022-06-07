@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class WarriorFighter : Fighter
 {
-    [SerializeField] private float rotationSpeed = 10;
+    [SerializeField] private float rotationSpeed = 5f;
 
     //Animation IDs
     private int animIDComboOne;
