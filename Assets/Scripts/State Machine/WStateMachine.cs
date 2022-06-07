@@ -217,6 +217,7 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
 
     public AIConversant InteractableNpc { get; set; }
     public bool CanMove { get; set; }
+    public bool CanAttack { get; set; }
 
     public bool IsAttacking { get; set; }
     public BaseStats baseStats { get; set; }
@@ -259,6 +260,7 @@ public class WStateMachine : MonoBehaviour, ISaveable, ICommonFunctions
 
         AssignAnimationIDs();
         CanMove = true;
+        CanAttack = true;
         UpdateModifiedSpeed();
         UpdateAdditiveAbilityDamage();
     }

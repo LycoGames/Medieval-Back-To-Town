@@ -13,13 +13,11 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
 
 
     private Dictionary<string, DialogueNode> nodeLookup = new Dictionary<string, DialogueNode>();
-
-#if UNITY_EDITOR
+    
     private void Awake()
     {
         OnValidate();
     }
-#endif
 
     private void OnValidate()
     {

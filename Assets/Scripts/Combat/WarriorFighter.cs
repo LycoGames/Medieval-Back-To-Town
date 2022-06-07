@@ -32,6 +32,7 @@ public class WarriorFighter : Fighter
         if (GetComponent<WStateMachine>().CurrentState.currentSubState.currentSubState is WUiState ||
             GetComponent<WStateMachine>().CurrentState.currentSubState.currentSubState is WDialogueState)
             return;
+        if (!GetComponent<WStateMachine>().CanAttack) return;
         if (ctx.started && canClick)
         {
             noOfClicks++;

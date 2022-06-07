@@ -34,6 +34,7 @@ public class ShowHideUI : MonoBehaviour
             }
             else
             {
+                warrior.CanAttack = true;
                 warrior.LockCameraPosition = false;
                 Cursor.lockState = CursorLockMode.None; //HardCoding
             }
@@ -49,6 +50,7 @@ public class ShowHideUI : MonoBehaviour
             }
             else
             {
+                warrior.CanAttack = false;
                 warrior.LockCameraPosition = true;
                 Cursor.lockState = CursorLockMode.Confined; //HardCoding
             }
