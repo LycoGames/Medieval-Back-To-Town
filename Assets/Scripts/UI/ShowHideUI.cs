@@ -31,6 +31,7 @@ public class ShowHideUI : MonoBehaviour
                 player.LockCameraPosition = false;
                 player.AimUI.SetActive(true);
                 Cursor.lockState = CursorLockMode.None; //HardCoding
+                Cursor.visible = true;
             }
             else
             {

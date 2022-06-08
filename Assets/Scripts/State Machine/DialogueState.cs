@@ -15,6 +15,9 @@ public class DialogueState : BaseState
         SetRequiredComponents();
         StartDialogue();
         ctx.CanMove = false;
+        ctx.LockCameraPosition = true;
+        Cursor.lockState = CursorLockMode.None; //HardCoding
+        Cursor.visible = true;
     }
 
 
