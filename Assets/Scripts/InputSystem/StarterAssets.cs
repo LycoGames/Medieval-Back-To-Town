@@ -494,7 +494,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9005c9e1-1c15-44a9-bbf1-6c61d2619759"",
-                    ""path"": ""<Keyboard>/7"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
@@ -505,7 +505,7 @@ public class @StarterAssets : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""dc645d78-2204-40f3-8d42-81f047ecb3d2"",
-                    ""path"": ""<Keyboard>/8"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",

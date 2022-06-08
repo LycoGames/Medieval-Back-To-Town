@@ -37,12 +37,14 @@ public abstract class Fighter : MonoBehaviour
 
     public void EquipWeapon(WeaponConfig weapon)
     {
+        GetComponent<Equipment>().updateEquipmentUiStatsEvent.Invoke();
         currentWeaponConfig = weapon;
         currentWeapon.value = AttachWeapon(weapon);
     }
 
     public void EquipUnarmed()
     {
+        GetComponent<Equipment>().updateEquipmentUiStatsEvent.Invoke();
         SetupDefaultWeapon();
     }
 

@@ -523,11 +523,13 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
 
     private Weapon SetupDefaultWeapon()
     {
+        GetComponent<Equipment>().updateEquipmentUiStatsEvent.Invoke();
         return AttachWeapon(defaultWeapon);
     }
 
     private Weapon AttachWeapon(WeaponConfig weapon)
     {
+        GetComponent<Equipment>().updateEquipmentUiStatsEvent.Invoke();
         Animator weaponAnimator = GetComponent<Animator>();
         return weapon.Spawn(rightHandTransform, leftHandTransform, weaponAnimator);
     }
@@ -672,5 +674,10 @@ public class StateMachine : MonoBehaviour, ICommonFunctions
     public void EnablePlayerControl()
     {
         CanMove = true;
+    }
+
+    public void EquipUnarmed()
+    {
+        SetupDefaultWeapon();
     }
 }

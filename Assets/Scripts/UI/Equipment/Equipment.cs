@@ -32,9 +32,13 @@ public class Equipment : MonoBehaviour, ISaveable
         Debug.Assert(item.GetAllowedEquipLocation() == slot);
 
         equippedItems[slot] = item;
-        if (TryGetComponent(out WStateMachine stateMachine) && slot == EquipLocation.PrimaryWeapon)
+        if (TryGetComponent(out WStateMachine wStateMachine) && slot == EquipLocation.PrimaryWeapon)
         {
             GetComponent<WarriorFighter>().EquipWeapon(item as WeaponConfig);
+        }
+        else if (TryGetComponent(out StateMachine stateMachine) && slot == EquipLocation.PrimaryWeapon)
+        {
+            GetComponent<StateMachine>().EquipWeapon(item as WeaponConfig);
         }
 
         UpdateHudsAndStats(item);
@@ -51,7 +55,15 @@ public class Equipment : MonoBehaviour, ISaveable
         equippedItems.Remove(slot);
         if (item as WeaponConfig)
         {
-            GetComponent<WarriorFighter>().EquipUnarmed();
+            if (TryGetComponent(out WStateMachine wStateMachine) && slot == EquipLocation.PrimaryWeapon)
+            {
+                GetComponent<WarriorFighter>().EquipUnarmed();
+            }
+            
+            else if (TryGetComponent(out StateMachine stateMachine) && slot == EquipLocation.PrimaryWeapon)
+            {
+                GetComponent<StateMachine>().EquipUnarmed();
+            }
         }
 
         UpdateHudsAndStats(item);
