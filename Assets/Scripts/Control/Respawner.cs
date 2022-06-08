@@ -29,9 +29,12 @@ public class Respawner : MonoBehaviour
         StateMachine stateMachine = GetComponent<StateMachine>();
         WStateMachine wStateMachine = GetComponent<WStateMachine>();
         if (stateMachine == null)
-            wStateMachine.CanMove = false;
+        {
+            wStateMachine.enabled = false;
+        }
         else
             stateMachine.enabled = false;
+
         yield return new WaitForSeconds(respawnDelay);
         Fader fader = FindObjectOfType<Fader>();
         yield return fader.FadeOut(fadeTime);
@@ -39,7 +42,9 @@ public class Respawner : MonoBehaviour
         ResetEnemies();
         yield return fader.FadeIn(fadeTime);
         if (stateMachine == null)
-            wStateMachine.CanMove = true;
+        {
+            wStateMachine.enabled = true;
+        }
         else
             stateMachine.enabled = true;
     }

@@ -10,7 +10,7 @@ public class EnemyFighter : MonoBehaviour, IAction
     [SerializeField] float enemyAttackCooldown = 1f;
     [SerializeField] float mobRange = 1f;
     [SerializeField] AudioClip attackSound;
-    [Range(1, 300)][SerializeField] float speed = 200f;
+    [Range(1, 300)] [SerializeField] float speed = 200f;
 
     EnemyAIController enemyAIController;
     Animator animator;
@@ -37,9 +37,10 @@ public class EnemyFighter : MonoBehaviour, IAction
 
     void Update()
     {
-
         if (targetPlayer == null) return;
         if (targetPlayer.IsDead()) return;
+        if (health.IsDead()) return;
+        
         if (!GetIsInRange(targetPlayer.transform))
         {
             enemyAIController.MoveTo(targetPlayer.transform.position, 1f);
@@ -131,10 +132,10 @@ public class EnemyFighter : MonoBehaviour, IAction
         animator.applyRootMotion = true;
         print("a");
     }
+
     public void DisableRootMotion()
     {
         animator.applyRootMotion = false;
         print("b");
     }
-
 }

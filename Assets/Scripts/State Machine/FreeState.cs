@@ -32,7 +32,7 @@ public class FreeState : BaseState
 
     public override void CheckSwitchStates()
     {
-        if (ctx.Input.basicAttack && ctx.Aim.enabled)
+        if (ctx.Input.basicAttack && ctx.Aim.enabled && ctx.CurrentWeaponConfig.name != "Unarmed")
         {
             ctx.Anim.SetBool(ctx.animIDAimMoving, true);
             SwitchState(factory.CombatState());
