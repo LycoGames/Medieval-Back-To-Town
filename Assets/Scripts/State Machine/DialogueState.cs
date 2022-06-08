@@ -30,6 +30,7 @@ public class DialogueState : BaseState
     {
         ctx.LockCameraPosition = false;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
         ctx.AimUI.SetActive(true);
         if (aiConversant.IsRepeatableDialogue())
             aiConversant.SetInteractable(true);
