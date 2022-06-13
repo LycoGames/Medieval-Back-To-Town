@@ -1,2 +1,2 @@
 # Fellowship
-Reference: https://www.udemy.com/course/unityrpg/learn/lecture/15584630
+Reference: https://www.udemy.com/course/unityrpg/
